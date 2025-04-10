@@ -1,0 +1,12 @@
+# Einleitung
+
+::: {.border layout="[[5, 90, 5], [1]]"}
+
+&nbsp;
+
+In der Physik existiert nur das, was gemessen worden ist“ (Merz 1968: 14).
+
+&nbsp;
+
+Merz, Ludwig.1968. "Grundkurs der Messtechnik. Teil I: Das Messen elektrischer Größen." 2. Auflage. München;Wien. R. Oldenbourg Verlag. 
+:::
