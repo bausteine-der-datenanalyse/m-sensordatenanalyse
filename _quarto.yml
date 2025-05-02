@@ -4,7 +4,7 @@ project:
 book:
   # Metadaten / meta data
   title: "Bausteine Computergestützter Datenanalyse"
-  # subtitle: "Anwendungsbaustein Sensordatenanalyse"
+  # subtitle: "Methodenbaustein Sensordatenanalyse"
   author:
     - Lukas Arnold
     - Simone Arnold
@@ -17,9 +17,10 @@ book:
   chapters:
     - index.qmd
     - skript/einleitung.qmd
+    - skript/hooke.qmd
 
   sidebar:
-    title: "Anwendungsbaustein Sensordatenanalyse"
+    title: "Methodenbaustein Sensordatenanalyse"
     logo: "skript/00-bilder/logo_with_text_new.svg"    
    
 ## Bibliographie / bibliography

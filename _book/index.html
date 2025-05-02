@@ -37,6 +37,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./skript/einleitung.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -88,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Anwendungsbaustein Sensordatenanalyse</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Methodenbaustein Sensordatenanalyse</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -106,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
       <img src="./skript/00-bilder/logo_with_text_new.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Anwendungsbaustein Sensordatenanalyse</a> 
+      <a href="./">Methodenbaustein Sensordatenanalyse</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -119,7 +120,19 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Anwendungsbaustein Sensordatenanalyse</span></a>
+ <span class="menu-text">Methodenbaustein Sensordatenanalyse</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./skript/einleitung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Das Prinzip von Messungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./skript/hooke.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></span></a>
   </div>
 </li>
     </ul>
@@ -132,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#anwendungsbaustein-sensordatenanalyse" id="toc-anwendungsbaustein-sensordatenanalyse" class="nav-link active" data-scroll-target="#anwendungsbaustein-sensordatenanalyse">Anwendungsbaustein Sensordatenanalyse</a></li>
+  <li><a href="#methodenbaustein-sensordatenanalyse" id="toc-methodenbaustein-sensordatenanalyse" class="nav-link active" data-scroll-target="#methodenbaustein-sensordatenanalyse">Methodenbaustein Sensordatenanalyse</a></li>
   <li><a href="#voraussetzungen" id="toc-voraussetzungen" class="nav-link" data-scroll-target="#voraussetzungen">Voraussetzungen</a></li>
   <li><a href="#lernziele" id="toc-lernziele" class="nav-link" data-scroll-target="#lernziele">Lernziele</a></li>
   </ul>
@@ -166,7 +179,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">9. April 2025</p>
+      <p class="date">2. Mai 2025</p>
     </div>
   </div>
   
@@ -178,8 +191,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="anwendungsbaustein-sensordatenanalyse" class="level1 unnumbered">
-<h1 class="unnumbered">Anwendungsbaustein Sensordatenanalyse</h1>
+<section id="methodenbaustein-sensordatenanalyse" class="level1 unnumbered">
+<h1 class="unnumbered">Methodenbaustein Sensordatenanalyse</h1>
 <div id="Lizenz" class="border">
 <div>
 
@@ -190,25 +203,30 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="skript/00-bilder/CC-BY.svg" class="img-fluid" alt="Symbol des Lizenzhinweises Creative Commons BY"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 80.0%;justify-content: flex-start;">
-<p>Bausteine Computergestützter Datenanalyse von Lukas Arnold, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Maik Poetzsch und Sebastian Seipel. Anwendungsbaustein Sensordatenanalyse von Maik Poetzsch ist lizensiert unter <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>. Das Werk ist abrufbar auf <a href="https://github.com/bausteine-der-datenanalyse/a-sensordatenanalyse">GitHub</a>. Ausgenommen von der Lizenz sind alle Logos Dritter und anders gekennzeichneten Inhalte. 2025</p>
+<p>Bausteine Computergestützter Datenanalyse von Lukas Arnold, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Maik Poetzsch und Sebastian Seipel. Methodenbaustein Sensordatenanalyse von Maik Poetzsch ist lizensiert unter <a href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>. Das Werk ist abrufbar auf <a href="https://github.com/bausteine-der-datenanalyse/m-sensordatenanalyse">GitHub</a>. Ausgenommen von der Lizenz sind alle Logos Dritter und anders gekennzeichneten Inhalte. 2025</p>
 </div>
 </div>
 </div>
 <p>Zitiervorschlag</p>
-<p>Arnold, Lukas, Simone Arnold, Matthias Baitsch, Marc Fehr, Maik Poetzsch, und Sebastian Seipel. 2025. „Bausteine Computergestützter Datenanalyse. Anwendungsbaustein Sensordatenanalyse. <a href="https://github.com/bausteine-der-datenanalyse/a-sensordatenanalyse" class="uri">https://github.com/bausteine-der-datenanalyse/a-sensordatenanalyse</a>.</p>
+<p>Arnold, Lukas, Simone Arnold, Florian Bagemihl, Matthias Baitsch, Marc Fehr, Maik Poetzsch, und Sebastian Seipel. 2025. „Bausteine Computergestützter Datenanalyse. Methodenbaustein Sensordatenanalyse. <a href="https://github.com/bausteine-der-datenanalyse/m-sensordatenanalyse" class="uri">https://github.com/bausteine-der-datenanalyse/m-sensordatenanalyse</a>.</p>
 <p>BibTeX-Vorlage</p>
-<pre><code>@misc{BCD-a-sensordatenanalyse-2025,
- title={Bausteine Computergestützter Datenanalyse. Anwendungsbaustein Sensordatenanalyse},
- author={Arnold, Lukas and Arnold, Simone and Baitsch, Matthias and Fehr, Marc and Poetzsch, Maik and Seipel, Sebastian},
+<pre><code>@misc{BCD-m-sensordatenanalyse-2025,
+ title={Bausteine Computergestützter Datenanalyse. Methodenbaustein Sensordatenanalyse},
+ author={Arnold, Lukas and Arnold, Simone and Bagemihl, Florian and Baitsch, Matthias and Fehr, Marc and Poetzsch, Maik and Seipel, Sebastian},
  year={2025},
- url={https://github.com/bausteine-der-datenanalyse/a-sensordatenanalyse}} </code></pre>
+ url={https://github.com/bausteine-der-datenanalyse/m-sensordatenanalyse}} </code></pre>
 </div>
 </section>
 <section id="voraussetzungen" class="level1">
 <h1>Voraussetzungen</h1>
 <p>Die Bearbeitungszeit dieses Bausteins beträgt circa <strong>Platzhalter</strong>. Für die Bearbeitung dieses Bausteins werden folgende Bausteine vorausgesetzt und die genannten Bibliotheken verwendet:</p>
 <ul>
-<li>…</li>
+<li>numpy
+<ul>
+<li>numpy.polynomial</li>
+</ul></li>
+<li>pandas</li>
+<li>matplotlib</li>
 </ul>
 <p>Querverweis auf:</p>
 <ul>
@@ -219,6 +237,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="lernziele" class="level1">
 <h1>Lernziele</h1>
 <p>In diesen Baustein lernen Sie …</p>
+<ul>
+<li>Statistische Grundbegriffe</li>
+<li>Sensorkennlinien</li>
+<li>Kennlinienfehler und deren Korrektur</li>
+</ul>
 
 
 </section>
@@ -641,6 +664,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./skript/einleitung.html" class="pagination-link" aria-label="Das Prinzip von Messungen">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Das Prinzip von Messungen</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

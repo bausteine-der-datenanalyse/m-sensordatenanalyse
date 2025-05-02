@@ -1,12 +1,388 @@
-# Einleitung
+# Das Prinzip von Messungen
 
 ::: {.border layout="[[5, 90, 5], [1]]"}
 
 &nbsp;
 
-In der Physik existiert nur das, was gemessen worden ist“ (Merz 1968: 14).
+In der Physik existiert nur das, was gemessen worden ist“ (Merz 1968, 14).
 
 &nbsp;
 
 Merz, Ludwig.1968. "Grundkurs der Messtechnik. Teil I: Das Messen elektrischer Größen." 2. Auflage. München;Wien. R. Oldenbourg Verlag. 
+
 :::
+
+In diesem Baustein werden die folgenden Module verwendet:
+
+``` {python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+Physikalische Größen werden mit der Hilfe von Messgeräten bestimmt. Diese ordnen der tatsächlichen Merkmalsausprägung eine numerische Entsprechung relativ zu einem Bezugssystem zu. Ein Beispiel:
+
+"Am Messbrett ist Johanna 173 Zentimeter groß."
+
+  - Die tatsächliche Merkmalsausprägung ist Johannas Größe (Länge).
+  - Das Messgerät ist das Messbrett.
+  - Die numerische Entsprechung ist 173.
+  - Das Bezugssystem ist das metrische System.
+
+Messwerte sind aus verschiedenen Gründen Annäherungen an den wahren Wert der zugrundeliegenden physikalischen Größe. Zum einen variiert die [Größe eines Menschen im Tagesverlauf](https://www.barmer.de/presse/presseinformationen/newsletter-gesundheit-im-blick/koerpergroesse-1126334). Zum anderen ist das Messergebnis auch ein Ergebnis der verwendeten Skala. Wäre die Messung im imperialen Messsystem erfolgt, wäre Johannas Größe mit 68 Zoll bestimmt worden, was 172,72 Zentimetern entspricht.
+
+Ein bekanntes Beispiel für die mit dem Messvorgang verbundene Unsicherheit ist das Küstenlinienparadox: Das Ergebnis der Vermessung unregelmäßiger Küstenlinien wird umso größer, je kleiner die Messabschnitte gewählt werden.
+
+::: {.border}
+:::: {#fig-coastlines layout-ncol=3}
+
+![Gerade Messabschnitte von 200 km Länge, Gesamtlänge ungefähr 2350 km](00-bilder/Britain-fractal-coastline-200km-CCBYSA3.0vonMaksim.png){fig-alt="Darstellung der britischen Küstenlinie mit eingezeichneten Messabschnitten."}
+
+![Gerade Messabschnitte von 100 km Länge, Gesamtlänge ungefähr 2775 km](00-bilder/Britain-fractal-coastline-100km-CCBYSA3.0vonMaksim.png){fig-alt="Darstellung der britischen Küstenlinie mit eingezeichneten Messabschnitten."}
+
+![Gerade Messabschnitte von 50 km Länge, Gesamtlänge ungefähr 3425 km](00-bilder/Britain-fractal-coastline-50km-CCBYSA3.0vonMaksim.png){fig-alt="Darstellung der britischen Küstenlinie mit eingezeichneten Messabschnitten."}
+
+Küstenlinienparadox
+
+::::
+
+Britain-fractal-coastline-200km, Britain-fractal-coastline-100km und Britain-fractal-coastline-50km von Maksim stehen unter der Lizenz [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.de) und sind abrufbar auf Wikipedia ([200km](https://de.wikipedia.org/wiki/Datei:Britain-fractal-coastline-200km.png), [100km](https://de.wikipedia.org/wiki/Datei:Britain-fractal-coastline-100km.png), [50km](https://de.wikipedia.org/wiki/Datei:Britain-fractal-coastline-50km.png)). 2006
+
+:::
+
+&nbsp;
+
+:::{#imp-Beispiel .callout-important}
+## Definition Messung
+
+"Eine Messung ist der experimentelle Vorgang, durch den ein spezieller Wert einer physikalischen Größe als Vielfaches einer Einheit oder eines Bezugswertes ermittelt wird.
+
+Die Messung ergibt zunächst einen Messwert. Dieser stimmt aber aufgrund störender Einflüsse mit dem wahren Wert der Messgröße praktisch nie überein, sondern weist eine gewisse Messabweichung auf. Zum *vollständigen Messergebnis* wird der Messwert, wenn er mit quantitativen Aussagen über die zu erwartende Größe der Messabweichung ergänzt wird. Dies wird in der Messtechnik als Teil der Messaufgabe und damit der Messung verstanden."
+
+Messung. von verschiedenen [Autor:innen](https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung) steht unter der Lizenz [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) ist abrufbar auf Wikipedia https://de.wikipedia.org/wiki/Messung. 2025
+
+:::
+
+## Messreihen
+Um die Unsicherheit einer Messung zu verringern, kann man einen Messwert in Form einer Messreihe wiederholt aufnehmen. Die (**erste**) beste Schätzung der Messgröße bietet der arithmetische Mittelwert der Messreihe.
+
+Der arithmetische Mittelwert einer Messreihe $\bar{x}$ ist die Summe aller Einzelmesswerte dividiert durch die Anzahl der Messwerte $N$.
+
+$$
+\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
+$$
+
+Mit Hilfe des arithmetischen Mittelwerts kann eine Aussage über die Streuung der Messwerte getroffen werden. Dazu werden die Varianz und die Standardabweichung der Messreihe berechnet.
+
+::: {.panel-tabset}
+## Varianz
+
+Die Varianz ist der Mittelwert der quadrierten Abweichungen vom Mittelwert.
+
+$$
+\text{Var}(x_i) = \frac{1}{N} \sum_{i=1}^{N}(x_i - \bar{x})^2
+$$
+
+## Standardabweichung
+Die Quadratwurzel der Varianz wird als Standardabweichung bezeichnet. Diese hat den Vorteil, dass sie in der Einheit der Messwerte vorliegt und dadurch leichter zu interpretieren ist. Die Standardabweichung $s$ wird folglich so berechnet:
+
+$$
+s_{N} = \sqrt{\frac{1}{N} \sum_{i=1}^{N}(x_i - \bar{x})^2}
+$$
+
+Für Stichproben wird die Stichprobenvarianz verwendet. Für die Standardabweichung einer Stichprobe gilt:
+
+$$
+s_{N-1} = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N}(x_i - \bar{x})^2}
+$$
+
+:::
+
+&nbsp;
+
+**Hier könnte statt $\text{Var}(x_i)$ auch $s^{2}$ geschrieben werden.**
+
+Mit Hilfe der Standardabweichung kann der Standardfehler der Messung bestimmt werden. Der *Standardfehler* ist ein Maß dafür, wie genau sich der arithmetische Mittelwert der Stichprobe an den tatsächlichen Mittelwert der Grundgesamtheit, den Erwartungswert, annähert (hierzu gleich mehr) und wird auch *Stichprobenfehler* genannt. Der Standardfehler wird aus der Standardabweichung einer Messung und der Wurzel der Stichprobengröße berechnet. 
+
+$$
+\sigma{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}}
+$$
+
+Der Standardfehler wird umso kleiner (die Messung umso genauer), je kleiner die Varianz in der Grundgesamtheit und je größer der Stichprobenumfang ist. Da die Varianz in der Grundgesamtheit in der Regel unbekannt ist, wird der Standardfehler mit der Stichprobenvarianz geschätzt.
+
+### Die Normalverteilung
+Der Schätzung des Standardfehlers liegt die Beobachtung zugrunde, dass Stichprobenmittelwerte normalverteilt sind und mit zunehmender Stichprobengröße immer genauer werden.
+
+1. Normalverteilung erklären
+
+**Mit ChatGPT klappt das nicht so toll.** :D 
+
+- xlim anpassen
+
+```{python}
+#| echo: false
+
+# Parameter der Normalverteilung
+mu, sigma = 0, 1  # Mittelwert und Standardabweichung
+
+# Generierung der Daten
+data = np.random.normal(mu, sigma, 1000)
+
+# Erstellen eines Histogramms (Balkendiagramm)
+count, bins, ignored = plt.hist(data, bins=30, density=True, alpha=0.6, color='lightblue', edgecolor='black')
+
+# Normalverteilungskurve
+x = np.linspace(min(bins), max(bins), 100)
+p = 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (x - mu) ** 2 / (2 * sigma ** 2))
+plt.plot(x, p, 'k', linewidth=2)
+
+# Zeichnen der Mittelwerts
+mean_line = plt.axvline(mu, color='g', linestyle='solid', linewidth=3)
+
+# Zeichnen der positiven und negativen Standardabweichungen
+pos_std_lines = [plt.axvline(mu + i * sigma, color='r', linestyle='dotted', linewidth=2) for i in range(1, 4)]
+neg_std_lines = [plt.axvline(mu - i * sigma, color='r', linestyle='dashdot', linewidth=2) for i in range(1, 4)]
+
+# Legende korrekt hinzufügen
+plt.legend(
+    [mean_line, neg_std_lines[0], pos_std_lines[0]],
+    ['Mittelwert', 'negative Standardabweichung', 'positive Standardabweichung'],
+    loc='upper right', handlelength = 3
+)
+
+# Beschreibung der Grafik
+plt.title('Normalverteilung mit Mittelwert und Standardabweichungen')
+plt.xlabel('Standardabweichung')
+plt.ylabel('Häufigkeitsdichte')
+
+# Anzeigen der Grafik
+plt.show()
+```
+
+Prompt: Schreibe mir python code (basispython, numpy oder pandas) um Daten für eine Normalverteilung zu erstellen und diese in Form eines Balkendiagramm darzustellen. Zusätzlich sollen der Mittelwert und die Standardabweichung 1s, 2s und 3s in beide Richtungen eingezeichnet sein.
+
+Prompt: Bitte ohne das Modul seaborn.
+
+Der Code wurde anschließend modifiziert: Anpassung der Linientypen.
+
+2. Idee: Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit.
+
+Dies lässt sich mit einem mit Python simulierten Würfelexperiment verdeutlichen. Der Erwartungswert eines sechsseitigen Würfels ist:
+
+$$
+\frac{1}{6} \sum_{i=1}^{i=6}(x_i) ~ = ~ 3,5
+$$
+
+3. Umgekehrte Idee: Mit der gleichen Wahrscheinlichkeitsverteilung liegt der Mittelwert der Grundgesamtheit um den Stichprobenmittelwert.
+
+:::{#wrn-Grundgesamtheit .callout-warning appearance="simple"}
+## Standardabweichung und Varianz in der Grundgesamtheit
+
+In der Stochastik werden Formeln häufig auch mit griechischen Buchstaben geschrieben, wenn Sie sich statt auf eine Stichprobe auf die Grundgesamtheit beziehen. 
+
+Der Mittelwert in der Grundgesamtheit wird auch Erwartungswert genannt und mit dem griechischen Buchstaben $\mu$ (My) dargestellt. Die Standardabweichung des Erwartungswerts wird mit $\sigma$ (Sigma) gekennzeichnet.
+$$
+\sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N}(x_i - \mu)^2}
+$$
+
+:::
+
+### Aufgabe Verteilungskenngrößen
+Die Varianz und die Standardabweichung einer Messreihe können mit vielen Computerprogrammen berechnet werden. Bevor wir auf die in Python verfügbaren Methoden eingehen, sollen die Kenngrößen arithmetischer Mittelwert, Varianz, Standardabweichung und Stichprobenfehler zunächst selbst berechnet werden.
+
+Dazu verwenden wir die Messreihe zur Länge zahnbildender Zellen bei Meerschweinchen, die Vitamin C direkt (VC) oder in Form von Orangensaft (OJ) in unterschiedlichen Dosen erhielten.
+
+:::: {.border}
+
+::::: {#lst-readfile}
+```{python}
+dateipfad = "01-daten/ToothGrowth.csv"
+meerschweinchen = pd.read_csv(filepath_or_buffer = dateipfad, sep = ',', header = 0, \
+  names = ['ID', 'len', 'supp', 'dose'], dtype = {'ID': 'int', 'len': 'float', 'dose': 'float', 'supp': 'category'})
+```
+
+:::::
+
+Crampton, E. W. 1947. „THE GROWTH OF THE ODONTOBLASTS OF THE INCISOR TOOTH AS A CRITERION OF THE VITAMIN C INTAKE OF THE GUINEA PIG“. The Journal of Nutrition 33 (5): 491–504. <https://doi.org/10.1093/jn/33.5.491> 
+
+Der Datensatz kann in R mit dem Befehl "ToothGrowth" aufgerufen werden.
+
+```{python}
+#| echo: false 
+#| fig-alt: Illustrative Darstellung der Zahnlänge in der Spalte 'len'
+
+meerschweinchen['len'].plot(x = 'ID', y = 'len', title = 'Länge der zahnbildenden Zellen von Meerschweinchen', xlabel = 'Nummer', ylabel = 'Länge in Micron')
+```
+
+::::
+
+&nbsp;
+
+**Berechnen Sie den arithmetischen Mittelwert, die Varianz, die Standardabweichung und den Stichprobenfehler der Messreihe zur Zahnlänge (len). Verwenden Sie dazu die vorgestellten Formeln.**
+
+Das Ergebnis könnte so aussehen:
+
+```{python}
+#| echo: false
+
+def verteilungskennwerte(x, output = True):
+
+  # Anzahl Messwerte bestimmen
+  N = len(x)
+
+  # arithmetisches Mittel bestimmen
+  mittelwert = sum(x) / N
+
+  # Stichprobenvarianz bestimmen
+  stichprobenvarianz = sum((x - mittelwert) ** 2) / (N - 1)
+
+  # Standardabweichung bestimmen
+  standardabweichung = stichprobenvarianz ** (1/2)
+
+  # Stichprobenfehler bestimmen
+  stichprobenfehler = standardabweichung / (N ** (1/2))
+
+  # Ausgabe
+  if output: # output = True
+    print(f"N: {N}\n",
+          f"arithmetisches Mittel: {mittelwert:.2f}\n",
+          f"Stichprobenfehler: {stichprobenfehler:.2f}\n",
+          f"Stichprobenvarianz: {stichprobenvarianz:.2f}\n",
+          f"Standardabweichung: {standardabweichung:.2f}",
+          sep = '')
+
+  else: # output = False
+    return N, mittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
+
+tooth_length = meerschweinchen['len']
+verteilungskennwerte(tooth_length)
+```
+
+::: {#tip-loesungkenngrößen .callout-tip collapse="true"}
+## Musterlösung Verteilungskenngrößen
+
+```{python}
+#| output: false
+
+def verteilungskennwerte(x, output = True):
+
+  # Anzahl Messwerte bestimmen
+  N = len(x)
+
+  # arithmetisches Mittel bestimmen
+  mittelwert = sum(x) / N
+
+  # Stichprobenvarianz bestimmen
+  stichprobenvarianz = sum((x - mittelwert) ** 2) / (N - 1)
+
+  # Standardabweichung bestimmen
+  standardabweichung = stichprobenvarianz ** (1/2)
+
+  # Ausgabe
+  if output: # output = True
+    print(f"N: {N}\n",
+          f"arithmetisches Mittel: {mittelwert:.2f}\n",
+          f"Stichprobenvarianz: {stichprobenvarianz:.2f}\n",
+          f"Standardabweichung: {standardabweichung:.2f}",
+          sep = '')
+
+  else: # output = False
+    return N, mittelwert, stichprobenvarianz, standardabweichung
+
+tooth_length = meerschweinchen['len']
+verteilungskennwerte(tooth_length)
+```
+
+:::
+
+&nbsp;
+
+Die Module NumPy und Pandas verfügen über eigene Funktionen zur Berechnung der Varianz und der Standardabweichung (siehe folgendes Beispiel).
+
+::: {#nte-std .callout-note collapse="true"}
+## Varianz und  Standardabweichung mit NumPy und Pandas
+
+Die Varianz und Standardabweichung werden mit den Funktion `np.var()` und `np.std()` bzw. den Methoden `pd.var()` und `pd.std()` berechnet. Der Parameter `ddof` (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy 0 ist, berechnet Pandas mit dem Standardwert `ddof=1` die Stichprobenvarianz.
+```{python}
+print("Varianz:")
+print(f"NumPy:\t{np.var(tooth_length):.2f}")
+print(f"Pandas:\t{tooth_length.var():.2f}")
+
+print("\nStandardabweichung:")
+print(f"NumPy:\t{np.std(tooth_length):.2f}")
+print(f"Pandas:\t{tooth_length.std():.2f}")
+```
+
+:::
+
+
+
+## Die ideale Messung
+
+:::{#imp-Beispiel .callout-important}
+## ideale Messung
+
+  - Die ideale Messung ist eine direkte Messung oder der gesuchte Wert hängt linear (**direkt?!**) vom gemessenen Wert ab.
+  - Die ideale Messung ist *genau* und *präzise*.
+
+:::
+
+### Direkte und indirekte Messung
+Bei einer direkten Messung wird die Messgröße durch den unmittelbaren Vergleich mit einem Normal oder einem genormten Bezugssystem gewonnen.
+
+::: {.border}
+:::: {#fig-direktemessung layout-ncol=2}
+
+![Balkenwaage](00-bilder/balkenwaage.png){height=200 fig-alt="Schema einer Balkenwaage"}
+
+![Zollstock](00-bilder/Gliederma%C3%9Fst%C3%A4be-von-Fst76-CC-BY-SA-3.0.jpg){height=200 fig-alt="Mehrere Zollstöcke"}
+
+Direkte Messung
+
+::::
+
+Gliedermaßstäbe von Fst76 ist lizensiert unter [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) und ist abrufbar auf [Wikimedia](https://commons.wikimedia.org/wiki/File:Gliederma%C3%9Fst%C3%A4be.jpg). 2014
+:::
+
+&nbsp;
+
+Bei einer indirekten Messung wird die Messgröße auf eine andere pyhsikalische Größe zurückgeführt.
+
+::: {.border}
+:::: {#fig-indirektemessung layout-ncol=2}
+
+![Federwaage](00-bilder/Spring_scale-von-Amada44-CC-BY-SA-3.0unported.jpg){height=200 fig-alt="Bild einer Feederwaage"}
+
+![Laserentfernungsmessung](00-bilder/observe-the-moon-NASA.png){height=200 fig-alt="Laserentfernungsmessung"}
+
+Indirekte Messung
+
+::::
+
+Spring scale von Amada44 steht unter der Lizenz [CC-BY-SA-3.0 unported](https://creativecommons.org/licenses/by-sa/3.0/deed.en) und ist abrufbar auf [Wikimedia](https://commons.wikimedia.org/wiki/File:Spring_scale_-_3241.jpg). 2016
+
+Observe the Moon wurde von der NASA veröffentlicht und ist abrufbar unter [nasa.gov](https://www.nasa.gov/image-article/observe-moon/). 2010
+
+:::
+
+### Genauigkeit und Präzision (gehört zu linearer Regression)
+
+
+Die Genauigkeit 
+
+Verzerrung (Bias): https://de.wikipedia.org/wiki/Verzerrung_einer_Sch%C3%A4tzfunktion quantifiziert das systematische Über- oder Unterschätzen der Schätzfunktion
+
+
+**Streuung und Normalverteilung... Stichprobenfehler.**  
+**Stichprobenfehler der Meerschweinchenmessung bestimmen**
+**Alternativ: mit Würfeldaten simulieren. Erwartungswert eines W6 = 3,5**
+
+
+## Normalverteilung
+
+**Histogramm und Standardabweichung**
+
+Der Meerschweinchen-Datensatz ist nicht gleichverteilt (die Gruppengrößen sind gleich und die Länge nähert sich einem natürlichen Maximum an.)
+```{python}
+meerschweinchen['len'].plot(kind = 'hist', bins = 7)
+```
