@@ -22,9 +22,9 @@ import matplotlib.pyplot as plt
 
 Physikalische Größen werden mit der Hilfe von Messgeräten bestimmt. Diese ordnen der tatsächlichen Merkmalsausprägung eine numerische Entsprechung relativ zu einem Bezugssystem zu. Ein Beispiel:
 
-"Am Messbrett ist Johanna 173 Zentimeter groß."
+"Johanna ist am Messbrett 173 Zentimeter groß."
 
-  - Die tatsächliche Merkmalsausprägung ist Johannas Größe (Länge).
+  - Die tatsächliche Merkmalsausprägung ist Johannas Größe.
   - Das Messgerät ist das Messbrett.
   - Die numerische Entsprechung ist 173.
   - Das Bezugssystem ist das metrische System.
@@ -83,6 +83,8 @@ $$
 \text{Var}(x_i) = \frac{1}{N} \sum_{i=1}^{N}(x_i - \bar{x})^2
 $$
 
+**Hier könnte statt $\text{Var}(x_i)$ auch $s^{2}$ geschrieben werden.**
+
 ## Standardabweichung
 Die Quadratwurzel der Varianz wird als Standardabweichung bezeichnet. Diese hat den Vorteil, dass sie in der Einheit der Messwerte vorliegt und dadurch leichter zu interpretieren ist. Die Standardabweichung $s$ wird folglich so berechnet:
 
@@ -100,8 +102,6 @@ $$
 
 &nbsp;
 
-**Hier könnte statt $\text{Var}(x_i)$ auch $s^{2}$ geschrieben werden.**
-
 Mit Hilfe der Standardabweichung kann der Standardfehler der Messung bestimmt werden. Der *Standardfehler* ist ein Maß dafür, wie genau sich der arithmetische Mittelwert der Stichprobe an den tatsächlichen Mittelwert der Grundgesamtheit, den Erwartungswert, annähert (hierzu gleich mehr) und wird auch *Stichprobenfehler* genannt. Der Standardfehler wird aus der Standardabweichung einer Messung und der Wurzel der Stichprobengröße berechnet. 
 
 $$
@@ -110,12 +110,100 @@ $$
 
 Der Standardfehler wird umso kleiner (die Messung umso genauer), je kleiner die Varianz in der Grundgesamtheit und je größer der Stichprobenumfang ist. Da die Varianz in der Grundgesamtheit in der Regel unbekannt ist, wird der Standardfehler mit der Stichprobenvarianz geschätzt.
 
-### Die Normalverteilung
 Der Schätzung des Standardfehlers liegt die Beobachtung zugrunde, dass Stichprobenmittelwerte normalverteilt sind und mit zunehmender Stichprobengröße immer genauer werden.
+
+### Die Normalverteilung
+
+
+
+Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit, also den Erwartungswert. 
+Der Erwartungswert eines sechsseitigen Würfels ist:
+
+$$
+\frac{1}{6} \sum_{i=1}^{i=6}(x_i) ~ = ~ 3,5
+$$
+
+Erwartungsverteilung für n = 1 und für n = 2 ist illustrativ.
+Für einen Würfel gibt es 6 mögliche Ergebnisse, für 2 Würfel 6 * 6 mögliche Ergebnisse.
+ Es gibt eine Kombination für den Wert 2, 2 Kombinationen für den Wert 3, usw.
+
+Dies lässt sich mit einem mit Python simulierten Würfelexperiment verdeutlichen. In dem simulierten Experiment würfeln 10 Personen jeweils 5, 10 und 20 Mal und bilden anschließend den Mittelwert der Augen. 
+
+**to do: Dichtekurve der Normalverteilung mit den Parametern plotten**  
+Der Erwartungswert ist der höchste Punkt der Kurve. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.
+
+Formel bei MB im Skript S. 52 ist anders gestellt als die unten
+
+
+$$
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
+$$
+
+The normal distribution function, also known as the Gaussian distribution, is a continuous probability distribution characterized by its bell-shaped curve. It's defined by two parameters: the mean (μ) and the standard deviation (σ). The probability density function (PDF) for a normal distribution is given by f(x) = (1/√(2πσ²)) * e^(-(x-μ)² / (2σ²))
+
+Erwartungswert und Standardabweichung sind für die Grundgesamtheit bekannt. **in eigener Zelle ausrechnen**
+``` {python}
+personen = 10
+
+# 5 Würfe
+würfe = 5
+
+augen = np.random.default_rng().integers(low = 1, high = 6, endpoint = True, size = (würfe, personen)) # high is exclusive if endpoint = False
+
+print(f"N: {augen.mean(axis = 0).shape[0]}",
+      f"kleinster Mittelwert: {augen.mean(axis = 0).min():.2f}",
+      f"größter Mittelwert: {augen.mean(axis = 0).max():.2f}",
+      f"Stichprobenmittelwert: {augen.mean(axis = 0).mean():.2f}\n")
+
+# plotten
+plt.subplot(1, 3, 1)
+count, bins, ignored = plt.hist(augen.mean(axis = 0), bins = 10, alpha = 0.6, edgecolor = 'black')
+plt.xlim(1, 6)
+
+## Normalverteilungskurve
+erwartungswert = pd.Series([1, 2, 3, 4, 5, 6]).mean() # 3.5
+standardabweichung = pd.Series([1, 2, 3, 4, 5, 6]).std(ddof = 0) # ~ 1.708
+
+x = np.linspace(0, 9, 100)
+y = 10 / (standardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x - erwartungswert) ** 2 / (2 * standardabweichung ** 2))
+plt.plot(x, y, 'k', linewidth=2)
+
+# 10 Würfe
+würfe = 10
+
+augen = np.random.default_rng().integers(low = 1, high = 6, endpoint = True, size = (würfe, personen)) # high is exclusive if endpoint = False
+
+print(f"N: {augen.mean(axis = 0).shape[0]}",
+      f"kleinster Mittelwert: {augen.mean(axis = 0).min():.2f}",
+      f"größter Mittelwert: {augen.mean(axis = 0).max():.2f}",
+      f"Stichprobenmittelwert: {augen.mean(axis = 0).mean():.2f}\n")
+
+plt.subplot(1, 3, 2)
+plt.hist(augen.mean(axis = 0), bins = 10, alpha = 0.6, edgecolor = 'black')
+plt.xlim(1, 6)
+
+# 20 Würfe
+würfe = 20
+
+augen = np.random.default_rng().integers(low = 1, high = 6, endpoint = True, size = (würfe, personen)) # high is exclusive if endpoint = False
+
+print(f"N: {augen.mean(axis = 0).shape[0]}",
+      f"kleinster Mittelwert: {augen.mean(axis = 0).min():.2f}",
+      f"größter Mittelwert: {augen.mean(axis = 0).max():.2f}",
+      f"Stichprobenmittelwert: {augen.mean(axis = 0).mean():.2f}\n")
+
+plt.subplot(1, 3, 3)
+plt.hist(augen.mean(axis = 0), bins = 10, alpha = 0.6, edgecolor = 'black')
+plt.xlim(1, 6)
+
+plt.tight_layout()
+plt.show()
+```
 
 1. Normalverteilung erklären
 
 **Mit ChatGPT klappt das nicht so toll.** :D 
+Würfeln lassen
 
 - xlim anpassen
 
@@ -166,12 +254,6 @@ Prompt: Bitte ohne das Modul seaborn.
 Der Code wurde anschließend modifiziert: Anpassung der Linientypen.
 
 2. Idee: Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit.
-
-Dies lässt sich mit einem mit Python simulierten Würfelexperiment verdeutlichen. Der Erwartungswert eines sechsseitigen Würfels ist:
-
-$$
-\frac{1}{6} \sum_{i=1}^{i=6}(x_i) ~ = ~ 3,5
-$$
 
 3. Umgekehrte Idee: Mit der gleichen Wahrscheinlichkeitsverteilung liegt der Mittelwert der Grundgesamtheit um den Stichprobenmittelwert.
 

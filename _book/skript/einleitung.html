@@ -260,15 +260,15 @@ window.Quarto = {
 </div>
 </div>
 <p>In diesem Baustein werden die folgenden Module verwendet:</p>
-<div id="228e50f4" class="cell" data-execution_count="1">
+<div id="57ca2ee8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Physikalische Größen werden mit der Hilfe von Messgeräten bestimmt. Diese ordnen der tatsächlichen Merkmalsausprägung eine numerische Entsprechung relativ zu einem Bezugssystem zu. Ein Beispiel:</p>
-<p>“Am Messbrett ist Johanna 173 Zentimeter groß.”</p>
+<p>“Johanna ist am Messbrett 173 Zentimeter groß.”</p>
 <ul>
-<li>Die tatsächliche Merkmalsausprägung ist Johannas Größe (Länge).</li>
+<li>Die tatsächliche Merkmalsausprägung ist Johannas Größe.</li>
 <li>Das Messgerät ist das Messbrett.</li>
 <li>Die numerische Entsprechung ist 173.</li>
 <li>Das Bezugssystem ist das metrische System.</li>
@@ -345,6 +345,7 @@ Definition&nbsp;1.1: Definition Messung
 <p><span class="math display">\[
 \text{Var}(x_i) = \frac{1}{N} \sum_{i=1}^{N}(x_i - \bar{x})^2
 \]</span></p>
+<p><strong>Hier könnte statt <span class="math inline">\(\text{Var}(x_i)\)</span> auch <span class="math inline">\(s^{2}\)</span> geschrieben werden.</strong></p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Die Quadratwurzel der Varianz wird als Standardabweichung bezeichnet. Diese hat den Vorteil, dass sie in der Einheit der Messwerte vorliegt und dadurch leichter zu interpretieren ist. Die Standardabweichung <span class="math inline">\(s\)</span> wird folglich so berechnet:</p>
@@ -359,7 +360,6 @@ s_{N-1} = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N}(x_i - \bar{x})^2}
 </div>
 </div>
 <p>&nbsp;</p>
-<p><strong>Hier könnte statt <span class="math inline">\(\text{Var}(x_i)\)</span> auch <span class="math inline">\(s^{2}\)</span> geschrieben werden.</strong></p>
 <p>Mit Hilfe der Standardabweichung kann der Standardfehler der Messung bestimmt werden. Der <em>Standardfehler</em> ist ein Maß dafür, wie genau sich der arithmetische Mittelwert der Stichprobe an den tatsächlichen Mittelwert der Grundgesamtheit, den Erwartungswert, annähert (hierzu gleich mehr) und wird auch <em>Stichprobenfehler</em> genannt. Der Standardfehler wird aus der Standardabweichung einer Messung und der Wurzel der Stichprobengröße berechnet.</p>
 <p><span class="math display">\[
 \sigma{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}}
@@ -368,15 +368,103 @@ s_{N-1} = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N}(x_i - \bar{x})^2}
 <section id="die-normalverteilung" class="level3">
 <h3 class="anchored" data-anchor-id="die-normalverteilung">Die Normalverteilung</h3>
 <p>Der Schätzung des Standardfehlers liegt die Beobachtung zugrunde, dass Stichprobenmittelwerte normalverteilt sind und mit zunehmender Stichprobengröße immer genauer werden.</p>
-<ol type="1">
-<li>Normalverteilung erklären</li>
-</ol>
-<p><strong>Mit ChatGPT klappt das nicht so toll.</strong> :D</p>
-<div id="33511c51" class="cell" data-execution_count="2">
+<p>Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit, also den Erwartungswert. Der Erwartungswert eines sechsseitigen Würfels ist:</p>
+<p><span class="math display">\[
+\frac{1}{6} \sum_{i=1}^{i=6}(x_i) ~ = ~ 3,5
+\]</span></p>
+<p>Dies lässt sich mit einem mit Python simulierten Würfelexperiment verdeutlichen. In dem simulierten Experiment würfeln 10 Personen jeweils 5, 10 und 20 Mal und bilden anschließend den Mittelwert der Augen.</p>
+<p><strong>to do: Dichtekurve der Normalverteilung mit den Parametern plotten</strong><br>
+Der Erwartungswert ist der höchste Punkt der Kurve. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.</p>
+<p>Formel bei MB im Skript S. 52 ist anders gestellt als die unten</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
+\]</span></p>
+<p>The normal distribution function, also known as the Gaussian distribution, is a continuous probability distribution characterized by its bell-shaped curve. It’s defined by two parameters: the mean (μ) and the standard deviation (σ). The probability density function (PDF) for a normal distribution is given by f(x) = (1/√(2πσ²)) * e^(-(x-μ)² / (2σ²))</p>
+<p>Erwartungswert und Standardabweichung sind für die Grundgesamtheit bekannt. <strong>in eigener Zelle ausrechnen</strong></p>
+<div id="c5fb89ed" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>personen <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 5 Würfe</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>würfe <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>augen <span class="op">=</span> np.random.default_rng().integers(low <span class="op">=</span> <span class="dv">1</span>, high <span class="op">=</span> <span class="dv">6</span>, endpoint <span class="op">=</span> <span class="va">True</span>, size <span class="op">=</span> (würfe, personen)) <span class="co"># high is exclusive if endpoint = False</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"N: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"kleinster Mittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"größter Mittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Stichprobenmittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># plotten</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>count, bins, ignored <span class="op">=</span> plt.hist(augen.mean(axis <span class="op">=</span> <span class="dv">0</span>), bins <span class="op">=</span> <span class="dv">10</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>erwartungswert <span class="op">=</span> pd.Series([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]).mean() <span class="co"># 3.5</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>standardabweichung <span class="op">=</span> pd.Series([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]).std(ddof <span class="op">=</span> <span class="dv">0</span>) <span class="co"># ~ 1.708</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">9</span>, <span class="dv">100</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">10</span> <span class="op">/</span> (standardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x <span class="op">-</span> erwartungswert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> standardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, <span class="st">'k'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 10 Würfe</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>würfe <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>augen <span class="op">=</span> np.random.default_rng().integers(low <span class="op">=</span> <span class="dv">1</span>, high <span class="op">=</span> <span class="dv">6</span>, endpoint <span class="op">=</span> <span class="va">True</span>, size <span class="op">=</span> (würfe, personen)) <span class="co"># high is exclusive if endpoint = False</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"N: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"kleinster Mittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"größter Mittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Stichprobenmittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>plt.hist(augen.mean(axis <span class="op">=</span> <span class="dv">0</span>), bins <span class="op">=</span> <span class="dv">10</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 20 Würfe</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>würfe <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>augen <span class="op">=</span> np.random.default_rng().integers(low <span class="op">=</span> <span class="dv">1</span>, high <span class="op">=</span> <span class="dv">6</span>, endpoint <span class="op">=</span> <span class="va">True</span>, size <span class="op">=</span> (würfe, personen)) <span class="co"># high is exclusive if endpoint = False</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"N: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"kleinster Mittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"größter Mittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Stichprobenmittelwert: </span><span class="sc">{</span>augen<span class="sc">.</span>mean(axis <span class="op">=</span> <span class="dv">0</span>)<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>plt.hist(augen.mean(axis <span class="op">=</span> <span class="dv">0</span>), bins <span class="op">=</span> <span class="dv">10</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>N: 10 kleinster Mittelwert: 2.40 größter Mittelwert: 5.00 Stichprobenmittelwert: 3.66
+
+N: 10 kleinster Mittelwert: 2.80 größter Mittelwert: 4.10 Stichprobenmittelwert: 3.37
+
+N: 10 kleinster Mittelwert: 2.85 größter Mittelwert: 4.40 Stichprobenmittelwert: 3.45
+</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-3-output-1.png" width="597" height="449" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-3-output-2.png" width="662" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li>Normalverteilung erklären</li>
+</ol>
+<p><strong>Mit ChatGPT klappt das nicht so toll.</strong> :D Würfeln lassen</p>
+<ul>
+<li>xlim anpassen</li>
+</ul>
+<div id="a32785db" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="einleitung_files/figure-html/cell-4-output-1.png" width="589" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -385,14 +473,8 @@ s_{N-1} = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N}(x_i - \bar{x})^2}
 <p>Prompt: Bitte ohne das Modul seaborn.</p>
 <p>Der Code wurde anschließend modifiziert: Anpassung der Linientypen.</p>
 <ol start="2" type="1">
-<li>Idee: Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit.</li>
-</ol>
-<p>Dies lässt sich mit einem mit Python simulierten Würfelexperiment verdeutlichen. Der Erwartungswert eines sechsseitigen Würfels ist:</p>
-<p><span class="math display">\[
-\frac{1}{6} \sum_{i=1}^{i=6}(x_i) ~ = ~ 3,5
-\]</span></p>
-<ol start="3" type="1">
-<li>Umgekehrte Idee: Mit der gleichen Wahrscheinlichkeitsverteilung liegt der Mittelwert der Grundgesamtheit um den Stichprobenmittelwert.</li>
+<li><p>Idee: Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit.</p></li>
+<li><p>Umgekehrte Idee: Mit der gleichen Wahrscheinlichkeitsverteilung liegt der Mittelwert der Grundgesamtheit um den Stichprobenmittelwert.</p></li>
 </ol>
 <div id="wrn-Grundgesamtheit" class="callout callout-style-simple callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -419,10 +501,10 @@ Hinweis&nbsp;1.1: Standardabweichung und Varianz in der Grundgesamtheit
 <div id="lst-readfile" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <div aria-describedby="lst-readfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="59af8041" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/ToothGrowth.csv"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>meerschweinchen <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, <span class="op">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  names <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'len'</span>, <span class="st">'supp'</span>, <span class="st">'dose'</span>], dtype <span class="op">=</span> {<span class="st">'ID'</span>: <span class="st">'int'</span>, <span class="st">'len'</span>: <span class="st">'float'</span>, <span class="st">'dose'</span>: <span class="st">'float'</span>, <span class="st">'supp'</span>: <span class="st">'category'</span>})</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c14a15f7" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/ToothGrowth.csv"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>meerschweinchen <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, <span class="op">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  names <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'len'</span>, <span class="st">'supp'</span>, <span class="st">'dose'</span>], dtype <span class="op">=</span> {<span class="st">'ID'</span>: <span class="st">'int'</span>, <span class="st">'len'</span>: <span class="st">'float'</span>, <span class="st">'dose'</span>: <span class="st">'float'</span>, <span class="st">'supp'</span>: <span class="st">'category'</span>})</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-readfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -432,11 +514,11 @@ Code-Block&nbsp;1.1
 </div>
 <p>Crampton, E. W. 1947. „THE GROWTH OF THE ODONTOBLASTS OF THE INCISOR TOOTH AS A CRITERION OF THE VITAMIN C INTAKE OF THE GUINEA PIG“. The Journal of Nutrition 33 (5): 491–504. <a href="https://doi.org/10.1093/jn/33.5.491" class="uri">https://doi.org/10.1093/jn/33.5.491</a></p>
 <p>Der Datensatz kann in R mit dem Befehl “ToothGrowth” aufgerufen werden.</p>
-<div id="5b30ae24" class="cell" data-execution_count="4">
+<div id="aaefd243" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-5-output-1.png" alt="Illustrative Darstellung der Zahnlänge in der Spalte 'len'" width="585" height="449" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-6-output-1.png" alt="Illustrative Darstellung der Zahnlänge in der Spalte 'len'" width="585" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -445,7 +527,7 @@ Code-Block&nbsp;1.1
 <p>&nbsp;</p>
 <p><strong>Berechnen Sie den arithmetischen Mittelwert, die Varianz, die Standardabweichung und den Stichprobenfehler der Messreihe zur Zahnlänge (len). Verwenden Sie dazu die vorgestellten Formeln.</strong></p>
 <p>Das Ergebnis könnte so aussehen:</p>
-<div id="1097aeb0" class="cell" data-execution_count="5">
+<div id="579fa88b" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>N: 60
 arithmetisches Mittel: 18.81
@@ -466,34 +548,34 @@ Tipp&nbsp;1.1: Musterlösung Verteilungskenngrößen
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="e33e1ad5" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verteilungskennwerte(x, output <span class="op">=</span> <span class="va">True</span>):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Anzahl Messwerte bestimmen</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  N <span class="op">=</span> <span class="bu">len</span>(x)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># arithmetisches Mittel bestimmen</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  mittelwert <span class="op">=</span> <span class="bu">sum</span>(x) <span class="op">/</span> N</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Stichprobenvarianz bestimmen</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  stichprobenvarianz <span class="op">=</span> <span class="bu">sum</span>((x <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> (N <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Standardabweichung bestimmen</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  standardabweichung <span class="op">=</span> stichprobenvarianz <span class="op">**</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ausgabe</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> output: <span class="co"># output = True</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"N: </span><span class="sc">{</span>N<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"arithmetisches Mittel: </span><span class="sc">{</span>mittelwert<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"Stichprobenvarianz: </span><span class="sc">{</span>stichprobenvarianz<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"Standardabweichung: </span><span class="sc">{</span>standardabweichung<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>          sep <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>: <span class="co"># output = False</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> N, mittelwert, stichprobenvarianz, standardabweichung</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>tooth_length <span class="op">=</span> meerschweinchen[<span class="st">'len'</span>]</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>verteilungskennwerte(tooth_length)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="10dc1aa6" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verteilungskennwerte(x, output <span class="op">=</span> <span class="va">True</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Anzahl Messwerte bestimmen</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  N <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># arithmetisches Mittel bestimmen</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  mittelwert <span class="op">=</span> <span class="bu">sum</span>(x) <span class="op">/</span> N</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Stichprobenvarianz bestimmen</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  stichprobenvarianz <span class="op">=</span> <span class="bu">sum</span>((x <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> (N <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Standardabweichung bestimmen</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  standardabweichung <span class="op">=</span> stichprobenvarianz <span class="op">**</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ausgabe</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> output: <span class="co"># output = True</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"N: </span><span class="sc">{</span>N<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"arithmetisches Mittel: </span><span class="sc">{</span>mittelwert<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"Stichprobenvarianz: </span><span class="sc">{</span>stichprobenvarianz<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"Standardabweichung: </span><span class="sc">{</span>standardabweichung<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>          sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>: <span class="co"># output = False</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> N, mittelwert, stichprobenvarianz, standardabweichung</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>tooth_length <span class="op">=</span> meerschweinchen[<span class="st">'len'</span>]</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>verteilungskennwerte(tooth_length)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -513,14 +595,14 @@ Beispiel&nbsp;1.1: Varianz und Standardabweichung mit NumPy und Pandas
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die Varianz und Standardabweichung werden mit den Funktion <code>np.var()</code> und <code>np.std()</code> bzw. den Methoden <code>pd.var()</code> und <code>pd.std()</code> berechnet. Der Parameter <code>ddof</code> (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy 0 ist, berechnet Pandas mit dem Standardwert <code>ddof=1</code> die Stichprobenvarianz.</p>
-<div id="b8c24ef5" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Varianz:"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy:</span><span class="ch">\t</span><span class="sc">{</span>np<span class="sc">.</span>var(tooth_length)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pandas:</span><span class="ch">\t</span><span class="sc">{</span>tooth_length<span class="sc">.</span>var()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Standardabweichung:"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy:</span><span class="ch">\t</span><span class="sc">{</span>np<span class="sc">.</span>std(tooth_length)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pandas:</span><span class="ch">\t</span><span class="sc">{</span>tooth_length<span class="sc">.</span>std()<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d8273253" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Varianz:"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy:</span><span class="ch">\t</span><span class="sc">{</span>np<span class="sc">.</span>var(tooth_length)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pandas:</span><span class="ch">\t</span><span class="sc">{</span>tooth_length<span class="sc">.</span>var()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Standardabweichung:"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy:</span><span class="ch">\t</span><span class="sc">{</span>np<span class="sc">.</span>std(tooth_length)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pandas:</span><span class="ch">\t</span><span class="sc">{</span>tooth_length<span class="sc">.</span>std()<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Varianz:
 NumPy:  57.54
@@ -633,12 +715,12 @@ Abbildung&nbsp;1.3: Indirekte Messung
 <h2 data-number="1.3" class="anchored" data-anchor-id="normalverteilung"><span class="header-section-number">1.3</span> Normalverteilung</h2>
 <p><strong>Histogramm und Standardabweichung</strong></p>
 <p>Der Meerschweinchen-Datensatz ist nicht gleichverteilt (die Gruppengrößen sind gleich und die Länge nähert sich einem natürlichen Maximum an.)</p>
-<div id="448a35b3" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>meerschweinchen[<span class="st">'len'</span>].plot(kind <span class="op">=</span> <span class="st">'hist'</span>, bins <span class="op">=</span> <span class="dv">7</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="adc8ca15" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>meerschweinchen[<span class="st">'len'</span>].plot(kind <span class="op">=</span> <span class="st">'hist'</span>, bins <span class="op">=</span> <span class="dv">7</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-9-output-1.png" width="587" height="411" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-10-output-1.png" width="587" height="411" class="figure-img"></p>
 </figure>
 </div>
 </div>
