@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e4aa0397115c41deec761c50bad4326d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-cdbcecc62bcf8585ea02e4c4faa2029d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -260,7 +260,7 @@ window.Quarto = {
 </div>
 </div>
 <p>In diesem Baustein werden die folgenden Module verwendet:</p>
-<div id="57ca2ee8" class="cell" data-execution_count="1">
+<div id="0cae8e07" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -365,23 +365,24 @@ s_{N-1} = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N}(x_i - \bar{x})^2}
 \sigma{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}}
 \]</span></p>
 <p>Der Standardfehler wird umso kleiner (die Messung umso genauer), je kleiner die Varianz in der Grundgesamtheit und je größer der Stichprobenumfang ist. Da die Varianz in der Grundgesamtheit in der Regel unbekannt ist, wird der Standardfehler mit der Stichprobenvarianz geschätzt.</p>
+<p>Der Schätzung des Standardfehlers liegt die Beobachtung zugrunde, dass Stichprobenmittelwerte normalverteilt sind und mit zunehmender Stichprobengröße immer genauer werden.</p>
 <section id="die-normalverteilung" class="level3">
 <h3 class="anchored" data-anchor-id="die-normalverteilung">Die Normalverteilung</h3>
-<p>Der Schätzung des Standardfehlers liegt die Beobachtung zugrunde, dass Stichprobenmittelwerte normalverteilt sind und mit zunehmender Stichprobengröße immer genauer werden.</p>
 <p>Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit, also den Erwartungswert. Der Erwartungswert eines sechsseitigen Würfels ist:</p>
 <p><span class="math display">\[
 \frac{1}{6} \sum_{i=1}^{i=6}(x_i) ~ = ~ 3,5
 \]</span></p>
+<p>Erwartungsverteilung für n = 1 und für n = 2 ist illustrativ. Für einen Würfel gibt es 6 mögliche Ergebnisse, für 2 Würfel 6 * 6 mögliche Ergebnisse. Es gibt eine Kombination für den Wert 2, 2 Kombinationen für den Wert 3, usw.</p>
 <p>Dies lässt sich mit einem mit Python simulierten Würfelexperiment verdeutlichen. In dem simulierten Experiment würfeln 10 Personen jeweils 5, 10 und 20 Mal und bilden anschließend den Mittelwert der Augen.</p>
 <p><strong>to do: Dichtekurve der Normalverteilung mit den Parametern plotten</strong><br>
 Der Erwartungswert ist der höchste Punkt der Kurve. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.</p>
 <p>Formel bei MB im Skript S. 52 ist anders gestellt als die unten</p>
 <p><span class="math display">\[
-f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
 \]</span></p>
 <p>The normal distribution function, also known as the Gaussian distribution, is a continuous probability distribution characterized by its bell-shaped curve. It’s defined by two parameters: the mean (μ) and the standard deviation (σ). The probability density function (PDF) for a normal distribution is given by f(x) = (1/√(2πσ²)) * e^(-(x-μ)² / (2σ²))</p>
 <p>Erwartungswert und Standardabweichung sind für die Grundgesamtheit bekannt. <strong>in eigener Zelle ausrechnen</strong></p>
-<div id="c5fb89ed" class="cell" data-execution_count="2">
+<div id="f70a9fec" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>personen <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 5 Würfe</span></span>
@@ -438,17 +439,17 @@ f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\ri
 <span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>N: 10 kleinster Mittelwert: 2.40 größter Mittelwert: 5.00 Stichprobenmittelwert: 3.66
+<pre><code>N: 10 kleinster Mittelwert: 3.00 größter Mittelwert: 5.80 Stichprobenmittelwert: 4.12
 
-N: 10 kleinster Mittelwert: 2.80 größter Mittelwert: 4.10 Stichprobenmittelwert: 3.37
+N: 10 kleinster Mittelwert: 2.60 größter Mittelwert: 4.70 Stichprobenmittelwert: 3.36
 
-N: 10 kleinster Mittelwert: 2.85 größter Mittelwert: 4.40 Stichprobenmittelwert: 3.45
+N: 10 kleinster Mittelwert: 2.75 größter Mittelwert: 4.00 Stichprobenmittelwert: 3.48
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-3-output-2.png" width="662" height="470" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-3-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -460,11 +461,11 @@ N: 10 kleinster Mittelwert: 2.85 größter Mittelwert: 4.40 Stichprobenmittelwer
 <ul>
 <li>xlim anpassen</li>
 </ul>
-<div id="a32785db" class="cell" data-execution_count="3">
+<div id="4a7b28db" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-4-output-1.png" width="589" height="449" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -501,7 +502,7 @@ Hinweis&nbsp;1.1: Standardabweichung und Varianz in der Grundgesamtheit
 <div id="lst-readfile" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <div aria-describedby="lst-readfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="c14a15f7" class="cell" data-execution_count="4">
+<div id="f27c9dcc" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/ToothGrowth.csv"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>meerschweinchen <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, <span class="op">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  names <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'len'</span>, <span class="st">'supp'</span>, <span class="st">'dose'</span>], dtype <span class="op">=</span> {<span class="st">'ID'</span>: <span class="st">'int'</span>, <span class="st">'len'</span>: <span class="st">'float'</span>, <span class="st">'dose'</span>: <span class="st">'float'</span>, <span class="st">'supp'</span>: <span class="st">'category'</span>})</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -514,11 +515,11 @@ Code-Block&nbsp;1.1
 </div>
 <p>Crampton, E. W. 1947. „THE GROWTH OF THE ODONTOBLASTS OF THE INCISOR TOOTH AS A CRITERION OF THE VITAMIN C INTAKE OF THE GUINEA PIG“. The Journal of Nutrition 33 (5): 491–504. <a href="https://doi.org/10.1093/jn/33.5.491" class="uri">https://doi.org/10.1093/jn/33.5.491</a></p>
 <p>Der Datensatz kann in R mit dem Befehl “ToothGrowth” aufgerufen werden.</p>
-<div id="aaefd243" class="cell" data-execution_count="5">
+<div id="64a5b91e" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-6-output-1.png" alt="Illustrative Darstellung der Zahnlänge in der Spalte 'len'" width="585" height="449" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img" alt="Illustrative Darstellung der Zahnlänge in der Spalte 'len'"></p>
 </figure>
 </div>
 </div>
@@ -527,7 +528,7 @@ Code-Block&nbsp;1.1
 <p>&nbsp;</p>
 <p><strong>Berechnen Sie den arithmetischen Mittelwert, die Varianz, die Standardabweichung und den Stichprobenfehler der Messreihe zur Zahnlänge (len). Verwenden Sie dazu die vorgestellten Formeln.</strong></p>
 <p>Das Ergebnis könnte so aussehen:</p>
-<div id="579fa88b" class="cell" data-execution_count="6">
+<div id="b4986a0b" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>N: 60
 arithmetisches Mittel: 18.81
@@ -548,7 +549,7 @@ Tipp&nbsp;1.1: Musterlösung Verteilungskenngrößen
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="10dc1aa6" class="cell" data-execution_count="7">
+<div id="a450fc7a" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verteilungskennwerte(x, output <span class="op">=</span> <span class="va">True</span>):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Anzahl Messwerte bestimmen</span></span>
@@ -595,7 +596,7 @@ Beispiel&nbsp;1.1: Varianz und Standardabweichung mit NumPy und Pandas
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die Varianz und Standardabweichung werden mit den Funktion <code>np.var()</code> und <code>np.std()</code> bzw. den Methoden <code>pd.var()</code> und <code>pd.std()</code> berechnet. Der Parameter <code>ddof</code> (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy 0 ist, berechnet Pandas mit dem Standardwert <code>ddof=1</code> die Stichprobenvarianz.</p>
-<div id="d8273253" class="cell" data-execution_count="8">
+<div id="7473f7d6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Varianz:"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy:</span><span class="ch">\t</span><span class="sc">{</span>np<span class="sc">.</span>var(tooth_length)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pandas:</span><span class="ch">\t</span><span class="sc">{</span>tooth_length<span class="sc">.</span>var()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
@@ -715,12 +716,12 @@ Abbildung&nbsp;1.3: Indirekte Messung
 <h2 data-number="1.3" class="anchored" data-anchor-id="normalverteilung"><span class="header-section-number">1.3</span> Normalverteilung</h2>
 <p><strong>Histogramm und Standardabweichung</strong></p>
 <p>Der Meerschweinchen-Datensatz ist nicht gleichverteilt (die Gruppengrößen sind gleich und die Länge nähert sich einem natürlichen Maximum an.)</p>
-<div id="adc8ca15" class="cell" data-execution_count="9">
+<div id="2a7b59b0" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>meerschweinchen[<span class="st">'len'</span>].plot(kind <span class="op">=</span> <span class="st">'hist'</span>, bins <span class="op">=</span> <span class="dv">7</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-10-output-1.png" width="587" height="411" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
