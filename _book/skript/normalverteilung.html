@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>normalverteilung</title>
+<title>2&nbsp; Die Normalverteilung – Bausteine Computergestützter Datenanalyse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,16 +57,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="normalverteilung_files/libs/clipboard/clipboard.min.js"></script>
-<script src="normalverteilung_files/libs/quarto-html/quarto.js"></script>
-<script src="normalverteilung_files/libs/quarto-html/popper.min.js"></script>
-<script src="normalverteilung_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="normalverteilung_files/libs/quarto-html/anchor.min.js"></script>
-<link href="normalverteilung_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="normalverteilung_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="normalverteilung_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="normalverteilung_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="normalverteilung_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../skript/hooke.html" rel="next">
+<link href="../skript/einleitung.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e4aa0397115c41deec761c50bad4326d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script>
+<link rel="shortcut icon" href="skript/00-bilder/favicon_bcd_new.svg">
+<link rel="icon" type="image/x-icon" href="logo.ico">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -100,15 +137,92 @@ window.Quarto = {
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/normalverteilung.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Die Normalverteilung</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../skript/00-bilder/logo_with_text_new.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Methodenbaustein Sensordatenanalyse</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Methodenbaustein Sensordatenanalyse</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/einleitung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Das Prinzip von Messungen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/normalverteilung.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Die Normalverteilung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skript/hooke.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#normalverteilung-anpassen" id="toc-normalverteilung-anpassen" class="nav-link active" data-scroll-target="#normalverteilung-anpassen">Normalverteilung anpassen</a></li>
+  <li><a href="#das-paket-scipy" id="toc-das-paket-scipy" class="nav-link" data-scroll-target="#das-paket-scipy">Das Paket SciPy</a></li>
+  <li><a href="#aufgabe-normalverteilung" id="toc-aufgabe-normalverteilung" class="nav-link" data-scroll-target="#aufgabe-normalverteilung">Aufgabe Normalverteilung</a></li>
+  <li><a href="#konfidenzintervalle" id="toc-konfidenzintervalle" class="nav-link" data-scroll-target="#konfidenzintervalle">Konfidenzintervalle</a></li>
+  <li><a href="#die-t-verteilung" id="toc-die-t-verteilung" class="nav-link" data-scroll-target="#die-t-verteilung">Die t-Verteilung</a></li>
+  <li><a href="#zusammenfassung" id="toc-zusammenfassung" class="nav-link" data-scroll-target="#zusammenfassung"><span class="header-section-number">2.1</span> Zusammenfassung</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Die Normalverteilung</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Die Normalverteilung</span></h1>
 </div>
 
 
@@ -132,7 +246,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note&nbsp;1: Häufigkeitsverteilung von Würfelergebnissen
+Beispiel&nbsp;2.1: Häufigkeitsverteilung von Würfelergebnissen
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -140,10 +254,10 @@ Note&nbsp;1: Häufigkeitsverteilung von Würfelergebnissen
 <div class="callout-body-container callout-body">
 <p>Für einen Würfel gibt es 6 mögliche Ergebnisse, für 2 Würfel 6 * 6 mögliche Kombinationen, für 3 Würfel 6 * 6 * 6 Kombinationen und so weiter. Weil viele Kombinationen wertgleich sind, kommen Wurfergebnisse in der Nähe des Erwartungswerts häufiger vor als beispielsweise ein Einserpasch.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">ein Würfel</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">zwei Würfel</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">drei Würfel</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">ein Würfel</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">zwei Würfel</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">drei Würfel</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="0a2432df" class="cell" data-execution_count="2">
+<div id="945b77f1" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ein_würfel <span class="op">=</span> []</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
@@ -158,7 +272,7 @@ Note&nbsp;1: Häufigkeitsverteilung von Würfelergebnissen
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.bar(ein_würfel.unique(), ein_würfel.value_counts())</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Augenzahl'</span>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Anzahl Kombinationen'</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Häufigkeitsverteilung der Augensumme:
 1    1
@@ -181,7 +295,7 @@ Durchschnitt: 3.5</code></pre>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="354b7038" class="cell" data-execution_count="3">
+<div id="bee87aeb" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>zwei_würfel <span class="op">=</span> []</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
@@ -202,7 +316,7 @@ Durchschnitt: 3.5</code></pre>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Augenzahl'</span>)</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Anzahl Kombinationen'</span>)</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Häufigkeitsverteilung der Augensumme:
 2     1
@@ -231,7 +345,7 @@ Durchschnitt pro Würfel: 3.5</code></pre>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div id="e425d73b" class="cell" data-execution_count="4">
+<div id="5cb87a85" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>drei_würfel <span class="op">=</span> []</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
@@ -255,7 +369,7 @@ Durchschnitt pro Würfel: 3.5</code></pre>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Augenzahl'</span>)</span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel (<span class="st">'Anzahl Kombinationen'</span>)</span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Häufigkeitsverteilung der Augensumme:
 3      1
@@ -309,13 +423,13 @@ Durchschnitt pro Würfel: 3.5</code></pre>
 install.packages("palmerpenguins")
 library(palmerpenguins)</code></pre>
 <p>Horst AM, Hill AP und Gorman KB. 2020. palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. <a href="https://allisonhorst.github.io/palmerpenguins/" class="uri">https://allisonhorst.github.io/palmerpenguins/</a>. doi: 10.5281/zenodo.3960218.</p>
-<div id="eda5fe57" class="cell" data-execution_count="5">
+<div id="fdf494db" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> <span class="st">"c:/Users/mapoe004/Desktop/Arbeitsordner Maik Poetzsch/BCD/Bausteine/Werkzeugbausteine/w-Pandas/w-pandas/skript/01-daten/penguins.csv"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tiere mit unvollständigen Einträgen entfernen</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>penguins.drop(np.where(penguins.<span class="bu">apply</span>(pd.isna).<span class="bu">any</span>(axis <span class="op">=</span> <span class="dv">1</span>))[<span class="dv">0</span>], inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.info(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.info(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)<span class="op">;</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 Index: 333 entries, 0 to 343
@@ -339,8 +453,8 @@ None
 </div>
 <p>&nbsp;</p>
 <p>Der Datensatz enthält Daten für drei Pinguinarten.</p>
-<div id="b4770919" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="62ea1b58" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>species
 Adelie       146
@@ -349,12 +463,12 @@ Gentoo       119
 dtype: int64</code></pre>
 </div>
 </div>
-<p>Unter anderen wurde das Körpergewicht in Gramm gemessen, das in der Spalte ‘body_mass_g’ eingetragen ist.</p>
+<p>Unter anderen wurde das Körpergewicht in Gramm gemessen, das in der Spalte ‘body_mass_g’ eingetragen ist. Die Gewichtsverteilung der drei Spezies wird jeweils mit einem Histogramm dargestellt. Außerdem werden für jede Spezies der Stichprobenmittelwert und die Stichprobenstandardabweichung bestimmt. Mit diesen Werten kann eine Normalverteilungskurve berechnet und in das Histogramm eingezeichnet werden (wie das geht, wird in <a href="#nte-normalverteilungdarstellen" class="quarto-xref">Beispiel&nbsp;<span>2.3</span></a> gezeigt). So kann optisch geprüft werden, ob die empirische Verteilung der Werte in der Stichprobe einer Normalverteilung mit den selben Werten für Mittelwert und Standardabspreichung entspricht.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Grafik</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Code</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Grafik</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="d31839da" class="cell" data-execution_count="7">
+<div id="ea89c6d9" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -365,7 +479,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div id="f1734e19" class="cell" data-execution_count="8">
+<div id="ce2c3dad" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2, ax3) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="fl">7.5</span>, <span class="dv">6</span>), sharey <span class="op">=</span> <span class="va">True</span>, layout <span class="op">=</span> <span class="st">'tight'</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Gewichtsverteilung von Pinguinen'</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -423,7 +537,7 @@ dtype: int64</code></pre>
 <span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>ax3.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -435,7 +549,7 @@ dtype: int64</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important&nbsp;1: Histogramm
+Definition&nbsp;2.1: Histogramm
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -448,17 +562,17 @@ Important&nbsp;1: Histogramm
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note&nbsp;2: Histogramm berechnen und visualisieren
+Beispiel&nbsp;2.2: Histogramm berechnen und visualisieren
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Als Beispiel wird die Länge der zahnbildenden Zellen der Meerschweinchen verwendet, die eine Vitamin-C-Dosis von 2 erhielten.</p>
-<div id="9887bd89" class="cell" data-execution_count="9">
+<div id="3e4493ce" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dose2 <span class="op">=</span> meerschweinchen.loc[meerschweinchen[<span class="st">'dose'</span>] <span class="op">==</span> <span class="dv">2</span>, <span class="st">'len'</span>]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="op">*</span><span class="bu">list</span>(dose2)) <span class="co"># * = Ausgabe ohne Kommata</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"N"</span>, <span class="bu">len</span>(dose2), <span class="st">"Minimum:"</span>, dose2.<span class="bu">min</span>(), <span class="st">"Maximum:"</span>, dose2.<span class="bu">max</span>(), <span class="st">"Spannweite"</span>, dose2.<span class="bu">max</span>() <span class="op">-</span> dose2.<span class="bu">min</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"N"</span>, <span class="bu">len</span>(dose2), <span class="st">"Minimum:"</span>, dose2.<span class="bu">min</span>(), <span class="st">"Maximum:"</span>, dose2.<span class="bu">max</span>(), <span class="st">"Spannweite"</span>, dose2.<span class="bu">max</span>() <span class="op">-</span> dose2.<span class="bu">min</span>())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>23.6 18.5 33.9 25.5 26.4 32.5 26.7 21.5 23.3 29.5 25.5 26.4 22.4 24.5 24.8 30.9 26.4 27.3 29.4 23.0
 N 20 Minimum: 18.5 Maximum: 33.9 Spannweite 15.399999999999999</code></pre>
@@ -477,9 +591,9 @@ N 20 Minimum: 18.5 Maximum: 33.9 Spannweite 15.399999999999999</code></pre>
 </ul></li>
 </ul>
 <p>Für die überschaubare Anzahl an Werten wird ein Histogramm mit 5 Klassen berechnet. Zum Vergleich wird auch die Häufigkeitsdichte ausgegeben.</p>
-<div id="ab69e3f8" class="cell" data-execution_count="10">
+<div id="d0e351d2" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Häufigkeitsdichte:"</span>, np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>)[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Häufigkeitsdichte:"</span>, np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>)[<span class="dv">0</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(array([2, 5, 8, 2, 3]), array([18.5 , 21.58, 24.66, 27.74, 30.82, 33.9 ]))
 Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</code></pre>
@@ -487,19 +601,19 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 <p>Die Funktion <code>np.histogram()</code> gibt an erster Stelle ein array mit den absoluten Häufigkeiten bzw. der Häufigkeitsdichte jeder Klasse zurück. An zweiter Stelle wird ein array mit den x-Positionen der Klassenrechtecke zurückgegeben - dabei wird für jede Klasse die Position der linken Seite sowie für die letzte Klasse zusätzlich die Position der rechten Seite des Rechtecks ausgegeben. Für 5 Klassen werden also 6 Positionswerte ausgegeben.</p>
 <p>Die Klassenbreite kann zum Beispiel mit der Methode <code>np.diff()</code> ausgegeben werden.</p>
-<div id="97e6d9fd" class="cell" data-execution_count="11">
+<div id="acc0fe3e" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>hist_abs, bin_edges <span class="op">=</span> np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>klassenbreite <span class="op">=</span> np.diff(bin_edges)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(klassenbreite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(klassenbreite)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[3.08 3.08 3.08 3.08 3.08]</code></pre>
 </div>
 </div>
 <p>Durch Multiplikation der Häufigkeitsdichte mit der Klassenbreite können die relativen Häufigkeiten berechnet werden.</p>
-<div id="621ec11c" class="cell" data-execution_count="12">
+<div id="5c733568" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hist_dichte <span class="op">=</span> np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>)[<span class="dv">0</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>hist_relativ <span class="op">=</span> hist_dichte <span class="op">*</span> klassenbreite</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hist_relativ)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hist_relativ)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[0.1  0.25 0.4  0.1  0.15]</code></pre>
 </div>
@@ -508,10 +622,10 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <p>Ein Histogramm kann mit der Funktion <code>plt.hist(x, bins = None, *, range = None, density = False)</code> aufgerufen werden, welche intern <code>np.histogram()</code> für die Berechnungen aufruft. Die Parameter der Funktion entsprechenen denen der NumPy-Funktion, wobei mit dem Argument <code>x</code> die darzustellenden Daten übergeben werden. Zusätzlich können verschiedene Grafikparameter übergeben werden.</p>
 <p>Die Funktion hat 3 Rückgabewerte: die absolute Häufigkeit der Klassen (bzw. wenn <code>density = True</code> die Häufigkeitsdichte), die x-Position der Rechtecke.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">absolute Häufigkeit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">relative Häufigkeit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">Häufigkeitsdichte</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">absolute Häufigkeit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">relative Häufigkeit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Häufigkeitsdichte</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div id="2224155d" class="cell" data-execution_count="13">
+<div id="a87db237" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.hist(dose2, bins <span class="op">=</span> <span class="dv">5</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -519,7 +633,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Länge der zahnbildenden Zellen (μm)'</span>)</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'absolute Häufigkeit'</span>)</span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -531,7 +645,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>Eine Darstellung der relativen Häufigkeiten ist nicht direkt möglich.</p>
-<div id="377da565" class="cell" data-execution_count="14">
+<div id="ea37267e" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>hist_dichte, bins, ignore <span class="op">=</span> plt.hist(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -548,7 +662,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Länge der zahnbildenden Zellen (μm)'</span>)</span>
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'relative Häufigkeit'</span>)</span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -559,7 +673,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div id="ea25dd8a" class="cell" data-execution_count="15">
+<div id="e4f62883" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.hist(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -567,7 +681,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Länge der zahnbildenden Zellen (μm)'</span>)</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -582,10 +696,10 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <p>&nbsp;</p>
 <p>Histogramme sind nicht immer gut geeignet, um die Verteilung einer Stichprobe zu charakterisieren. Der visuelle Eindruck hängt von der gewählten Klassenzahl ab - ein Beispiel:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">3 Klassen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">5 Klassen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false" href="">7 Klassen</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">3 Klassen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">5 Klassen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">7 Klassen</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div id="df9efc77" class="cell" data-execution_count="16">
+<div id="9c1db100" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.hist(meerschweinchen[<span class="st">'len'</span>], bins <span class="op">=</span> <span class="dv">3</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -593,7 +707,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Länge der zahnbildenden Zellen (μm)'</span>)</span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -604,7 +718,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div id="e6c3db0b" class="cell" data-execution_count="17">
+<div id="f795f161" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plt.hist(meerschweinchen[<span class="st">'len'</span>], bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -612,7 +726,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Länge der zahnbildenden Zellen (μm)'</span>)</span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -623,7 +737,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-<div id="4d215bf8" class="cell" data-execution_count="18">
+<div id="451d6277" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.hist(meerschweinchen[<span class="st">'len'</span>], bins <span class="op">=</span> <span class="dv">7</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -631,7 +745,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Länge der zahnbildenden Zellen (μm)'</span>)</span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -650,38 +764,37 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 </div>
 <!-- &nbsp; -->
-<p>Mit einer Dichtekurve wird optisch der Übergang zu einem Histogramm mit einer gegen unendlich gehenden Anzahl von Klassen vollzogen. Dadurch gehen zwar Details verloren, aber es wird eine klare Darstellung erreicht.</p>
-<p>Die Dichtefunktion der Normalverteilung beschreibt, welcher Anteil der Werte innerhalb eines bestimmten Wertebereichs liegt. Bei der Berechnung der relativen Häufigkeiten in <a href="#nte-histogram" class="quarto-xref">Note&nbsp;2</a> haben wir gesehen, dass die Summe der relativen Häufigkeiten 1 ist. Dies entspricht der Fläche unterhalb der Dichtekurve.</p>
+<p>Die Dichtefunktion der Normalverteilung beschreibt, welcher Anteil der Werte innerhalb eines bestimmten Wertebereichs liegt. Bei der Berechnung der relativen Häufigkeiten in <a href="#nte-histogram" class="quarto-xref">Beispiel&nbsp;<span>2.2</span></a> haben wir gesehen, dass die Summe der relativen Häufigkeiten 1 ist. Dies entspricht der Fläche unterhalb der Dichtekurve.</p>
 <p>Die Dichtefunktion der Normalverteilung ist definiert als:</p>
 <p><span class="math display">\[
 f(x) = \frac{1}{\sigma \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
 \]</span></p>
-<p>Der Erwartungswert ist der höchste Punkt der Kurve. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.</p>
+<p>Die Form der Normalverteilung ergibt sich aus dem Faktor <span class="math inline">\(e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}\)</span> der Funktionsgleichung. Das Maximum der Funktion liegt am Punkt <span class="math inline">\(x = \mu\)</span>. Von dort fällt sie symmetrisch ab und nähert sich für gegen unendlich gehende x-Werte der x-Achse an. Der Abfall der Funktion erfolgt umso schneller, je kleiner <span class="math inline">\(\sigma\)</span> ist. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.</p>
 <p>Eine Normalverteilung mit dem Mittelwert <span class="math inline">\(\mu = 0\)</span> und einer Standardabweichung <span class="math inline">\(\sigma = 1\)</span> heißt Standardnormalverteilung.</p>
-<section id="normalverteilung-anpassen" class="level4">
-<h4 class="anchored" data-anchor-id="normalverteilung-anpassen">Normalverteilung anpassen</h4>
-<p>Um die Verteilung in einem Datensatz durch eine Normalverteilung anzunähern, werden dessen Mittelwert und Standardabweichung in die Funktionsgleichung der Normalverteilung eingesetzt. Mit Python können die Berechnungen direkt vorgenommen werden (siehe folgendes Beispiel). In der Handhabung einfacher sind die vom Paket SciPy bereitgestellten Funktionen, die im nächsten Abschnitt vorgestellt werden.</p>
-<div id="nte-normalverteilunganpassen" class="callout callout-style-default callout-note callout-titled">
+<section id="normalverteilung-anpassen" class="level3">
+<h3 class="anchored" data-anchor-id="normalverteilung-anpassen">Normalverteilung anpassen</h3>
+<p>Um die Verteilung in einem Datensatz durch eine Normalverteilung anzunähern, werden dessen Mittelwert und Standardabweichung in die Funktionsgleichung der Normalverteilung eingesetzt. Mit Python können die Berechnungen direkt vorgenommen werden. In der Handhabung einfacher sind die vom Paket SciPy bereitgestellten Funktionen, die im nächsten Abschnitt ausführlicher vorgestellt werden. Das folgende Beispiel zeigt die Berechnung und Visualisierung mit Python und mit SciPy.</p>
+<div id="nte-normalverteilungdarstellen" class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note&nbsp;3: Dichtekurven berechnen und darstellen
+Beispiel&nbsp;2.3: Dichtekurven berechnen und darstellen
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Betrachten wir die Verteilungskennwerte der Gruppe der Meerschweinchen, die eine Dosis von 2 Milligramm Vitamin C erhielten.</p>
-<div id="934b3d92" class="cell" data-execution_count="19">
+<div id="e739d069" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(verteilungskennwerte(dose2), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)<span class="op">;</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>dose2_mean <span class="op">=</span> verteilungskennwerte(dose2, output <span class="op">=</span> <span class="va">False</span>)[<span class="dv">1</span>]</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>dose2_std <span class="op">=</span> verteilungskennwerte(dose2, output <span class="op">=</span> <span class="va">False</span>)[<span class="dv">4</span>]</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Exakter Mittelwert:"</span>, dose2_mean)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Exakte Standardabweichung:"</span>, dose2_std)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Exakte Standardabweichung:"</span>, dose2_std)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>N: 20
 arithmetisches Mittel: 26.10
@@ -702,7 +815,7 @@ f(x) = \frac{1}{3.7742 \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742
 f(x) = 0.1057 \times e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742}\right)^2}
 \]</span></p>
 <p>In Python können die Berechnungen umgesetzt und grafisch dargestellt werden:</p>
-<div id="6d0db0f5" class="cell" data-execution_count="20">
+<div id="8b8bc9ce" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram der Häufigkeitsdichte zeichnen</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plt.hist(dose2, bins <span class="op">=</span> <span class="dv">7</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
@@ -713,17 +826,19 @@ f(x) = 0.1057 \times e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742}\right)^2}
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalverteilung berechnen.</span></span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(dose2, bins <span class="op">=</span> <span class="dv">7</span>)</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Dichtefunktion der Normalverteilung berechnen</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (dose2_std <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> dose2_mean) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> dose2_std <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungsfunktion mit Python berechnen</span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (dose2_std <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> dose2_mean) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> dose2_std <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>plt.plot(x_values, y_values, label <span class="op">=</span> <span class="st">'Normalverteilung'</span>, lw <span class="op">=</span> <span class="dv">4</span>)</span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungsfunktion mit Python berechnen</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (dose2_std <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> dose2_mean) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> dose2_std <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>plt.plot(x_values, y_values, label <span class="op">=</span> <span class="st">'Normalverteilung'</span>, lw <span class="op">=</span> <span class="dv">4</span>)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">## scipy</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>y_values_scipy <span class="op">=</span> scipy.stats.norm.pdf(x_values, loc <span class="op">=</span> dose2_mean, scale <span class="op">=</span> dose2_std)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>plt.plot(x_values, y_values_scipy, label <span class="op">=</span> <span class="st">'SciPy'</span>, linestyle <span class="op">=</span> <span class="st">'dashed'</span>)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -741,17 +856,13 @@ f(x) = 0.1057 \times e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742}\right)^2}
 </section>
 <section id="das-paket-scipy" class="level3">
 <h3 class="anchored" data-anchor-id="das-paket-scipy">Das Paket SciPy</h3>
-<p>Funktionen zur Berechnung von Dichtekurven können über das Modul stats aus dem Paket SciPy importiert werden. Das Modul umfasst zahlreiche Verteilungen, bspw. auch die t-Verteilung. Funktionen für die Normalverteilung werden wie folgt aufgerufen:</p>
-<div id="eca4420b" class="cell" data-execution_count="21">
+<p>Funktionen zur Berechnung von Dichtekurven können über das Modul stats aus dem Paket SciPy importiert werden. Das Modul umfasst zahlreiche Verteilungen.Funktionen für die Normalverteilung werden wie folgt aufgerufen:</p>
+<div id="de0df691" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Häufigkeitsdichte der Normalverteilung bei x = 0:"</span>, scipy.stats.norm.pdf(<span class="dv">0</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># t Verteilungen</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Häufigkeitsdichte der t-verteilung bei x = 0:"</span>, scipy.stats.t.pdf(<span class="dv">0</span>, df <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Häufigkeitsdichte der Normalverteilung bei x = 0:"</span>, scipy.stats.norm.pdf(<span class="dv">0</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Häufigkeitsdichte der Normalverteilung bei x = 0: 0.3989422804014327 
-
-Häufigkeitsdichte der t-verteilung bei x = 0: 0.31830988618379075</code></pre>
+</code></pre>
 </div>
 </div>
 <p>Für die Normalverteilung sind vier Funktionen relevant:</p>
@@ -760,7 +871,7 @@ Häufigkeitsdichte der t-verteilung bei x = 0: 0.31830988618379075</code></pre>
 </div>
 <div class="quarto-layout-panel" data-layout="[45, 55]">
 <div class="quarto-layout-row">
-<div id="dcbcda32" class="cell quarto-layout-cell" data-execution_count="22" style="flex-basis: 45.0%;justify-content: flex-start;">
+<div id="6c12a128" class="cell quarto-layout-cell" data-execution_count="22" style="flex-basis: 45.0%;justify-content: flex-start;">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -775,7 +886,7 @@ Die Funktion <code>scipy.stats.norm.pdf(x)</code> berechnet die Dichte der Norma
 </div>
 </div>
 <div class="quarto-layout-row">
-<div id="e0ba4599" class="cell quarto-layout-cell" data-execution_count="23" style="flex-basis: 45.0%;justify-content: flex-start;">
+<div id="fd1c3dfa" class="cell quarto-layout-cell" data-execution_count="23" style="flex-basis: 45.0%;justify-content: flex-start;">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -790,7 +901,7 @@ Die Funktion <code>scipy.stats.norm.cdf(x)</code> berechnet den Anteil der Werte
 </div>
 </div>
 <div class="quarto-layout-row">
-<div id="9f42259b" class="cell quarto-layout-cell" data-execution_count="24" style="flex-basis: 45.0%;justify-content: flex-start;">
+<div id="bad599ec" class="cell quarto-layout-cell" data-execution_count="24" style="flex-basis: 45.0%;justify-content: flex-start;">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -805,7 +916,7 @@ Die Funktion <code>scipy.stats.norm.ppf(q)</code> ist die Quantilfunktion der No
 </div>
 </div>
 <div class="quarto-layout-row">
-<div id="0c296c53" class="cell quarto-layout-cell" data-execution_count="25" style="flex-basis: 45.0%;justify-content: flex-start;">
+<div id="e8a7c7f4" class="cell quarto-layout-cell" data-execution_count="25" style="flex-basis: 45.0%;justify-content: flex-start;">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -820,58 +931,68 @@ Die Funktion <code>scipy.stats.norm.rvs(size)</code> zieht <code>size</code> Zuf
 </div>
 </div>
 </div>
-<p>Mit den Parametern <code>loc = mittelwert</code> und <code>scale = standardabweichung</code> kann die Form der Normalverteilung angepasst werden.</p>
+<p>Mit den Parametern <code>loc = mittelwert</code> und <code>scale = standardabweichung</code> kann die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit <code>loc = 0</code> und <code>scale = 1</code> berechnet.</p>
 </section>
 <section id="aufgabe-normalverteilung" class="level3">
 <h3 class="anchored" data-anchor-id="aufgabe-normalverteilung">Aufgabe Normalverteilung</h3>
-<p><strong>hier ein paar Aufgaben, welche Anteile… usw. wenn scale = 15 und und mean = 100 ist (IQ-Verteilung)</strong></p>
-<div id="41506ed3" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>plt.hist(dose2, bins <span class="op">=</span> <span class="dv">7</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Achsenbeschriftung</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Länge der zahnbildenden Zellen (μm)'</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalverteilung berechnen.</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(dose2, bins <span class="op">=</span> <span class="dv">7</span>)</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungsfunktion mit Python berechnen</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (dose2_std <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> dose2_mean) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> dose2_std <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>plt.plot(x_values, y_values, label <span class="op">=</span> <span class="st">'Normalverteilung'</span>, lw <span class="op">=</span> <span class="dv">4</span>)</span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co">## scipy</span></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>y_values_scipy <span class="op">=</span> scipy.stats.norm.pdf(x_values, loc <span class="op">=</span> dose2_mean, scale <span class="op">=</span> dose2_std)</span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>plt.plot(x_values, y_values_scipy, label <span class="op">=</span> <span class="st">'scipy'</span>, linestyle <span class="op">=</span> <span class="st">'dashed'</span>)</span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="normalverteilung_files/figure-html/cell-27-output-1.png" width="597" height="449" class="figure-img"></p>
-</figure>
+<p>Möglicherweise haben Sie schon einmal von Mensa International gehört, einer Vereinigung für Hochbegabte. Wer Mitglied in dieser Vereinigung werden möchte, soll einen höheren Intelligenzquotienten (IQ) haben als 98 % der Bevölkerung seines:ihres Herkunftslandes (<a href="https://de.wikipedia.org/wiki/Mensa_International">Wikipedia</a>).</p>
+<ol type="1">
+<li><p>Wenn der durchschnittliche IQ 100 und die Standardabweichung 15 beträgt, welchen IQ müssten Sie haben, um bei Mensa International aufgenommen zu werden?</p></li>
+<li><p>Mensa International ist nicht die einzige Organisation ihrer Art, andere Organisationen haben sogar noch strengere Kriterien. Welcher IQ wird benötigt, um hier Mitglied zu werden?</p></li>
+</ol>
+<ul>
+<li>Intertel (Kriterium: IQ aus dem höchsten 1 %)</li>
+<li>Triple Nine Society (Kriterium: IQ aus dem höchsten 0,1 %)</li>
+<li>Prometheus Society (Kriterium: IQ aus dem höchsten 0,003 %)</li>
+</ul>
+<ol start="3" type="1">
+<li>Der IQ ist nicht mit angeborener Intelligenz gleichzusetzen und auch abhängig davon, wie viel Gelegenheit man zum Gehirntraining hatte, etwa durch den Schulbesuch. Der niedrigste durchschnittliche IQ wurde mit 71 <a href="https://www.laenderdaten.info/iq-nach-laendern.php">im Land Niger</a> gemessen. Angenommen Sie hätten einen IQ von 100. Würden Sie in Niger das Kriterium der Mensa International erfüllen?</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Musterlösung Normalverteilung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Aufgabe 1: Einen IQ von mehr als …</p>
+<div id="805621f4" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.ppf(loc <span class="op">=</span> <span class="dv">100</span>, scale <span class="op">=</span> <span class="dv">15</span>, q <span class="op">=</span> <span class="fl">0.98</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>130.80623365947733</code></pre>
+</div>
+</div>
+<p>Aufgabe 2: Sie benötigen einen IQ von mindestens…</p>
+<div id="7c1c64ca" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.ppf(loc <span class="op">=</span> <span class="dv">100</span>, scale <span class="op">=</span> <span class="dv">15</span>, q <span class="op">=</span> <span class="fl">0.99</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.ppf(loc <span class="op">=</span> <span class="dv">100</span>, scale <span class="op">=</span> <span class="dv">15</span>, q <span class="op">=</span> <span class="fl">0.999</span>))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.ppf(loc <span class="op">=</span> <span class="dv">100</span>, scale <span class="op">=</span> <span class="dv">15</span>, q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (<span class="fl">0.003</span> <span class="op">/</span> <span class="dv">100</span>)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>134.8952181106126
+146.3534845925172
+160.19216216677682</code></pre>
+</div>
+</div>
+<p>Aufgabe 3: Nicht ganz.</p>
+<div id="9e9441a4" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.cdf(loc <span class="op">=</span> <span class="dv">71</span>, scale <span class="op">=</span> <span class="dv">15</span>, x <span class="op">=</span> <span class="dv">100</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.9734024259789904</code></pre>
 </div>
 </div>
 </div>
+</div>
+</div>
+<p>Übrigens: Wie <a href="https://www.spiegel.de/lebenundlernen/intelligenz-von-studenten-neugier-schlaegt-iq-a-816084.html">der Spiegel berichtet</a>, schneiden Studierende mit mittelmäßigem Intelligenzquotienten ebenso erfolgreich ab wie Hochbegabte, vorausgesetzt sie sind neugierig genug und arbeiten gewissenhaft.</p>
 </section>
-<section id="aufgabe-normalverteilung-1" class="level3">
-<h3 class="anchored" data-anchor-id="aufgabe-normalverteilung-1">Aufgabe Normalverteilung</h3>
-<p><strong>Aufgabe: Histogramm von (meerschweinchen[‘len’] mit 7 bins und mit Normalverteilungskurve zeichnen</strong></p>
-<div id="afe8c2f2" class="cell" data-execution_count="27">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="normalverteilung_files/figure-html/cell-28-output-1.png" alt="Ein Histogramm mit 7 Klassen und eingezeichneter Normalverteilung. Die im Histogramm dargestellte Häufigkeitsdichte entspricht nicht der einer Normalverteilung." width="600" height="449" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Im nächsten Schritt wollen wir auf den tatsächlichen Mittelwert der Pinguine schließen</strong><br>
-<strong>Dafür muss die t-Verteilung eingeführt werden</strong></p>
-<p>Die Überlegung, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann, ist (beispielsweise für den Mittelwert) wie folgt:</p>
+<section id="konfidenzintervalle" class="level3">
+<h3 class="anchored" data-anchor-id="konfidenzintervalle">Konfidenzintervalle</h3>
+<p>Die Überlegung, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann, ist wie folgt:</p>
 <ol type="1">
 <li><p>Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streuen die Stichprobenwerte normalverteilt um den Mittelwert der Grundgesamtheit. Bei einer Normalverteilung liegen</p>
 <ul>
@@ -880,19 +1001,334 @@ Die Funktion <code>scipy.stats.norm.rvs(size)</code> zieht <code>size</code> Zuf
 <li>99,73 % aller Werte im Intervall <span class="math inline">\(\pm 3 ~ s\)</span>.</li>
 </ul></li>
 <li><p>Mit der gleichen Wahrscheinlichkeitsverteilung liegt der unbekannte Mittelwert der Grundgesamtheit um einen zufälligen Wert aus der Stichprobe.</p></li>
-<li><p>Der Erwartungswert kann mit einer gewissen Wahrscheinlichkeit aus dem Standardfehler des Mittelwerts einer Stichprobe geschätzt werden. Um das Konfidenzintervall zu bestimmen, muss eine Vertrauenswahrscheinlichkeit gewählt werden.</p>
+<li><p>Der Erwartungswert kann mit einer gewissen Wahrscheinlichkeit aus dem Standardfehler des Mittelwerts einer Stichprobe geschätzt werden. Man wählt dazu ein Konfidenzniveau, also eine Vertrauenswahrscheinlichkeit, dass der Erwartungswert tatsächlich im Bereich der Schätzung liegt. Der umgekehrte Fall, dass der Erwartungswert nicht im Bereich der Schätzung liegt, wird Signifikanz- oder Alphaniveau genannt und mit dem griechischen Buchstaben <span class="math inline">\(\alpha\)</span> (alpha) gekennzeichnet. <span class="math inline">\(\alpha\)</span> liegt im Bereich 0 - 1, das Konfidenzniveau ist <span class="math inline">\(1 - \alpha\)</span> (siehe: <a href="https://de.wikipedia.org/wiki/Fehler_1._und_2._Art">Fehler 1. und 2. Art</a>).</p>
 <ul>
 <li>der Erwartungswert liegt in 68,27 % aller Fälle im Intervall <span class="math inline">\(\pm 1 ~ \frac{s}{\sqrt{n}}\)</span>,</li>
 <li>der Erwartungswert liegt in 95,45 % aller Fälle im Intervall <span class="math inline">\(\pm 2 ~ \frac{s}{\sqrt{n}}\)</span> und</li>
 <li>der Erwartungswert liegt in 99,73 % aller Fälle im Intervall <span class="math inline">\(\pm 3 ~ \frac{s}{\sqrt{n}}\)</span>.</li>
 </ul></li>
 </ol>
-<p>Häufig wird das Konfidenzintervall 95 % gewählt, was <span class="math inline">\(\pm 1.96 ~ \frac{s}{\sqrt{n}}\)</span> entspricht . (Das gilt aber nur für große Stichproben. Für kleine n folgen die Stichprobenmittelwerte einer t-Verteilung. Man sagt, dass sich die Werte der t-Verteilung ab n &gt; 30 der Normalverteilung annähern. <strong>Hier müsste man eigentlich die t-Verteilung vorstellen</strong>.)</p>
-<p><strong>Die t-Verteilung müsste eingeführt werden.</strong> <a href="https://de.wikipedia.org/wiki/Studentsche_t-Verteilung">t-Verteilung</a></p>
-<p>statt: scipy.stats.norm.cdf(1) nimmt man: scipy.stats.t.cdf(1, df = 4), wobei df Stichprobengröße -1 ist.</p>
-<p>Für eine Stichprobengröße von 4 gilt: scipy.stats.t.cdf(1, df = 4) - scipy.stats.t.cdf(- 1, df = 4) np.float64(0.626099033699941) –&gt; 62,6 % der Werte</p>
-<p>scipy.stats.t.cdf(2, df = 4) - scipy.stats.t.cdf(- 2, df = 4) np.float64(0.8838834764831844)</p>
-<p>scipy.stats.t.cdf(2, df = 4) - scipy.stats.t.cdf(- 2, df = 4) np.float64(0.8838834764831844)</p>
+<p>Häufig wird das Alphaniveau <span class="math inline">\(\alpha = 0.05\)</span> bzw. das Konfidenzintervall 95 % gewählt, was <span class="math inline">\(\pm 1.96 ~ \frac{s}{\sqrt{n}}\)</span> entspricht. Dies gilt aber nur für große Stichproben. Für kleine Stichprobengrößen folgen die Stichprobenmittelwerte der t-Verteilung, die im nächsten Abschnitt vorgestellt wird.</p>
+<p><strong>hier könnte / müsste man noch einseitige und zweiseitige Hypothesentests und den Begriff “Alpha-Halbe” einführen. Das ließe sich auch gut grafisch mit nur nach rechts gehenden und beidseitigen Pfeilen darstellen.</strong></p>
+<p>Im folgenden Beispiel wird die Idee, dass mit einer gewissen Wahrscheinlichkeit vom Stichprobenmittelwert auf den Mittelwert der Grundgesamtheit (Erwartungswert) geschlossen werden kann, noch einmal grafisch dargestellt.</p>
+<div id="nte-statistik" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel&nbsp;2.4: Prinzip der schließenden Statistik
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Standardnormalverteilung</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Einzelner Messwert</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Stichprobe N = 12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-4" role="tab" aria-controls="tabset-5-4" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div id="9af9a090" class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="normalverteilung_files/figure-html/cell-30-output-1.png" alt="Dargestellt ist ein Histogramm mit 30 Klassen. Auf der x-Achse sind die Einheiten der Standardabweichung von -3 bis +3 abgetragen, auf der y-Achse die Häufigkeitsdichte. Zusätzlich sind der Stichprobenmittelwert 0 durch einer vertikale Linie und die ganzzahligen Einheiten der Standardabweichugn durch gestrichelte vertikale Linien eingezeichnet. Über dem Histogramm liegt die Kurve der Standardnormalverteilung. Mit horizontalen Pfeilen sind die Entfernungen zwischen den Standardabweichungen plus/minus 1, 2 und 3 markiert und der Anteil der dazwischen liegenden Werte annotiert (68,27 %, 95,45 %, 99,73 %)." width="739" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div id="b7589a0c" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="normalverteilung_files/figure-html/cell-31-output-1.png" alt="Aufbauend auf der vorherigen Grafik ist ein einzelner Messerwert bei s = -1.25 eingezeichnet, um den eine Normalverteilungskurve eingezeichnet ist." width="709" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
+<div id="6707f4a1" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="normalverteilung_files/figure-html/cell-32-output-1.png" alt="Aufbauend auf der ersten Grafik ist ein zufällig erzeugter Stichprobenmittelwert eingezeichnet, um den eine Normalverteilungskurve mit sigma = stichprobenfehler eingezeichnet ist." width="700" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ein Stichprobenmittelwert streut inform einer Normalverteilungskurve mit sigma = stichprobenfehler. Diese Dichtekurve ist erheblich schmaler und höher als die Normalverteilungskurve eines einzelnen Messwerts. Dies liegt an der geringen Standardabweichung in der Stichprobe von ~ 0.2, was die Kurve staucht.</p>
+</div>
+<div id="tabset-5-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-4-tab">
+<p>Code für das Panel Stichprobe N = 12</p>
+<div id="23e758f4" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameter der Standardnormalverteilung</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>mu, sigma <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span>  <span class="co"># Mittelwert und Standardabweichung</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>np.random.seed(seed <span class="op">=</span> seed)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.random.default_rng().normal(mu, sigma, <span class="dv">1000</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="fl">8.5</span>, <span class="dv">6</span>))</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogramm plotten</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>array, bins, patches <span class="op">=</span> plt.hist(data, bins <span class="op">=</span> <span class="dv">30</span>, density <span class="op">=</span> <span class="va">True</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>, color <span class="op">=</span> <span class="st">'lightgoldenrodyellow'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwert einzeichnen</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>mean_line <span class="op">=</span> plt.axvline(mu, color <span class="op">=</span> <span class="st">'steelblue'</span>, linestyle <span class="op">=</span> <span class="st">'solid'</span>, linewidth <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co"># positive und negative Standardabweichungen einzeichnen</span></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>pos_std_lines <span class="op">=</span> [plt.axvline(mu <span class="op">+</span> i <span class="op">*</span> sigma, color <span class="op">=</span> <span class="st">'steelblue'</span>, linestyle <span class="op">=</span> <span class="st">'dotted'</span>, linewidth <span class="op">=</span> <span class="dv">2</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>)]</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>neg_std_lines <span class="op">=</span> [plt.axvline(mu <span class="op">-</span> i <span class="op">*</span> sigma, color <span class="op">=</span> <span class="st">'steelblue'</span>, linestyle <span class="op">=</span> <span class="st">'dotted'</span>, linewidth <span class="op">=</span> <span class="dv">2</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>)]</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalverteilungskurve</span></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bins), <span class="bu">max</span>(bins), <span class="dv">100</span>)</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (sigma <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mu) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> sigma <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>normal_dist_curve <span class="op">=</span> plt.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'steelblue'</span>, linestyle <span class="op">=</span> <span class="st">'solid'</span>, linewidth <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Stichprobe</span></span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">12</span></span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>np.random.seed(seed <span class="op">=</span> <span class="dv">4</span>)</span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>stichprobe <span class="op">=</span> np.random.default_rng().normal(mu, sigma, N)</span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> stichprobe.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a>stichprobenmittelwert <span class="op">=</span> stichprobe.mean()</span>
+<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a>standardfehler <span class="op">=</span>  stichprobenstandardabweichung <span class="op">/</span> np.sqrt(<span class="bu">len</span>(stichprobe))</span>
+<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogramm berechnen</span></span>
+<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a><span class="co"># hist, bins = np.histogram(stichprobe, bins = 30, density = True)</span></span>
+<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardfehlerkurve Stichprobe</span></span>
+<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a><span class="co"># x_values = np.linspace(min(bins), max(bins), 100)</span></span>
+<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(stichprobenmittelwert <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> stichprobenstandardabweichung, stichprobenmittelwert <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> stichprobenstandardabweichung, <span class="dv">100</span>)</span>
+<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span> scipy.stats.t.pdf(x <span class="op">=</span> x_values, df <span class="op">=</span> N <span class="op">-</span> <span class="dv">1</span>, loc <span class="op">=</span> stichprobenmittelwert, scale <span class="op">=</span> standardfehler) <span class="co"># t-Verteilung</span></span>
+<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Stichprobenmittelwert einzeichnen</span></span>
+<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a>mean_stichprobe <span class="op">=</span> plt.axvline(stichprobenmittelwert, color <span class="op">=</span> <span class="st">'black'</span>, linestyle <span class="op">=</span> <span class="st">'solid'</span>, linewidth <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb38-50"><a href="#cb38-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-51"><a href="#cb38-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Verteilungskurve einzeichnen</span></span>
+<span id="cb38-52"><a href="#cb38-52" aria-hidden="true" tabindex="-1"></a>stichprobe_dist_curve <span class="op">=</span> plt.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linestyle <span class="op">=</span> <span class="st">'solid'</span>, linewidth <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb38-53"><a href="#cb38-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-54"><a href="#cb38-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Legende</span></span>
+<span id="cb38-55"><a href="#cb38-55" aria-hidden="true" tabindex="-1"></a>plt.legend([normal_dist_curve[<span class="dv">0</span>], mean_line, neg_std_lines[<span class="dv">0</span>], mean_stichprobe, stichprobe_dist_curve[<span class="dv">0</span>]],</span>
+<span id="cb38-56"><a href="#cb38-56" aria-hidden="true" tabindex="-1"></a>           [<span class="st">'Standardnormalverteilung'</span>, <span class="st">'Mittelwert'</span>, <span class="st">'Standardabweichung'</span>, <span class="st">'Stichprobenmittelwert'</span>, <span class="st">'t-Verteilung'</span>],</span>
+<span id="cb38-57"><a href="#cb38-57" aria-hidden="true" tabindex="-1"></a>           loc<span class="op">=</span><span class="st">'upper right'</span>, handlelength <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb38-58"><a href="#cb38-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-59"><a href="#cb38-59" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Standardnormalverteilung'</span>)</span>
+<span id="cb38-60"><a href="#cb38-60" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Standardabweichung'</span>)</span>
+<span id="cb38-61"><a href="#cb38-61" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
+<span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>&nbsp;</p>
+</section>
+<section id="die-t-verteilung" class="level3">
+<h3 class="anchored" data-anchor-id="die-t-verteilung">Die t-Verteilung</h3>
+<p>Die t-Verteilung wurde von William Sealy Gosset entdeckt (wenngleich nicht als erstem) und popularisiert. Die Verteilung ist auch als Student’sche Verteilung bekannt: Da Gossets Arbeitgeber, die Guiness-Brauerei, die Veröffentlichung der Entdeckung nicht gestattete, publizierte Gosset unter dem Synonym Student. (<a href="https://de.wikipedia.org/wiki/Studentsche_t-Verteilung">Wikipedia</a>)</p>
+<p>Die t-Verteilung beschreibt die Verteilung von Stichprobenmittelwerten mit unbekannter Varianz in der Grundgesamtheit, deren Standardfehler mit der Stichprobenstandardabweichung geschätzt wird. Die t-Verteilung hat gegenüber der Normalverteilung die <a href="https://de.wikipedia.org/wiki/Anzahl_der_Freiheitsgrade_(Statistik)">Anzahl der Freiheitsgrade</a> als zusätzlichen Parameter</p>
+<div id="imp-freiheitsgrad" class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definition&nbsp;2.2: Anzahl Freiheitsgrade
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>“Die Anzahl unabhängiger Information, die in die Schätzung eines Parameters einfließen, wird als Anzahl der Freiheitsgrade bezeichnet. Im Allgemeinen sind die Freiheitsgrade einer Schätzung eines Parameters gleich der Anzahl unabhängiger Einzelinformationen, die in die Schätzung einfließen, abzüglich der Anzahl der zu schätzenden Parameter, die als Zwischenschritte bei der Schätzung des Parameters selbst verwendet werden. Beispielsweise fließen <span class="math inline">\(n\)</span> Werte in die Berechnung der Stichprobenvarianz ein. Dennoch lautet die Anzahl der Freiheitsgrade <span class="math inline">\(n − 1\)</span>, da als Zwischenschritt der Mittelwert geschätzt wird und somit ein Freiheitsgrad verloren geht.”</p>
+<p>Anzahl der Freiheitsgrade (Statistik). von verschiedenen <a href="https://xtools.wmcloud.org/authorship/de.wikipedia.org/Anzahl_der_Freiheitsgrade_(Statistik)?uselang=de">Autor:innen</a> steht unter der Lizenz <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de">CC BY-SA 4.0</a> ist abrufbar auf <a href="https://de.wikipedia.org/wiki/Anzahl_der_Freiheitsgrade_(Statistik)">Wikipedia</a>. 2025</p>
+</div>
+</div>
+</div>
+<p>Die allgemeine Häufigkeitsdichtefunktion der t-Verteilung lautet:</p>
+<p><span class="math display">\[
+f(x) = \frac{\Gamma\left(\frac{\nu + 1}{2}\right)}{\sqrt{\nu \pi} , \Gamma\left(\frac{\nu}{2}\right)} \left(1 + \frac{x^2}{\nu}\right)^{-\frac{\nu + 1}{2}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\nu\)</span> (ny) ist die Anzahl der Freiheitsgrade.</li>
+<li><span class="math inline">\(\Gamma\)</span> ist die <a href="https://de.wikipedia.org/wiki/Gammafunktion">Gammafunktion</a>, die für ganzzahlige Argumente <span class="math inline">\(n\)</span> den Wert <span class="math inline">\(\Gamma(n) = (n-1)!\)</span> hat.</li>
+</ul>
+<p>Da für die Berechnung des Stichprobenmittelwerts die Anzahl der Freiheitsgrade <span class="math inline">\(n - 1\)</span> ist, kann auch geschrieben werden: <span class="math display">\[
+f(x) = \frac{\Gamma\left(\frac{n}{2}\right)}{\sqrt{(n-1) \pi} , \Gamma\left(\frac{n-1}{2}\right)} \left(1 + \frac{x^2}{n-1}\right)^{-\frac{n}{2}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(n\)</span> ist die Stichprobengröße.</li>
+</ul>
+<p>Das Modul scipy.stats stellt Funktionen zur Berechnung der t-Verteilung bereit.</p>
+<ul>
+<li><code>scipy.stats.t.pdf(x, df, loc=0, scale=1)</code> berechnet die Häufigkeitsdichte für die Werte <code>x</code> für eine t-Verteilung mit <code>df</code> Freiheitsgraden, Mittelwert <code>loc</code> und Standardabweichung <code>scale</code> (PDF = probability density function).</li>
+<li><code>scipy.stats.t.cdf(x, df, loc=0, scale=1)</code> berechnet den Anteil der Werte links von <code>x</code> (CDF = cumulative density function).</li>
+<li><code>scipy.stats.t.ppf(q, df, loc=0, scale=1)</code> ist die Quantilfunktion der t-Verteilung (PPF = percentile point function).</li>
+<li><code>scipy.stats.t.rvs(df, loc=0, scale=1, size=1)</code> zieht <code>size</code> Zufallzahlen aus der t-Verteilung.</li>
+</ul>
+<p>Mit zunehmender Stichprobengröße nähert sich die t-Verteilung der Normalverteilung an. Als Faustformel gilt <span class="math inline">\(n &gt; 30\)</span>. Untenstehende Grafik zeigt die Annäherung der t-Verteilung an die Normalverteilung.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Grafik</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div id="bf735fea" class="cell" data-execution_count="33">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="normalverteilung_files/figure-html/cell-34-output-1.png" alt="Dargestellt sind Häufigkeitsdichtekurven der Normalverteilung und der t-Verteilung mit verschiedenen Freiheitsgraden." width="597" height="477" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<div id="4988c7e2" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">100</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalverteilung</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span> scipy.stats.norm.pdf(x_values)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, lw <span class="op">=</span> <span class="dv">3</span>, label <span class="op">=</span> <span class="st">'Normalverteilung'</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.ylim(bottom = 0, top = 0.5)</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># t-Verteilungen</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>marker <span class="op">=</span> [<span class="st">"."</span>, <span class="st">"1"</span>, <span class="st">"x"</span>]</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>[plt.plot(x_values, scipy.stats.t.pdf(x_values, df <span class="op">=</span> (i <span class="op">+</span> (i <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">2</span>)), linestyle <span class="op">=</span> <span class="st">'dotted'</span>, marker <span class="op">=</span> marker[i <span class="op">-</span> <span class="dv">1</span>] , linewidth <span class="op">=</span> <span class="dv">2</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>, label <span class="op">=</span> <span class="st">'df = '</span> <span class="op">+</span> <span class="bu">str</span>((i <span class="op">+</span> (i <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">2</span>))) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>)]</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Das Argument df der t-Verteilung'</span>)</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Standardabweichung'</span>)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>plt.legend(loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Das Maximum der t-Verteilung ist weniger dicht, dafür sind die Ränder der Verteilung dichter als die Normalverteilung.</p>
+<p>Somit gilt für die t-Verteilung von Stichprobenmittelwerten:</p>
+<p><span class="math display">\[
+\bar{x} \pm t_{n-1} \cdot \frac{s}{\sqrt{n}}
+\]</span></p>
+<p>t ist der Rückgabewert der Funktion <code>-</code>scipy.stats.t.ppf(q, df, loc=0, scale=1)<code>ist die Quantilfunktion der t-Verteilung (PPF = percentile point function).</code></p>
+<p><strong>Das schauen wir uns für das Gewicht der Pinguine an -&gt; Das ist kein gutes Beispiel für die t-Verteilung, weil die Stichprobengröße so hoch ist (man könnte nach Geschlecht und Jahr filtern).</strong></p>
+<div id="0f886a0e" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.groupby(by <span class="op">=</span> [penguins[<span class="st">'species'</span>], penguins[<span class="st">'sex'</span>], penguins[<span class="st">'year'</span>]]).size())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>species    sex     year
+Adelie     female  2007    22
+                   2008    25
+                   2009    26
+           male    2007    22
+                   2008    25
+                   2009    26
+Chinstrap  female  2007    13
+                   2008     9
+                   2009    12
+           male    2007    13
+                   2008     9
+                   2009    12
+Gentoo     female  2007    16
+                   2008    22
+                   2009    20
+           male    2007    17
+                   2008    23
+                   2009    21
+dtype: int64</code></pre>
+</div>
+</div>
+<p><strong>Das ist optisch nicht schön. to do: Pinguine 1 und 2, Mittelwert einzeichnen (braucht man nicht unbedingt)</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Grafik</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div id="855bfb08" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="normalverteilung_files/figure-html/cell-37-output-1.png" width="710" height="569" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div id="3e95850b" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2, ax3) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="fl">7.5</span>, <span class="dv">6</span>), sharey <span class="op">=</span> <span class="va">True</span>, layout <span class="op">=</span> <span class="st">'tight'</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Gewichtsverteilung von Pinguinen'</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Adelie</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">0</span>]]</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>ax1.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C0'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>ax1.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">0</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">0</span>]))</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>ax1.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">'Normalverteilung'</span>)</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>ax1.set_label(<span class="st">'Normalverteilungskurve'</span>)</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Chinstrap</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">1</span>]]</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>ax2.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C1'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>ax2.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">1</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">1</span>]))</span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>ax2.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Gentoo</span></span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">2</span>]]</span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>ax3.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C2'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>ax3.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>ax3.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">2</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">2</span>]))</span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a>ax3.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="zusammenfassung" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="zusammenfassung"><span class="header-section-number">2.1</span> Zusammenfassung</h2>
 <p>Schritte zur Berechnung:</p>
 <pre><code>Bestimme den Stichprobenmittelwert (\bar{x}).
 Bestimme (s) (Stichprobenstandardabweichung) oder (\sigma).
@@ -900,48 +1336,6 @@ Bestimme (n) (Stichprobengröße).
 Wähle das Konfidenzniveau und bestimme den entsprechenden Z- oder t-Wert.
 Berechne das Konfidenzintervall mit den obigen Formeln.</code></pre>
 <p>Ein höheres Konfidenzniveau ergibt ein breiteres Intervall, dass mit höherer Sicherheit den wahren Mittelwert abdeckt.</p>
-<p><strong>–&gt; Normalverteilung und die Wahrscheinlichkeiten erklären - 1standardfehler, 2standardfehler, 3standardfehler = Konfidenzintervalle</strong> –&gt; das wird zu kompliziert oder?</p>
-<p><strong>to do: fig-alt</strong><br>
-<strong>to do: panel Stichprobe mit Streuung in Intervallen des Standardfehlers</strong></p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">Standardnormalverteilung</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Einzelner Messwert</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false" href="">Stichprobe N = 12</a></li></ul>
-<div class="tab-content">
-<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<div id="6f4bcbab" class="cell" data-execution_count="28">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="normalverteilung_files/figure-html/cell-29-output-1.png" width="730" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div id="b494e2c3" class="cell" data-execution_count="29">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="normalverteilung_files/figure-html/cell-30-output-1.png" width="709" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
-<p><strong>Optisch ist das nicht schön… das sollte an der geringen Standardabweichung von ~ 0.2 in der Stichprobe liegen. Das staucht die Kurve. To do: Kontrollieren, ob alles richtig ist.</strong></p>
-<div id="b25b7b1d" class="cell" data-execution_count="30">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="normalverteilung_files/figure-html/cell-31-output-1.png" width="700" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 <p><strong>Aufgabe könnte das plotten der Schnabellänge sein</strong></p>
 <div class="border">
 <div class="quarto-figure quarto-figure-center">
@@ -952,10 +1346,10 @@ Berechne das Konfidenzintervall mit den obigen Formeln.</code></pre>
 </div>
 <p>Bill dimensions von @allison_horst steht unter der Lizenz <a href="https://github.com/allisonhorst/palmerpenguins?tab=CC0-1.0-1-ov-file#creative-commons">CC0-1.0</a> und ist auf <a href="https://github.com/allisonhorst/palmerpenguins?tab=readme-ov-file#meet-the-palmer-penguins">GitHub</a> abrufbar. 2020</p>
 </div>
-<p>&nbsp;</p>
+<p><strong>–&gt; Normalverteilung und die Wahrscheinlichkeiten erklären - 1standardfehler, 2standardfehler, 3standardfehler = Konfidenzintervalle</strong> –&gt; das wird zu kompliziert oder?</p>
 <p>Einen Überblick über den Datensatz verschafft die Methode <code>DataFrame.info()</code>.</p>
-<div id="7c472163" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.info())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="621bae08" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.info())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 Index: 333 entries, 0 to 343
@@ -986,10 +1380,11 @@ None</code></pre>
 # plt.plot(x, y, 'k', linewidth=2) -->
 <p>Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit, also den Erwartungswert. Anhand des Würfelexperiments wurde gezeigt, dass mit zunehmender Stichprobengröße Stichprobenmittelwerte in der Nähe des Erwartungswerts immer wahrscheinlicher werden als solche, die weiter entfernt liegen.</p>
 <p>Verzerrung (Bias): https://de.wikipedia.org/wiki/Verzerrung_einer_Sch%C3%A4tzfunktion quantifiziert das systematische Über- oder Unterschätzen der Schätzfunktion</p>
+
+
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1033,12 +1428,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Kopiert");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Kopiert");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1407,6 +1802,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../skript/einleitung.html" class="pagination-link" aria-label="Das Prinzip von Messungen">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Das Prinzip von Messungen</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../skript/hooke.html" class="pagination-link" aria-label="Messreihe Hooke'sches Gesetz">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

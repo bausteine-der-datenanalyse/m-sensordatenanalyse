@@ -17,6 +17,7 @@ book:
   chapters:
     - index.qmd
     - skript/einleitung.qmd
+    - skript/normalverteilung.qmd
     - skript/hooke.qmd
 
   sidebar:

@@ -62,7 +62,7 @@ Britain-fractal-coastline-200km, Britain-fractal-coastline-100km und Britain-fra
 
 Die Messung ergibt zunächst einen Messwert. Dieser stimmt aber aufgrund störender Einflüsse mit dem wahren Wert der Messgröße praktisch nie überein, sondern weist eine gewisse Messabweichung auf. Zum *vollständigen Messergebnis* wird der Messwert, wenn er mit quantitativen Aussagen über die zu erwartende Größe der Messabweichung ergänzt wird. Dies wird in der Messtechnik als Teil der Messaufgabe und damit der Messung verstanden."
 
-Messung. von verschiedenen [Autor:innen](https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung) steht unter der Lizenz [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) ist abrufbar auf Wikipedia https://de.wikipedia.org/wiki/Messung. 2025
+Messung. von verschiedenen [Autor:innen](https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung) steht unter der Lizenz [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) ist abrufbar auf [Wikipedia] (https://de.wikipedia.org/wiki/Messung). 2025
 
  - Die ideale Messung ist eine direkte Messung oder der gesuchte Wert hängt linear (**direkt?!**) vom gemessenen Wert ab.
   - Die ideale Messung ist *genau* und *präzise*.

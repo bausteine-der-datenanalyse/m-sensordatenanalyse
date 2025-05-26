@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Messreihe Hooke’sches Gesetz – Bausteine Computergestützter Datenanalyse</title>
+<title>3&nbsp; Messreihe Hooke’sches Gesetz – Bausteine Computergestützter Datenanalyse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../skript/einleitung.html" rel="prev">
+<link href="../skript/normalverteilung.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -151,7 +151,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/hooke.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../skript/hooke.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
@@ -193,8 +193,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../skript/normalverteilung.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Die Normalverteilung</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../skript/hooke.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></span></a>
   </div>
 </li>
     </ul>
@@ -208,7 +214,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#deskriptive-statistik" id="toc-deskriptive-statistik" class="nav-link active" data-scroll-target="#deskriptive-statistik">Deskriptive Statistik</a></li>
-  <li><a href="#federkonstante-bestimmen" id="toc-federkonstante-bestimmen" class="nav-link" data-scroll-target="#federkonstante-bestimmen"><span class="header-section-number">2.1</span> Federkonstante bestimmen</a>
+  <li><a href="#federkonstante-bestimmen" id="toc-federkonstante-bestimmen" class="nav-link" data-scroll-target="#federkonstante-bestimmen"><span class="header-section-number">3.1</span> Federkonstante bestimmen</a>
   <ul class="collapse">
   <li><a href="#lineare-ausgleichsrechnung" id="toc-lineare-ausgleichsrechnung" class="nav-link" data-scroll-target="#lineare-ausgleichsrechnung">Lineare Ausgleichsrechnung</a></li>
   <li><a href="#messabweichung-quantifizieren" id="toc-messabweichung-quantifizieren" class="nav-link" data-scroll-target="#messabweichung-quantifizieren">Messabweichung quantifizieren</a></li>
@@ -221,7 +227,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Messreihe Hooke’sches Gesetz</span></h1>
 </div>
 
 
@@ -246,7 +252,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Beispiel&nbsp;2.1: Der Versuchsaufbau
+Beispiel&nbsp;3.1: Der Versuchsaufbau
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -917,8 +923,8 @@ None</code></pre>
 </div>
 </div>
 </section>
-<section id="federkonstante-bestimmen" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="federkonstante-bestimmen"><span class="header-section-number">2.1</span> Federkonstante bestimmen</h2>
+<section id="federkonstante-bestimmen" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="federkonstante-bestimmen"><span class="header-section-number">3.1</span> Federkonstante bestimmen</h2>
 <p>Die Beziehung zwischen der Kraft <span class="math inline">\(F\)</span> und der Längenänderung <span class="math inline">\(\Delta{x}\)</span> einer Feder mit Federkonstante <span class="math inline">\(k\)</span> wird durch die Gleichung <span class="math inline">\(F = k \times \Delta{x}\)</span> beschrieben. Dabei entspricht die Kraft <span class="math inline">\(F\)</span> dem mit der Fallbeschleunigung <span class="math inline">\(g\)</span> multiplizierten Gewicht in Kilogramm <span class="math inline">\(m\)</span>. Die Fallbeschleunigung beträgt auf der Erde <span class="math inline">\(9,81 \frac{m}{s^2}\)</span>.</p>
 <p>Deshalb wird im Datensatz das in der Spalte ‘mass’ eingetragene Gewicht in Gramm in die wirkende Kraft umgerechnet. Ebenso wird die gemessene Abstandsänderung in der Spalte ‘distance’ von Zentimeter in Meter umgerechnet.</p>
 <div id="596408a9" class="cell" data-execution_count="17">
@@ -968,7 +974,7 @@ y = \beta_0 + \beta_1 \times x
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Beispiel&nbsp;2.2: polyfit und polyeval erklärt
+Beispiel&nbsp;3.2: polyfit und polyeval erklärt
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1049,7 +1055,7 @@ R² = 0.94</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Beispiel&nbsp;2.3: to do: numpy.polyfit &amp; numpy.polyval
+Beispiel&nbsp;3.3: to do: numpy.polyfit &amp; numpy.polyval
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1545,8 +1551,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../skript/einleitung.html" class="pagination-link" aria-label="Das Prinzip von Messungen">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Das Prinzip von Messungen</span></span>
+      <a href="../skript/normalverteilung.html" class="pagination-link" aria-label="Die Normalverteilung">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Die Normalverteilung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

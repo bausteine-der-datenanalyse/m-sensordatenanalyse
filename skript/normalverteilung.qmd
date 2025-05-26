@@ -170,7 +170,7 @@ Der Datensatz enthält Daten für drei Pinguinarten.
 print(penguins.groupby(by = penguins['species']).size())
 ```
 
-Unter anderen wurde das Körpergewicht in Gramm gemessen, das in der Spalte 'body_mass_g' eingetragen ist.
+Unter anderen wurde das Körpergewicht in Gramm gemessen, das in der Spalte 'body_mass_g' eingetragen ist. Die Gewichtsverteilung der drei Spezies wird jeweils mit einem Histogramm dargestellt. Außerdem werden für jede Spezies  der Stichprobenmittelwert und die Stichprobenstandardabweichung bestimmt. Mit diesen Werten kann eine Normalverteilungskurve berechnet und in das Histogramm eingezeichnet werden (wie das geht, wird in @nte-normalverteilungdarstellen gezeigt). So kann optisch geprüft werden, ob die empirische Verteilung der Werte in der Stichprobe einer Normalverteilung mit den selben Werten für Mittelwert und Standardabspreichung entspricht.
 
 ::: {.panel-tabset}
 
@@ -475,14 +475,14 @@ $$
 f(x) = \frac{1}{\sigma \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
 $$
 
-Der Erwartungswert ist der höchste Punkt der Kurve. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.
+Die Form der Normalverteilung ergibt sich aus dem Faktor $e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$ der Funktionsgleichung. Das Maximum der Funktion liegt am Punkt $x = \mu$. Von dort fällt sie symmetrisch ab und nähert sich für gegen unendlich gehende x-Werte der x-Achse an. Der Abfall der Funktion erfolgt umso schneller, je kleiner $\sigma$ ist. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.
 
 Eine Normalverteilung mit dem Mittelwert $\mu = 0$ und einer Standardabweichung $\sigma = 1$ heißt Standardnormalverteilung.
 
-#### Normalverteilung anpassen
-Um die Verteilung in einem Datensatz durch eine Normalverteilung anzunähern, werden dessen Mittelwert und Standardabweichung in die Funktionsgleichung der Normalverteilung eingesetzt. Mit Python können die Berechnungen direkt vorgenommen werden (siehe folgendes Beispiel). In der Handhabung einfacher sind die vom Paket SciPy bereitgestellten Funktionen, die im nächsten Abschnitt vorgestellt werden.
+### Normalverteilung anpassen
+Um die Verteilung in einem Datensatz durch eine Normalverteilung anzunähern, werden dessen Mittelwert und Standardabweichung in die Funktionsgleichung der Normalverteilung eingesetzt. Mit Python können die Berechnungen direkt vorgenommen werden. In der Handhabung einfacher sind die vom Paket SciPy bereitgestellten Funktionen, die im nächsten Abschnitt ausführlicher vorgestellt werden. Das folgende Beispiel zeigt die Berechnung und Visualisierung mit Python und mit SciPy.
 
-::: {#nte-normalverteilunganpassen .callout-note collapse="true"}
+::: {#nte-normalverteilungdarstellen .callout-note collapse="true"}
 ## Dichtekurven berechnen und darstellen
 
 Betrachten wir die Verteilungskennwerte der Gruppe der Meerschweinchen, die eine Dosis von 2 Milligramm Vitamin C erhielten.
@@ -522,17 +522,20 @@ plt.ylabel('Häufigkeitsdichte')
 
 # Normalverteilung berechnen.
 hist, bin_edges = np.histogram(dose2, bins = 7)
-x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
 
-## Dichtefunktion der Normalverteilung berechnen
-y_values =  1 / (dose2_std * np.sqrt(2 * np.pi)) * np.exp(- (x_values - dose2_mean) ** 2 / (2 * dose2_std ** 2))
+x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
 
 ## Normalverteilungsfunktion mit Python berechnen
 y_values =  1 / (dose2_std * np.sqrt(2 * np.pi)) * np.exp(- (x_values - dose2_mean) ** 2 / (2 * dose2_std ** 2))
 plt.plot(x_values, y_values, label = 'Normalverteilung', lw = 4)
 
+## scipy
+y_values_scipy = scipy.stats.norm.pdf(x_values, loc = dose2_mean, scale = dose2_std)
+plt.plot(x_values, y_values_scipy, label = 'SciPy', linestyle = 'dashed')
+
 plt.legend()
 plt.show()
+
 ```
 
 Die Verteilung der Länge zahnbildender Zellen bei Meerschweinchen, die eine Dosis von 2 Milligramm Vitamin C erhielten, könnte einer Normalverteilung entsprechen. Aufgrund der geringen Stichprobengröße ist dies aber schwer zu beurteilen.
@@ -541,19 +544,14 @@ Die Verteilung der Länge zahnbildender Zellen bei Meerschweinchen, die eine Dos
 
 **Quelle: Skript MB S. 51-54**
 
-
 &nbsp;
 
 ### Das Paket SciPy
-Funktionen zur Berechnung von Dichtekurven können über das Modul stats aus dem Paket SciPy importiert werden. Das Modul umfasst zahlreiche Verteilungen, bspw. auch die t-Verteilung. 
-Funktionen für die Normalverteilung werden wie folgt aufgerufen:
+Funktionen zur Berechnung von Dichtekurven können über das Modul stats aus dem Paket SciPy importiert werden. Das Modul umfasst zahlreiche Verteilungen.Funktionen für die Normalverteilung werden wie folgt aufgerufen:
 
 ```{python}
 import scipy
 print("Häufigkeitsdichte der Normalverteilung bei x = 0:", scipy.stats.norm.pdf(0), "\n")
-
-# t Verteilungen
-print("Häufigkeitsdichte der t-verteilung bei x = 0:", scipy.stats.t.pdf(0, df = 1))
 ```
 
 Für die Normalverteilung sind vier Funktionen relevant:
@@ -653,77 +651,49 @@ plt.show()
 Die Funktion `scipy.stats.norm.rvs(size)` zieht `size` Zufallszahlen aus der Normalverteilung.
 :::
 
-Mit den Parametern `loc = mittelwert` und `scale = standardabweichung` kann die Form der Normalverteilung angepasst werden.
+Mit den Parametern `loc = mittelwert` und `scale = standardabweichung` kann die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit `loc = 0` und `scale = 1` berechnet.
 
 ### Aufgabe Normalverteilung
+Möglicherweise haben Sie schon einmal von Mensa International gehört, einer Vereinigung für Hochbegabte. Wer Mitglied in dieser Vereinigung werden möchte, soll einen höheren Intelligenzquotienten (IQ) haben als 98 % der Bevölkerung seines:ihres Herkunftslandes ([Wikipedia](https://de.wikipedia.org/wiki/Mensa_International)). 
 
-**hier ein paar Aufgaben, welche Anteile... usw. wenn scale = 15 und und mean = 100 ist (IQ-Verteilung)**
+1. Wenn der durchschnittliche IQ 100 und die Standardabweichung 15 beträgt, welchen IQ müssten Sie haben, um bei Mensa International aufgenommen zu werden?
 
+2. Mensa International ist nicht die einzige Organisation ihrer Art, andere Organisationen haben sogar noch strengere Kriterien. Welcher IQ wird benötigt, um hier Mitglied zu werden?
 
-``` {python}
+  - Intertel (Kriterium: IQ aus dem höchsten 1 %)
+  - Triple Nine Society (Kriterium: IQ aus dem höchsten 0,1 %)
+  - Prometheus Society (Kriterium: IQ aus dem höchsten 0,003 %)
 
-plt.hist(dose2, bins = 7, density = True, edgecolor = 'black', alpha = 0.6);
-plt.title('Länge zahnbildender Zellen bei Meerschweinchen')
+3. Der IQ ist nicht mit angeborener Intelligenz gleichzusetzen und auch abhängig davon, wie viel Gelegenheit man zum Gehirntraining hatte, etwa durch den Schulbesuch. Der niedrigste durchschnittliche IQ wurde mit 71 [im Land Niger](https://www.laenderdaten.info/iq-nach-laendern.php) gemessen. Angenommen Sie hätten einen IQ von 100. Würden Sie in Niger das Kriterium der Mensa International erfüllen?
 
-# Achsenbeschriftung
-plt.xlabel('Länge der zahnbildenden Zellen (μm)')
-plt.ylabel('Häufigkeitsdichte')
-
-# Normalverteilung berechnen.
-hist, bin_edges = np.histogram(dose2, bins = 7)
-
-x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-
-## Normalverteilungsfunktion mit Python berechnen
-y_values =  1 / (dose2_std * np.sqrt(2 * np.pi)) * np.exp(- (x_values - dose2_mean) ** 2 / (2 * dose2_std ** 2))
-plt.plot(x_values, y_values, label = 'Normalverteilung', lw = 4)
-
-## scipy
-y_values_scipy = scipy.stats.norm.pdf(x_values, loc = dose2_mean, scale = dose2_std)
-plt.plot(x_values, y_values_scipy, label = 'scipy', linestyle = 'dashed')
-
-plt.legend()
-plt.show()
-```
-
-### Aufgabe Normalverteilung
-**Aufgabe: Histogramm von (meerschweinchen['len'] mit 7 bins und mit Normalverteilungskurve zeichnen**
+::: {.callout-tip collapse="true"}
+## Musterlösung Normalverteilung
+Aufgabe 1: Einen IQ von mehr als ...
 
 ```{python}
-#| echo: false
-#| fig-alt: "Ein Histogramm mit 7 Klassen und eingezeichneter Normalverteilung. Die im Histogramm dargestellte Häufigkeitsdichte entspricht nicht der einer Normalverteilung."
-
-plt.hist(meerschweinchen['len'], bins = 7, density = True, edgecolor = 'black', alpha = 0.6);
-plt.title('Länge zahnbildender Zellen bei Meerschweinchen')
-
-# Achsenbeschriftung
-plt.xlabel('Länge der zahnbildenden Zellen (μm)')
-plt.ylabel('Häufigkeitsdichte')
-
-# Normalverteilung berechnen.
-stichprobenmittelwert = meerschweinchen['len'].mean()
-stichprobenstandardabweichung = meerschweinchen['len'].std(ddof = 1)
-
-hist, bin_edges = np.histogram(meerschweinchen['len'], bins = 7)
-
-x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-
-## Normalverteilungsfunktion
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - stichprobenmittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
-plt.plot(x_values, y_values, label = 'Normalverteilung', lw = 4)
-
-## scipy
-y_values_scipy = scipy.stats.norm.pdf(x_values, loc = stichprobenmittelwert, scale = stichprobenstandardabweichung)
-plt.plot(x_values, y_values_scipy, label = 'scipy', linestyle = 'dashed')
-
-plt.legend()
-plt.show()
+print(scipy.stats.norm.ppf(loc = 100, scale = 15, q = 0.98))
 ```
 
-**Im nächsten Schritt wollen wir auf den tatsächlichen Mittelwert der Pinguine schließen**  
-**Dafür muss die t-Verteilung eingeführt werden**
+Aufgabe 2: 
+Sie benötigen einen IQ von mindestens...
+```{python}
+print(scipy.stats.norm.ppf(loc = 100, scale = 15, q = 0.99))
+print(scipy.stats.norm.ppf(loc = 100, scale = 15, q = 0.999))
+print(scipy.stats.norm.ppf(loc = 100, scale = 15, q = 1 - (0.003 / 100)))
+```
 
-Die Überlegung, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann, ist (beispielsweise für den Mittelwert) wie folgt:
+Aufgabe 3: Nicht ganz.
+
+```{python}
+print(scipy.stats.norm.cdf(loc = 71, scale = 15, x = 100))
+```
+
+:::
+
+Übrigens: Wie [der Spiegel berichtet](https://www.spiegel.de/lebenundlernen/intelligenz-von-studenten-neugier-schlaegt-iq-a-816084.html), schneiden Studierende mit mittelmäßigem Intelligenzquotienten ebenso erfolgreich ab wie Hochbegabte, vorausgesetzt sie sind neugierig genug und arbeiten gewissenhaft.
+
+### Konfidenzintervalle
+Die Überlegung, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann, ist wie folgt:
 
 1. Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streuen die Stichprobenwerte normalverteilt um den Mittelwert der Grundgesamtheit. Bei einer Normalverteilung liegen 
 
@@ -733,53 +703,26 @@ Die Überlegung, dass von Stichprobenwerten auf den tatsächlichen Wert in der G
 
 2. Mit der gleichen Wahrscheinlichkeitsverteilung liegt der unbekannte Mittelwert der Grundgesamtheit um einen zufälligen Wert aus der Stichprobe.
 
-3. Der Erwartungswert kann mit einer gewissen Wahrscheinlichkeit aus dem Standardfehler des Mittelwerts einer Stichprobe geschätzt werden. Um das Konfidenzintervall zu bestimmen, muss eine Vertrauenswahrscheinlichkeit gewählt werden.
+3. Der Erwartungswert kann mit einer gewissen Wahrscheinlichkeit aus dem Standardfehler des Mittelwerts einer Stichprobe geschätzt werden. Man wählt dazu ein Konfidenzniveau, also eine Vertrauenswahrscheinlichkeit, dass der Erwartungswert tatsächlich im Bereich der Schätzung liegt. Der umgekehrte Fall, dass der Erwartungswert nicht im Bereich der Schätzung liegt, wird Signifikanz- oder Alphaniveau genannt und mit dem griechischen Buchstaben $\alpha$ (alpha) gekennzeichnet. $\alpha$ liegt im Bereich 0 - 1, das Konfidenzniveau ist $1 - \alpha$ (siehe: [Fehler 1. und 2. Art](https://de.wikipedia.org/wiki/Fehler_1._und_2._Art)).
 
     - der Erwartungswert liegt in 68,27 % aller Fälle im Intervall $\pm 1 ~ \frac{s}{\sqrt{n}}$,
     - der Erwartungswert liegt in 95,45 % aller Fälle im Intervall $\pm 2 ~ \frac{s}{\sqrt{n}}$ und
     - der Erwartungswert liegt in 99,73 % aller Fälle im Intervall $\pm 3 ~ \frac{s}{\sqrt{n}}$.
 
-Häufig wird das Konfidenzintervall 95 % gewählt, was  $\pm 1.96 ~ \frac{s}{\sqrt{n}}$ entspricht . (Das gilt aber nur für große Stichproben. Für kleine n folgen die Stichprobenmittelwerte einer t-Verteilung. Man sagt, dass sich die Werte der t-Verteilung ab n > 30 der Normalverteilung annähern. **Hier müsste man eigentlich die t-Verteilung vorstellen**.)
+Häufig wird das Alphaniveau $\alpha = 0.05$ bzw. das Konfidenzintervall 95 % gewählt, was $\pm 1.96 ~ \frac{s}{\sqrt{n}}$ entspricht. Dies gilt aber nur für große Stichproben. Für kleine Stichprobengrößen folgen die Stichprobenmittelwerte der t-Verteilung, die im nächsten Abschnitt vorgestellt wird.
 
-**Die t-Verteilung müsste eingeführt werden.**
-[t-Verteilung](https://de.wikipedia.org/wiki/Studentsche_t-Verteilung) 
+**hier könnte / müsste man noch einseitige und zweiseitige Hypothesentests und den Begriff "Alpha-Halbe" einführen. Das ließe sich auch gut grafisch mit nur nach rechts gehenden und beidseitigen Pfeilen darstellen.**
 
-statt: scipy.stats.norm.cdf(1) 
-nimmt man: scipy.stats.t.cdf(1, df = 4), wobei df Stichprobengröße -1 ist. 
+Im folgenden Beispiel wird die Idee, dass mit einer gewissen  Wahrscheinlichkeit vom Stichprobenmittelwert auf den Mittelwert der Grundgesamtheit (Erwartungswert) geschlossen werden kann, noch einmal grafisch dargestellt.
 
-Für eine Stichprobengröße von 4 gilt:
-scipy.stats.t.cdf(1, df = 4) - scipy.stats.t.cdf(- 1, df = 4)
-np.float64(0.626099033699941) 
---> 62,6 % der Werte
+::: {#nte-statistik .callout-note collapse="true"}
+## Prinzip der schließenden Statistik
 
-scipy.stats.t.cdf(2, df = 4) - scipy.stats.t.cdf(- 2, df = 4)
-np.float64(0.8838834764831844)
-
-scipy.stats.t.cdf(2, df = 4) - scipy.stats.t.cdf(- 2, df = 4)
-np.float64(0.8838834764831844)
-
-
-Schritte zur Berechnung:
-
-    Bestimme den Stichprobenmittelwert (\bar{x}).
-    Bestimme (s) (Stichprobenstandardabweichung) oder (\sigma).
-    Bestimme (n) (Stichprobengröße).
-    Wähle das Konfidenzniveau und bestimme den entsprechenden Z- oder t-Wert.
-    Berechne das Konfidenzintervall mit den obigen Formeln.
-
-Ein höheres Konfidenzniveau ergibt ein breiteres Intervall, dass mit höherer Sicherheit den wahren Mittelwert abdeckt.
-
-
-
-**--> Normalverteilung und die Wahrscheinlichkeiten erklären - 1standardfehler, 2standardfehler, 3standardfehler = Konfidenzintervalle** --> das wird zu kompliziert oder?
-
-**to do: fig-alt**  
-**to do: panel Stichprobe mit Streuung in Intervallen des Standardfehlers**
-
-::: {.panel-tabset}
+:::: {.panel-tabset}
 ## Standardnormalverteilung
 ```{python}
 #| echo: false
+#| fig-alt: "Dargestellt ist ein Histogramm mit 30 Klassen. Auf der x-Achse sind die Einheiten der Standardabweichung von -3 bis +3 abgetragen, auf der y-Achse die Häufigkeitsdichte. Zusätzlich sind der Stichprobenmittelwert 0 durch einer vertikale Linie und die ganzzahligen Einheiten der Standardabweichugn durch gestrichelte vertikale Linien eingezeichnet. Über dem Histogramm liegt die Kurve der Standardnormalverteilung. Mit horizontalen Pfeilen sind die Entfernungen zwischen den Standardabweichungen plus/minus 1, 2 und 3 markiert und der Anteil der dazwischen liegenden Werte annotiert (68,27 %, 95,45 %, 99,73 %)."
 
 # Parameter der Standardnormalverteilung
 mu, sigma = 0, 1  # Mittelwert und Standardabweichung
@@ -827,11 +770,13 @@ plt.show()
 ## Einzelner Messwert
 ```{python}
 #| echo: false
+#| fig-alt: "Aufbauend auf der vorherigen Grafik ist ein einzelner Messerwert bei s = -1.25 eingezeichnet, um den eine Normalverteilungskurve eingezeichnet ist."
 
 # Parameter der Standardnormalverteilung
 mu, sigma = 0, 1  # Mittelwert und Standardabweichung
 
 # Daten generieren
+seed = 4
 np.random.seed(seed = seed)
 data = np.random.default_rng().normal(mu, sigma, 1000)
 
@@ -880,9 +825,9 @@ plt.show()
 
 ## Stichprobe N = 12
 
-**Optisch ist das nicht schön... das sollte an der geringen Standardabweichung von ~ 0.2 in der Stichprobe liegen. Das staucht die Kurve. To do: Kontrollieren, ob alles richtig ist.**
 ```{python}
 #| echo: false
+#| fig-alt: "Aufbauend auf der ersten Grafik ist ein zufällig erzeugter Stichprobenmittelwert eingezeichnet, um den eine Normalverteilungskurve mit sigma = stichprobenfehler eingezeichnet ist."
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -950,7 +895,341 @@ plt.show()
 
 ```
 
+Ein Stichprobenmittelwert streut inform einer Normalverteilungskurve mit sigma = stichprobenfehler. Diese Dichtekurve ist erheblich schmaler und höher als die Normalverteilungskurve eines einzelnen Messwerts. Dies liegt an der geringen Standardabweichung in der Stichprobe von ~ 0.2, was die Kurve staucht.
+
+## Code
+Code für das Panel Stichprobe N = 12
+
+```{python}
+#| output: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy
+
+# Parameter der Standardnormalverteilung
+mu, sigma = 0, 1  # Mittelwert und Standardabweichung
+
+# Daten generieren
+seed = 4
+np.random.seed(seed = seed)
+data = np.random.default_rng().normal(mu, sigma, 1000)
+
+# Grafik
+plt.figure(figsize = (8.5, 6))
+
+# Histogramm plotten
+array, bins, patches = plt.hist(data, bins = 30, density = True, alpha = 0.6, color = 'lightgoldenrodyellow', edgecolor='black')
+
+# Mittelwert einzeichnen
+mean_line = plt.axvline(mu, color = 'steelblue', linestyle = 'solid', linewidth = 3)
+
+# positive und negative Standardabweichungen einzeichnen
+pos_std_lines = [plt.axvline(mu + i * sigma, color = 'steelblue', linestyle = 'dotted', linewidth = 2) for i in range(1, 4)]
+neg_std_lines = [plt.axvline(mu - i * sigma, color = 'steelblue', linestyle = 'dotted', linewidth = 2) for i in range(1, 4)]
+
+# Normalverteilungskurve
+x_values = np.linspace(min(bins), max(bins), 100)
+y_values = 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mu) ** 2 / (2 * sigma ** 2))
+normal_dist_curve = plt.plot(x_values, y_values, color = 'steelblue', linestyle = 'solid', linewidth = 2)
+
+# Stichprobe
+N = 12
+np.random.seed(seed = 4)
+stichprobe = np.random.default_rng().normal(mu, sigma, N)
+
+stichprobenstandardabweichung = stichprobe.std(ddof = 1)
+stichprobenmittelwert = stichprobe.mean()
+standardfehler =  stichprobenstandardabweichung / np.sqrt(len(stichprobe))
+
+# Histogramm berechnen
+# hist, bins = np.histogram(stichprobe, bins = 30, density = True)
+
+# Standardfehlerkurve Stichprobe
+# x_values = np.linspace(min(bins), max(bins), 100)
+x = np.linspace(stichprobenmittelwert - 4 * stichprobenstandardabweichung, stichprobenmittelwert + 4 * stichprobenstandardabweichung, 100)
+y_values = scipy.stats.t.pdf(x = x_values, df = N - 1, loc = stichprobenmittelwert, scale = standardfehler) # t-Verteilung
+
+# Stichprobenmittelwert einzeichnen
+mean_stichprobe = plt.axvline(stichprobenmittelwert, color = 'black', linestyle = 'solid', linewidth = 2)
+
+# Verteilungskurve einzeichnen
+stichprobe_dist_curve = plt.plot(x_values, y_values, color = 'black', linestyle = 'solid', linewidth = 2)
+
+# Legende
+plt.legend([normal_dist_curve[0], mean_line, neg_std_lines[0], mean_stichprobe, stichprobe_dist_curve[0]],
+           ['Standardnormalverteilung', 'Mittelwert', 'Standardabweichung', 'Stichprobenmittelwert', 't-Verteilung'],
+           loc='upper right', handlelength = 3)
+
+plt.title('Standardnormalverteilung')
+plt.xlabel('Standardabweichung')
+plt.ylabel('Häufigkeitsdichte')
+
+plt.show()
+
+```
+
+::::
 :::
+
+&nbsp;
+
+### Die t-Verteilung
+Die t-Verteilung wurde von William Sealy Gosset entdeckt (wenngleich nicht als erstem) und popularisiert. Die Verteilung ist auch als Student'sche Verteilung bekannt: Da Gossets Arbeitgeber, die Guiness-Brauerei, die Veröffentlichung der Entdeckung nicht gestattete, publizierte Gosset unter dem Synonym Student. ([Wikipedia](https://de.wikipedia.org/wiki/Studentsche_t-Verteilung))
+
+Die t-Verteilung beschreibt die Verteilung von Stichprobenmittelwerten mit unbekannter Varianz in der Grundgesamtheit, deren Standardfehler mit der Stichprobenstandardabweichung geschätzt wird. Die t-Verteilung hat gegenüber der Normalverteilung die [Anzahl der Freiheitsgrade](https://de.wikipedia.org/wiki/Anzahl_der_Freiheitsgrade_(Statistik)) als zusätzlichen Parameter
+
+::: {#imp-freiheitsgrad .callout-important collapse="false"}
+## Anzahl Freiheitsgrade
+
+"Die Anzahl unabhängiger Information, die in die Schätzung eines Parameters einfließen, wird als Anzahl der Freiheitsgrade bezeichnet. Im Allgemeinen sind die Freiheitsgrade einer Schätzung eines Parameters gleich der Anzahl unabhängiger Einzelinformationen, die in die Schätzung einfließen, abzüglich der Anzahl der zu schätzenden Parameter, die als Zwischenschritte bei der Schätzung des Parameters selbst verwendet werden. Beispielsweise fließen $n$ Werte in die Berechnung der Stichprobenvarianz ein. Dennoch lautet die Anzahl der Freiheitsgrade $n − 1$, da als Zwischenschritt der Mittelwert geschätzt wird und somit ein Freiheitsgrad verloren geht. "
+
+Anzahl der Freiheitsgrade (Statistik). von verschiedenen [Autor:innen](https://xtools.wmcloud.org/authorship/de.wikipedia.org/Anzahl_der_Freiheitsgrade_(Statistik)?uselang=de) steht unter der Lizenz [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) ist abrufbar auf [Wikipedia](<https://de.wikipedia.org/wiki/Anzahl_der_Freiheitsgrade_(Statistik)>). 2025
+:::
+
+Die allgemeine Häufigkeitsdichtefunktion der t-Verteilung lautet:
+
+$$
+f(x) = \frac{\Gamma\left(\frac{\nu + 1}{2}\right)}{\sqrt{\nu \pi} , \Gamma\left(\frac{\nu}{2}\right)} \left(1 + \frac{x^2}{\nu}\right)^{-\frac{\nu + 1}{2}}
+$$
+
+  - $\nu$ (ny) ist die Anzahl der Freiheitsgrade.
+  - $\Gamma$ ist die [Gammafunktion](https://de.wikipedia.org/wiki/Gammafunktion), die für ganzzahlige Argumente $n$ den Wert $\Gamma(n) = (n-1)!$ hat.
+
+Da für die Berechnung des Stichprobenmittelwerts die Anzahl der Freiheitsgrade $n - 1$ ist, kann auch geschrieben werden:
+$$
+f(x) = \frac{\Gamma\left(\frac{n}{2}\right)}{\sqrt{(n-1) \pi} , \Gamma\left(\frac{n-1}{2}\right)} \left(1 + \frac{x^2}{n-1}\right)^{-\frac{n}{2}}
+$$
+
+  - $n$ ist die Stichprobengröße.
+
+Das Modul scipy.stats stellt Funktionen zur Berechnung der t-Verteilung bereit.
+
+  - `scipy.stats.t.pdf(x, df, loc=0, scale=1)` berechnet die Häufigkeitsdichte für die Werte `x` für eine t-Verteilung mit `df` Freiheitsgraden, Mittelwert `loc` und Standardabweichung `scale` (PDF = probability density function).
+  - `scipy.stats.t.cdf(x, df, loc=0, scale=1)` berechnet den Anteil der Werte links von `x` (CDF = cumulative density function). 
+  - `scipy.stats.t.ppf(q, df, loc=0, scale=1)` ist die Quantilfunktion der t-Verteilung (PPF = percentile point function).
+  - `scipy.stats.t.rvs(df, loc=0, scale=1, size=1)` zieht `size` Zufallzahlen aus der t-Verteilung.
+
+Mit zunehmender Stichprobengröße nähert sich die t-Verteilung der Normalverteilung an. Als Faustformel gilt $n > 30$. Untenstehende Grafik zeigt die Annäherung der t-Verteilung an die Normalverteilung.
+
+::: {.panel-tabset}
+
+## Grafik
+```{python}
+#| echo: false
+#| fig-alt: "Dargestellt sind Häufigkeitsdichtekurven der Normalverteilung und der t-Verteilung mit verschiedenen Freiheitsgraden."
+# plt.figure(figsize = (3, 3))
+
+x_values = np.linspace(-4, 4, 100)
+
+# Normalverteilung
+y_values = scipy.stats.norm.pdf(x_values)
+plt.plot(x_values, y_values, color = 'black', lw = 3, label = 'Normalverteilung')
+# plt.ylim(bottom = 0, top = 0.5)
+
+# t-Verteilungen
+marker = [".", "1", "x"]
+
+[plt.plot(x_values, scipy.stats.t.pdf(x_values, df = (i + (i - 1) * 2)), linestyle = 'dotted', marker = marker[i - 1] , linewidth = 2, alpha = 0.6, label = 'df = ' + str((i + (i - 1) * 2))) for i in range(1, 4)]
+
+plt.suptitle('Das Argument df der t-Verteilung')
+plt.xlabel('Standardabweichung')
+plt.ylabel('Häufigkeitsdichte')
+plt.legend(loc = 'upper left')
+plt.show()
+```
+
+## Code
+```{python}
+#| output: false
+
+x_values = np.linspace(-4, 4, 100)
+
+# Normalverteilung
+y_values = scipy.stats.norm.pdf(x_values)
+plt.plot(x_values, y_values, color = 'black', lw = 3, label = 'Normalverteilung')
+# plt.ylim(bottom = 0, top = 0.5)
+
+# t-Verteilungen
+marker = [".", "1", "x"]
+
+[plt.plot(x_values, scipy.stats.t.pdf(x_values, df = (i + (i - 1) * 2)), linestyle = 'dotted', marker = marker[i - 1] , linewidth = 2, alpha = 0.6, label = 'df = ' + str((i + (i - 1) * 2))) for i in range(1, 4)]
+
+plt.suptitle('Das Argument df der t-Verteilung')
+plt.xlabel('Standardabweichung')
+plt.ylabel('Häufigkeitsdichte')
+plt.legend(loc = 'upper left')
+plt.show()
+```
+
+:::
+
+Das Maximum der t-Verteilung ist weniger dicht, dafür sind die Ränder der Verteilung dichter als die Normalverteilung.
+
+Somit gilt für die t-Verteilung von Stichprobenmittelwerten:
+
+$$
+\bar{x} \pm t_{n-1} \cdot \frac{s}{\sqrt{n}}
+$$
+
+t ist der Rückgabewert der Funktion `  - `scipy.stats.t.ppf(q, df, loc=0, scale=1)` ist die Quantilfunktion der t-Verteilung (PPF = percentile point function).`
+
+**Das schauen wir uns für das Gewicht der Pinguine an -> Das ist kein gutes Beispiel für die t-Verteilung, weil die Stichprobengröße so hoch ist (man könnte nach Geschlecht und Jahr filtern).**
+
+```{python}
+print(penguins.groupby(by = [penguins['species'], penguins['sex'], penguins['year']]).size())
+```
+
+**Das ist optisch nicht schön. to do: Pinguine 1 und 2, Mittelwert einzeichnen (braucht man nicht unbedingt)**
+
+::: {.panel-tabset}
+
+## Grafik
+
+```{python}
+#| echo: false
+#| fig-alt: ""
+
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize = (7.5, 6), sharey = True, layout = 'tight')
+plt.suptitle('Gewichtsverteilung von Pinguinen')
+
+# Adelie
+data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[0]]
+stichprobengröße = penguins.groupby(by = penguins['species']).size().iloc[0]
+
+## Histogramm
+ax1.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C0', density = True)
+ax1.set_xlabel('Gewicht in Gramm')
+ax1.set_ylabel('Häufigkeitsdichte')
+ax1.set_title(label = penguins['species'].unique()[0] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[0]))
+
+## t-Verteilung des Stichprobenmittelwerts
+mittelwert = data.mean()
+stichprobenstandardabweichung = data.std(ddof = 1)
+standardfehler = stichprobenstandardabweichung / np.sqrt(stichprobengröße)
+hist, bin_edges = np.histogram(data)
+x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
+y_values = scipy.stats.t.pdf(x_values, loc = mittelwert, scale = standardfehler, df = stichprobengröße - 1)
+
+ax1.plot(x_values, y_values, color = 'black', linewidth = 1, label = 't-Verteilung')
+ax1.set_label('t-Verteilung')
+ax1.legend()
+
+# Chinstrap
+data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[1]]
+
+## Histogramm
+ax2.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C1', density = True)
+ax2.set_xlabel('Gewicht in Gramm')
+ax2.set_title(label = penguins['species'].unique()[1] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[1]))
+
+## Normalverteilungskurve
+mittelwert = data.mean()
+stichprobenstandardabweichung = data.std(ddof = 1)
+hist, bin_edges = np.histogram(data)
+x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+
+ax2.plot(x_values, y_values, color = 'black', linewidth = 1)
+
+# Gentoo
+data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[2]]
+
+## Histogramm
+ax3.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C2', density = True)
+ax3.set_xlabel('Gewicht in Gramm')
+ax3.set_title(label = penguins['species'].unique()[2] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[2]))
+
+## Normalverteilungskurve
+mittelwert = data.mean()
+stichprobenstandardabweichung = data.std(ddof = 1)
+hist, bin_edges = np.histogram(data)
+x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+
+ax3.plot(x_values, y_values, color = 'black', linewidth = 1)
+
+plt.show()
+```
+
+## Code
+```{python}
+#| output: false
+#| fig-alt: ""
+
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize = (7.5, 6), sharey = True, layout = 'tight')
+plt.suptitle('Gewichtsverteilung von Pinguinen')
+
+# Adelie
+data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[0]]
+
+## Histogramm
+ax1.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C0', density = True)
+ax1.set_xlabel('Gewicht in Gramm')
+ax1.set_ylabel('Häufigkeitsdichte')
+ax1.set_title(label = penguins['species'].unique()[0] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[0]))
+
+## Normalverteilungskurve
+mittelwert = data.mean()
+stichprobenstandardabweichung = data.std(ddof = 1)
+hist, bin_edges = np.histogram(data)
+x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+
+ax1.plot(x_values, y_values, color = 'black', linewidth = 1, label = 'Normalverteilung')
+ax1.set_label('Normalverteilungskurve')
+ax1.legend()
+
+# Chinstrap
+data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[1]]
+
+## Histogramm
+ax2.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C1', density = True)
+ax2.set_xlabel('Gewicht in Gramm')
+ax2.set_title(label = penguins['species'].unique()[1] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[1]))
+
+## Normalverteilungskurve
+mittelwert = data.mean()
+stichprobenstandardabweichung = data.std(ddof = 1)
+hist, bin_edges = np.histogram(data)
+x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+
+ax2.plot(x_values, y_values, color = 'black', linewidth = 1)
+
+# Gentoo
+data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[2]]
+
+## Histogramm
+ax3.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C2', density = True)
+ax3.set_xlabel('Gewicht in Gramm')
+ax3.set_title(label = penguins['species'].unique()[2] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[2]))
+
+## Normalverteilungskurve
+mittelwert = data.mean()
+stichprobenstandardabweichung = data.std(ddof = 1)
+hist, bin_edges = np.histogram(data)
+x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+
+ax3.plot(x_values, y_values, color = 'black', linewidth = 1)
+
+plt.show()
+```
+
+:::
+
+
+## Zusammenfassung
+Schritte zur Berechnung:
+
+    Bestimme den Stichprobenmittelwert (\bar{x}).
+    Bestimme (s) (Stichprobenstandardabweichung) oder (\sigma).
+    Bestimme (n) (Stichprobengröße).
+    Wähle das Konfidenzniveau und bestimme den entsprechenden Z- oder t-Wert.
+    Berechne das Konfidenzintervall mit den obigen Formeln.
+
+Ein höheres Konfidenzniveau ergibt ein breiteres Intervall, dass mit höherer Sicherheit den wahren Mittelwert abdeckt.
 
 **Aufgabe könnte das plotten der Schnabellänge sein**
 
@@ -964,7 +1243,8 @@ Bill dimensions von \@allison_horst steht unter der Lizenz [CC0-1.0](https://git
 
 :::
 
-&nbsp;
+**--> Normalverteilung und die Wahrscheinlichkeiten erklären - 1standardfehler, 2standardfehler, 3standardfehler = Konfidenzintervalle** --> das wird zu kompliziert oder?
+
 
 Einen Überblick über den Datensatz verschafft die Methode `DataFrame.info()`.
 ```{python}
