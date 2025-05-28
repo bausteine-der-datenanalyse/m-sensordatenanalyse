@@ -460,10 +460,10 @@ def verteilungskennwerte(x, output = True):
   N = len(x)
 
   # arithmetisches Mittel bestimmen
-  mittelwert = sum(x) / N
+  stichprobenmittelwert = sum(x) / N
 
   # Stichprobenvarianz bestimmen
-  stichprobenvarianz = sum((x - mittelwert) ** 2) / (N - 1)
+  stichprobenvarianz = sum((x - stichprobenmittelwert) ** 2) / (N - 1)
 
   # Standardabweichung bestimmen
   standardabweichung = stichprobenvarianz ** (1/2)
@@ -474,14 +474,14 @@ def verteilungskennwerte(x, output = True):
   # Ausgabe
   if output: # output = True
     print(f"N: {N}\n",
-          f"arithmetisches Mittel: {mittelwert:.2f}\n",
+          f"arithmetisches Mittel: {stichprobenmittelwert:.2f}\n",
           f"Stichprobenfehler: {stichprobenfehler:.2f}\n",
           f"Stichprobenvarianz: {stichprobenvarianz:.2f}\n",
           f"Standardabweichung: {standardabweichung:.2f}",
           sep = '')
 
   else: # output = False
-    return N, mittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
+    return N, stichprobenmittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
 
 verteilungskennwerte(meerschweinchen['len'])
 ```
@@ -499,10 +499,10 @@ def verteilungskennwerte(x, output = True):
   N = len(x)
 
   # arithmetisches Mittel bestimmen
-  mittelwert = sum(x) / N
+  stichprobenmittelwert = sum(x) / N
 
   # Stichprobenvarianz bestimmen
-  stichprobenvarianz = sum((x - mittelwert) ** 2) / (N - 1)
+  stichprobenvarianz = sum((x - stichprobenmittelwert) ** 2) / (N - 1)
 
   # Standardabweichung bestimmen
   standardabweichung = stichprobenvarianz ** (1/2)
@@ -513,14 +513,14 @@ def verteilungskennwerte(x, output = True):
   # Ausgabe
   if output: # output = True
     print(f"N: {N}\n",
-          f"arithmetisches Mittel: {mittelwert:.2f}\n",
+          f"arithmetisches Mittel: {stichprobenmittelwert:.2f}\n",
           f"Stichprobenfehler: {stichprobenfehler:.2f}\n",
           f"Stichprobenvarianz: {stichprobenvarianz:.2f}\n",
           f"Standardabweichung: {standardabweichung:.2f}",
           sep = '')
 
   else: # output = False
-    return N, mittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
+    return N, stichprobenmittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
 
 verteilungskennwerte(meerschweinchen['len'])
 ```

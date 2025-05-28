@@ -19,10 +19,10 @@ def verteilungskennwerte(x, output = True):
   N = len(x)
 
   # arithmetisches Mittel bestimmen
-  mittelwert = sum(x) / N
+  stichprobenmittelwert = sum(x) / N
 
   # Stichprobenvarianz bestimmen
-  stichprobenvarianz = sum((x - mittelwert) ** 2) / (N - 1)
+  stichprobenvarianz = sum((x - stichprobenmittelwert) ** 2) / (N - 1)
 
   # Standardabweichung bestimmen
   standardabweichung = stichprobenvarianz ** (1/2)
@@ -33,14 +33,14 @@ def verteilungskennwerte(x, output = True):
   # Ausgabe
   if output: # output = True
     print(f"N: {N}\n",
-          f"arithmetisches Mittel: {mittelwert:.2f}\n",
+          f"arithmetisches Mittel: {stichprobenmittelwert:.2f}\n",
           f"Stichprobenfehler: {stichprobenfehler:.2f}\n",
           f"Stichprobenvarianz: {stichprobenvarianz:.2f}\n",
           f"Standardabweichung: {standardabweichung:.2f}",
           sep = '')
 
   else: # output = False
-    return N, mittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
+    return N, stichprobenmittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
 
 # Datensätze einlesen
 ## meerschweinchen
@@ -178,62 +178,64 @@ Unter anderen wurde das Körpergewicht in Gramm gemessen, das in der Spalte 'bod
 
 ```{python}
 #| echo: false
-#| fig-alt: ""
+#| fig-alt: "Dargestellt sind drei Histogramme für die Pinguinarten Adelie, Chinstrap und Gentoo. Auf der x-Achse ist das Gewicht in Gramm und auf der y-Achse die Häufigkeitsdichte abgetragen. Auf jedes Histogramm ist eine Normalverteilungskurve mit den Parametern der Stichprobe gezeichnet."
 
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize = (7.5, 6), sharey = True, layout = 'tight')
 plt.suptitle('Gewichtsverteilung von Pinguinen')
 
 # Adelie
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[0]]
+species = 'Adelie'
+data = penguins['body_mass_g'][penguins['species'] == species]
 
 ## Histogramm
 ax1.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C0', density = True)
 ax1.set_xlabel('Gewicht in Gramm')
 ax1.set_ylabel('Häufigkeitsdichte')
-ax1.set_title(label = penguins['species'].unique()[0] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[0]))
+ax1.set_title(label = str(species) + " N = " + str(data.size))
 
 ## Normalverteilungskurve
-mittelwert = data.mean()
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - stichprobenmittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
 
 ax1.plot(x_values, y_values, color = 'black', linewidth = 1, label = 'Normalverteilung')
-ax1.set_label('Normalverteilungskurve')
 ax1.legend()
 
 # Chinstrap
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[1]]
+species = 'Chinstrap'
+data = penguins['body_mass_g'][penguins['species'] == species]
 
 ## Histogramm
 ax2.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C1', density = True)
 ax2.set_xlabel('Gewicht in Gramm')
-ax2.set_title(label = penguins['species'].unique()[1] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[1]))
+ax2.set_title(label = str(species) + " N = " + str(data.size))
 
 ## Normalverteilungskurve
-mittelwert = data.mean()
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - stichprobenmittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
 
 ax2.plot(x_values, y_values, color = 'black', linewidth = 1)
 
 # Gentoo
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[2]]
+species = 'Gentoo'
+data = penguins['body_mass_g'][penguins['species'] == species]
 
 ## Histogramm
 ax3.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C2', density = True)
 ax3.set_xlabel('Gewicht in Gramm')
-ax3.set_title(label = penguins['species'].unique()[2] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[2]))
+ax3.set_title(label = str(species) + " N = " + str(data.size))
 
 ## Normalverteilungskurve
-mittelwert = data.mean()
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - stichprobenmittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
 
 ax3.plot(x_values, y_values, color = 'black', linewidth = 1)
 
@@ -243,62 +245,63 @@ plt.show()
 ## Code
 ```{python}
 #| output: false
-#| fig-alt: ""
 
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize = (7.5, 6), sharey = True, layout = 'tight')
 plt.suptitle('Gewichtsverteilung von Pinguinen')
 
 # Adelie
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[0]]
+species = 'Adelie'
+data = penguins['body_mass_g'][penguins['species'] == species]
 
 ## Histogramm
 ax1.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C0', density = True)
 ax1.set_xlabel('Gewicht in Gramm')
 ax1.set_ylabel('Häufigkeitsdichte')
-ax1.set_title(label = penguins['species'].unique()[0] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[0]))
+ax1.set_title(label = str(species) + " N = " + str(data.size))
 
 ## Normalverteilungskurve
-mittelwert = data.mean()
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - stichprobenmittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
 
 ax1.plot(x_values, y_values, color = 'black', linewidth = 1, label = 'Normalverteilung')
-ax1.set_label('Normalverteilungskurve')
 ax1.legend()
 
 # Chinstrap
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[1]]
+species = 'Chinstrap'
+data = penguins['body_mass_g'][penguins['species'] == species]
 
 ## Histogramm
 ax2.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C1', density = True)
 ax2.set_xlabel('Gewicht in Gramm')
-ax2.set_title(label = penguins['species'].unique()[1] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[1]))
+ax2.set_title(label = str(species) + " N = " + str(data.size))
 
 ## Normalverteilungskurve
-mittelwert = data.mean()
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - stichprobenmittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
 
 ax2.plot(x_values, y_values, color = 'black', linewidth = 1)
 
 # Gentoo
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[2]]
+species = 'Gentoo'
+data = penguins['body_mass_g'][penguins['species'] == species]
 
 ## Histogramm
 ax3.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C2', density = True)
 ax3.set_xlabel('Gewicht in Gramm')
-ax3.set_title(label = penguins['species'].unique()[2] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[2]))
+ax3.set_title(label = str(species) + " N = " + str(data.size))
 
 ## Normalverteilungskurve
-mittelwert = data.mean()
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - stichprobenmittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
 
 ax3.plot(x_values, y_values, color = 'black', linewidth = 1)
 
@@ -475,11 +478,11 @@ $$
 f(x) = \frac{1}{\sigma \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
 $$
 
-Die Form der Normalverteilung ergibt sich aus dem Faktor $e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$ der Funktionsgleichung. Das Maximum der Funktion liegt am Punkt $x = \mu$. Von dort fällt sie symmetrisch ab und nähert sich für gegen unendlich gehende x-Werte der x-Achse an. Der Abfall der Funktion erfolgt umso schneller, je kleiner $\sigma$ ist. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.
+Die Form der Normalverteilung ergibt sich aus dem Faktor $e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$ der Funktionsgleichung. Das Maximum der Funktion liegt am Punkt $x = \mu$. Von dort fällt sie symmetrisch ab und nähert sich der x-Achse an. Der Abfall der Funktion erfolgt umso schneller, je kleiner $\sigma$ ist. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.
 
 Eine Normalverteilung mit dem Mittelwert $\mu = 0$ und einer Standardabweichung $\sigma = 1$ heißt Standardnormalverteilung.
 
-### Normalverteilung anpassen
+## Normalverteilung anpassen
 Um die Verteilung in einem Datensatz durch eine Normalverteilung anzunähern, werden dessen Mittelwert und Standardabweichung in die Funktionsgleichung der Normalverteilung eingesetzt. Mit Python können die Berechnungen direkt vorgenommen werden. In der Handhabung einfacher sind die vom Paket SciPy bereitgestellten Funktionen, die im nächsten Abschnitt ausführlicher vorgestellt werden. Das folgende Beispiel zeigt die Berechnung und Visualisierung mit Python und mit SciPy.
 
 ::: {#nte-normalverteilungdarstellen .callout-note collapse="true"}
@@ -546,8 +549,8 @@ Die Verteilung der Länge zahnbildender Zellen bei Meerschweinchen, die eine Dos
 
 &nbsp;
 
-### Das Paket SciPy
-Funktionen zur Berechnung von Dichtekurven können über das Modul stats aus dem Paket SciPy importiert werden. Das Modul umfasst zahlreiche Verteilungen.Funktionen für die Normalverteilung werden wie folgt aufgerufen:
+## Das Paket SciPy
+Funktionen zur Berechnung von Dichtekurven können über Paket SciPy importiert werden. Das Modul stats (statistical functions) umfasst zahlreiche Funktionen zum Testen von Hypothesen. Funktionen für die Normalverteilung werden wie folgt aufgerufen:
 
 ```{python}
 import scipy
@@ -653,7 +656,7 @@ Die Funktion `scipy.stats.norm.rvs(size)` zieht `size` Zufallszahlen aus der Nor
 
 Mit den Parametern `loc = mittelwert` und `scale = standardabweichung` kann die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit `loc = 0` und `scale = 1` berechnet.
 
-### Aufgabe Normalverteilung
+## Aufgaben Normalverteilung
 Möglicherweise haben Sie schon einmal von Mensa International gehört, einer Vereinigung für Hochbegabte. Wer Mitglied in dieser Vereinigung werden möchte, soll einen höheren Intelligenzquotienten (IQ) haben als 98 % der Bevölkerung seines:ihres Herkunftslandes ([Wikipedia](https://de.wikipedia.org/wiki/Mensa_International)). 
 
 1. Wenn der durchschnittliche IQ 100 und die Standardabweichung 15 beträgt, welchen IQ müssten Sie haben, um bei Mensa International aufgenommen zu werden?
@@ -692,8 +695,8 @@ print(scipy.stats.norm.cdf(loc = 71, scale = 15, x = 100))
 
 Übrigens: Wie [der Spiegel berichtet](https://www.spiegel.de/lebenundlernen/intelligenz-von-studenten-neugier-schlaegt-iq-a-816084.html), schneiden Studierende mit mittelmäßigem Intelligenzquotienten ebenso erfolgreich ab wie Hochbegabte, vorausgesetzt sie sind neugierig genug und arbeiten gewissenhaft.
 
-### Konfidenzintervalle
-Die Überlegung, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann, ist wie folgt:
+## Konfidenzintervalle
+Die Grundidee in der Statistik ist, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann. Die Überlegung ist wie folgt:
 
 1. Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streuen die Stichprobenwerte normalverteilt um den Mittelwert der Grundgesamtheit. Bei einer Normalverteilung liegen 
 
@@ -722,7 +725,7 @@ Im folgenden Beispiel wird die Idee, dass mit einer gewissen  Wahrscheinlichkeit
 ## Standardnormalverteilung
 ```{python}
 #| echo: false
-#| fig-alt: "Dargestellt ist ein Histogramm mit 30 Klassen. Auf der x-Achse sind die Einheiten der Standardabweichung von -3 bis +3 abgetragen, auf der y-Achse die Häufigkeitsdichte. Zusätzlich sind der Stichprobenmittelwert 0 durch einer vertikale Linie und die ganzzahligen Einheiten der Standardabweichugn durch gestrichelte vertikale Linien eingezeichnet. Über dem Histogramm liegt die Kurve der Standardnormalverteilung. Mit horizontalen Pfeilen sind die Entfernungen zwischen den Standardabweichungen plus/minus 1, 2 und 3 markiert und der Anteil der dazwischen liegenden Werte annotiert (68,27 %, 95,45 %, 99,73 %)."
+#| fig-alt: "Dargestellt ist ein Histgramm mit 30 Klassen. Auf der x-Achse sind die Einheiten der Standardabweichung von -3 bis +3 abgetragen, auf der y-Achse die Häufigkeitsdichte. Zusätzlich sind der Stichprobenmittelwert 0 durch einer vertikale Linie und die ganzzahligen Einheiten der Standardabweichugn durch gestrichelte vertikale Linien eingezeichnet. Über dem Histogramm liegt die Kurve der Standardnormalverteilung. Mit horizontalen Pfeilen sind die Entfernungen zwischen den Standardabweichungen plus/minus 1, 2 und 3 markiert und der Anteil der dazwischen liegenden Werte annotiert (68,27 %, 95,45 %, 99,73 %)."
 
 # Parameter der Standardnormalverteilung
 mu, sigma = 0, 1  # Mittelwert und Standardabweichung
@@ -974,7 +977,7 @@ plt.show()
 
 &nbsp;
 
-### Die t-Verteilung
+## Die t-Verteilung
 Die t-Verteilung wurde von William Sealy Gosset entdeckt (wenngleich nicht als erstem) und popularisiert. Die Verteilung ist auch als Student'sche Verteilung bekannt: Da Gossets Arbeitgeber, die Guiness-Brauerei, die Veröffentlichung der Entdeckung nicht gestattete, publizierte Gosset unter dem Synonym Student. ([Wikipedia](https://de.wikipedia.org/wiki/Studentsche_t-Verteilung))
 
 Die t-Verteilung beschreibt die Verteilung von Stichprobenmittelwerten mit unbekannter Varianz in der Grundgesamtheit, deren Standardfehler mit der Stichprobenstandardabweichung geschätzt wird. Die t-Verteilung hat gegenüber der Normalverteilung die [Anzahl der Freiheitsgrade](https://de.wikipedia.org/wiki/Anzahl_der_Freiheitsgrade_(Statistik)) als zusätzlichen Parameter
@@ -1072,15 +1075,15 @@ $$
 \bar{x} \pm t_{n-1} \cdot \frac{s}{\sqrt{n}}
 $$
 
-t ist der Rückgabewert der Funktion `  - `scipy.stats.t.ppf(q, df, loc=0, scale=1)` ist die Quantilfunktion der t-Verteilung (PPF = percentile point function).`
+  - $t$ ist der Rückgabewert der Funktion `scipy.stats.t.ppf(q, df, loc=0, scale=1)`
+  - q ist das gewählte Alphaniveau bzw. für einen zweiseitigen Hypothesentest $\frac{\alpha}{2}$ und $1 - \frac{\alpha}{2}$.
+  - Das Ergebnis ist der Rückgabewert der Funktion `scipy.stats.t.ppf(q, df, loc = stichprobenmittelwert, scale = stichprobenstandardfehler)`
 
-**Das schauen wir uns für das Gewicht der Pinguine an -> Das ist kein gutes Beispiel für die t-Verteilung, weil die Stichprobengröße so hoch ist (man könnte nach Geschlecht und Jahr filtern).**
+Die t-Verteilung des geschätzten Stichprobenmittelwerts für kleine Stichproben wird für im Jahr 2008 beobachtete weibliche Pinguine dargestellt.
 
 ```{python}
 print(penguins.groupby(by = [penguins['species'], penguins['sex'], penguins['year']]).size())
 ```
-
-**Das ist optisch nicht schön. to do: Pinguine 1 und 2, Mittelwert einzeichnen (braucht man nicht unbedingt)**
 
 ::: {.panel-tabset}
 
@@ -1088,64 +1091,75 @@ print(penguins.groupby(by = [penguins['species'], penguins['sex'], penguins['yea
 
 ```{python}
 #| echo: false
-#| fig-alt: ""
+#| fig-alt: "Dargestellt sind drei Histogramme für die Pinguinarten Adelie, Chinstrap und Gentoo für im Jahr 2008 beobachtete weibliche Tiere. Auf der x-Achse ist das Gewicht in Gramm und auf der y-Achse die Häufigkeitsdichte abgetragen. Auf jedes Histogramm ist die t-Verteilung des Stichprobenmittelwerts eingezeichnet."
+
+year = 2008
+sex = 'female'
+species = 'Adelie'
 
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize = (7.5, 6), sharey = True, layout = 'tight')
-plt.suptitle('Gewichtsverteilung von Pinguinen')
+plt.suptitle('Gewichtsverteilung von weiblichen Pinguinen im Jahr 2008')
 
 # Adelie
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[0]]
-stichprobengröße = penguins.groupby(by = penguins['species']).size().iloc[0]
+data = penguins['body_mass_g'][(penguins['species'] == species) & (penguins['sex'] == sex) & (penguins['year'] == year)]
+stichprobengröße = data.size
 
 ## Histogramm
 ax1.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C0', density = True)
 ax1.set_xlabel('Gewicht in Gramm')
 ax1.set_ylabel('Häufigkeitsdichte')
-ax1.set_title(label = penguins['species'].unique()[0] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[0]))
+ax1.set_title(label = str(species) + " N = " + str(stichprobengröße))
 
 ## t-Verteilung des Stichprobenmittelwerts
-mittelwert = data.mean()
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
 standardfehler = stichprobenstandardabweichung / np.sqrt(stichprobengröße)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values = scipy.stats.t.pdf(x_values, loc = mittelwert, scale = standardfehler, df = stichprobengröße - 1)
+y_values = scipy.stats.t.pdf(x_values, loc = stichprobenmittelwert, scale = standardfehler, df = stichprobengröße - 1)
 
 ax1.plot(x_values, y_values, color = 'black', linewidth = 1, label = 't-Verteilung')
-ax1.set_label('t-Verteilung')
-ax1.legend()
+ax1.legend(loc = 'upper left')
 
 # Chinstrap
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[1]]
+species = 'Chinstrap'
+
+data = penguins['body_mass_g'][(penguins['species'] == species) & (penguins['sex'] == sex) & (penguins['year'] == year)]
+stichprobengröße = data.size
 
 ## Histogramm
 ax2.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C1', density = True)
 ax2.set_xlabel('Gewicht in Gramm')
-ax2.set_title(label = penguins['species'].unique()[1] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[1]))
+ax2.set_title(label = str(species) + " N = " + str(stichprobengröße))
 
-## Normalverteilungskurve
-mittelwert = data.mean()
+## t-Verteilung des Stichprobenmittelwerts
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
+standardfehler = stichprobenstandardabweichung / np.sqrt(stichprobengröße)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values = scipy.stats.t.pdf(x_values, loc = stichprobenmittelwert, scale = standardfehler, df = stichprobengröße - 1)
 
 ax2.plot(x_values, y_values, color = 'black', linewidth = 1)
 
 # Gentoo
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[2]]
+species = 'Gentoo'
+
+data = penguins['body_mass_g'][(penguins['species'] == species) & (penguins['sex'] == sex) & (penguins['year'] == year)]
+stichprobengröße = data.size
 
 ## Histogramm
 ax3.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C2', density = True)
 ax3.set_xlabel('Gewicht in Gramm')
-ax3.set_title(label = penguins['species'].unique()[2] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[2]))
+ax3.set_title(label = str(species) + " N = " + str(stichprobengröße))
 
-## Normalverteilungskurve
-mittelwert = data.mean()
+## t-Verteilung des Stichprobenmittelwerts
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
+standardfehler = stichprobenstandardabweichung / np.sqrt(stichprobengröße)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values = scipy.stats.t.pdf(x_values, loc = stichprobenmittelwert, scale = standardfehler, df = stichprobengröße - 1)
 
 ax3.plot(x_values, y_values, color = 'black', linewidth = 1)
 
@@ -1155,62 +1169,75 @@ plt.show()
 ## Code
 ```{python}
 #| output: false
-#| fig-alt: ""
+
+
+year = 2008
+sex = 'female'
+species = 'Adelie'
 
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize = (7.5, 6), sharey = True, layout = 'tight')
-plt.suptitle('Gewichtsverteilung von Pinguinen')
+plt.suptitle('Gewichtsverteilung von weiblichen Pinguinen im Jahr 2008')
 
 # Adelie
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[0]]
+data = penguins['body_mass_g'][(penguins['species'] == species) & (penguins['sex'] == sex) & (penguins['year'] == year)]
+stichprobengröße = data.size
 
 ## Histogramm
 ax1.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C0', density = True)
 ax1.set_xlabel('Gewicht in Gramm')
 ax1.set_ylabel('Häufigkeitsdichte')
-ax1.set_title(label = penguins['species'].unique()[0] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[0]))
+ax1.set_title(label = str(species) + " N = " + str(stichprobengröße))
 
-## Normalverteilungskurve
-mittelwert = data.mean()
+## t-Verteilung des Stichprobenmittelwerts
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
+standardfehler = stichprobenstandardabweichung / np.sqrt(stichprobengröße)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values = scipy.stats.t.pdf(x_values, loc = stichprobenmittelwert, scale = standardfehler, df = stichprobengröße - 1)
 
-ax1.plot(x_values, y_values, color = 'black', linewidth = 1, label = 'Normalverteilung')
-ax1.set_label('Normalverteilungskurve')
-ax1.legend()
+ax1.plot(x_values, y_values, color = 'black', linewidth = 1, label = 't-Verteilung')
+ax1.legend(loc = 'upper left')
 
 # Chinstrap
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[1]]
+species = 'Chinstrap'
+
+data = penguins['body_mass_g'][(penguins['species'] == species) & (penguins['sex'] == sex) & (penguins['year'] == year)]
+stichprobengröße = data.size
 
 ## Histogramm
 ax2.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C1', density = True)
 ax2.set_xlabel('Gewicht in Gramm')
-ax2.set_title(label = penguins['species'].unique()[1] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[1]))
+ax2.set_title(label = str(species) + " N = " + str(stichprobengröße))
 
-## Normalverteilungskurve
-mittelwert = data.mean()
+## t-Verteilung des Stichprobenmittelwerts
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
+standardfehler = stichprobenstandardabweichung / np.sqrt(stichprobengröße)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values = scipy.stats.t.pdf(x_values, loc = stichprobenmittelwert, scale = standardfehler, df = stichprobengröße - 1)
 
 ax2.plot(x_values, y_values, color = 'black', linewidth = 1)
 
 # Gentoo
-data = penguins['body_mass_g'][penguins['species'] == penguins['species'].unique()[2]]
+species = 'Gentoo'
+
+data = penguins['body_mass_g'][(penguins['species'] == species) & (penguins['sex'] == sex) & (penguins['year'] == year)]
+stichprobengröße = data.size
 
 ## Histogramm
 ax3.hist(data, alpha = 0.6, edgecolor = 'lightgrey', color = 'C2', density = True)
 ax3.set_xlabel('Gewicht in Gramm')
-ax3.set_title(label = penguins['species'].unique()[2] + " N = " + str(penguins.groupby(by = penguins['species']).size().iloc[2]))
+ax3.set_title(label = str(species) + " N = " + str(stichprobengröße))
 
-## Normalverteilungskurve
-mittelwert = data.mean()
+## t-Verteilung des Stichprobenmittelwerts
+stichprobenmittelwert = data.mean()
 stichprobenstandardabweichung = data.std(ddof = 1)
+standardfehler = stichprobenstandardabweichung / np.sqrt(stichprobengröße)
 hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
-y_values =  1 / (stichprobenstandardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x_values - mittelwert) ** 2 / (2 * stichprobenstandardabweichung ** 2))
+y_values = scipy.stats.t.pdf(x_values, loc = stichprobenmittelwert, scale = standardfehler, df = stichprobengröße - 1)
 
 ax3.plot(x_values, y_values, color = 'black', linewidth = 1)
 
@@ -1220,13 +1247,71 @@ plt.show()
 :::
 
 
-## Zusammenfassung
+## Aufgabe Konfidenzintervalle
+1. Schätzen Sie das Gewicht für im Jahr 2008 beobachtete weibliche Pinguine der Spezies Adelie, Chinstrap und Gentoo.
+
+2. Welches Konfidenzintervall können Sie für die Mittelwerte angeben, wenn eine Vertrauenswahrscheinlichkeit von 90 % gelten soll?
+
+::: {#tip-pinguinaufgabe .callout-tip collapse="true"}
+## Tipp und Musterlösung
+
+Folgende Schritte helfen Ihnen bei der Lösung:
+
+1. Bestimmen Sie den Stichprobenmittelwert $\bar{x}$.
+2. Bestimmen Sie die Stichprobenstandardabweichung $s$, die Stichprobengröße $N$ und den Standardfehler $\frac{s}{\sqrt{N}}$.
+3. Bestimmen Sie die z- oder t-Werte der Normal- bzw. t-Verteilung für das gewählte Konfidenzniveau - für einen zweiseitigen Hypothesentest $\frac{\alpha}{2}$ und $1 - \frac{\alpha}{2}$
+4. Berechne Sie das Konfidenzintervall $\bar{x} \pm t_{\alpha / 2} ~ \frac{s}{\sqrt{n}}$.
+
+:::: {.callout-tip collapse="true"}
+## Musterlösung
+
+Pinguine auswählen
+
+```{python}
+alpha = 1 - 0.9
+data = penguins[(penguins['sex'] == sex) & (penguins['year'] == year)]
+```
+
+1. Stichprobenmittelwerte bestimmen.
+
+```{python}
+penguin_means = data['body_mass_g'].groupby(by = data['species']).mean()
+print(penguin_means)
+```
+
+2. Stichprobenstandardabweichung, Stichprobengröße und Standardfehler bestimmen.
+
+```{python}
+penguin_stds = data['body_mass_g'].groupby(by = data['species']).std(ddof = 1)
+penguin_sizes = data['body_mass_g'].groupby(by = data['species']).size()
+penguin_stderrors = penguin_stds / np.sqrt(penguin_sizes)
+
+print("Stichprobenstandardabweichungen:\n", penguin_stds)
+print("\nStichprobengrößen:\n", penguin_sizes)
+print("\nStandardfehler:\n", penguin_stderrors)
+```
+
+3. + 4. Konfidenzintervall bestimmen
+
+```{python}
+untere_intervalle = scipy.stats.t.ppf(alpha / 2, loc = penguin_means, scale = penguin_stderrors, df = penguin_sizes - 1)
+print(untere_intervalle)
+
+obere_intervalle = scipy.stats.t.ppf(1 - alpha / 2, loc = penguin_means, scale = penguin_stderrors, df = penguin_sizes - 1)
+print(obere_intervalle)
+```
+
+::::
+:::
+
+Das Prinzip der schließenden Statistik und die Arbeit mit Verteilungen wird uns wieder begegnen.
+
 Schritte zur Berechnung:
 
-    Bestimme den Stichprobenmittelwert (\bar{x}).
-    Bestimme (s) (Stichprobenstandardabweichung) oder (\sigma).
+    
+    
     Bestimme (n) (Stichprobengröße).
-    Wähle das Konfidenzniveau und bestimme den entsprechenden Z- oder t-Wert.
+   **z-Werte wurden noch nicht eingeführt**.
     Berechne das Konfidenzintervall mit den obigen Formeln.
 
 Ein höheres Konfidenzniveau ergibt ein breiteres Intervall, dass mit höherer Sicherheit den wahren Mittelwert abdeckt.
@@ -1242,30 +1327,5 @@ Ein höheres Konfidenzniveau ergibt ein breiteres Intervall, dass mit höherer S
 Bill dimensions von \@allison_horst steht unter der Lizenz [CC0-1.0](https://github.com/allisonhorst/palmerpenguins?tab=CC0-1.0-1-ov-file#creative-commons) und ist auf [GitHub](https://github.com/allisonhorst/palmerpenguins?tab=readme-ov-file#meet-the-palmer-penguins) abrufbar. 2020
 
 :::
-
-**--> Normalverteilung und die Wahrscheinlichkeiten erklären - 1standardfehler, 2standardfehler, 3standardfehler = Konfidenzintervalle** --> das wird zu kompliziert oder?
-
-
-Einen Überblick über den Datensatz verschafft die Methode `DataFrame.info()`.
-```{python}
-print(penguins.info())
-```
-
-
-**Gilt auch für Messungen: Wenn sehr häufig gemessen wird**
-
-
-**Das plotten ist aber aufwändig, weil man alles manuell erstellen muss. --> optional / für später**
-
-<!-- # ## Normalverteilungskurve
-# erwartungswert = pd.Series([1, 2, 3, 4, 5, 6]).mean() # 3.5
-# standardabweichung = pd.Series([1, 2, 3, 4, 5, 6]).std(ddof = 0) # ~ 1.708
-
-# x = np.linspace(0, 9, 100)
-# y = 10 / (standardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x - erwartungswert) ** 2 / (2 * standardabweichung ** 2))
-# plt.plot(x, y, 'k', linewidth=2) -->
-
-Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit, also den Erwartungswert. Anhand des Würfelexperiments wurde gezeigt, dass mit zunehmender Stichprobengröße Stichprobenmittelwerte in der Nähe des Erwartungswerts immer wahrscheinlicher werden als solche, die weiter entfernt liegen.
-
 
 Verzerrung (Bias): https://de.wikipedia.org/wiki/Verzerrung_einer_Sch%C3%A4tzfunktion quantifiziert das systematische Über- oder Unterschätzen der Schätzfunktion

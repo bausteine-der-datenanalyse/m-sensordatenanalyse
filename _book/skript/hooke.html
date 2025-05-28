@@ -73,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2429c4e79073e78c89223af97108c95a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e4aa0397115c41deec761c50bad4326d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -103,7 +103,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
+
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
 <link rel="shortcut icon" href="skript/00-bilder/favicon_bcd_new.svg">
 <link rel="icon" type="image/x-icon" href="logo.ico">
 
@@ -265,14 +268,14 @@ Beispiel&nbsp;3.1: Der Versuchsaufbau
 </div>
 </div>
 <p>Die Messreihe liegt in Form einer CSV-Datei unter dem Pfad “01-daten/hooke_data.csv” vor. Die Datei kann direkt mit Python oder mit den Modulen NumPy und Pandas eingelesen werden.</p>
-<div id="dab82c2e" class="cell" data-execution_count="2">
+<div id="2958887b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/hooke_data.csv"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">NumPy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Pandas</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="d0992108" class="cell" data-execution_count="3">
+<div id="fb3dbf46" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datei einlesen</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dateiobjekt <span class="op">=</span> <span class="bu">open</span>(<span class="bu">file</span> <span class="op">=</span> dateipfad, mode <span class="op">=</span> <span class="st">"r"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>hooke <span class="op">=</span> dateiobjekt.read() <span class="co"># liefert einen string zurück</span></span>
@@ -287,7 +290,7 @@ Beispiel&nbsp;3.1: Der Versuchsaufbau
 </div>
 </div>
 <p>Die Einträge in der Datei liegen zeilenweise, d.&nbsp;h. durch das Zeichen <code>\n</code> getrennt vor. Die Werte in jeder Zeile sind mit Semikolon separiert. Mit der Methode <code>str.split()</code> können die Einträge in Listen eingelesen werden. Dabei stört eine leere Zeile, die von der Methode, <code>dateiobjekt.read()</code> <a href="https://docs.python.org/3/tutorial/inputoutput.html#methods-of-file-objects">am Dateiende zurückgegeben</a> wird, die deshalb übersprungen wird.</p>
-<div id="847305e1" class="cell" data-execution_count="4">
+<div id="c5c64511" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>liste_hooke_zeilenweise <span class="op">=</span> hooke.split(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(liste_hooke_zeilenweise[<span class="dv">0</span>:<span class="dv">3</span>], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -324,7 +327,7 @@ Liste distance: ['distance', '153.29', '152.74', '153.27', '152.81', '152.77', '
 </div>
 </div>
 <p>Zuletzt können die ursprünglichen Spaltenbeschriftungen entfernt und die Datentypen angepasst werden.</p>
-<div id="c9857681" class="cell" data-execution_count="5">
+<div id="13142625" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ersten Eintrag entfernen</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>number <span class="op">=</span> number[<span class="dv">1</span>:]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mass <span class="op">=</span> mass[<span class="dv">1</span>:]</span>
@@ -360,7 +363,7 @@ Liste distance: [153.29, 152.74, 153.27, 152.81, 152.77, 152.82, 153.2, 152.91, 
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Der Aufbau der Datei ist aus dem Einlesen mit der Pythonbasis bekannt. Da NumPy-Arrays nur einen Datentyp haben können, müssen die Spaltenbeschriftungen in ein extra Objekt eingelesen werden.</p>
-<div id="eeccf9a3" class="cell" data-execution_count="6">
+<div id="d46b0973" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>hooke_nparray <span class="op">=</span> np.loadtxt(fname <span class="op">=</span> dateipfad, skiprows <span class="op">=</span> <span class="dv">1</span>, delimiter <span class="op">=</span> <span class="st">';'</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>hooke_colnames <span class="op">=</span> np.loadtxt(fname <span class="op">=</span> dateipfad, max_rows <span class="op">=</span> <span class="dv">1</span>, delimiter <span class="op">=</span> <span class="st">';'</span>, dtype <span class="op">=</span> <span class="st">'str'</span>)</span>
@@ -379,7 +382,7 @@ Liste distance: [153.29, 152.74, 153.27, 152.81, 152.77, 152.82, 153.2, 152.91, 
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>Mit Pandas ist das Einlesen der Datei leicht.</p>
-<div id="40b61646" class="cell" data-execution_count="7">
+<div id="89e12a3f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>hooke <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">';'</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -412,7 +415,7 @@ None</code></pre>
 <section id="deskriptive-statistik" class="level3">
 <h3 class="anchored" data-anchor-id="deskriptive-statistik">Deskriptive Statistik</h3>
 <p>Nach dem Einlesen sollte man sich einen Überblick über die Daten verschaffen. Dafür eignet sich besonders das Modul Pandas. Mit den Methoden <code>pd.DataFrame.head()</code> und <code>pd.DataFrame.tail()</code> kann schnell ein Ausschnitt der Daten betrachtet werden.</p>
-<div id="25dbe9dc" class="cell" data-execution_count="8">
+<div id="44cb403e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.head(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.tail())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -433,7 +436,7 @@ None</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Die Methode <code>pd.DataFrame.describe()</code> erstellt die deskriptive Statistik für den Datensatz. Diese ist in diesem Fall jedoch noch nicht sonderlich nützlich. Die Spalte ‘no’ enthält lediglich eine laufende Versuchsnummer, die Spalte ‘mass’ enhält verschiedene Gewichte.</p>
-<div id="5a723665" class="cell" data-execution_count="9">
+<div id="71952175" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hooke.describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -505,7 +508,7 @@ None</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Sinnvoller ist eine nach dem verwendeten Gewicht aufgeteilte beschreibende Statistik der gemessenen Ausdehnung. Dafür kann die Pandas-Methode <code>pd.DataFrame.groupby()</code> verwendet werden. So kann für jedes der gemessenen Gewichte der arithmethische Mittelwert und die Standardabweichung abgelesen werden.</p>
-<div id="81b4f29c" class="cell" data-execution_count="10">
+<div id="ac98d637" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> <span class="st">'mass'</span>)[<span class="st">'distance'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
@@ -666,12 +669,12 @@ None</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Bereits an dieser Stelle könnte die hohe Standardabweichung in der Messreihe mit 0 Gramm auffallen. Leichter ist es jedoch in der grafischen Betrachtung.</p>
-<div id="a725c68b" class="cell" data-execution_count="11">
+<div id="ab866eaf" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'mass'</span>, y <span class="op">=</span> <span class="st">'distance'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">"Messreihe Hooke`sches Gesetz"</span>, ylabel <span class="op">=</span> <span class="st">'Abstand in cm'</span>, xlabel <span class="op">=</span> <span class="st">'Gewicht in Gramm'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hooke_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img" alt="Darstellung des auf der x-Achse aufgetragenen Gewichts und des auf der y-Achse aufgetragenen gemessenen Abstands."></p>
+<p><img src="hooke_files/figure-html/cell-12-output-1.png" alt="Darstellung des auf der x-Achse aufgetragenen Gewichts und des auf der y-Achse aufgetragenen gemessenen Abstands." width="593" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -679,7 +682,7 @@ None</code></pre>
 <p>&nbsp;</p>
 <p>Grafisch fällt der Messwert von 200 cm für das Gewicht 0 Gramm als stark von den übrigen Messwerten abweichend auf.</p>
 <p>Die Messwerte für das Gewicht 0 Gramm sollen näher betrachtet werden. Dafür werden die Messwerte sowohl absolut, als auch <a href="https://de.wikipedia.org/wiki/Standardisierung_(Statistik)">standardisiert in Einheiten der Standardabweichung (z-Werten)</a> ausgedrückt ausgegeben.</p>
-<div id="a06bf76a" class="cell" data-execution_count="12">
+<div id="01bb0d48" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gewicht <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>z_values <span class="op">=</span> hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> gewicht].loc[: , <span class="st">'distance'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: (x <span class="op">-</span> hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> gewicht].loc[: , <span class="st">'distance'</span>].mean()) <span class="op">/</span>  hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> gewicht].loc[: , <span class="st">'distance'</span>].std())</span>
@@ -704,7 +707,7 @@ None</code></pre>
 </div>
 <p>Der Wert 200 cm in Zeile 113 scheint fehlerhaft zu sein. Eine Eigendehnung der Feder um zusätzliche 16 Zentimeter ist nicht plausibel. Auch der z-Wert &gt; 3 kennzeichnet den Messwert als <a href="https://de.wikipedia.org/wiki/Ausrei%C3%9Fer">Ausreißer</a>. Die Zeile wird deshalb aus dem Datensatz entfernt.</p>
 <p><strong>hier Aufklapper Normalverteilung</strong></p>
-<div id="b20b6060" class="cell" data-execution_count="13">
+<div id="60a1a853" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> <span class="dv">113</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> <span class="st">'mass'</span>)[<span class="st">'distance'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -867,7 +870,7 @@ None</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Hiernach ist die höchste Standardabweichung für die Messreihe mit 301 Gramm zu verzeichnen. Die gemessenen Werte sind jedoch unauffällig.</p>
-<div id="9ce79067" class="cell" data-execution_count="14">
+<div id="63797b9d" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gewicht <span class="op">=</span> <span class="dv">301</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>z_values <span class="op">=</span> hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> gewicht].loc[: , <span class="st">'distance'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: (x <span class="op">-</span> hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> gewicht].loc[: , <span class="st">'distance'</span>].mean()) <span class="op">/</span>  hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> gewicht].loc[: , <span class="st">'distance'</span>].std())</span>
@@ -889,19 +892,19 @@ None</code></pre>
 </div>
 </div>
 <p>Die Grafik des bereinigten Datensatzes legt einen linearen Zusammenhang nahe. Darüber hinaus sticht der mit zunehmendem Gewicht abfallende Trend der Datenpunkte ins Auge.</p>
-<div id="d8266a47" class="cell" data-execution_count="15">
+<div id="62ad36bb" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'mass'</span>, y <span class="op">=</span> <span class="st">'distance'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">'bereinigter Datensatz'</span>, ylabel <span class="op">=</span> <span class="st">'Abstand in cm'</span>, xlabel <span class="op">=</span> <span class="st">'Gewicht in Gramm'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hooke_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img" alt="Darstellung des auf der x-Achse aufgetragenen Gewichts und des auf der y-Achse aufgetragenen gemessenen Abstands."></p>
+<p><img src="hooke_files/figure-html/cell-16-output-1.png" alt="Darstellung des auf der x-Achse aufgetragenen Gewichts und des auf der y-Achse aufgetragenen gemessenen Abstands." width="593" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>&nbsp;</p>
 <p>Entsprechend des Versuchsaufbaus nimmt mit zunehmender Dehnung der Feder der Abstand zum Abstandssensor ab. Da die Federausdehnung gemessen werden soll, bietet es sich an, die Daten entsprechend zu transformieren. Dazu wird der gemessene Abstand bei 0 Gramm Gewicht als Nullpunkt aufgefasst, von dem aus die Federdehnung gemessen wird. Das bedeutet, dass von allen Datenpunkten das arithmetische Mittel der für 0 Gramm Gewicht gemessen Ausdehnung abgezogen und das Ergebnis mit -1 multipliziert wird.</p>
-<div id="c19794be" class="cell" data-execution_count="16">
+<div id="a1bc1142" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>nullpunkt <span class="op">=</span> hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> <span class="dv">0</span>].loc[: , <span class="st">'distance'</span>].mean()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nullpunkt: </span><span class="sc">{</span>nullpunkt<span class="sc">:.2f}</span><span class="ss"> cm"</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -914,7 +917,7 @@ None</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hooke_files/figure-html/cell-17-output-2.png" class="img-fluid figure-img" alt="Darstellung des auf der x-Achse aufgetragenen Gewichts und des auf der y-Achse aufgetragenen Federausdehnung."></p>
+<p><img src="hooke_files/figure-html/cell-17-output-2.png" alt="Darstellung des auf der x-Achse aufgetragenen Gewichts und des auf der y-Achse aufgetragenen Federausdehnung." width="585" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -924,7 +927,7 @@ None</code></pre>
 <h2 data-number="3.1" class="anchored" data-anchor-id="federkonstante-bestimmen"><span class="header-section-number">3.1</span> Federkonstante bestimmen</h2>
 <p>Die Beziehung zwischen der Kraft <span class="math inline">\(F\)</span> und der Längenänderung <span class="math inline">\(\Delta{x}\)</span> einer Feder mit Federkonstante <span class="math inline">\(k\)</span> wird durch die Gleichung <span class="math inline">\(F = k \times \Delta{x}\)</span> beschrieben. Dabei entspricht die Kraft <span class="math inline">\(F\)</span> dem mit der Fallbeschleunigung <span class="math inline">\(g\)</span> multiplizierten Gewicht in Kilogramm <span class="math inline">\(m\)</span>. Die Fallbeschleunigung beträgt auf der Erde <span class="math inline">\(9,81 \frac{m}{s^2}\)</span>.</p>
 <p>Deshalb wird im Datensatz das in der Spalte ‘mass’ eingetragene Gewicht in Gramm in die wirkende Kraft umgerechnet. Ebenso wird die gemessene Abstandsänderung in der Spalte ‘distance’ von Zentimeter in Meter umgerechnet.</p>
-<div id="0b5f0c27" class="cell" data-execution_count="17">
+<div id="596408a9" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'mass'</span>] <span class="op">=</span> hooke[<span class="st">'mass'</span>].div(<span class="dv">1000</span>).mul(<span class="fl">9.81</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>hooke.rename(columns <span class="op">=</span> {<span class="st">'mass'</span>: <span class="st">'force'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -941,12 +944,12 @@ None</code></pre>
 </div>
 </div>
 <p>Für die grafische Darstellung des Zusammenhangs <span class="math inline">\(F = k \times \Delta{x}\)</span> ist es zweckmäßiger, die Abstandsänderung auf der x-Achse und die wirkende Kraft auf der y-Achse darzustellen.</p>
-<div id="13a3a51f" class="cell" data-execution_count="18">
+<div id="7f908774" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'distance'</span>, y <span class="op">=</span> <span class="st">'force'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">'umgeformter Datensatz'</span>, ylabel <span class="op">=</span> <span class="st">'wirkende Kraft in $N$'</span>, xlabel <span class="op">=</span> <span class="st">'Abstandsänderung in Meter'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hooke_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img" alt="Darstellung der auf der x-Achse aufgetragenen Federausdehnung und der auf der y-Achse aufgetragenen wirkenden Kraft."></p>
+<p><img src="hooke_files/figure-html/cell-19-output-1.png" alt="Darstellung der auf der x-Achse aufgetragenen Federausdehnung und der auf der y-Achse aufgetragenen wirkenden Kraft." width="576" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -959,7 +962,7 @@ None</code></pre>
 y = \beta_0 + \beta_1 \times x
 \]</span></p>
 <p>Zur Bestimmung der Parameter einer linearen Funktion wird die Methode der linearen <a href="https://de.wikipedia.org/wiki/Regressionsanalyse">Regression</a> verwendet. Die Funktionen dafür stellt das Paket <code>numpy.polynomial</code> bzw. für Polynomfunktionen dessen Modul <code>numpy.polynomial.polynomial</code> bereit.</p>
-<div id="5385a6ba" class="cell" data-execution_count="19">
+<div id="f9a5125c" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy.polynomial.polynomial <span class="im">as</span> poly</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="polyfit-und-polyeval" class="level4">
@@ -977,7 +980,7 @@ Beispiel&nbsp;3.2: polyfit und polyeval erklärt
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="a8a69c26" class="cell" data-execution_count="20">
+<div id="7a9d371b" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beispieldaten erzeugen</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">100</span>)))</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">**</span> <span class="dv">2</span></span>
@@ -988,14 +991,14 @@ Beispiel&nbsp;3.2: polyfit und polyeval erklärt
 </div>
 </div>
 <p>Die Funktion gibt die geschätzten Regressionsparameter als NumPy-Array zurück. Die Terme sind aufsteigend angeordnet, d.&nbsp;h. der Achsabschnitt steht an Indexposition 0, der Steigungskoeffizient an Indexposition 1. Die Ausgabe für ein Polynom zweiten Grades würde beispielsweise so aussehen:</p>
-<div id="97c5e835" class="cell" data-execution_count="21">
+<div id="b5be3cf9" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.polynomial.polynomial.polyfit(x, y, <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[ 1.62413205e-12 -5.07904010e-14  1.00000000e+00]</code></pre>
+<pre><code>[3.15891594e-13 1.90464004e-14 1.00000000e+00]</code></pre>
 </div>
 </div>
 <p>Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funktion berechnet werden. Dafür kann die Funktion <code>poly.polyeval(x, c)</code> verwendet werden. Diese berechnet die Funktionswerte für in <code>x</code> übergebene Wert(e) mit den Funktionsparametern <code>c</code>.</p>
-<div id="94012d1f" class="cell" data-execution_count="22">
+<div id="1b1f2780" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 'manuelle' Berechnung</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>regressions_koeffizienten <span class="op">=</span> np.polynomial.polynomial.polyfit(x, y, <span class="dv">1</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>vorhersagewerte <span class="op">=</span> regressions_koeffizienten[<span class="dv">0</span>] <span class="op">+</span> x <span class="op">*</span> regressions_koeffizienten[<span class="dv">1</span>]</span>
@@ -1013,7 +1016,7 @@ Ausschnitt der Vorhersagewerte: [-1617. -1518. -1419. -1320. -1221. -1122. -1023
 </div>
 </div>
 <p>Das <a href="https://de.wikipedia.org/wiki/Bestimmtheitsma%C3%9F">Bestimmtheitsmaß</a> <span class="math inline">\(R^2\)</span> gibt an, wie gut die Schätzfunktion an die Daten angepasst ist. Der Wertebereich reicht von 0 bis 1. Ein Wert von 1 bedeutet eine vollständige Anpassung. Für eine einfache lineare Regression mit nur einer erklärenden Variable kann das Bestimmtheitsmaß als Quadrat des B<a href="https://de.wikipedia.org/wiki/Korrelationskoeffizient_nach_Bravais-Pearson">ravais-Pearson-Korrelationskoeffizienten</a> <span class="math inline">\(r\)</span> berechnet werden. Dieser wird mit der Funktion <code>np.corrcoef(x, y)</code> ermittelt (die eine Matrix der Korrelationskoeffizienten ausgibt).</p>
-<div id="88a4638f" class="cell" data-execution_count="23">
+<div id="e1d27f3a" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R</span><span class="ch">\u00b2</span><span class="ss"> = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span><span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1022,7 +1025,7 @@ R² = 0.94</code></pre>
 </div>
 </div>
 <p>Die Daten und die geschätzte Gerade können grafisch dargestellt werden.</p>
-<div id="86fb3fa8" class="cell" data-execution_count="24">
+<div id="ced63d1e" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Beispieldaten'</span>)</span>
@@ -1038,7 +1041,7 @@ R² = 0.94</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hooke_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="hooke_files/figure-html/cell-25-output-1.png" width="613" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1069,7 +1072,7 @@ Beispiel&nbsp;3.3: to do: numpy.polyfit &amp; numpy.polyval
 </div>
 <p><strong>Federkonstante bestimmen</strong></p>
 <p>Die Parameter der an die Messwerte angepassten linearen Funktion und das Bestimmtheitsmaß lauten:</p>
-<div id="522e132e" class="cell" data-execution_count="25">
+<div id="1933b3d5" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.polynomial.polynomial.polyfit(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>], <span class="dv">1</span>))</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>])[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
@@ -1081,13 +1084,13 @@ R² = 0.99</code></pre>
 </div>
 </div>
 <p>Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funktion berechnet werden.</p>
-<div id="b710a4be" class="cell" data-execution_count="26">
+<div id="8d01f60b" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung mit polyeval</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> np.polynomial.polynomial.polyfit(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>], <span class="dv">1</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>vorhersagewerte_hooke <span class="op">=</span> np.polynomial.polynomial.polyval(hooke[<span class="st">'distance'</span>], lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Messreihe und die darauf angepasste lineare Funktion können grafisch dargestellt werden.</p>
-<div id="b10e966f" class="cell" data-execution_count="27">
+<div id="a1a165b3" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Platzhalter</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> hooke[<span class="st">'distance'</span>]</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> hooke[<span class="st">'force'</span>]</span>
@@ -1106,7 +1109,7 @@ R² = 0.99</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hooke_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="hooke_files/figure-html/cell-28-output-1.png" width="576" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>

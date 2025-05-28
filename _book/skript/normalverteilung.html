@@ -208,12 +208,12 @@ window.Quarto = {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#normalverteilung-anpassen" id="toc-normalverteilung-anpassen" class="nav-link active" data-scroll-target="#normalverteilung-anpassen">Normalverteilung anpassen</a></li>
-  <li><a href="#das-paket-scipy" id="toc-das-paket-scipy" class="nav-link" data-scroll-target="#das-paket-scipy">Das Paket SciPy</a></li>
-  <li><a href="#aufgabe-normalverteilung" id="toc-aufgabe-normalverteilung" class="nav-link" data-scroll-target="#aufgabe-normalverteilung">Aufgabe Normalverteilung</a></li>
-  <li><a href="#konfidenzintervalle" id="toc-konfidenzintervalle" class="nav-link" data-scroll-target="#konfidenzintervalle">Konfidenzintervalle</a></li>
-  <li><a href="#die-t-verteilung" id="toc-die-t-verteilung" class="nav-link" data-scroll-target="#die-t-verteilung">Die t-Verteilung</a></li>
-  <li><a href="#zusammenfassung" id="toc-zusammenfassung" class="nav-link" data-scroll-target="#zusammenfassung"><span class="header-section-number">2.1</span> Zusammenfassung</a></li>
+  <li><a href="#normalverteilung-anpassen" id="toc-normalverteilung-anpassen" class="nav-link active" data-scroll-target="#normalverteilung-anpassen"><span class="header-section-number">2.1</span> Normalverteilung anpassen</a></li>
+  <li><a href="#das-paket-scipy" id="toc-das-paket-scipy" class="nav-link" data-scroll-target="#das-paket-scipy"><span class="header-section-number">2.2</span> Das Paket SciPy</a></li>
+  <li><a href="#aufgaben-normalverteilung" id="toc-aufgaben-normalverteilung" class="nav-link" data-scroll-target="#aufgaben-normalverteilung"><span class="header-section-number">2.3</span> Aufgaben Normalverteilung</a></li>
+  <li><a href="#konfidenzintervalle" id="toc-konfidenzintervalle" class="nav-link" data-scroll-target="#konfidenzintervalle"><span class="header-section-number">2.4</span> Konfidenzintervalle</a></li>
+  <li><a href="#die-t-verteilung" id="toc-die-t-verteilung" class="nav-link" data-scroll-target="#die-t-verteilung"><span class="header-section-number">2.5</span> Die t-Verteilung</a></li>
+  <li><a href="#aufgabe-konfidenzintervalle" id="toc-aufgabe-konfidenzintervalle" class="nav-link" data-scroll-target="#aufgabe-konfidenzintervalle"><span class="header-section-number">2.6</span> Aufgabe Konfidenzintervalle</a></li>
   </ul>
 </nav>
     </div>
@@ -257,7 +257,7 @@ Beispiel&nbsp;2.1: Häufigkeitsverteilung von Würfelergebnissen
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">ein Würfel</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">zwei Würfel</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">drei Würfel</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="945b77f1" class="cell" data-execution_count="2">
+<div id="3489e1f1" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ein_würfel <span class="op">=</span> []</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
@@ -295,7 +295,7 @@ Durchschnitt: 3.5</code></pre>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="bee87aeb" class="cell" data-execution_count="3">
+<div id="5a6ab6e3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>zwei_würfel <span class="op">=</span> []</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
@@ -345,7 +345,7 @@ Durchschnitt pro Würfel: 3.5</code></pre>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div id="5cb87a85" class="cell" data-execution_count="4">
+<div id="425e1e62" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>drei_würfel <span class="op">=</span> []</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
@@ -423,7 +423,7 @@ Durchschnitt pro Würfel: 3.5</code></pre>
 install.packages("palmerpenguins")
 library(palmerpenguins)</code></pre>
 <p>Horst AM, Hill AP und Gorman KB. 2020. palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. <a href="https://allisonhorst.github.io/palmerpenguins/" class="uri">https://allisonhorst.github.io/palmerpenguins/</a>. doi: 10.5281/zenodo.3960218.</p>
-<div id="fdf494db" class="cell" data-execution_count="5">
+<div id="88716f45" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> <span class="st">"c:/Users/mapoe004/Desktop/Arbeitsordner Maik Poetzsch/BCD/Bausteine/Werkzeugbausteine/w-Pandas/w-pandas/skript/01-daten/penguins.csv"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tiere mit unvollständigen Einträgen entfernen</span></span>
@@ -453,7 +453,7 @@ None
 </div>
 <p>&nbsp;</p>
 <p>Der Datensatz enthält Daten für drei Pinguinarten.</p>
-<div id="62ea1b58" class="cell" data-execution_count="6">
+<div id="9010c284" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>species
@@ -468,76 +468,78 @@ dtype: int64</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Grafik</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="ea89c6d9" class="cell" data-execution_count="7">
+<div id="2fb1c47c" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="normalverteilung_files/figure-html/cell-8-output-1.png" width="710" height="569" class="figure-img"></p>
+<p><img src="normalverteilung_files/figure-html/cell-8-output-1.png" alt="Dargestellt sind drei Histogramme für die Pinguinarten Adelie, Chinstrap und Gentoo. Auf der x-Achse ist das Gewicht in Gramm und auf der y-Achse die Häufigkeitsdichte abgetragen. Auf jedes Histogramm ist eine Normalverteilungskurve mit den Parametern der Stichprobe gezeichnet." width="710" height="569" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div id="ce2c3dad" class="cell" data-execution_count="8">
+<div id="711fbda0" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2, ax3) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="fl">7.5</span>, <span class="dv">6</span>), sharey <span class="op">=</span> <span class="va">True</span>, layout <span class="op">=</span> <span class="st">'tight'</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Gewichtsverteilung von Pinguinen'</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Adelie</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">0</span>]]</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>ax1.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C0'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ax1.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">0</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">0</span>]))</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>ax1.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">'Normalverteilung'</span>)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>ax1.set_label(<span class="st">'Normalverteilungskurve'</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">'Adelie'</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> species]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>ax1.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C0'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>ax1.set_title(label <span class="op">=</span> <span class="bu">str</span>(species) <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(data.size))</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>stichprobenmittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> stichprobenmittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>ax1.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">'Normalverteilung'</span>)</span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Chinstrap</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">1</span>]]</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>ax2.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C1'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>ax2.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">1</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">1</span>]))</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>ax2.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Gentoo</span></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">2</span>]]</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>ax3.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C2'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>ax3.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>ax3.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">2</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">2</span>]))</span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>ax3.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">'Chinstrap'</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> species]</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>ax2.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C1'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>ax2.set_title(label <span class="op">=</span> <span class="bu">str</span>(species) <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(data.size))</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>stichprobenmittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> stichprobenmittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>ax2.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Gentoo</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">'Gentoo'</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> species]</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>ax3.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C2'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>ax3.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>ax3.set_title(label <span class="op">=</span> <span class="bu">str</span>(species) <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(data.size))</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>stichprobenmittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> stichprobenmittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
 <span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>ax3.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -569,7 +571,7 @@ Beispiel&nbsp;2.2: Histogramm berechnen und visualisieren
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Als Beispiel wird die Länge der zahnbildenden Zellen der Meerschweinchen verwendet, die eine Vitamin-C-Dosis von 2 erhielten.</p>
-<div id="3e4493ce" class="cell" data-execution_count="9">
+<div id="93c9b8be" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dose2 <span class="op">=</span> meerschweinchen.loc[meerschweinchen[<span class="st">'dose'</span>] <span class="op">==</span> <span class="dv">2</span>, <span class="st">'len'</span>]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="op">*</span><span class="bu">list</span>(dose2)) <span class="co"># * = Ausgabe ohne Kommata</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"N"</span>, <span class="bu">len</span>(dose2), <span class="st">"Minimum:"</span>, dose2.<span class="bu">min</span>(), <span class="st">"Maximum:"</span>, dose2.<span class="bu">max</span>(), <span class="st">"Spannweite"</span>, dose2.<span class="bu">max</span>() <span class="op">-</span> dose2.<span class="bu">min</span>())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -591,7 +593,7 @@ N 20 Minimum: 18.5 Maximum: 33.9 Spannweite 15.399999999999999</code></pre>
 </ul></li>
 </ul>
 <p>Für die überschaubare Anzahl an Werten wird ein Histogramm mit 5 Klassen berechnet. Zum Vergleich wird auch die Häufigkeitsdichte ausgegeben.</p>
-<div id="d0e351d2" class="cell" data-execution_count="10">
+<div id="1fd352b8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Häufigkeitsdichte:"</span>, np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>)[<span class="dv">0</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -601,7 +603,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 <p>Die Funktion <code>np.histogram()</code> gibt an erster Stelle ein array mit den absoluten Häufigkeiten bzw. der Häufigkeitsdichte jeder Klasse zurück. An zweiter Stelle wird ein array mit den x-Positionen der Klassenrechtecke zurückgegeben - dabei wird für jede Klasse die Position der linken Seite sowie für die letzte Klasse zusätzlich die Position der rechten Seite des Rechtecks ausgegeben. Für 5 Klassen werden also 6 Positionswerte ausgegeben.</p>
 <p>Die Klassenbreite kann zum Beispiel mit der Methode <code>np.diff()</code> ausgegeben werden.</p>
-<div id="acc0fe3e" class="cell" data-execution_count="11">
+<div id="b80933f8" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>hist_abs, bin_edges <span class="op">=</span> np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>klassenbreite <span class="op">=</span> np.diff(bin_edges)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(klassenbreite)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -610,7 +612,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 </div>
 <p>Durch Multiplikation der Häufigkeitsdichte mit der Klassenbreite können die relativen Häufigkeiten berechnet werden.</p>
-<div id="5c733568" class="cell" data-execution_count="12">
+<div id="9a66cac6" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hist_dichte <span class="op">=</span> np.histogram(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>)[<span class="dv">0</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>hist_relativ <span class="op">=</span> hist_dichte <span class="op">*</span> klassenbreite</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hist_relativ)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -625,7 +627,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">absolute Häufigkeit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">relative Häufigkeit</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Häufigkeitsdichte</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div id="a87db237" class="cell" data-execution_count="13">
+<div id="dca67d0a" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.hist(dose2, bins <span class="op">=</span> <span class="dv">5</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -645,7 +647,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>Eine Darstellung der relativen Häufigkeiten ist nicht direkt möglich.</p>
-<div id="ea37267e" class="cell" data-execution_count="14">
+<div id="3ad81300" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>hist_dichte, bins, ignore <span class="op">=</span> plt.hist(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -673,7 +675,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div id="e4f62883" class="cell" data-execution_count="15">
+<div id="6cc16081" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.hist(dose2, bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -699,7 +701,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">3 Klassen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">5 Klassen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">7 Klassen</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div id="9c1db100" class="cell" data-execution_count="16">
+<div id="f7d3e369" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.hist(meerschweinchen[<span class="st">'len'</span>], bins <span class="op">=</span> <span class="dv">3</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -718,7 +720,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div id="f795f161" class="cell" data-execution_count="17">
+<div id="279d9356" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plt.hist(meerschweinchen[<span class="st">'len'</span>], bins <span class="op">=</span> <span class="dv">5</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -737,7 +739,7 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 </div>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-<div id="451d6277" class="cell" data-execution_count="18">
+<div id="fe33f758" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.hist(meerschweinchen[<span class="st">'len'</span>], bins <span class="op">=</span> <span class="dv">7</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -769,10 +771,10 @@ Häufigkeitsdichte: [0.03246753 0.08116883 0.12987013 0.03246753 0.0487013 ]</co
 <p><span class="math display">\[
 f(x) = \frac{1}{\sigma \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
 \]</span></p>
-<p>Die Form der Normalverteilung ergibt sich aus dem Faktor <span class="math inline">\(e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}\)</span> der Funktionsgleichung. Das Maximum der Funktion liegt am Punkt <span class="math inline">\(x = \mu\)</span>. Von dort fällt sie symmetrisch ab und nähert sich für gegen unendlich gehende x-Werte der x-Achse an. Der Abfall der Funktion erfolgt umso schneller, je kleiner <span class="math inline">\(\sigma\)</span> ist. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.</p>
+<p>Die Form der Normalverteilung ergibt sich aus dem Faktor <span class="math inline">\(e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}\)</span> der Funktionsgleichung. Das Maximum der Funktion liegt am Punkt <span class="math inline">\(x = \mu\)</span>. Von dort fällt sie symmetrisch ab und nähert sich der x-Achse an. Der Abfall der Funktion erfolgt umso schneller, je kleiner <span class="math inline">\(\sigma\)</span> ist. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.</p>
 <p>Eine Normalverteilung mit dem Mittelwert <span class="math inline">\(\mu = 0\)</span> und einer Standardabweichung <span class="math inline">\(\sigma = 1\)</span> heißt Standardnormalverteilung.</p>
-<section id="normalverteilung-anpassen" class="level3">
-<h3 class="anchored" data-anchor-id="normalverteilung-anpassen">Normalverteilung anpassen</h3>
+<section id="normalverteilung-anpassen" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="normalverteilung-anpassen"><span class="header-section-number">2.1</span> Normalverteilung anpassen</h2>
 <p>Um die Verteilung in einem Datensatz durch eine Normalverteilung anzunähern, werden dessen Mittelwert und Standardabweichung in die Funktionsgleichung der Normalverteilung eingesetzt. Mit Python können die Berechnungen direkt vorgenommen werden. In der Handhabung einfacher sind die vom Paket SciPy bereitgestellten Funktionen, die im nächsten Abschnitt ausführlicher vorgestellt werden. Das folgende Beispiel zeigt die Berechnung und Visualisierung mit Python und mit SciPy.</p>
 <div id="nte-normalverteilungdarstellen" class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -787,7 +789,7 @@ Beispiel&nbsp;2.3: Dichtekurven berechnen und darstellen
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Betrachten wir die Verteilungskennwerte der Gruppe der Meerschweinchen, die eine Dosis von 2 Milligramm Vitamin C erhielten.</p>
-<div id="e739d069" class="cell" data-execution_count="19">
+<div id="cbf1c95d" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(verteilungskennwerte(dose2), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)<span class="op">;</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>dose2_mean <span class="op">=</span> verteilungskennwerte(dose2, output <span class="op">=</span> <span class="va">False</span>)[<span class="dv">1</span>]</span>
@@ -815,7 +817,7 @@ f(x) = \frac{1}{3.7742 \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742
 f(x) = 0.1057 \times e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742}\right)^2}
 \]</span></p>
 <p>In Python können die Berechnungen umgesetzt und grafisch dargestellt werden:</p>
-<div id="8b8bc9ce" class="cell" data-execution_count="20">
+<div id="fbe14b42" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram der Häufigkeitsdichte zeichnen</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plt.hist(dose2, bins <span class="op">=</span> <span class="dv">7</span>, density <span class="op">=</span> <span class="va">True</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)<span class="op">;</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Länge zahnbildender Zellen bei Meerschweinchen'</span>)</span>
@@ -854,10 +856,10 @@ f(x) = 0.1057 \times e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742}\right)^2}
 <p><strong>Quelle: Skript MB S. 51-54</strong></p>
 <p>&nbsp;</p>
 </section>
-<section id="das-paket-scipy" class="level3">
-<h3 class="anchored" data-anchor-id="das-paket-scipy">Das Paket SciPy</h3>
-<p>Funktionen zur Berechnung von Dichtekurven können über das Modul stats aus dem Paket SciPy importiert werden. Das Modul umfasst zahlreiche Verteilungen.Funktionen für die Normalverteilung werden wie folgt aufgerufen:</p>
-<div id="de0df691" class="cell" data-execution_count="21">
+<section id="das-paket-scipy" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="das-paket-scipy"><span class="header-section-number">2.2</span> Das Paket SciPy</h2>
+<p>Funktionen zur Berechnung von Dichtekurven können über Paket SciPy importiert werden. Das Modul stats (statistical functions) umfasst zahlreiche Funktionen zum Testen von Hypothesen. Funktionen für die Normalverteilung werden wie folgt aufgerufen:</p>
+<div id="b56027af" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Häufigkeitsdichte der Normalverteilung bei x = 0:"</span>, scipy.stats.norm.pdf(<span class="dv">0</span>), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -871,7 +873,7 @@ f(x) = 0.1057 \times e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742}\right)^2}
 </div>
 <div class="quarto-layout-panel" data-layout="[45, 55]">
 <div class="quarto-layout-row">
-<div id="6c12a128" class="cell quarto-layout-cell" data-execution_count="22" style="flex-basis: 45.0%;justify-content: flex-start;">
+<div id="ad8e2043" class="cell quarto-layout-cell" data-execution_count="22" style="flex-basis: 45.0%;justify-content: flex-start;">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -886,7 +888,7 @@ Die Funktion <code>scipy.stats.norm.pdf(x)</code> berechnet die Dichte der Norma
 </div>
 </div>
 <div class="quarto-layout-row">
-<div id="fd1c3dfa" class="cell quarto-layout-cell" data-execution_count="23" style="flex-basis: 45.0%;justify-content: flex-start;">
+<div id="0946d5a1" class="cell quarto-layout-cell" data-execution_count="23" style="flex-basis: 45.0%;justify-content: flex-start;">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -901,7 +903,7 @@ Die Funktion <code>scipy.stats.norm.cdf(x)</code> berechnet den Anteil der Werte
 </div>
 </div>
 <div class="quarto-layout-row">
-<div id="bad599ec" class="cell quarto-layout-cell" data-execution_count="24" style="flex-basis: 45.0%;justify-content: flex-start;">
+<div id="4b60e201" class="cell quarto-layout-cell" data-execution_count="24" style="flex-basis: 45.0%;justify-content: flex-start;">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -916,7 +918,7 @@ Die Funktion <code>scipy.stats.norm.ppf(q)</code> ist die Quantilfunktion der No
 </div>
 </div>
 <div class="quarto-layout-row">
-<div id="e8a7c7f4" class="cell quarto-layout-cell" data-execution_count="25" style="flex-basis: 45.0%;justify-content: flex-start;">
+<div id="4a4bc697" class="cell quarto-layout-cell" data-execution_count="25" style="flex-basis: 45.0%;justify-content: flex-start;">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -933,8 +935,8 @@ Die Funktion <code>scipy.stats.norm.rvs(size)</code> zieht <code>size</code> Zuf
 </div>
 <p>Mit den Parametern <code>loc = mittelwert</code> und <code>scale = standardabweichung</code> kann die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit <code>loc = 0</code> und <code>scale = 1</code> berechnet.</p>
 </section>
-<section id="aufgabe-normalverteilung" class="level3">
-<h3 class="anchored" data-anchor-id="aufgabe-normalverteilung">Aufgabe Normalverteilung</h3>
+<section id="aufgaben-normalverteilung" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="aufgaben-normalverteilung"><span class="header-section-number">2.3</span> Aufgaben Normalverteilung</h2>
 <p>Möglicherweise haben Sie schon einmal von Mensa International gehört, einer Vereinigung für Hochbegabte. Wer Mitglied in dieser Vereinigung werden möchte, soll einen höheren Intelligenzquotienten (IQ) haben als 98 % der Bevölkerung seines:ihres Herkunftslandes (<a href="https://de.wikipedia.org/wiki/Mensa_International">Wikipedia</a>).</p>
 <ol type="1">
 <li><p>Wenn der durchschnittliche IQ 100 und die Standardabweichung 15 beträgt, welchen IQ müssten Sie haben, um bei Mensa International aufgenommen zu werden?</p></li>
@@ -961,14 +963,14 @@ Musterlösung Normalverteilung
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Aufgabe 1: Einen IQ von mehr als …</p>
-<div id="805621f4" class="cell" data-execution_count="26">
+<div id="632574c0" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.ppf(loc <span class="op">=</span> <span class="dv">100</span>, scale <span class="op">=</span> <span class="dv">15</span>, q <span class="op">=</span> <span class="fl">0.98</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>130.80623365947733</code></pre>
 </div>
 </div>
 <p>Aufgabe 2: Sie benötigen einen IQ von mindestens…</p>
-<div id="7c1c64ca" class="cell" data-execution_count="27">
+<div id="1a116350" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.ppf(loc <span class="op">=</span> <span class="dv">100</span>, scale <span class="op">=</span> <span class="dv">15</span>, q <span class="op">=</span> <span class="fl">0.99</span>))</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.ppf(loc <span class="op">=</span> <span class="dv">100</span>, scale <span class="op">=</span> <span class="dv">15</span>, q <span class="op">=</span> <span class="fl">0.999</span>))</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.ppf(loc <span class="op">=</span> <span class="dv">100</span>, scale <span class="op">=</span> <span class="dv">15</span>, q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (<span class="fl">0.003</span> <span class="op">/</span> <span class="dv">100</span>)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -979,7 +981,7 @@ Musterlösung Normalverteilung
 </div>
 </div>
 <p>Aufgabe 3: Nicht ganz.</p>
-<div id="9e9441a4" class="cell" data-execution_count="28">
+<div id="125c5654" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scipy.stats.norm.cdf(loc <span class="op">=</span> <span class="dv">71</span>, scale <span class="op">=</span> <span class="dv">15</span>, x <span class="op">=</span> <span class="dv">100</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0.9734024259789904</code></pre>
@@ -990,9 +992,9 @@ Musterlösung Normalverteilung
 </div>
 <p>Übrigens: Wie <a href="https://www.spiegel.de/lebenundlernen/intelligenz-von-studenten-neugier-schlaegt-iq-a-816084.html">der Spiegel berichtet</a>, schneiden Studierende mit mittelmäßigem Intelligenzquotienten ebenso erfolgreich ab wie Hochbegabte, vorausgesetzt sie sind neugierig genug und arbeiten gewissenhaft.</p>
 </section>
-<section id="konfidenzintervalle" class="level3">
-<h3 class="anchored" data-anchor-id="konfidenzintervalle">Konfidenzintervalle</h3>
-<p>Die Überlegung, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann, ist wie folgt:</p>
+<section id="konfidenzintervalle" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="konfidenzintervalle"><span class="header-section-number">2.4</span> Konfidenzintervalle</h2>
+<p>Die Grundidee in der Statistik ist, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann. Die Überlegung ist wie folgt:</p>
 <ol type="1">
 <li><p>Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streuen die Stichprobenwerte normalverteilt um den Mittelwert der Grundgesamtheit. Bei einer Normalverteilung liegen</p>
 <ul>
@@ -1027,18 +1029,18 @@ Beispiel&nbsp;2.4: Prinzip der schließenden Statistik
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Standardnormalverteilung</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Einzelner Messwert</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Stichprobe N = 12</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-4" role="tab" aria-controls="tabset-5-4" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<div id="9af9a090" class="cell" data-execution_count="29">
+<div id="8446cb5a" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="normalverteilung_files/figure-html/cell-30-output-1.png" alt="Dargestellt ist ein Histogramm mit 30 Klassen. Auf der x-Achse sind die Einheiten der Standardabweichung von -3 bis +3 abgetragen, auf der y-Achse die Häufigkeitsdichte. Zusätzlich sind der Stichprobenmittelwert 0 durch einer vertikale Linie und die ganzzahligen Einheiten der Standardabweichugn durch gestrichelte vertikale Linien eingezeichnet. Über dem Histogramm liegt die Kurve der Standardnormalverteilung. Mit horizontalen Pfeilen sind die Entfernungen zwischen den Standardabweichungen plus/minus 1, 2 und 3 markiert und der Anteil der dazwischen liegenden Werte annotiert (68,27 %, 95,45 %, 99,73 %)." width="739" height="523" class="figure-img"></p>
+<p><img src="normalverteilung_files/figure-html/cell-30-output-1.png" alt="Dargestellt ist ein Histgramm mit 30 Klassen. Auf der x-Achse sind die Einheiten der Standardabweichung von -3 bis +3 abgetragen, auf der y-Achse die Häufigkeitsdichte. Zusätzlich sind der Stichprobenmittelwert 0 durch einer vertikale Linie und die ganzzahligen Einheiten der Standardabweichugn durch gestrichelte vertikale Linien eingezeichnet. Über dem Histogramm liegt die Kurve der Standardnormalverteilung. Mit horizontalen Pfeilen sind die Entfernungen zwischen den Standardabweichungen plus/minus 1, 2 und 3 markiert und der Anteil der dazwischen liegenden Werte annotiert (68,27 %, 95,45 %, 99,73 %)." width="730" height="523" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div id="b7589a0c" class="cell" data-execution_count="30">
+<div id="31e60dff" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1049,7 +1051,7 @@ Beispiel&nbsp;2.4: Prinzip der schließenden Statistik
 </div>
 </div>
 <div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
-<div id="6707f4a1" class="cell" data-execution_count="31">
+<div id="ac8a35fa" class="cell" data-execution_count="31">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1062,7 +1064,7 @@ Beispiel&nbsp;2.4: Prinzip der schließenden Statistik
 </div>
 <div id="tabset-5-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-4-tab">
 <p>Code für das Panel Stichprobe N = 12</p>
-<div id="23e758f4" class="cell" data-execution_count="32">
+<div id="bd8b0db4" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
@@ -1135,8 +1137,8 @@ Beispiel&nbsp;2.4: Prinzip der schließenden Statistik
 </div>
 <p>&nbsp;</p>
 </section>
-<section id="die-t-verteilung" class="level3">
-<h3 class="anchored" data-anchor-id="die-t-verteilung">Die t-Verteilung</h3>
+<section id="die-t-verteilung" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="die-t-verteilung"><span class="header-section-number">2.5</span> Die t-Verteilung</h2>
 <p>Die t-Verteilung wurde von William Sealy Gosset entdeckt (wenngleich nicht als erstem) und popularisiert. Die Verteilung ist auch als Student’sche Verteilung bekannt: Da Gossets Arbeitgeber, die Guiness-Brauerei, die Veröffentlichung der Entdeckung nicht gestattete, publizierte Gosset unter dem Synonym Student. (<a href="https://de.wikipedia.org/wiki/Studentsche_t-Verteilung">Wikipedia</a>)</p>
 <p>Die t-Verteilung beschreibt die Verteilung von Stichprobenmittelwerten mit unbekannter Varianz in der Grundgesamtheit, deren Standardfehler mit der Stichprobenstandardabweichung geschätzt wird. Die t-Verteilung hat gegenüber der Normalverteilung die <a href="https://de.wikipedia.org/wiki/Anzahl_der_Freiheitsgrade_(Statistik)">Anzahl der Freiheitsgrade</a> als zusätzlichen Parameter</p>
 <div id="imp-freiheitsgrad" class="callout callout-style-default callout-important callout-titled">
@@ -1182,7 +1184,7 @@ f(x) = \frac{\Gamma\left(\frac{n}{2}\right)}{\sqrt{(n-1) \pi} , \Gamma\left(\fra
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Grafik</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
-<div id="bf735fea" class="cell" data-execution_count="33">
+<div id="b85c0848" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1193,7 +1195,7 @@ f(x) = \frac{\Gamma\left(\frac{n}{2}\right)}{\sqrt{(n-1) \pi} , \Gamma\left(\fra
 </div>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-<div id="4988c7e2" class="cell" data-execution_count="34">
+<div id="0f632100" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">100</span>)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalverteilung</span></span>
@@ -1220,9 +1222,12 @@ f(x) = \frac{\Gamma\left(\frac{n}{2}\right)}{\sqrt{(n-1) \pi} , \Gamma\left(\fra
 <p><span class="math display">\[
 \bar{x} \pm t_{n-1} \cdot \frac{s}{\sqrt{n}}
 \]</span></p>
-<p>t ist der Rückgabewert der Funktion <code>-</code>scipy.stats.t.ppf(q, df, loc=0, scale=1)<code>ist die Quantilfunktion der t-Verteilung (PPF = percentile point function).</code></p>
-<p><strong>Das schauen wir uns für das Gewicht der Pinguine an -&gt; Das ist kein gutes Beispiel für die t-Verteilung, weil die Stichprobengröße so hoch ist (man könnte nach Geschlecht und Jahr filtern).</strong></p>
-<div id="0f886a0e" class="cell" data-execution_count="35">
+<ul>
+<li><span class="math inline">\(t\)</span> ist der Rückgabewert der Funktion <code>scipy.stats.t.ppf(q, df, loc=0, scale=1)</code></li>
+<li>q ist das gewählte Alphaniveau bzw. für einen zweiseitigen Hypothesentest <span class="math inline">\(\frac{\alpha}{2}\)</span> und <span class="math inline">\(1 - \frac{\alpha}{2}\)</span>.</li>
+</ul>
+<p>Die t-Verteilung des geschätzten Stichprobenmittelwerts für kleine Stichproben wird für im Jahr 2008 beobachtete weibliche Pinguine dargestellt.</p>
+<div id="cd164e34" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.groupby(by <span class="op">=</span> [penguins[<span class="st">'species'</span>], penguins[<span class="st">'sex'</span>], penguins[<span class="st">'year'</span>]]).size())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>species    sex     year
@@ -1247,94 +1252,212 @@ Gentoo     female  2007    16
 dtype: int64</code></pre>
 </div>
 </div>
-<p><strong>Das ist optisch nicht schön. to do: Pinguine 1 und 2, Mittelwert einzeichnen (braucht man nicht unbedingt)</strong></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Grafik</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
-<div id="855bfb08" class="cell" data-execution_count="36">
+<div id="ff56cb76" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="normalverteilung_files/figure-html/cell-37-output-1.png" width="710" height="569" class="figure-img"></p>
+<p><img src="normalverteilung_files/figure-html/cell-37-output-1.png" alt="Dargestellt sind drei Histogramme für die Pinguinarten Adelie, Chinstrap und Gentoo für im Jahr 2008 beobachtete weibliche Tiere. Auf der x-Achse ist das Gewicht in Gramm und auf der y-Achse die Häufigkeitsdichte abgetragen. Auf jedes Histogramm ist die t-Verteilung des Stichprobenmittelwerts eingezeichnet." width="710" height="569" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-<div id="3e95850b" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2, ax3) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="fl">7.5</span>, <span class="dv">6</span>), sharey <span class="op">=</span> <span class="va">True</span>, layout <span class="op">=</span> <span class="st">'tight'</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Gewichtsverteilung von Pinguinen'</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Adelie</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">0</span>]]</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>ax1.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C0'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>ax1.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">0</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">0</span>]))</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>ax1.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">'Normalverteilung'</span>)</span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>ax1.set_label(<span class="st">'Normalverteilungskurve'</span>)</span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Chinstrap</span></span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">1</span>]]</span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
-<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>ax2.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C1'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
-<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>ax2.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">1</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">1</span>]))</span>
+<div id="1c29b6ad" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>year <span class="op">=</span> <span class="dv">2008</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sex <span class="op">=</span> <span class="st">'female'</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">'Adelie'</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2, ax3) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="fl">7.5</span>, <span class="dv">6</span>), sharey <span class="op">=</span> <span class="va">True</span>, layout <span class="op">=</span> <span class="st">'tight'</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Gewichtsverteilung von weiblichen Pinguinen im Jahr 2008'</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Adelie</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][(penguins[<span class="st">'species'</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">'sex'</span>] <span class="op">==</span> sex) <span class="op">&amp;</span> (penguins[<span class="st">'year'</span>] <span class="op">==</span> year)]</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>stichprobengröße <span class="op">=</span> data.size</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>ax1.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C0'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'Häufigkeitsdichte'</span>)</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>ax1.set_title(label <span class="op">=</span> <span class="bu">str</span>(species) <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(stichprobengröße))</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="co">## t-Verteilung des Stichprobenmittelwerts</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>stichprobenmittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>standardfehler <span class="op">=</span> stichprobenstandardabweichung <span class="op">/</span> np.sqrt(stichprobengröße)</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span> scipy.stats.t.pdf(x_values, loc <span class="op">=</span> stichprobenmittelwert, scale <span class="op">=</span> standardfehler, df <span class="op">=</span> stichprobengröße <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>ax1.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">'t-Verteilung'</span>)</span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>ax1.legend(loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Chinstrap</span></span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">'Chinstrap'</span></span>
 <span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
-<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
-<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
-<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
-<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>ax2.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Gentoo</span></span>
-<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][penguins[<span class="st">'species'</span>] <span class="op">==</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">2</span>]]</span>
-<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
-<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>ax3.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C2'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>ax3.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
-<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>ax3.set_title(label <span class="op">=</span> penguins[<span class="st">'species'</span>].unique()[<span class="dv">2</span>] <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(penguins.groupby(by <span class="op">=</span> penguins[<span class="st">'species'</span>]).size().iloc[<span class="dv">2</span>]))</span>
-<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a><span class="co">## Normalverteilungskurve</span></span>
-<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>mittelwert <span class="op">=</span> data.mean()</span>
-<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
-<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
-<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span>  <span class="dv">1</span> <span class="op">/</span> (stichprobenstandardabweichung <span class="op">*</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> np.pi)) <span class="op">*</span> np.exp(<span class="op">-</span> (x_values <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> stichprobenstandardabweichung <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][(penguins[<span class="st">'species'</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">'sex'</span>] <span class="op">==</span> sex) <span class="op">&amp;</span> (penguins[<span class="st">'year'</span>] <span class="op">==</span> year)]</span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>stichprobengröße <span class="op">=</span> data.size</span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>ax2.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C1'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>ax2.set_title(label <span class="op">=</span> <span class="bu">str</span>(species) <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(stichprobengröße))</span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a><span class="co">## t-Verteilung des Stichprobenmittelwerts</span></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>stichprobenmittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>standardfehler <span class="op">=</span> stichprobenstandardabweichung <span class="op">/</span> np.sqrt(stichprobengröße)</span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span> scipy.stats.t.pdf(x_values, loc <span class="op">=</span> stichprobenmittelwert, scale <span class="op">=</span> standardfehler, df <span class="op">=</span> stichprobengröße <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>ax2.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Gentoo</span></span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">'Gentoo'</span></span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[<span class="st">'body_mass_g'</span>][(penguins[<span class="st">'species'</span>] <span class="op">==</span> species) <span class="op">&amp;</span> (penguins[<span class="st">'sex'</span>] <span class="op">==</span> sex) <span class="op">&amp;</span> (penguins[<span class="st">'year'</span>] <span class="op">==</span> year)]</span>
+<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a>stichprobengröße <span class="op">=</span> data.size</span>
 <span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a>ax3.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a><span class="co">## Histogramm</span></span>
+<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a>ax3.hist(data, alpha <span class="op">=</span> <span class="fl">0.6</span>, edgecolor <span class="op">=</span> <span class="st">'lightgrey'</span>, color <span class="op">=</span> <span class="st">'C2'</span>, density <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a>ax3.set_xlabel(<span class="st">'Gewicht in Gramm'</span>)</span>
+<span id="cb42-59"><a href="#cb42-59" aria-hidden="true" tabindex="-1"></a>ax3.set_title(label <span class="op">=</span> <span class="bu">str</span>(species) <span class="op">+</span> <span class="st">" N = "</span> <span class="op">+</span> <span class="bu">str</span>(stichprobengröße))</span>
+<span id="cb42-60"><a href="#cb42-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-61"><a href="#cb42-61" aria-hidden="true" tabindex="-1"></a><span class="co">## t-Verteilung des Stichprobenmittelwerts</span></span>
+<span id="cb42-62"><a href="#cb42-62" aria-hidden="true" tabindex="-1"></a>stichprobenmittelwert <span class="op">=</span> data.mean()</span>
+<span id="cb42-63"><a href="#cb42-63" aria-hidden="true" tabindex="-1"></a>stichprobenstandardabweichung <span class="op">=</span> data.std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-64"><a href="#cb42-64" aria-hidden="true" tabindex="-1"></a>standardfehler <span class="op">=</span> stichprobenstandardabweichung <span class="op">/</span> np.sqrt(stichprobengröße)</span>
+<span id="cb42-65"><a href="#cb42-65" aria-hidden="true" tabindex="-1"></a>hist, bin_edges <span class="op">=</span> np.histogram(data)</span>
+<span id="cb42-66"><a href="#cb42-66" aria-hidden="true" tabindex="-1"></a>x_values <span class="op">=</span> np.linspace(<span class="bu">min</span>(bin_edges), <span class="bu">max</span>(bin_edges), <span class="dv">100</span>)</span>
+<span id="cb42-67"><a href="#cb42-67" aria-hidden="true" tabindex="-1"></a>y_values <span class="op">=</span> scipy.stats.t.pdf(x_values, loc <span class="op">=</span> stichprobenmittelwert, scale <span class="op">=</span> standardfehler, df <span class="op">=</span> stichprobengröße <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb42-68"><a href="#cb42-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-69"><a href="#cb42-69" aria-hidden="true" tabindex="-1"></a>ax3.plot(x_values, y_values, color <span class="op">=</span> <span class="st">'black'</span>, linewidth <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb42-70"><a href="#cb42-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-71"><a href="#cb42-71" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="zusammenfassung" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="zusammenfassung"><span class="header-section-number">2.1</span> Zusammenfassung</h2>
+<section id="aufgabe-konfidenzintervalle" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="aufgabe-konfidenzintervalle"><span class="header-section-number">2.6</span> Aufgabe Konfidenzintervalle</h2>
+<ol type="1">
+<li><p>Schätzen Sie das Gewicht für im Jahr 2008 beobachtete weibliche Pinguine der Spezies Adelie, Chinstrap und Gentoo.</p></li>
+<li><p>Welches Konfidenzintervall können Sie für die Mittelwerte angeben, wenn eine Vertrauenswahrscheinlichkeit von 90 % gelten soll?</p></li>
+</ol>
+<div id="tip-pinguinaufgabe" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;2.1: Tipp und Musterlösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Folgende Schritte helfen Ihnen bei der Lösung:</p>
+<ol type="1">
+<li>Bestimmen Sie den Stichprobenmittelwert <span class="math inline">\(\bar{x}\)</span>.</li>
+<li>Bestimmen Sie die Stichprobenstandardabweichung <span class="math inline">\(s\)</span>, die Stichprobengröße <span class="math inline">\(N\)</span> und den Standardfehler <span class="math inline">\(\frac{s}{\sqrt{N}}\)</span>.</li>
+<li>Bestimmen Sie die z- oder t-Werte der Normal- bzw. t-Verteilung für das gewählte Konfidenzniveau - für einen zweiseitigen Hypothesentest <span class="math inline">\(\frac{\alpha}{2}\)</span> und <span class="math inline">\(1 - \frac{\alpha}{2}\)</span></li>
+<li>Berechne Sie das Konfidenzintervall <span class="math inline">\(\bar{x} \pm t_{\alpha / 2} ~ \frac{s}{\sqrt{n}}\)</span>.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Musterlösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pinguine auswählen</p>
+<div id="7276e89c" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="fl">0.9</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[(penguins[<span class="st">'sex'</span>] <span class="op">==</span> sex) <span class="op">&amp;</span> (penguins[<span class="st">'year'</span>] <span class="op">==</span> year)]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>Stichprobenmittelwerte bestimmen.</li>
+</ol>
+<div id="996295c7" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>penguin_means <span class="op">=</span> data[<span class="st">'body_mass_g'</span>].groupby(by <span class="op">=</span> data[<span class="st">'species'</span>]).mean()</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguin_means)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>species
+Adelie       3386.000000
+Chinstrap    3472.222222
+Gentoo       4627.272727
+Name: body_mass_g, dtype: float64</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Stichprobenstandardabweichung, Stichprobengröße und Standardfehler bestimmen.</li>
+</ol>
+<div id="fe045cdb" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>penguin_stds <span class="op">=</span> data[<span class="st">'body_mass_g'</span>].groupby(by <span class="op">=</span> data[<span class="st">'species'</span>]).std(ddof <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>penguin_sizes <span class="op">=</span> data[<span class="st">'body_mass_g'</span>].groupby(by <span class="op">=</span> data[<span class="st">'species'</span>]).size()</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>penguin_stderrors <span class="op">=</span> penguin_stds <span class="op">/</span> np.sqrt(penguin_sizes)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Stichprobenstandardabweichungen:</span><span class="ch">\n</span><span class="st">"</span>, penguin_stds)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Stichprobengrößen:</span><span class="ch">\n</span><span class="st">"</span>, penguin_sizes)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Standardfehler:</span><span class="ch">\n</span><span class="st">"</span>, penguin_stderrors)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Stichprobenstandardabweichungen:
+ species
+Adelie       288.862712
+Chinstrap    370.903551
+Gentoo       339.722321
+Name: body_mass_g, dtype: float64
+
+Stichprobengrößen:
+ species
+Adelie       25
+Chinstrap     9
+Gentoo       22
+Name: body_mass_g, dtype: int64
+
+Standardfehler:
+ species
+Adelie        57.772542
+Chinstrap    123.634517
+Gentoo        72.429042
+Name: body_mass_g, dtype: float64</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>/ 4. Konfidenzintervall bestimmen</li>
+</ol>
+<div id="b1ae03a8" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>untere_intervalle <span class="op">=</span> scipy.stats.t.ppf(alpha <span class="op">/</span> <span class="dv">2</span>, loc <span class="op">=</span> penguin_means, scale <span class="op">=</span> penguin_stderrors, df <span class="op">=</span> penguin_sizes <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(untere_intervalle)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>obere_intervalle <span class="op">=</span> scipy.stats.t.ppf(<span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, loc <span class="op">=</span> penguin_means, scale <span class="op">=</span> penguin_stderrors, df <span class="op">=</span> penguin_sizes <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(obere_intervalle)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[3287.15799233 3242.31789851 4502.64096694]
+[3484.84200767 3702.12654593 4751.90448761]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Das Prinzip der schließenden Statistik und die Arbeit mit Verteilungen wird uns wieder begegnen.</p>
 <p>Schritte zur Berechnung:</p>
-<pre><code>Bestimme den Stichprobenmittelwert (\bar{x}).
-Bestimme (s) (Stichprobenstandardabweichung) oder (\sigma).
-Bestimme (n) (Stichprobengröße).
-Wähle das Konfidenzniveau und bestimme den entsprechenden Z- oder t-Wert.
-Berechne das Konfidenzintervall mit den obigen Formeln.</code></pre>
+<pre><code>Bestimme (n) (Stichprobengröße).</code></pre>
+<p><strong>z-Werte wurden noch nicht eingeführt</strong>. Berechne das Konfidenzintervall mit den obigen Formeln.</p>
 <p>Ein höheres Konfidenzniveau ergibt ein breiteres Intervall, dass mit höherer Sicherheit den wahren Mittelwert abdeckt.</p>
 <p><strong>Aufgabe könnte das plotten der Schnabellänge sein</strong></p>
 <div class="border">
@@ -1346,39 +1469,6 @@ Berechne das Konfidenzintervall mit den obigen Formeln.</code></pre>
 </div>
 <p>Bill dimensions von @allison_horst steht unter der Lizenz <a href="https://github.com/allisonhorst/palmerpenguins?tab=CC0-1.0-1-ov-file#creative-commons">CC0-1.0</a> und ist auf <a href="https://github.com/allisonhorst/palmerpenguins?tab=readme-ov-file#meet-the-palmer-penguins">GitHub</a> abrufbar. 2020</p>
 </div>
-<p><strong>–&gt; Normalverteilung und die Wahrscheinlichkeiten erklären - 1standardfehler, 2standardfehler, 3standardfehler = Konfidenzintervalle</strong> –&gt; das wird zu kompliziert oder?</p>
-<p>Einen Überblick über den Datensatz verschafft die Methode <code>DataFrame.info()</code>.</p>
-<div id="621bae08" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(penguins.info())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-Index: 333 entries, 0 to 343
-Data columns (total 8 columns):
- #   Column             Non-Null Count  Dtype  
----  ------             --------------  -----  
- 0   species            333 non-null    object 
- 1   island             333 non-null    object 
- 2   bill_length_mm     333 non-null    float64
- 3   bill_depth_mm      333 non-null    float64
- 4   flipper_length_mm  333 non-null    float64
- 5   body_mass_g        333 non-null    float64
- 6   sex                333 non-null    object 
- 7   year               333 non-null    int64  
-dtypes: float64(4), int64(1), object(3)
-memory usage: 23.4+ KB
-None</code></pre>
-</div>
-</div>
-<p><strong>Gilt auch für Messungen: Wenn sehr häufig gemessen wird</strong></p>
-<p><strong>Das plotten ist aber aufwändig, weil man alles manuell erstellen muss. –&gt; optional / für später</strong></p>
-<!-- # ## Normalverteilungskurve
-# erwartungswert = pd.Series([1, 2, 3, 4, 5, 6]).mean() # 3.5
-# standardabweichung = pd.Series([1, 2, 3, 4, 5, 6]).std(ddof = 0) # ~ 1.708
-
-# x = np.linspace(0, 9, 100)
-# y = 10 / (standardabweichung * np.sqrt(2 * np.pi)) * np.exp(- (x - erwartungswert) ** 2 / (2 * standardabweichung ** 2))
-# plt.plot(x, y, 'k', linewidth=2) -->
-<p>Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streut der Stichprobenmittelwert um den Mittelwert der Grundgesamtheit, also den Erwartungswert. Anhand des Würfelexperiments wurde gezeigt, dass mit zunehmender Stichprobengröße Stichprobenmittelwerte in der Nähe des Erwartungswerts immer wahrscheinlicher werden als solche, die weiter entfernt liegen.</p>
 <p>Verzerrung (Bias): https://de.wikipedia.org/wiki/Verzerrung_einer_Sch%C3%A4tzfunktion quantifiziert das systematische Über- oder Unterschätzen der Schätzfunktion</p>
 
 
