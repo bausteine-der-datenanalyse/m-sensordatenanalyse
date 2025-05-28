@@ -335,7 +335,7 @@ Definition&nbsp;1.1: Messung
 <div class="callout-body-container callout-body">
 <p>“Eine Messung ist der experimentelle Vorgang, durch den ein spezieller Wert einer physikalischen Größe als Vielfaches einer Einheit oder eines Bezugswertes ermittelt wird.</p>
 <p>Die Messung ergibt zunächst einen Messwert. Dieser stimmt aber aufgrund störender Einflüsse mit dem wahren Wert der Messgröße praktisch nie überein, sondern weist eine gewisse Messabweichung auf. Zum <em>vollständigen Messergebnis</em> wird der Messwert, wenn er mit quantitativen Aussagen über die zu erwartende Größe der Messabweichung ergänzt wird. Dies wird in der Messtechnik als Teil der Messaufgabe und damit der Messung verstanden.”</p>
-<p>Messung. von verschiedenen <a href="https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung">Autor:innen</a> steht unter der Lizenz <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de">CC BY-SA 4.0</a> ist abrufbar auf Wikipedia https://de.wikipedia.org/wiki/Messung. 2025</p>
+<p>Messung. von verschiedenen <a href="https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung">Autor:innen</a> steht unter der Lizenz <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de">CC BY-SA 4.0</a> ist abrufbar auf [Wikipedia] (https://de.wikipedia.org/wiki/Messung). 2025</p>
 <ul>
 <li>Die ideale Messung ist eine direkte Messung oder der gesuchte Wert hängt linear (<strong>direkt?!</strong>) vom gemessenen Wert ab.</li>
 <li>Die ideale Messung ist <em>genau</em> und <em>präzise</em>.</li>
@@ -713,10 +713,10 @@ Tipp&nbsp;1.1: Musterlösung Verteilungskenngrößen
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  N <span class="op">=</span> <span class="bu">len</span>(x)</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># arithmetisches Mittel bestimmen</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  mittelwert <span class="op">=</span> <span class="bu">sum</span>(x) <span class="op">/</span> N</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  stichprobenmittelwert <span class="op">=</span> <span class="bu">sum</span>(x) <span class="op">/</span> N</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Stichprobenvarianz bestimmen</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  stichprobenvarianz <span class="op">=</span> <span class="bu">sum</span>((x <span class="op">-</span> mittelwert) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> (N <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  stichprobenvarianz <span class="op">=</span> <span class="bu">sum</span>((x <span class="op">-</span> stichprobenmittelwert) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> (N <span class="op">-</span> <span class="dv">1</span>)</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Standardabweichung bestimmen</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  standardabweichung <span class="op">=</span> stichprobenvarianz <span class="op">**</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
@@ -727,14 +727,14 @@ Tipp&nbsp;1.1: Musterlösung Verteilungskenngrößen
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ausgabe</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> output: <span class="co"># output = True</span></span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"N: </span><span class="sc">{</span>N<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"arithmetisches Mittel: </span><span class="sc">{</span>mittelwert<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"arithmetisches Mittel: </span><span class="sc">{</span>stichprobenmittelwert<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"Stichprobenfehler: </span><span class="sc">{</span>stichprobenfehler<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"Stichprobenvarianz: </span><span class="sc">{</span>stichprobenvarianz<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"Standardabweichung: </span><span class="sc">{</span>standardabweichung<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>          sep <span class="op">=</span> <span class="st">''</span>)</span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>: <span class="co"># output = False</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> N, mittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> N, stichprobenmittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung</span>
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>verteilungskennwerte(meerschweinchen[<span class="st">'len'</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
