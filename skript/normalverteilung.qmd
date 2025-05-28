@@ -153,7 +153,7 @@ library(palmerpenguins)
 Horst AM, Hill AP und Gorman KB. 2020. palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. <https://allisonhorst.github.io/palmerpenguins/>. doi: 10.5281/zenodo.3960218.
 
 ``` {python}
-penguins = pd.read_csv(filepath_or_buffer = "c:/Users/mapoe004/Desktop/Arbeitsordner Maik Poetzsch/BCD/Bausteine/Werkzeugbausteine/w-Pandas/w-pandas/skript/01-daten/penguins.csv")
+penguins = pd.read_csv(filepath_or_buffer = "01-daten/penguins.csv")
 
 # Tiere mit unvollständigen Einträgen entfernen
 penguins.drop(np.where(penguins.apply(pd.isna).any(axis = 1))[0], inplace = True)
@@ -654,7 +654,7 @@ plt.show()
 Die Funktion `scipy.stats.norm.rvs(size)` zieht `size` Zufallszahlen aus der Normalverteilung.
 :::
 
-Mit den Parametern `loc = mittelwert` und `scale = standardabweichung` kann die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit `loc = 0` und `scale = 1` berechnet.
+Mit den Parametern `loc = mittelwert` und `scale = standardabweichung` kann die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit `loc = 0` und `scale = 1` berechnet. Die Parameter der Funktionen können Einzelwerte (Skalare) oder auch Arrays bzw. Listen sein.
 
 ## Aufgaben Normalverteilung
 Möglicherweise haben Sie schon einmal von Mensa International gehört, einer Vereinigung für Hochbegabte. Wer Mitglied in dieser Vereinigung werden möchte, soll einen höheren Intelligenzquotienten (IQ) haben als 98 % der Bevölkerung seines:ihres Herkunftslandes ([Wikipedia](https://de.wikipedia.org/wiki/Mensa_International)). 
@@ -1013,6 +1013,8 @@ Das Modul scipy.stats stellt Funktionen zur Berechnung der t-Verteilung bereit.
   - `scipy.stats.t.ppf(q, df, loc=0, scale=1)` ist die Quantilfunktion der t-Verteilung (PPF = percentile point function).
   - `scipy.stats.t.rvs(df, loc=0, scale=1, size=1)` zieht `size` Zufallzahlen aus der t-Verteilung.
 
+Die Parameter der Funktionen können Einzelwerte (Skalare) oder auch Arrays bzw. Listen sein.
+
 Mit zunehmender Stichprobengröße nähert sich die t-Verteilung der Normalverteilung an. Als Faustformel gilt $n > 30$. Untenstehende Grafik zeigt die Annäherung der t-Verteilung an die Normalverteilung.
 
 ::: {.panel-tabset}
@@ -1075,9 +1077,11 @@ $$
 \bar{x} \pm t_{n-1} \cdot \frac{s}{\sqrt{n}}
 $$
 
-  - $t$ ist der Rückgabewert der Funktion `scipy.stats.t.ppf(q, df, loc=0, scale=1)`
+  - $t$ ist der Rückgabewert der Funktion `scipy.stats.t.ppf(q, df = n - 1, loc = 0, scale = 1)`
   - q ist das gewählte Alphaniveau bzw. für einen zweiseitigen Hypothesentest $\frac{\alpha}{2}$ und $1 - \frac{\alpha}{2}$.
-  - Das Ergebnis ist der Rückgabewert der Funktion `scipy.stats.t.ppf(q, df, loc = stichprobenmittelwert, scale = stichprobenstandardfehler)`
+  - Das Ergebnis ist der Rückgabewert der Funktionen:
+    - `scipy.stats.t.ppf(q = alpha/2, df = n - 1, loc = stichprobenmittelwert, scale = stichprobenstandardfehler)`
+    - `scipy.stats.t.ppf(q = 1 - alpha/2, df = n - 1, loc = stichprobenmittelwert, scale = stichprobenstandardfehler)`
 
 Die t-Verteilung des geschätzten Stichprobenmittelwerts für kleine Stichproben wird für im Jahr 2008 beobachtete weibliche Pinguine dargestellt.
 
@@ -1260,12 +1264,12 @@ Folgende Schritte helfen Ihnen bei der Lösung:
 1. Bestimmen Sie den Stichprobenmittelwert $\bar{x}$.
 2. Bestimmen Sie die Stichprobenstandardabweichung $s$, die Stichprobengröße $N$ und den Standardfehler $\frac{s}{\sqrt{N}}$.
 3. Bestimmen Sie die z- oder t-Werte der Normal- bzw. t-Verteilung für das gewählte Konfidenzniveau - für einen zweiseitigen Hypothesentest $\frac{\alpha}{2}$ und $1 - \frac{\alpha}{2}$
-4. Berechne Sie das Konfidenzintervall $\bar{x} \pm t_{\alpha / 2} ~ \frac{s}{\sqrt{n}}$.
+4. Berechnen Sie das Konfidenzintervall $\bar{x} \pm t_{\alpha / 2} ~ \frac{s}{\sqrt{n}}$.
 
 :::: {.callout-tip collapse="true"}
 ## Musterlösung
 
-Pinguine auswählen
+Alphaniveau definieren und Pinguine auswählen
 
 ```{python}
 alpha = 1 - 0.9
@@ -1291,41 +1295,31 @@ print("\nStichprobengrößen:\n", penguin_sizes)
 print("\nStandardfehler:\n", penguin_stderrors)
 ```
 
-3. + 4. Konfidenzintervall bestimmen
+3. t-Werte bestimmen
 
 ```{python}
+t_unten = scipy.stats.t.ppf(alpha / 2, loc = 0, scale = 1, df = penguin_sizes - 1)
+print("t-Wert untere Intervallgrenze:", t_unten)
+
+t_oben = scipy.stats.t.ppf(1 - alpha / 2, loc = 0, scale = 1, df = penguin_sizes - 1)
+print("t-Wert obere Intervallgrenze:", t_oben)
+```
+
+4. Konfidenzintervall bestimmen
+
+```{python}
+# mit scipy.stats.t.ppf
 untere_intervalle = scipy.stats.t.ppf(alpha / 2, loc = penguin_means, scale = penguin_stderrors, df = penguin_sizes - 1)
-print(untere_intervalle)
+print("untere Intervallgrenzen:", untere_intervalle)
 
 obere_intervalle = scipy.stats.t.ppf(1 - alpha / 2, loc = penguin_means, scale = penguin_stderrors, df = penguin_sizes - 1)
-print(obere_intervalle)
+print("obere Intervallgrenzen:", obere_intervalle)
+
+print("\n'manuelle' Berechnung:\n")
+# 'manuell'
+print(penguin_means + t_unten * penguin_stderrors)
+print(penguin_means + t_oben * penguin_stderrors)
 ```
 
 ::::
 :::
-
-Das Prinzip der schließenden Statistik und die Arbeit mit Verteilungen wird uns wieder begegnen.
-
-Schritte zur Berechnung:
-
-    
-    
-    Bestimme (n) (Stichprobengröße).
-   **z-Werte wurden noch nicht eingeführt**.
-    Berechne das Konfidenzintervall mit den obigen Formeln.
-
-Ein höheres Konfidenzniveau ergibt ein breiteres Intervall, dass mit höherer Sicherheit den wahren Mittelwert abdeckt.
-
-**Aufgabe könnte das plotten der Schnabellänge sein**
-
-
-
-::: {.border}
-
-![Schnabeldimensionen](00-bilder/culmen_depth_allison_horst_CC0.png)
-
-Bill dimensions von \@allison_horst steht unter der Lizenz [CC0-1.0](https://github.com/allisonhorst/palmerpenguins?tab=CC0-1.0-1-ov-file#creative-commons) und ist auf [GitHub](https://github.com/allisonhorst/palmerpenguins?tab=readme-ov-file#meet-the-palmer-penguins) abrufbar. 2020
-
-:::
-
-Verzerrung (Bias): https://de.wikipedia.org/wiki/Verzerrung_einer_Sch%C3%A4tzfunktion quantifiziert das systematische Über- oder Unterschätzen der Schätzfunktion
