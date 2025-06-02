@@ -12,10 +12,13 @@ Merz, Ludwig.1968. "Grundkurs der Messtechnik. Teil I: Das Messen elektrischer G
 
 :::
 
+**to do: Größtfehler ergänzen**
+
 In diesem Baustein werden die folgenden Module verwendet:
 
 ``` {python}
 import numpy as np
+import numpy.polynomial.polynomial as poly
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy

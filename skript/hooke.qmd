@@ -1,130 +1,43 @@
-## Messreihe Hooke'sches Gesetz
-Das [Hooke'sche Gesetz](https://de.wikipedia.org/wiki/Hookesches_Gesetz), benannt nach dem englischen Wissenschaftler Robert Hooke, beschreibt die Beziehung zwischen der Kraft $F$ und der Längenänderung $\Delta{x}$ einer Feder durch die Gleichung $F = k \times \Delta{x}$, wobei $k$ die Federkonstante ist. Die Federkonstante ist eine grundlegende Eigenschaft elastischer Materialien und gibt an, wie viel Kraft erforderlich ist, um eine Feder um eine bestimmte Läange zu dehnen oder zu komprimieren. Das Hooke'sche Gesetz besagt, dass die Deformation eines elastischen Körpers proportional zur aufgebrachten Kraft ist, solange die Feder nicht über den elastischen Bereich hinaus gedehnt oder gestaucht wird.
+# Lineare Parameterschätzung
+**Geht es in diesem Kapitel überhaupt um Kennlinien? Lineare Parameterschätzung?!**
 
-In einem Experiment wurde das Hooke'sche Gesetz experimentell überprüft.
+Mögliche Quellen:
+
+  - https://messtechnik-und-sensorik.org/2-kennlinien-und-messgenauigkeit/  
+  - https://www.stssensors.com/de/characteristic-curve-hysteresis-measurement-error-terminology-in-pressure-measurement-technology/ 
+
+## Messreihe Hooke'sches Gesetz
+Das [Hooke'sche Gesetz](https://de.wikipedia.org/wiki/Hookesches_Gesetz), benannt nach dem englischen Wissenschaftler Robert Hooke, beschreibt die Beziehung zwischen der Kraft $F$ und der Längenänderung $\Delta{x}$ einer Feder durch die Gleichung $F = k \times \Delta{x}$, wobei $k$ die Federkonstante ist.
+
+Die Federkonstante ist eine grundlegende Eigenschaft elastischer Materialien und gibt an, wie viel Kraft erforderlich ist, um eine Feder um eine bestimmte Länge zu dehnen oder zu komprimieren. Das Hooke'sche Gesetz besagt, dass die Deformation eines elastischen Körpers proportional zur aufgebrachten Kraft ist, solange die Feder nicht über den elastischen Bereich hinaus gedehnt oder gestaucht wird.
+
+In einem Experiment wurde das Hooke'sche Gesetz überprüft.
 
 ```{python}
 #| echo: false
 
 import numpy as np
+import numpy.polynomial.polynomial as poly
 import pandas as pd
+import scipy
+import matplotlib.pyplot as plt
 ```
-
-::: {#nte-versuchsaufbau .callout-note collapse="true"}
-## Der Versuchsaufbau
 
 ![Versuchsaufbau](00-bilder/aufbau.png){fig-alt="Darstellung des Versuchsaufbaus. An einer an einer Halterung hängenden Metallfeder ist ein (variables) Gewicht angebracht. Darunter befindet sich in einigem Abstand ein Ultraschallsensor zur Abstandsmessung. Der Abstand zwischen der Unterseite des an der Feder befestigten Gewichts und dem Ultraschallsensor ist der gemessene Abstand."}
 
-:::
-
-Die Messreihe liegt in Form einer CSV-Datei unter dem Pfad "01-daten/hooke_data.csv" vor. Die Datei kann direkt mit Python oder mit den Modulen NumPy und Pandas eingelesen werden.
+Die Messreihe liegt in Form einer CSV-Datei unter dem Pfad '01-daten/hooke_data.csv' vor. Die Datei wird mit Pandas eingelesen.
 
 ```{python}
 dateipfad = "01-daten/hooke_data.csv"
-```
-
-::: {.panel-tabset}
-## Python
-
-```{python}
-# Datei einlesen
-dateiobjekt = open(file = dateipfad, mode = "r")
-hooke = dateiobjekt.read() # liefert einen string zurück
-dateiobjekt.close()
-
-# Daten betrachten
-print(hooke[0:30])
-
-```
-
-Die Einträge in der Datei liegen zeilenweise, d. h. durch das Zeichen `\n` getrennt vor. Die Werte in jeder Zeile sind mit Semikolon separiert. Mit der Methode `str.split()` können die Einträge in Listen eingelesen werden. Dabei stört eine leere Zeile, die von der Methode, `dateiobjekt.read()` [am Dateiende zurückgegeben](https://docs.python.org/3/tutorial/inputoutput.html#methods-of-file-objects) wird, die deshalb übersprungen wird.
-
-```{python}
-liste_hooke_zeilenweise = hooke.split("\n")
-print(liste_hooke_zeilenweise[0:3], "\n")
-
-# leere listen anlegen
-number = []
-mass = []
-distance = []
-
-for zeile in liste_hooke_zeilenweise:
-  zwischenspeicher = zeile.split(';')
-  if zeile == '':
-    print("leere Zeile:", list(zeile))
-    continue
-  else:
-    number.append(zwischenspeicher[0])
-    mass.append(zwischenspeicher[1])
-    distance.append(zwischenspeicher[2])
-
-print("\n")
-print("Liste number:", number[0:10], "\n")
-print("Liste mass:", mass[0:10], "\n")
-print("Liste distance:", distance[0:10])
-```
-
-Zuletzt können die ursprünglichen Spaltenbeschriftungen entfernt und die Datentypen angepasst werden.
-
-```{python}
-# ersten Eintrag entfernen
-number = number[1:]
-mass = mass[1:]
-distance = distance[1:]
-
-# Datentyp ändern
-i = 0
-for element in number:
-  number[i] = int(element)
-  i += 1
-
-i = 0
-for element in mass:
-  mass[i] = int(element)
-  i += 1  
-
-i = 0
-for element in distance:
-  distance[i] = float(element)
-  i += 1
-
-print("Liste number:", number[0:10], "\n")
-print("Liste mass:", mass[0:10], "\n")
-print("Liste distance:", distance[0:10])
-```
-
-## NumPy
-Der Aufbau der Datei ist aus dem Einlesen mit der Pythonbasis bekannt. Da NumPy-Arrays nur einen Datentyp haben können, müssen die Spaltenbeschriftungen in ein extra Objekt eingelesen werden.
-```{python}
-import numpy as np
-hooke_nparray = np.loadtxt(fname = dateipfad, skiprows = 1, delimiter = ';')
-hooke_colnames = np.loadtxt(fname = dateipfad, max_rows = 1, delimiter = ';', dtype = 'str')
-
-print(hooke_colnames)
-print(hooke_nparray[0:5])
-```
-
-## Pandas
-Mit Pandas ist das Einlesen der Datei leicht.
-
-```{python}
-import pandas as pd
 hooke = pd.read_csv(filepath_or_buffer = dateipfad, sep = ';')
-
-print(hooke.head(), "\n")
-print(hooke.info())
 ```
-
-:::
 
 ### Deskriptive Statistik
-Nach dem Einlesen sollte man sich einen Überblick über die Daten verschaffen. Dafür eignet sich besonders das Modul Pandas. Mit den Methoden `pd.DataFrame.head()` und `pd.DataFrame.tail()` kann schnell ein Ausschnitt der Daten betrachtet werden. 
+Nach dem Einlesen sollte man sich einen Überblick über die Daten verschaffen. Mit den Methoden `pd.DataFrame.head()` und `pd.DataFrame.tail()` kann ein Ausschnitt vom Beginn und vom Ende der Daten betrachtet werden. 
 ```{python}
 print(hooke.head(), "\n")
 print(hooke.tail())
 ```
-
-&nbsp;
 
 Die Methode `pd.DataFrame.describe()` erstellt die deskriptive Statistik für den Datensatz. Diese ist in diesem Fall jedoch noch nicht sonderlich nützlich. Die Spalte 'no' enthält lediglich eine laufende Versuchsnummer, die Spalte 'mass' enhält verschiedene Gewichte.
 
@@ -156,18 +69,50 @@ Grafisch fällt der Messwert von 200 cm für das Gewicht 0 Gramm als stark von d
 
 Die Messwerte für das Gewicht 0 Gramm sollen näher betrachtet werden. Dafür werden die Messwerte sowohl absolut, als auch [standardisiert in Einheiten der Standardabweichung (z-Werten)](https://de.wikipedia.org/wiki/Standardisierung_(Statistik)) ausgedrückt ausgegeben.
 
+Eine Variable wird standardisiert, indem von jedem Wert der Erwartungswert abgezogen und das Ergebnis durch die Standardabweichung geteilt wird.
+
+$$
+Z = \frac{x - \mu}{\sigma}
+$$
+
+Da in der Regel der Erwartungswert und die Standardabweichung unbekannt sind, werden der Stichprobenmittelwert und die Stichprobenstandardabweichung verwendet. Dies nennt man *Studentisieren*, nach dem Pseudonym bereits im vorherigen Kapitel erwähnten William Sealy Gosset.
+
+$$
+z_{i} = \frac{x_{i} - \bar{x}}{s}
+$$
+
 ```{python}
 gewicht = 0
 
-z_values = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].apply(lambda x: (x - hooke[hooke['mass'] == gewicht].loc[: , 'distance'].mean()) /  hooke[hooke['mass'] == gewicht].loc[: , 'distance'].std())
+# z-Transformation manuell berechnen
+mittelwert_ausdehnung = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].mean()
+standardabweichung_ausdehnung = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].std(ddof = 1)
+
+z_values = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].apply(lambda x: ( (x - mittelwert_ausdehnung) /standardabweichung_ausdehnung))
 z_values.name = 'z-values'
 
-print(pd.concat([hooke[hooke['mass'] == gewicht], z_values], axis = 1))
+# z-Transformation mit scipy
+scipy_z_values = scipy.stats.zscore(hooke[hooke['mass'] == gewicht].loc[: , 'distance'], ddof = 1)
+scipy_z_values.name = 'scipy z-values'
+
+# gemeinsame Ausgabe der Daten
+print(pd.concat([hooke[hooke['mass'] == gewicht], z_values, scipy_z_values], axis = 1))
+
 ```
 
 Der Wert 200 cm in Zeile 113 scheint fehlerhaft zu sein. Eine Eigendehnung der Feder um zusätzliche 16 Zentimeter ist nicht plausibel. Auch der z-Wert > 3 kennzeichnet den Messwert als [Ausreißer](https://de.wikipedia.org/wiki/Ausrei%C3%9Fer). Die Zeile wird deshalb aus dem Datensatz entfernt.
 
-**hier Aufklapper Normalverteilung**
+::: {#imp-ausreißer .callout-important collapse="false"}
+## Ausreißer
+
+In der Statistik wird ein Messwert als Ausreißer bezeichnet, wenn dieser stark von der übrigen Messreihe abweicht. In einer Messreihe können auch mehrere Ausreißer auftreten. Diese Werte können zur Verbesserung der Schätzung aus der Messreihe entfernt werden, wenn anzunehmen ist, dass diese durch Messfehler und andere Störgrößen verursacht sind. 
+
+Eine Möglichkeit, Ausreißer zu identifizieren, ist die z-Transformation. Dabei muss ein Schwellenwert gewählt werden, ab dem ein Messwert als Ausreißer klassifiziert werden soll, bspw. 2,5 oder 3 Einheiten der Standardabweichung. In der Statistik wurde eine ganze Reihe von Ausreißertests entwickelt (siehe [Ausreißertests](https://de.wikipedia.org/wiki/Ausrei%C3%9Fer#Ausrei%C3%9Fertests))
+
+Die Einstufung eines Messwerts als Ausreißer kann aber nicht allein auf der Grundlage statistischer Verfahren erfolgen, sondern ist immer eine Ermessensentscheidung auf der Grundlage Ihres Fachwissens. Denn nicht alle abweichenden Werte sind automatisch ungültig, sondern treten mit einer gewissen statistischen Wahrscheinlichkeit auf (siehe Kapitel Normalverteilung). Man spricht dann von gültigen Extremwerten.
+
+Ausreißer von verschiedenen [Autor:innen](https://xtools.wmcloud.org/authorship/de.wikipedia.org/Ausrei%C3%9Fer?uselang=de) steht unter der Lizenz [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) und ist abrufbar auf [Wikipedia](https://de.wikipedia.org/wiki/Ausrei%C3%9Fer)
+:::
 
 ```{python}
 hooke.drop(index = 113, inplace = True)
@@ -182,11 +127,10 @@ Hiernach ist die höchste Standardabweichung für die Messreihe mit 301 Gramm zu
 ```{python}
 gewicht = 301
 
-z_values = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].apply(lambda x: (x - hooke[hooke['mass'] == gewicht].loc[: , 'distance'].mean()) /  hooke[hooke['mass'] == gewicht].loc[: , 'distance'].std())
+z_values = scipy_z_values = scipy.stats.zscore(hooke[hooke['mass'] == gewicht].loc[: , 'distance'], ddof = 1)
 z_values.name = 'z-values'
 
 print(pd.concat([hooke[hooke['mass'] == gewicht], z_values], axis = 1))
-
 ```
 
 Die Grafik des bereinigten Datensatzes legt einen linearen Zusammenhang nahe. Darüber hinaus sticht der mit zunehmendem Gewicht abfallende Trend der Datenpunkte ins Auge.
@@ -210,6 +154,34 @@ print(f"Nullpunkt: {nullpunkt:.2f} cm")
 hooke['distance'] = hooke['distance'].sub(nullpunkt).mul(-1)
 
 hooke.plot(x = 'mass', y = 'distance', kind = 'scatter', title = 'bereinigter und invertierter Datensatz', ylabel = 'Federausdehnung in cm', xlabel = 'Gewicht in Gramm')
+```
+
+&nbsp;
+
+Mit der Funktion `plt.errorbars()` können die Mittelwerte und Standardfehler für jedes Gewicht grafisch dargestellt werden.
+
+```{python}
+# Mittelwerte nach Gewicht
+distance_means_by_weight = hooke['distance'].groupby(by = hooke['mass']).mean()
+print()
+distance_means_by_weight.name = 'Federausdehnung'
+
+# Standardfehler nach Gewicht
+distance_stderrors_by_weight = hooke['distance'].groupby(by = hooke['mass']).std(ddof = 1).div(np.sqrt(hooke['distance'].groupby(by = hooke['mass']).size()))
+distance_stderrors_by_weight.name = 'Standardfehler'
+
+hooke.plot(x = 'mass', y = 'distance', kind = 'scatter', title = 'bereinigter und invertierter Datensatz', ylabel = 'Federausdehnung in cm', xlabel = 'Gewicht in Gramm', alpha = 0.6)
+
+errorbar_container = plt.errorbar(x = distance_means_by_weight.index, y = distance_means_by_weight, yerr = distance_stderrors_by_weight, fmt = 'xr', markersize = 12, elinewidth = 3) # fmt = 'xr' == marker = 'x', color = 'red', draw no line
+
+# siehe: https://matplotlib.org/stable/api/container_api.html#matplotlib.container.ErrorbarContainer
+plt.legend([errorbar_container.lines[0], errorbar_container.lines[2][0]],
+           ['Mittelwert', 'Standardfehler'],
+           loc = 'upper left')
+plt.show()
+
+print(pd.concat([distance_means_by_weight, distance_stderrors_by_weight], axis = 1))
+
 ```
 
 ## Federkonstante bestimmen
@@ -243,13 +215,109 @@ $$
 y = \beta_0 + \beta_1 \times x
 $$
 
-Zur Bestimmung der Parameter einer linearen Funktion wird die Methode der linearen [Regression](https://de.wikipedia.org/wiki/Regressionsanalyse) verwendet. Die Funktionen dafür stellt das Paket `numpy.polynomial` bzw. für Polynomfunktionen dessen Modul `numpy.polynomial.polynomial` bereit.
+In der Regel liegt kein deterministischer Zusammenhang vor, sondern es treten zufällige Abweichungen auf, die mit dem additiven Fehlerterm ausgedrückt und aus dem Englischen error mit $e_i$ notiert werden. Diese Fehler werden Residuen genannt.
+
+$$
+y = \beta_0 + \beta_1 \times x + e_i
+$$
+
+Zur Bestimmung der Parameter einer linearen Funktion wird die Methode der [kleinsten Quadrate](https://de.wikipedia.org/wiki/Methode_der_kleinsten_Quadrate) verwendet.
+
+
+**Die Herleitung der Formeln sind viel LaTeX (Skript MB: 73- 74)**  
+**Quelle: Skript MB S. 71-74**
+
+::: {#nte-ols .callout-note collapse="true"}
+## Methode der kleinsten Quadrate
+
+Mit der Methode der kleinsten Quadrate soll diejenige Gerade $\hat{y} = \beta_0 + \beta_1 \times x$ gefunden werden, die die quadrierten Abstände der  Vorhersagewerte $\hat{y}$ von den tatsächlich gemessenen Werten $y$ minimiert. Die Werte $y_i - \hat{y_i}$ sind die Residuen $e_i$. Es gilt also:
+
+$$
+\sum_{i=1}^{N}(y_i - \hat{y_i})^2 = \sum_{i=1}^{N} e_i = \min
+$$
+
+Grafisch kann man sich die Minimierung der quadrierten Abstände so vorstellen.
+
+:::: {.panel-tabset}
+## Grafik
+```{python}
+#| fig-alt: "Auf einer Geraden sind 9 Punkte markiert, die die Vorhersagewerte des linearen Modells repräsentieren. Vertikal darüber oder darunter sind die Messwerte eingezeichnet. Jeder Vorhersagewerte ist durch eine gestrichelte, vertikale Linie mit einem der Messwerte verbunden."
+#| echo: false
+
+x = np.arange(1, 11)
+y = - x.copy() + 4
+y[0] -= 2
+y[2] -= 2
+y[3] += 3
+y[-3] += 5
+
+lm = poly.polyfit(x, y, 1)
+vorhersagewerte = poly.polyval(x, lm)
+
+plt.scatter(x, vorhersagewerte, label = 'Vorhersagewerte', marker = "^", color = "tab:blue")
+plt.scatter(x, y, label = 'Messwerte', marker = 'o', color = "tab:orange")
+plt.axline(xy1 = (0, lm[0]), slope = lm[1], label = "Regressionsgerade", color = "tab:blue")
+dotted = plt.vlines(x, ymin = vorhersagewerte, ymax = y, alpha = 0.6, ls = 'dotted', label = 'Residuen')
+
+plt.legend()
+plt.show()
+
+print("Regressionskoeffizienten:", lm)
+```
+
+## Code
+```{python}
+#| fig-alt: "Auf einer Geraden sind 9 Punkte markiert, die die Vorhersagewerte des linearen Modells repräsentieren. Vertikal darüber oder darunter sind die Messwerte eingezeichnet. Jeder Vorhersagewerte ist durch eine gestrichelte, vertikale Linie mit einem der Messwerte verbunden."
+#| output: false
+
+x = np.arange(1, 11)
+y = - x.copy() + 4
+y[0] -= 2
+y[2] -= 2
+y[3] += 3
+y[-3] += 5
+
+lm = poly.polyfit(x, y, 1)
+vorhersagewerte = poly.polyval(x, lm)
+
+plt.scatter(x, vorhersagewerte, label = 'Vorhersagewerte', marker = "^", color = "tab:blue")
+plt.scatter(x, y, label = 'Messwerte', marker = 'o', color = "tab:orange")
+plt.axline(xy1 = (0, lm[0]), slope = lm[1], label = "Regressionsgerade", color = "tab:blue")
+dotted = plt.vlines(x, ymin = vorhersagewerte, ymax = y, alpha = 0.6, ls = 'dotted', label = 'Residuen')
+
+plt.legend()
+plt.show()
+
+print("Regressionskoeffizienten:", lm)
+```
+
+::::
+
+&nbsp;
+
+Die eingezeichnete Gerade entspricht der linearen Funktion $\hat{y} = \beta_0 + \beta_1 \times x + e_i$. Die Dreiecksmarker sind die Vorhersagewerte $\hat{y_i}$ des linearen Modells für die Werte $x_i = np.arange(1, 11)$. Die tatsächlichen Messwerte $y$ sind mit Kreismarkern markiert. Die Länge der gestrichelten Linien entspricht der Größe der Abweichung zwischen den Mess- und Vorhersagewerten $y_i - \hat{y_i}$, also den Residuen $e_i$.
+
+Gesucht wird diejenige Gerade, die die Summe der quadrierten Residuen minimiert. Die gesuchten Werte $\beta_0$ und $\beta_1$ sind die Kleinst-Quadrate-Schätzer.
+
+$$
+\beta_0 = \bar{y} - \beta_1 \cdot \bar{x}
+$$
+
+$$
+\beta_1 = { \sum_{i=1}^n (x_i- \bar{x}) \cdot (y_i - \bar{y}) \over \sum_{i=1}^n (x_i - \bar{x})^2 }
+$$
+
+:::
+
+
+Die Funktionen dafür stellen sowohl das Paket `numpy.polynomial` bzw. für Polynomfunktionen dessen Modul `numpy.polynomial.polynomial` als auch das Modul `scipy.stats.linregress` bereit. Beide Module werden im Folgenden vorgestellt.
+
+#### NumPy polyfit und polyeval
 
 ```{python}
 import numpy.polynomial.polynomial as poly
 ```
 
-#### polyfit und polyeval
 Zur Schätzung von Funktionsparametern nach der Methode der kleinsten Quadrate wird die Funktion `poly.polyfit(x, y, deg)` verwendet. `x` sind die Werte der unabhängigen Variablen, `y` die Werte der abhängigen Variablen und `deg` spezifiziert den Grad der gesuchten Polynomfunktion. `deg = 1` spezifiziert eine lineare Funktion.
 
 ::: {#nte-polyfitpolyeval .callout-note collapse="true"}
@@ -260,31 +328,32 @@ Zur Schätzung von Funktionsparametern nach der Methode der kleinsten Quadrate w
 x = np.array(list(range(0, 100)))
 y = x ** 2
 
-print(np.polynomial.polynomial.polyfit(x, y, 1))
+print(poly.polyfit(x, y, 1))
 ```
 
 Die Funktion gibt die geschätzten Regressionsparameter als NumPy-Array zurück. Die Terme sind aufsteigend angeordnet, d. h. der Achsabschnitt steht an Indexposition 0, der Steigungskoeffizient an Indexposition 1. Die Ausgabe für ein Polynom zweiten Grades würde beispielsweise so aussehen:
 
 ```{python}
-print(np.polynomial.polynomial.polyfit(x, y, 2))
+print(poly.polyfit(x, y, 2))
 ```
 
-Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funktion berechnet werden. Dafür kann die Funktion `poly.polyeval(x, c)` verwendet werden. Diese berechnet die Funktionswerte für in `x` übergebene Wert(e) mit den Funktionsparametern `c`.
+Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funktion berechnet werden. Dafür wird die Funktion `poly.polyeval(x, c)` verwendet. Diese berechnet die Funktionswerte für in `x` übergebene Wert(e) mit den Funktionsparametern `c`. Aus der Differenz der gemessenen Werte und der Vorhersagewerte können die Residuen bestimmt werden.
 
 ```{python}
 # 'manuelle' Berechnung
-regressions_koeffizienten = np.polynomial.polynomial.polyfit(x, y, 1)
+regressions_koeffizienten = poly.polyfit(x, y, 1)
 vorhersagewerte = regressions_koeffizienten[0] + x * regressions_koeffizienten[1]
+residuen = y - vorhersagewerte
 
 # Berechnung mit polyeval
-lm = np.polynomial.polynomial.polyfit(x, y, 1)
-vorhersagewerte_polyval = np.polynomial.polynomial.polyval(x, lm)
+lm = poly.polyfit(x, y, 1)
+vorhersagewerte_polyval = poly.polyval(x, lm)
 
 print("Die Ergebnisse stimmen überein:", np.equal(vorhersagewerte, vorhersagewerte_polyval).all())
 print("\nAusschnitt der Vorhersagewerte:", vorhersagewerte[:10])
 ```
 
-Das [Bestimmtheitsmaß](https://de.wikipedia.org/wiki/Bestimmtheitsma%C3%9F) $R^2$ gibt an, wie gut die Schätzfunktion an die Daten angepasst ist. Der Wertebereich reicht von 0 bis 1. Ein Wert von 1 bedeutet eine vollständige Anpassung. Für eine einfache lineare Regression mit nur einer erklärenden Variable kann das Bestimmtheitsmaß als Quadrat des B[ravais-Pearson-Korrelationskoeffizienten](https://de.wikipedia.org/wiki/Korrelationskoeffizient_nach_Bravais-Pearson) $r$ berechnet werden. Dieser wird mit der Funktion `np.corrcoef(x, y)` ermittelt (die eine Matrix der Korrelationskoeffizienten ausgibt).
+Das [Bestimmtheitsmaß](https://de.wikipedia.org/wiki/Bestimmtheitsma%C3%9F) $R^2$ gibt an, wie gut die Schätzfunktion an die Daten angepasst ist. Der Wertebereich reicht von 0 bis 1. Ein Wert von 1 bedeutet eine vollständige Anpassung. Für eine einfache lineare Regression mit nur einer erklärenden Variable kann das Bestimmtheitsmaß als Quadrat des [Bravais-Pearson-Korrelationskoeffizienten](https://de.wikipedia.org/wiki/Korrelationskoeffizient_nach_Bravais-Pearson) $r$ berechnet werden. Dieser wird mit der Funktion `np.corrcoef(x, y)` ermittelt (die eine Matrix der Korrelationskoeffizienten ausgibt).
 
 ```{python}
 print(f"r = {np.corrcoef(x, y)[0, 1]:.2f}")
@@ -310,32 +379,34 @@ plt.show()
 
 :::
 
+NumPy umfasst außerdem die inzwischen veralteten Funktionen `np.polyfit(x, y, deg)` und `np.polyval(p, x)`.
+
 ::: {#nte-polyfit .callout-note collapse="true"}
 
-## to do: numpy.polyfit & numpy.polyval
-**in den Aufklapper verschieben**
-legacy - wichtigster Unterschied: Ausgabe der Koeffizienten in umgekehrter Reihenfolge!
+## np.polyfit & np.polyval
+Die Funktionen `np.polyfit(x, y, deg)` und `np.polyval(p, x)` funktionieren wie die vorgestellten Funktionen aus dem Modul `numpy.polynomial.polynomial`. Ein wichtiger Unterschied besteht jedoch darin, dass **die Parameter der Funktion `polyfit` in umgekehrter Reihenfolge** ausgegeben werden.
 
-Warnung / ein Hinweis, dass man es nicht mehr benutzen soll.
-https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html
+```{python}
+print(poly.polyfit(x, y, deg = 1))
+print(np.polyfit(x, y, deg = 1))
 
-Hier auch noch mal deutlicher: https://numpy.org/doc/stable/reference/routines.polynomials.html
-"As noted above, the poly1d class and associated functions defined in numpy.lib.polynomial, such as numpy.polyfit and numpy.poly, are considered legacy and should not be used in new code. Since NumPy version 1.4, the numpy.polynomial package is preferred for working with polynomials."
+```
 
-polyfit
-https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html
+:::: {.border}
+::::: {.callout-note}
 
-polyval
-numpy.polyval(p, x) ... evaluiere Wert(e) p mit Modellkoeffizienten x.
+This forms part of the old polynomial API. Since version 1.4, the new polynomial API defined in `numpy.polynomial` is preferred. A summary of the differences can be found in the [transition guide](https://numpy.org/doc/stable/reference/routines.polynomials.html).
 
-https://numpy.org/doc/stable/reference/generated/numpy.polyval.html
+:::::
+
+[NumPy-Dokumentation](https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html)
+
+::::
 :::
-
-**Federkonstante bestimmen**
 
 Die Parameter der an die Messwerte angepassten linearen Funktion und das Bestimmtheitsmaß lauten:
 ```{python}
-print(np.polynomial.polynomial.polyfit(hooke['distance'], hooke['force'], 1))
+print(poly.polyfit(hooke['distance'], hooke['force'], 1))
 
 print(f"r = {np.corrcoef(hooke['distance'], hooke['force'])[0, 1]:.2f}")
 print(f"R\u00b2 = {np.corrcoef(hooke['distance'], hooke['force'])[0, 1] ** 2:.2f}")
@@ -345,37 +416,138 @@ Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funkti
 
 ```{python}
 # Berechnung mit polyeval
-lm = np.polynomial.polynomial.polyfit(hooke['distance'], hooke['force'], 1)
-vorhersagewerte_hooke = np.polynomial.polynomial.polyval(hooke['distance'], lm)
+lm = poly.polyfit(hooke['distance'], hooke['force'], 1)
+vorhersagewerte_hooke = poly.polyval(hooke['distance'], lm)
 ```
 
 Die Messreihe und die darauf angepasste lineare Funktion können grafisch dargestellt werden.
 
+**Hier mal überlegen: Die lineare Funktion kennt keine Grenzen, aber die gemessene Abstandsänderung kann nicht (sinnvoll) kleiner als Null werden. Grafisch ist `plt.axline()` ggf. nicht so optimal.**
+
 ```{python}
-# Platzhalter
+#| fig-alt: "Messdaten des Federexperiments (Abstandsänderung vs. wirkende Kraft) mit eingezeichneter Regressionsgeraden."
+
+# Platzhalter x & y
 x = hooke['distance']
 y = hooke['force']
 
 # Plot erstellen
 plt.scatter(x, y, label = 'Messdaten')
-plt.plot(x, vorhersagewerte_hooke, label = 'Vorhersagewerte')
+plt.axline(xy1 = (0, lm[0]), slope = lm[1], label = 'Regressionsgerade\ny = ' + "{beta_0:.3f}".format(beta_0 = lm[0]) + ' + ' + "{beta_1:.3f} ".format(beta_1 = lm[1]) + 'x' )
 plt.annotate("$R^2$ = {:.2f}".format(np.corrcoef(x, y)[0, 1] ** 2), (max(x) * 0.9, 1))
 
 plt.title(label = 'Messdaten und geschätzte Linearfunktion')
-plt.xlabel('gemessene Abstandsänderung')
+plt.xlabel('gemessene Abstandsänderung in m')
 plt.ylabel('wirkende Kraft')
 plt.legend()
 
+plt.grid()
 plt.show()
 ```
 
 ### Messabweichung quantifizieren
-Konfidenzintervall des Regressionskoeffizienten berechnen:
+Für den geschätzten Regressionskoeffizienten kann für die lineare Regression mit einer erklärenden Variable der Standardfehler des Regressionskoeffizienten $SE = \hat{\sigma}_\hat{\beta_1}$ ermittelt werden (siehe [Wikipedia](https://de.wikipedia.org/wiki/Standardfehler_des_Regressionskoeffizienten#Spezialfall:_Lineare_Einfachregression)). 
 
-https://mountain-hydrology-research-group.github.io/data-analysis/modules/module4/lab4-3.html  
-(benötigt aber stats für die t-Verteilung)
+empirisch:
+$$
+SE = \sqrt{\frac{\frac{1}{n-2} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{ \sum_{i=1}^{n} (x_i - \bar{x})^2}}
+$$
+
+  - im Zähler steht die mittlere [Residuenquadratsumme](https://de.wikipedia.org/wiki/Residuenquadratsumme) (Summe der quadrierten Residuen / Anzahl der Freiheitsgrade)
+  - im Nenner steht die [Summe der Abweichungsquadrate von $x$](https://de.wikipedia.org/wiki/Summe_der_Abweichungsquadrate)
+
+Für ein Signifikanzniveau $\alpha$ kann ein Konfidenzniveau $1 - \alpha$ angegeben werden als:
+
+$$
+\hat{\beta_1} \pm SE \times t_{1-\alpha / 2} (n - 2)
+$$
+
+ - t ist der Wert der t-Verteilung mit 2 Freiheitsgraden bzw. der Rückgabewert der Funktionen:
+    - `scipy.stats.t.ppf(q = alpha/2, df = n - 2)` für die untere Intervallgrenze.
+    - `scipy.stats.t.ppf(q = 1 - alpha/2, df = n - 2)` für die obere Intervallgrenze.
+
+```{python}
+print(f"Regressionskoeffizient: {lm[1]:.4f}")
+
+# 'manuell' Standardfehler des Regressionskoeffizienten berechnen
+standardfehler_beta_1 = np.sqrt( (1 / (len(x) - 2) * sum((y - vorhersagewerte_hooke) ** 2)) / sum( (x - x.mean()) ** 2  ))
+
+print(f"Standardfehler des Regressionskoeffizienten: {standardfehler_beta_1:.4f}")
+
+# Signifikanzniveau (alpha-Niveau) 1 - 95 % wählen
+alpha = 0.05
+n = len(x)
+
+t_wert = scipy.stats.t.ppf(q = 1 - alpha/2, df = n - 2)
+print(f"t-Wert 95%-Intervall (zweiseitig): {t_wert:.4f}")
+print(f"Konfidenzintervall 95%: {lm[1]:.4f} ± {t_wert:.4f} * {standardfehler_beta_1:.4f}")
+print(f"untere 95%-Intervallgrenze: {lm[1] - t_wert * standardfehler_beta_1:.4f}")
+print(f"obere 95%-Intervallgrenze: {lm[1] + t_wert * standardfehler_beta_1:.4f}")
+```
+
+Das Konfidenzintervall kann auch grafisch dargestellt werden.  
+**geht das nicht einfacher?! Das Konfidenzintervall mit `plt.fill_between()` endet bei max(x), die Regressionsgerade ist aber kontinuierlich.**  
+
+```{python}
+#| fig-alt: "Messdaten des Federexperiments (Abstandsänderung vs. wirkende Kraft) mit eingezeichneter Regressionsgeraden und 95% Konfidenzintervall des Anstiegs."
+
+# Platzhalter x & y
+x = hooke['distance']
+y = hooke['force']
+
+# Plot erstellen
+plt.scatter(x, y, label = 'Messdaten')
+plt.axline(xy1 = (0, lm[0]), slope = lm[1], label = 'Regressionsgerade\ny = ' + "{beta_0:.3f}".format(beta_0 = lm[0]) + ' + ' + "{beta_1:.3f} ".format(beta_1 = lm[1]) + 'x' )
+plt.annotate("$R^2$ = {:.2f}".format(np.corrcoef(x, y)[0, 1] ** 2), (max(x) * 0.9, 1))
+
+# 95 % Konfidenzintervall einzeichnen
+## poly.polyval(hooke['distance'], [lm[0]])
+beta1_lower_boundary = lm[1] - (t_wert * standardfehler_beta_1)
+beta1_upper_boundary = lm[1] + (t_wert * standardfehler_beta_1)
+
+y_lower_boundary = poly.polyval(hooke['distance'], [lm[0], beta1_lower_boundary])
+y_upper_boundary = poly.polyval(hooke['distance'], [lm[0], beta1_upper_boundary])
+
+plt.fill_between(x = x, y1 = y_lower_boundary , y2 = y_upper_boundary, alpha = 0.3, label = '95 % Konfidenzintervall $\\beta_1$')
 
 
+plt.title(label = 'Messdaten und geschätzte Linearfunktion')
+plt.xlabel('gemessene Abstandsänderung in m')
+plt.ylabel('wirkende Kraft')
+plt.legend()
+
+plt.grid()
+plt.show()
+```
+
+#### SciPy stats.linregress
+Die Funktion `scipy.stats.lingress(x, y)` liefert mit einem Funktionsaufruf zahlreiche Rückgabewerte:
+
+  - Steigung der Regressionsgerade,
+  - y-Achsenschnittpunkt der Regressionsgerade,
+  - Bravais-Pearson-Korrelationskoeffizient r,
+  - p-Wert der Nullhypothese, dass die Steigung der Regressionsgerade Null ist,
+  - Standardfehler der Steigung und
+  - Standardfehler des y-Achsenschnittpunkts.
+
+Der Standardfehler des y-Achsenschnittpunkts ist nur verfügbar, wenn die Rückgabewerte in einem Objekt gespeichert werden. Die Rückgabewerte können dann als Attribute abgerufen werden.
+
+```{python}
+# Zuweisung mehrerer Objekte
+slope, intercept, rvalue, pvalue, slope_stderr = scipy.stats.linregress(x, y)
+print(f"y = {intercept:.4f} + {slope:.4f} * x\n",
+      f"r = {rvalue:.4f} R2 = {rvalue ** 2:.4f} p = {pvalue:.4f}\n",
+      f"Standardfehler des Anstiegs: {slope_stderr:.4f}")
+
+# Zuweisung eines Objekts
+lm = scipy.stats.linregress(x, y)
+
+print("\n", lm, sep = '')
+print(lm.intercept)
+```
+
+
+## Resterampe
 **to do: plt.errorbar (capsize = 3 macht kleine Linien an den Enden der Kerze)**
 
 **wann / wozu braucht man das:** Durch Umstellen nach der Federkonstante $k$ kann diese wie folgt ermittelt werden:
@@ -383,3 +555,4 @@ https://mountain-hydrology-research-group.github.io/data-analysis/modules/module
 $$
 k = \frac{m \times g}{\Delta{x}}
 $$
+

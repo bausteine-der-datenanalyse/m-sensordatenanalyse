@@ -1122,8 +1122,7 @@ hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
 y_values = scipy.stats.t.pdf(x_values, loc = stichprobenmittelwert, scale = standardfehler, df = stichprobengröße - 1)
 
-ax1.plot(x_values, y_values, color = 'black', linewidth = 1, label = 't-Verteilung')
-ax1.legend(loc = 'upper left')
+ax1.plot(x_values, y_values, color = 'black', linewidth = 1)
 
 # Chinstrap
 species = 'Chinstrap'
@@ -1144,7 +1143,8 @@ hist, bin_edges = np.histogram(data)
 x_values = np.linspace(min(bin_edges), max(bin_edges), 100)
 y_values = scipy.stats.t.pdf(x_values, loc = stichprobenmittelwert, scale = standardfehler, df = stichprobengröße - 1)
 
-ax2.plot(x_values, y_values, color = 'black', linewidth = 1)
+ax2.plot(x_values, y_values, color = 'black', linewidth = 1, label = 't-Verteilung')
+ax2.legend(loc = 'upper left')
 
 # Gentoo
 species = 'Gentoo'
