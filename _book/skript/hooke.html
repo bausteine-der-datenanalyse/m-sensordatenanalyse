@@ -221,8 +221,10 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#lineare-ausgleichsrechnung" id="toc-lineare-ausgleichsrechnung" class="nav-link" data-scroll-target="#lineare-ausgleichsrechnung">Lineare Ausgleichsrechnung</a></li>
   <li><a href="#messabweichung-quantifizieren" id="toc-messabweichung-quantifizieren" class="nav-link" data-scroll-target="#messabweichung-quantifizieren">Messabweichung quantifizieren</a></li>
+  <li><a href="#das-modul-scipy" id="toc-das-modul-scipy" class="nav-link" data-scroll-target="#das-modul-scipy">Das Modul SciPy</a></li>
+  <li><a href="#ergebnis-federkonstante" id="toc-ergebnis-federkonstante" class="nav-link" data-scroll-target="#ergebnis-federkonstante">Ergebnis Federkonstante</a></li>
   </ul></li>
-  <li><a href="#resterampe" id="toc-resterampe" class="nav-link" data-scroll-target="#resterampe"><span class="header-section-number">3.3</span> Resterampe</a></li>
+  <li><a href="#resterampe---größtfehler" id="toc-resterampe---größtfehler" class="nav-link" data-scroll-target="#resterampe---größtfehler"><span class="header-section-number">3.3</span> Resterampe - Größtfehler?!</a></li>
   </ul>
 </nav>
     </div>
@@ -259,22 +261,23 @@ window.Quarto = {
 <h2 data-number="3.1" class="anchored" data-anchor-id="messreihe-hookesches-gesetz"><span class="header-section-number">3.1</span> Messreihe Hooke’sches Gesetz</h2>
 <p>Das <a href="https://de.wikipedia.org/wiki/Hookesches_Gesetz">Hooke’sche Gesetz</a>, benannt nach dem englischen Wissenschaftler Robert Hooke, beschreibt die Beziehung zwischen der Kraft <span class="math inline">\(F\)</span> und der Längenänderung <span class="math inline">\(\Delta{x}\)</span> einer Feder durch die Gleichung <span class="math inline">\(F = k \times \Delta{x}\)</span>, wobei <span class="math inline">\(k\)</span> die Federkonstante ist.</p>
 <p>Die Federkonstante ist eine grundlegende Eigenschaft elastischer Materialien und gibt an, wie viel Kraft erforderlich ist, um eine Feder um eine bestimmte Länge zu dehnen oder zu komprimieren. Das Hooke’sche Gesetz besagt, dass die Deformation eines elastischen Körpers proportional zur aufgebrachten Kraft ist, solange die Feder nicht über den elastischen Bereich hinaus gedehnt oder gestaucht wird.</p>
-<p>In einem Experiment wurde das Hooke’sche Gesetz überprüft.</p>
+<p>In einem Experiment wurde das Hooke’sche Gesetz überprüft. An einer an einer Halterung hängenden Metallfeder ist ein (variables) Gewicht angebracht. Darunter befindet sich in einigem Abstand ein Ultraschallsensor zur Abstandsmessung. Der Abstand zwischen der Unterseite des an der Feder befestigten Gewichts und dem Ultraschallsensor ist der gemessene Abstand.</p>
+<p>Die Gewichte konnten mit einer Genauigkeit von <span class="math inline">\(\epsilon_{m} = 0,5 g\)</span> mit einer Küchenwaage bestimmt werden.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="00-bilder/aufbau.png" class="img-fluid figure-img" alt="Darstellung des Versuchsaufbaus. An einer an einer Halterung hängenden Metallfeder ist ein (variables) Gewicht angebracht. Darunter befindet sich in einigem Abstand ein Ultraschallsensor zur Abstandsmessung. Der Abstand zwischen der Unterseite des an der Feder befestigten Gewichts und dem Ultraschallsensor ist der gemessene Abstand."></p>
+<p><img src="00-bilder/aufbau.png" class="img-fluid figure-img" alt="Darstellung des Versuchsaufbaus."></p>
 <figcaption>Versuchsaufbau</figcaption>
 </figure>
 </div>
 <p>Die Messreihe liegt in Form einer CSV-Datei unter dem Pfad ‘01-daten/hooke_data.csv’ vor. Die Datei wird mit Pandas eingelesen.</p>
-<div id="f03b8669" class="cell" data-execution_count="2">
+<div id="22315d70" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/hooke_data.csv"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>hooke <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">';'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="deskriptive-statistik" class="level3">
 <h3 class="anchored" data-anchor-id="deskriptive-statistik">Deskriptive Statistik</h3>
 <p>Nach dem Einlesen sollte man sich einen Überblick über die Daten verschaffen. Mit den Methoden <code>pd.DataFrame.head()</code> und <code>pd.DataFrame.tail()</code> kann ein Ausschnitt vom Beginn und vom Ende der Daten betrachtet werden.</p>
-<div id="706e9818" class="cell" data-execution_count="3">
+<div id="66a77d6a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.head(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.tail())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -294,7 +297,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Die Methode <code>pd.DataFrame.describe()</code> erstellt die deskriptive Statistik für den Datensatz. Diese ist in diesem Fall jedoch noch nicht sonderlich nützlich. Die Spalte ‘no’ enthält lediglich eine laufende Versuchsnummer, die Spalte ‘mass’ enhält verschiedene Gewichte.</p>
-<div id="ff2ab462" class="cell" data-execution_count="4">
+<div id="d473ae6e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hooke.describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -366,7 +369,7 @@ window.Quarto = {
 </div>
 <p>&nbsp;</p>
 <p>Sinnvoller ist eine nach dem verwendeten Gewicht aufgeteilte beschreibende Statistik der gemessenen Ausdehnung. Dafür kann die Pandas-Methode <code>pd.DataFrame.groupby()</code> verwendet werden. So kann für jedes der gemessenen Gewichte der arithmethische Mittelwert und die Standardabweichung abgelesen werden.</p>
-<div id="b90f6cfa" class="cell" data-execution_count="5">
+<div id="e9693e70" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> <span class="st">'mass'</span>)[<span class="st">'distance'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
@@ -527,7 +530,7 @@ window.Quarto = {
 </div>
 <p>&nbsp;</p>
 <p>Bereits an dieser Stelle könnte die hohe Standardabweichung in der Messreihe mit 0 Gramm auffallen. Leichter ist es jedoch in der grafischen Betrachtung.</p>
-<div id="2662d262" class="cell" data-execution_count="6">
+<div id="f6bdc4bd" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'mass'</span>, y <span class="op">=</span> <span class="st">'distance'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">"Messreihe Hooke`sches Gesetz"</span>, ylabel <span class="op">=</span> <span class="st">'Abstand in cm'</span>, xlabel <span class="op">=</span> <span class="st">'Gewicht in Gramm'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -548,7 +551,7 @@ Z = \frac{x - \mu}{\sigma}
 <p><span class="math display">\[
 z_{i} = \frac{x_{i} - \bar{x}}{s}
 \]</span></p>
-<div id="3ebd6286" class="cell" data-execution_count="7">
+<div id="00d27efe" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gewicht <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Transformation manuell berechnen</span></span>
@@ -600,7 +603,7 @@ Definition&nbsp;3.1: Ausreißer
 </div>
 </div>
 </div>
-<div id="74cdec0a" class="cell" data-execution_count="8">
+<div id="5164452e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> <span class="dv">113</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> <span class="st">'mass'</span>)[<span class="st">'distance'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -763,7 +766,7 @@ Definition&nbsp;3.1: Ausreißer
 </div>
 <p>&nbsp;</p>
 <p>Hiernach ist die höchste Standardabweichung für die Messreihe mit 301 Gramm zu verzeichnen. Die gemessenen Werte sind jedoch unauffällig.</p>
-<div id="828f7c9f" class="cell" data-execution_count="9">
+<div id="bc1a57a3" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gewicht <span class="op">=</span> <span class="dv">301</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>z_values <span class="op">=</span> scipy_z_values <span class="op">=</span> scipy.stats.zscore(hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> gewicht].loc[: , <span class="st">'distance'</span>], ddof <span class="op">=</span> <span class="dv">1</span>)</span>
@@ -785,7 +788,7 @@ Definition&nbsp;3.1: Ausreißer
 </div>
 </div>
 <p>Die Grafik des bereinigten Datensatzes legt einen linearen Zusammenhang nahe. Darüber hinaus sticht der mit zunehmendem Gewicht abfallende Trend der Datenpunkte ins Auge.</p>
-<div id="4bcdc98f" class="cell" data-execution_count="10">
+<div id="10b089bb" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'mass'</span>, y <span class="op">=</span> <span class="st">'distance'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">'bereinigter Datensatz'</span>, ylabel <span class="op">=</span> <span class="st">'Abstand in cm'</span>, xlabel <span class="op">=</span> <span class="st">'Gewicht in Gramm'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -797,7 +800,7 @@ Definition&nbsp;3.1: Ausreißer
 </div>
 <p>&nbsp;</p>
 <p>Entsprechend des Versuchsaufbaus nimmt mit zunehmender Dehnung der Feder der Abstand zum Abstandssensor ab. Da die Federausdehnung gemessen werden soll, bietet es sich an, die Daten entsprechend zu transformieren. Dazu wird der gemessene Abstand bei 0 Gramm Gewicht als Nullpunkt aufgefasst, von dem aus die Federdehnung gemessen wird. Das bedeutet, dass von allen Datenpunkten das arithmetische Mittel der für 0 Gramm Gewicht gemessen Ausdehnung abgezogen und das Ergebnis mit -1 multipliziert wird.</p>
-<div id="d78391f6" class="cell" data-execution_count="11">
+<div id="8c229e86" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nullpunkt <span class="op">=</span> hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> <span class="dv">0</span>].loc[: , <span class="st">'distance'</span>].mean()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nullpunkt: </span><span class="sc">{</span>nullpunkt<span class="sc">:.2f}</span><span class="ss"> cm"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -816,35 +819,33 @@ Definition&nbsp;3.1: Ausreißer
 </div>
 </div>
 <p>&nbsp;</p>
-<p>Mit der Funktion <code>plt.errorbars()</code> können die Mittelwerte und Standardfehler für jedes Gewicht grafisch dargestellt werden.</p>
-<div id="025d341c" class="cell" data-execution_count="12">
+<p>Mit der Funktion <code>plt.errorbars()</code> können die Mittelwerte und Standardfehler für jedes Gewicht grafisch dargestellt werden. Da die Standardfehler eher klein sind, werden mit dem Parameter <code>capsize</code> horizontale Linien am Ende des Fehlerbalkens eingezeichnet.</p>
+<div id="d6dc546d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwerte nach Gewicht</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>distance_means_by_weight <span class="op">=</span> hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).mean()</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>distance_means_by_weight.name <span class="op">=</span> <span class="st">'Federausdehnung'</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardfehler nach Gewicht</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_weight <span class="op">=</span> hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).std(ddof <span class="op">=</span> <span class="dv">1</span>).div(np.sqrt(hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).size()))</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_weight.name <span class="op">=</span> <span class="st">'Standardfehler'</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'mass'</span>, y <span class="op">=</span> <span class="st">'distance'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">'bereinigter und invertierter Datensatz'</span>, ylabel <span class="op">=</span> <span class="st">'Federausdehnung in cm'</span>, xlabel <span class="op">=</span> <span class="st">'Gewicht in Gramm'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>errorbar_container <span class="op">=</span> plt.errorbar(x <span class="op">=</span> distance_means_by_weight.index, y <span class="op">=</span> distance_means_by_weight, yerr <span class="op">=</span> distance_stderrors_by_weight, fmt <span class="op">=</span> <span class="st">'xr'</span>, markersize <span class="op">=</span> <span class="dv">12</span>, elinewidth <span class="op">=</span> <span class="dv">3</span>) <span class="co"># fmt = 'xr' == marker = 'x', color = 'red', draw no line</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># siehe: https://matplotlib.org/stable/api/container_api.html#matplotlib.container.ErrorbarContainer</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>plt.legend([errorbar_container.lines[<span class="dv">0</span>], errorbar_container.lines[<span class="dv">2</span>][<span class="dv">0</span>]],</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>           [<span class="st">'Mittelwert'</span>, <span class="st">'Standardfehler'</span>],</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>           loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.concat([distance_means_by_weight, distance_stderrors_by_weight], axis <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
-</div>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>distance_means_by_weight.name <span class="op">=</span> <span class="st">'Federausdehnung'</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardfehler nach Gewicht</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_weight <span class="op">=</span> hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).std(ddof <span class="op">=</span> <span class="dv">1</span>).div(np.sqrt(hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).size()))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_weight.name <span class="op">=</span> <span class="st">'Standardfehler'</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'mass'</span>, y <span class="op">=</span> <span class="st">'distance'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">'bereinigter und invertierter Datensatz'</span>, ylabel <span class="op">=</span> <span class="st">'Federausdehnung in cm'</span>, xlabel <span class="op">=</span> <span class="st">'Gewicht in Gramm'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>errorbar_container <span class="op">=</span> plt.errorbar(</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> distance_means_by_weight.index, y <span class="op">=</span> distance_means_by_weight, yerr <span class="op">=</span> distance_stderrors_by_weight,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  linestyle <span class="op">=</span> <span class="st">'none'</span>, marker <span class="op">=</span> <span class="st">'x'</span>, color <span class="op">=</span> <span class="st">'black'</span>, markersize <span class="op">=</span> <span class="dv">12</span>, elinewidth <span class="op">=</span> <span class="dv">3</span>, ecolor <span class="op">=</span> <span class="st">'red'</span>, capsize <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># siehe: https://matplotlib.org/stable/api/container_api.html#matplotlib.container.ErrorbarContainer</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>plt.legend([errorbar_container.lines[<span class="dv">0</span>], errorbar_container.lines[<span class="dv">2</span>][<span class="dv">0</span>]],</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>           [<span class="st">'Mittelwert'</span>, <span class="st">'Standardfehler'</span>],</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>           loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pd.concat([distance_means_by_weight, distance_stderrors_by_weight], axis <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hooke_files/figure-html/cell-13-output-2.png" width="585" height="449" class="figure-img"></p>
+<p><img src="hooke_files/figure-html/cell-13-output-1.png" width="585" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -870,13 +871,13 @@ mass
 <h2 data-number="3.2" class="anchored" data-anchor-id="federkonstante-bestimmen"><span class="header-section-number">3.2</span> Federkonstante bestimmen</h2>
 <p>Die Beziehung zwischen der Kraft <span class="math inline">\(F\)</span> und der Längenänderung <span class="math inline">\(\Delta{x}\)</span> einer Feder mit Federkonstante <span class="math inline">\(k\)</span> wird durch die Gleichung <span class="math inline">\(F = k \times \Delta{x}\)</span> beschrieben. Dabei entspricht die Kraft <span class="math inline">\(F\)</span> dem mit der Fallbeschleunigung <span class="math inline">\(g\)</span> multiplizierten Gewicht in Kilogramm <span class="math inline">\(m\)</span>. Die Fallbeschleunigung beträgt auf der Erde <span class="math inline">\(9,81 \frac{m}{s^2}\)</span>.</p>
 <p>Deshalb wird im Datensatz das in der Spalte ‘mass’ eingetragene Gewicht in Gramm in die wirkende Kraft umgerechnet. Ebenso wird die gemessene Abstandsänderung in der Spalte ‘distance’ von Zentimeter in Meter umgerechnet.</p>
-<div id="ed53394a" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'mass'</span>] <span class="op">=</span> hooke[<span class="st">'mass'</span>].div(<span class="dv">1000</span>).mul(<span class="fl">9.81</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>hooke.rename(columns <span class="op">=</span> {<span class="st">'mass'</span>: <span class="st">'force'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'distance'</span>] <span class="op">=</span> hooke[<span class="st">'distance'</span>].div(<span class="dv">100</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.head())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="8356d2c5" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'mass'</span>] <span class="op">=</span> hooke[<span class="st">'mass'</span>].div(<span class="dv">1000</span>).mul(<span class="fl">9.81</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>hooke.rename(columns <span class="op">=</span> {<span class="st">'mass'</span>: <span class="st">'force'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'distance'</span>] <span class="op">=</span> hooke[<span class="st">'distance'</span>].div(<span class="dv">100</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.head())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   no    force  distance
 0   0  6.91605  0.203409
@@ -887,8 +888,8 @@ mass
 </div>
 </div>
 <p>Für die grafische Darstellung des Zusammenhangs <span class="math inline">\(F = k \times \Delta{x}\)</span> ist es zweckmäßiger, die Abstandsänderung auf der x-Achse und die wirkende Kraft auf der y-Achse darzustellen.</p>
-<div id="bad31d46" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'distance'</span>, y <span class="op">=</span> <span class="st">'force'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">'umgeformter Datensatz'</span>, ylabel <span class="op">=</span> <span class="st">'wirkende Kraft in $N$'</span>, xlabel <span class="op">=</span> <span class="st">'Abstandsänderung in Meter'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="61c2347a" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hooke.plot(x <span class="op">=</span> <span class="st">'distance'</span>, y <span class="op">=</span> <span class="st">'force'</span>, kind <span class="op">=</span> <span class="st">'scatter'</span>, title <span class="op">=</span> <span class="st">'umgeformter Datensatz'</span>, ylabel <span class="op">=</span> <span class="st">'wirkende Kraft in $N$'</span>, xlabel <span class="op">=</span> <span class="st">'Abstandsänderung in Meter'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -932,7 +933,7 @@ Beispiel&nbsp;3.1: Methode der kleinsten Quadrate
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Grafik</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="f11d22f1" class="cell" data-execution_count="15">
+<div id="482e7371" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -946,26 +947,26 @@ Beispiel&nbsp;3.1: Methode der kleinsten Quadrate
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="0d6edd06" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">11</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="op">-</span> x.copy() <span class="op">+</span> <span class="dv">4</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">0</span>] <span class="op">-=</span> <span class="dv">2</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">2</span>] <span class="op">-=</span> <span class="dv">2</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">3</span>] <span class="op">+=</span> <span class="dv">3</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>y[<span class="op">-</span><span class="dv">3</span>] <span class="op">+=</span> <span class="dv">5</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(x, y, <span class="dv">1</span>)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>vorhersagewerte <span class="op">=</span> poly.polyval(x, lm)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, vorhersagewerte, label <span class="op">=</span> <span class="st">'Vorhersagewerte'</span>, marker <span class="op">=</span> <span class="st">"^"</span>, color <span class="op">=</span> <span class="st">"tab:blue"</span>)</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Messwerte'</span>, marker <span class="op">=</span> <span class="st">'o'</span>, color <span class="op">=</span> <span class="st">"tab:orange"</span>)</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>plt.axline(xy1 <span class="op">=</span> (<span class="dv">0</span>, lm[<span class="dv">0</span>]), slope <span class="op">=</span> lm[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">"Regressionsgerade"</span>, color <span class="op">=</span> <span class="st">"tab:blue"</span>)</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>dotted <span class="op">=</span> plt.vlines(x, ymin <span class="op">=</span> vorhersagewerte, ymax <span class="op">=</span> y, alpha <span class="op">=</span> <span class="fl">0.6</span>, ls <span class="op">=</span> <span class="st">'dotted'</span>, label <span class="op">=</span> <span class="st">'Residuen'</span>)</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Regressionskoeffizienten:"</span>, lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5ed67c79" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">11</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="op">-</span> x.copy() <span class="op">+</span> <span class="dv">4</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">0</span>] <span class="op">-=</span> <span class="dv">2</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">2</span>] <span class="op">-=</span> <span class="dv">2</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">3</span>] <span class="op">+=</span> <span class="dv">3</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>y[<span class="op">-</span><span class="dv">3</span>] <span class="op">+=</span> <span class="dv">5</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(x, y, <span class="dv">1</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>vorhersagewerte <span class="op">=</span> poly.polyval(x, lm)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, vorhersagewerte, label <span class="op">=</span> <span class="st">'Vorhersagewerte'</span>, marker <span class="op">=</span> <span class="st">"^"</span>, color <span class="op">=</span> <span class="st">"tab:blue"</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Messwerte'</span>, marker <span class="op">=</span> <span class="st">'o'</span>, color <span class="op">=</span> <span class="st">"tab:orange"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>plt.axline(xy1 <span class="op">=</span> (<span class="dv">0</span>, lm[<span class="dv">0</span>]), slope <span class="op">=</span> lm[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">"Regressionsgerade"</span>, color <span class="op">=</span> <span class="st">"tab:blue"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>dotted <span class="op">=</span> plt.vlines(x, ymin <span class="op">=</span> vorhersagewerte, ymax <span class="op">=</span> y, alpha <span class="op">=</span> <span class="fl">0.6</span>, ls <span class="op">=</span> <span class="st">'dotted'</span>, label <span class="op">=</span> <span class="st">'Residuen'</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Regressionskoeffizienten:"</span>, lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -982,11 +983,11 @@ Beispiel&nbsp;3.1: Methode der kleinsten Quadrate
 </div>
 </div>
 </div>
-<p>Die Funktionen dafür stellen sowohl das Paket <code>numpy.polynomial</code> bzw. für Polynomfunktionen dessen Modul <code>numpy.polynomial.polynomial</code> als auch das Modul <code>scipy.stats.linregress</code> bereit. Beide Module werden im Folgenden vorgestellt.</p>
+<p>Die Funktionen dafür stellen sowohl das Paket <code>numpy.polynomial</code> bzw. für Polynomfunktionen dessen Modul <code>numpy.polynomial.polynomial</code> als auch das Modul <code>scipy.stats.linregress</code> bereit. Im Folgenden wird die Berechnung mit NumPy gezeigt und anschließend die Funktionen aus dem Modul SciPy vorgestellt. Die Funktionsweise beider Module ist ähnlich.</p>
 <section id="numpy-polyfit-und-polyeval" class="level4">
 <h4 class="anchored" data-anchor-id="numpy-polyfit-und-polyeval">NumPy polyfit und polyeval</h4>
-<div id="d9365ce0" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy.polynomial.polynomial <span class="im">as</span> poly</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c65aec2d" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy.polynomial.polynomial <span class="im">as</span> poly</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Zur Schätzung von Funktionsparametern nach der Methode der kleinsten Quadrate wird die Funktion <code>poly.polyfit(x, y, deg)</code> verwendet. <code>x</code> sind die Werte der unabhängigen Variablen, <code>y</code> die Werte der abhängigen Variablen und <code>deg</code> spezifiziert den Grad der gesuchten Polynomfunktion. <code>deg = 1</code> spezifiziert eine lineare Funktion.</p>
 <div id="nte-polyfitpolyeval" class="callout callout-style-default callout-note callout-titled">
@@ -1001,36 +1002,36 @@ Beispiel&nbsp;3.2: polyfit und polyeval erklärt
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="59c35332" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beispieldaten erzeugen</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">100</span>)))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(poly.polyfit(x, y, <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="aa49d8e3" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beispieldaten erzeugen</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">100</span>)))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(poly.polyfit(x, y, <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[-1617.    99.]</code></pre>
 </div>
 </div>
 <p>Die Funktion gibt die geschätzten Regressionsparameter als NumPy-Array zurück. Die Terme sind aufsteigend angeordnet, d.&nbsp;h. der Achsabschnitt steht an Indexposition 0, der Steigungskoeffizient an Indexposition 1. Die Ausgabe für ein Polynom zweiten Grades würde beispielsweise so aussehen:</p>
-<div id="02372b06" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(poly.polyfit(x, y, <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1b42632a" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(poly.polyfit(x, y, <span class="dv">2</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[3.15891594e-13 1.90464004e-14 1.00000000e+00]</code></pre>
 </div>
 </div>
 <p>Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funktion berechnet werden. Dafür wird die Funktion <code>poly.polyeval(x, c)</code> verwendet. Diese berechnet die Funktionswerte für in <code>x</code> übergebene Wert(e) mit den Funktionsparametern <code>c</code>. Aus der Differenz der gemessenen Werte und der Vorhersagewerte können die Residuen bestimmt werden.</p>
-<div id="7e326d8d" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 'manuelle' Berechnung</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>regressions_koeffizienten <span class="op">=</span> poly.polyfit(x, y, <span class="dv">1</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>vorhersagewerte <span class="op">=</span> regressions_koeffizienten[<span class="dv">0</span>] <span class="op">+</span> x <span class="op">*</span> regressions_koeffizienten[<span class="dv">1</span>]</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>residuen <span class="op">=</span> y <span class="op">-</span> vorhersagewerte</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung mit polyeval</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(x, y, <span class="dv">1</span>)</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>vorhersagewerte_polyval <span class="op">=</span> poly.polyval(x, lm)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Die Ergebnisse stimmen überein:"</span>, np.equal(vorhersagewerte, vorhersagewerte_polyval).<span class="bu">all</span>())</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Ausschnitt der Vorhersagewerte:"</span>, vorhersagewerte[:<span class="dv">10</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="df0b8652" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 'manuelle' Berechnung</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>regressions_koeffizienten <span class="op">=</span> poly.polyfit(x, y, <span class="dv">1</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>vorhersagewerte <span class="op">=</span> regressions_koeffizienten[<span class="dv">0</span>] <span class="op">+</span> x <span class="op">*</span> regressions_koeffizienten[<span class="dv">1</span>]</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>residuen <span class="op">=</span> y <span class="op">-</span> vorhersagewerte</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung mit polyeval</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(x, y, <span class="dv">1</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>vorhersagewerte_polyval <span class="op">=</span> poly.polyval(x, lm)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Die Ergebnisse stimmen überein:"</span>, np.equal(vorhersagewerte, vorhersagewerte_polyval).<span class="bu">all</span>())</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Ausschnitt der Vorhersagewerte:"</span>, vorhersagewerte[:<span class="dv">10</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Die Ergebnisse stimmen überein: True
 
@@ -1038,28 +1039,28 @@ Ausschnitt der Vorhersagewerte: [-1617. -1518. -1419. -1320. -1221. -1122. -1023
 </div>
 </div>
 <p>Das <a href="https://de.wikipedia.org/wiki/Bestimmtheitsma%C3%9F">Bestimmtheitsmaß</a> <span class="math inline">\(R^2\)</span> gibt an, wie gut die Schätzfunktion an die Daten angepasst ist. Der Wertebereich reicht von 0 bis 1. Ein Wert von 1 bedeutet eine vollständige Anpassung. Für eine einfache lineare Regression mit nur einer erklärenden Variable kann das Bestimmtheitsmaß als Quadrat des <a href="https://de.wikipedia.org/wiki/Korrelationskoeffizient_nach_Bravais-Pearson">Bravais-Pearson-Korrelationskoeffizienten</a> <span class="math inline">\(r\)</span> berechnet werden. Dieser wird mit der Funktion <code>np.corrcoef(x, y)</code> ermittelt (die eine Matrix der Korrelationskoeffizienten ausgibt).</p>
-<div id="8238e19e" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R</span><span class="ch">\u00b2</span><span class="ss"> = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span><span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ebce7983" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R</span><span class="ch">\u00b2</span><span class="ss"> = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span><span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>r = 0.97
 R² = 0.94</code></pre>
 </div>
 </div>
 <p>Die Daten und die geschätzte Gerade können grafisch dargestellt werden.</p>
-<div id="a91cdd16" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Beispieldaten'</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x, vorhersagewerte, label <span class="op">=</span> <span class="st">'Vorhersagewerte'</span>)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="st">"$R^2$ = </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(np.corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span>), (<span class="bu">max</span>(x) <span class="op">*</span> <span class="fl">0.9</span>, <span class="dv">1</span>))</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>plt.title(label <span class="op">=</span> <span class="st">'Beispieldaten und geschätzte Linearfunktion'</span>)</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x-Werte'</span>)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y-Werte'</span>)</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="355cca0a" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Beispieldaten'</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x, vorhersagewerte, label <span class="op">=</span> <span class="st">'Vorhersagewerte'</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="st">"$R^2$ = </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(np.corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span>), (<span class="bu">max</span>(x) <span class="op">*</span> <span class="fl">0.9</span>, <span class="dv">1</span>))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>plt.title(label <span class="op">=</span> <span class="st">'Beispieldaten und geschätzte Linearfunktion'</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x-Werte'</span>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y-Werte'</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1085,9 +1086,9 @@ Beispiel&nbsp;3.3: np.polyfit &amp; np.polyval
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die Funktionen <code>np.polyfit(x, y, deg)</code> und <code>np.polyval(p, x)</code> funktionieren wie die vorgestellten Funktionen aus dem Modul <code>numpy.polynomial.polynomial</code>. Ein wichtiger Unterschied besteht jedoch darin, dass <strong>die Parameter der Funktion <code>polyfit</code> in umgekehrter Reihenfolge</strong> ausgegeben werden.</p>
-<div id="625b33ec" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(poly.polyfit(x, y, deg <span class="op">=</span> <span class="dv">1</span>))</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.polyfit(x, y, deg <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="43dbd7b8" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(poly.polyfit(x, y, deg <span class="op">=</span> <span class="dv">1</span>))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.polyfit(x, y, deg <span class="op">=</span> <span class="dv">1</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[-1617.    99.]
 [   99. -1617.]</code></pre>
@@ -1113,11 +1114,11 @@ Hinweis
 </div>
 </div>
 <p>Die Parameter der an die Messwerte angepassten linearen Funktion und das Bestimmtheitsmaß lauten:</p>
-<div id="f3f43ff9" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(poly.polyfit(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>], <span class="dv">1</span>))</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>])[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R</span><span class="ch">\u00b2</span><span class="ss"> = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>])[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span><span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3e5a1188" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(poly.polyfit(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>], <span class="dv">1</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"r = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>])[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R</span><span class="ch">\u00b2</span><span class="ss"> = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>])[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span><span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 0.05753159 33.01899551]
 r = 0.99
@@ -1125,30 +1126,30 @@ R² = 0.99</code></pre>
 </div>
 </div>
 <p>Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funktion berechnet werden.</p>
-<div id="e4ff46cb" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung mit polyeval</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>], <span class="dv">1</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>vorhersagewerte_hooke <span class="op">=</span> poly.polyval(hooke[<span class="st">'distance'</span>], lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0ce75d7b" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung mit polyeval</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(hooke[<span class="st">'distance'</span>], hooke[<span class="st">'force'</span>], <span class="dv">1</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>vorhersagewerte_hooke <span class="op">=</span> poly.polyval(hooke[<span class="st">'distance'</span>], lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die Messreihe und die darauf angepasste lineare Funktion können grafisch dargestellt werden.</p>
 <p><strong>Hier mal überlegen: Die lineare Funktion kennt keine Grenzen, aber die gemessene Abstandsänderung kann nicht (sinnvoll) kleiner als Null werden. Grafisch ist <code>plt.axline()</code> ggf. nicht so optimal.</strong></p>
-<div id="4c680ad3" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Platzhalter x &amp; y</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> hooke[<span class="st">'distance'</span>]</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> hooke[<span class="st">'force'</span>]</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Messdaten'</span>)</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>plt.axline(xy1 <span class="op">=</span> (<span class="dv">0</span>, lm[<span class="dv">0</span>]), slope <span class="op">=</span> lm[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'Regressionsgerade</span><span class="ch">\n</span><span class="st">y = '</span> <span class="op">+</span> <span class="st">"</span><span class="sc">{beta_0:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(beta_0 <span class="op">=</span> lm[<span class="dv">0</span>]) <span class="op">+</span> <span class="st">' + '</span> <span class="op">+</span> <span class="st">"</span><span class="sc">{beta_1:.3f}</span><span class="st"> "</span>.<span class="bu">format</span>(beta_1 <span class="op">=</span> lm[<span class="dv">1</span>]) <span class="op">+</span> <span class="st">'x'</span> )</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="st">"$R^2$ = </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(np.corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span>), (<span class="bu">max</span>(x) <span class="op">*</span> <span class="fl">0.9</span>, <span class="dv">1</span>))</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>plt.title(label <span class="op">=</span> <span class="st">'Messdaten und geschätzte Linearfunktion'</span>)</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'gemessene Abstandsänderung in m'</span>)</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'wirkende Kraft'</span>)</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="566359a6" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Platzhalter x &amp; y</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> hooke[<span class="st">'distance'</span>]</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> hooke[<span class="st">'force'</span>]</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Messdaten'</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>plt.axline(xy1 <span class="op">=</span> (<span class="dv">0</span>, lm[<span class="dv">0</span>]), slope <span class="op">=</span> lm[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'Regressionsgerade</span><span class="ch">\n</span><span class="st">y = '</span> <span class="op">+</span> <span class="st">"</span><span class="sc">{beta_0:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(beta_0 <span class="op">=</span> lm[<span class="dv">0</span>]) <span class="op">+</span> <span class="st">' + '</span> <span class="op">+</span> <span class="st">"</span><span class="sc">{beta_1:.3f}</span><span class="st"> "</span>.<span class="bu">format</span>(beta_1 <span class="op">=</span> lm[<span class="dv">1</span>]) <span class="op">+</span> <span class="st">'x'</span> )</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="st">"$R^2$ = </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(np.corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span>), (<span class="bu">max</span>(x) <span class="op">*</span> <span class="fl">0.9</span>, <span class="dv">1</span>))</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>plt.title(label <span class="op">=</span> <span class="st">'Messdaten und geschätzte Linearfunktion'</span>)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'gemessene Abstandsänderung in m'</span>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'wirkende Kraft'</span>)</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1162,90 +1163,90 @@ R² = 0.99</code></pre>
 <section id="messabweichung-quantifizieren" class="level3">
 <h3 class="anchored" data-anchor-id="messabweichung-quantifizieren">Messabweichung quantifizieren</h3>
 <p>Für den geschätzten Regressionskoeffizienten kann für die lineare Regression mit einer erklärenden Variable der Standardfehler des Regressionskoeffizienten <span class="math inline">\(SE = \hat{\sigma}_\hat{\beta_1}\)</span> ermittelt werden (siehe <a href="https://de.wikipedia.org/wiki/Standardfehler_des_Regressionskoeffizienten#Spezialfall:_Lineare_Einfachregression">Wikipedia</a>).</p>
-<p>empirisch: <span class="math display">\[
+<p><span class="math display">\[
 SE = \sqrt{\frac{\frac{1}{n-2} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{ \sum_{i=1}^{n} (x_i - \bar{x})^2}}
 \]</span></p>
 <ul>
-<li>im Zähler steht die mittlere <a href="https://de.wikipedia.org/wiki/Residuenquadratsumme">Residuenquadratsumme</a> (Summe der quadrierten Residuen / Anzahl der Freiheitsgrade)</li>
-<li>im Nenner steht die <a href="https://de.wikipedia.org/wiki/Summe_der_Abweichungsquadrate">Summe der Abweichungsquadrate von <span class="math inline">\(x\)</span></a></li>
+<li>Im Zähler steht die mittlere <a href="https://de.wikipedia.org/wiki/Residuenquadratsumme">Residuenquadratsumme</a> (Summe der quadrierten Residuen / Anzahl der Freiheitsgrade).</li>
+<li>Im Nenner steht die <a href="https://de.wikipedia.org/wiki/Summe_der_Abweichungsquadrate">Summe der Abweichungsquadrate von <span class="math inline">\(x\)</span></a>.</li>
 </ul>
 <p>Für ein Signifikanzniveau <span class="math inline">\(\alpha\)</span> kann ein Konfidenzniveau <span class="math inline">\(1 - \alpha\)</span> angegeben werden als:</p>
 <p><span class="math display">\[
-\hat{\beta_1} \pm SE \times t_{1-\alpha / 2} (n - 2)
+\hat{\beta_1} \pm SE \times t_{1-\alpha / 2} ~ (n - 2)
 \]</span></p>
 <ul>
-<li>t ist der Wert der t-Verteilung mit 2 Freiheitsgraden bzw. der Rückgabewert der Funktionen:
+<li><span class="math inline">\(t_{1-\alpha / 2} ~ (n - 2)\)</span> ist der Wert der t-Verteilung mit 2 Freiheitsgraden bzw. der Rückgabewert der Funktion:
 <ul>
-<li><code>scipy.stats.t.ppf(q = alpha/2, df = n - 2)</code> für die untere Intervallgrenze.</li>
 <li><code>scipy.stats.t.ppf(q = 1 - alpha/2, df = n - 2)</code> für die obere Intervallgrenze.</li>
 </ul></li>
 </ul>
-<div id="a889814f" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Regressionskoeffizient: </span><span class="sc">{</span>lm[<span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 'manuell' Standardfehler des Regressionskoeffizienten berechnen</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>standardfehler_beta_1 <span class="op">=</span> np.sqrt( (<span class="dv">1</span> <span class="op">/</span> (<span class="bu">len</span>(x) <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> <span class="bu">sum</span>((y <span class="op">-</span> vorhersagewerte_hooke) <span class="op">**</span> <span class="dv">2</span>)) <span class="op">/</span> <span class="bu">sum</span>( (x <span class="op">-</span> x.mean()) <span class="op">**</span> <span class="dv">2</span>  ))</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Standardfehler des Regressionskoeffizienten: </span><span class="sc">{</span>standardfehler_beta_1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Signifikanzniveau (alpha-Niveau) 1 - 95 % wählen</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(x)</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>t_wert <span class="op">=</span> scipy.stats.t.ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha<span class="op">/</span><span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>)</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-Wert 95%-Intervall (zweiseitig): </span><span class="sc">{</span>t_wert<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Konfidenzintervall 95%: </span><span class="sc">{</span>lm[<span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss"> ± </span><span class="sc">{</span>t_wert<span class="sc">:.4f}</span><span class="ss"> * </span><span class="sc">{</span>standardfehler_beta_1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"untere 95%-Intervallgrenze: </span><span class="sc">{</span>lm[<span class="dv">1</span>] <span class="op">-</span> t_wert <span class="op">*</span> standardfehler_beta_1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"obere 95%-Intervallgrenze: </span><span class="sc">{</span>lm[<span class="dv">1</span>] <span class="op">+</span> t_wert <span class="op">*</span> standardfehler_beta_1<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="430faf9c" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Regressionskoeffizient: </span><span class="sc">{</span>lm[<span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 'manuell' Standardfehler des Regressionskoeffizienten berechnen</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>standardfehler_beta_1 <span class="op">=</span> np.sqrt( (<span class="dv">1</span> <span class="op">/</span> (<span class="bu">len</span>(x) <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> <span class="bu">sum</span>((y <span class="op">-</span> vorhersagewerte_hooke) <span class="op">**</span> <span class="dv">2</span>)) <span class="op">/</span> <span class="bu">sum</span>( (x <span class="op">-</span> x.mean()) <span class="op">**</span> <span class="dv">2</span>  ))</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Standardfehler des Regressionskoeffizienten: </span><span class="sc">{</span>standardfehler_beta_1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Signifikanzniveau (alpha-Niveau) 1 - 95 % wählen</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>t_wert <span class="op">=</span> scipy.stats.t.ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha<span class="op">/</span><span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-Wert 95-%-Intervall (zweiseitig): </span><span class="sc">{</span>t_wert<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Konfidenzintervall 95%: </span><span class="sc">{</span>lm[<span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss"> ± </span><span class="sc">{</span>t_wert<span class="sc">:.4f}</span><span class="ss"> * </span><span class="sc">{</span>standardfehler_beta_1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"untere 95-%-Intervallgrenze: </span><span class="sc">{</span>lm[<span class="dv">1</span>] <span class="op">-</span> t_wert <span class="op">*</span> standardfehler_beta_1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"obere 95-%-Intervallgrenze: </span><span class="sc">{</span>lm[<span class="dv">1</span>] <span class="op">+</span> t_wert <span class="op">*</span> standardfehler_beta_1<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Regressionskoeffizient: 33.0190
 Standardfehler des Regressionskoeffizienten: 0.3784
-t-Wert 95%-Intervall (zweiseitig): 1.9816
+t-Wert 95-%-Intervall (zweiseitig): 1.9816
 Konfidenzintervall 95%: 33.0190 ± 1.9816 * 0.3784
-untere 95%-Intervallgrenze: 32.2692
-obere 95%-Intervallgrenze: 33.7688</code></pre>
+untere 95-%-Intervallgrenze: 32.2692
+obere 95-%-Intervallgrenze: 33.7688</code></pre>
 </div>
 </div>
 <p>Das Konfidenzintervall kann auch grafisch dargestellt werden.<br>
-<strong>geht das nicht einfacher?! Das Konfidenzintervall mit <code>plt.fill_between()</code> endet bei max(x), die Regressionsgerade ist aber kontinuierlich.</strong></p>
-<div id="0af1f539" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Platzhalter x &amp; y</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> hooke[<span class="st">'distance'</span>]</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> hooke[<span class="st">'force'</span>]</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Messdaten'</span>)</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>plt.axline(xy1 <span class="op">=</span> (<span class="dv">0</span>, lm[<span class="dv">0</span>]), slope <span class="op">=</span> lm[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'Regressionsgerade</span><span class="ch">\n</span><span class="st">y = '</span> <span class="op">+</span> <span class="st">"</span><span class="sc">{beta_0:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(beta_0 <span class="op">=</span> lm[<span class="dv">0</span>]) <span class="op">+</span> <span class="st">' + '</span> <span class="op">+</span> <span class="st">"</span><span class="sc">{beta_1:.3f}</span><span class="st"> "</span>.<span class="bu">format</span>(beta_1 <span class="op">=</span> lm[<span class="dv">1</span>]) <span class="op">+</span> <span class="st">'x'</span> )</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="st">"$R^2$ = </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(np.corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span>), (<span class="bu">max</span>(x) <span class="op">*</span> <span class="fl">0.9</span>, <span class="dv">1</span>))</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 95 % Konfidenzintervall einzeichnen</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co">## poly.polyval(hooke['distance'], [lm[0]])</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>beta1_lower_boundary <span class="op">=</span> lm[<span class="dv">1</span>] <span class="op">-</span> (t_wert <span class="op">*</span> standardfehler_beta_1)</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>beta1_upper_boundary <span class="op">=</span> lm[<span class="dv">1</span>] <span class="op">+</span> (t_wert <span class="op">*</span> standardfehler_beta_1)</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>y_lower_boundary <span class="op">=</span> poly.polyval(hooke[<span class="st">'distance'</span>], [lm[<span class="dv">0</span>], beta1_lower_boundary])</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>y_upper_boundary <span class="op">=</span> poly.polyval(hooke[<span class="st">'distance'</span>], [lm[<span class="dv">0</span>], beta1_upper_boundary])</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>plt.fill_between(x <span class="op">=</span> x, y1 <span class="op">=</span> y_lower_boundary , y2 <span class="op">=</span> y_upper_boundary, alpha <span class="op">=</span> <span class="fl">0.3</span>, label <span class="op">=</span> <span class="st">'95 % Konfidenzintervall $</span><span class="ch">\\</span><span class="st">beta_1$'</span>)</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>plt.title(label <span class="op">=</span> <span class="st">'Messdaten und geschätzte Linearfunktion'</span>)</span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'gemessene Abstandsänderung in m'</span>)</span>
-<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'wirkende Kraft'</span>)</span>
-<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
-<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<strong>geht das nicht einfacher?! Das Konfidenzintervall mit <code>plt.fill_between()</code> endet bei max(x), die Regressionsgerade ist aber kontinuierlich. Man müsste mit np.linspace() x-Werte erzeugen, für diese mit poly.polyval(x, lm[0]) y-Werte erzeugen und plotten. Dabei müssten die Grenzen des Plots aus einem vorherigen plot-Aufruf abgegriffen und fest gesetzt werden.</strong></p>
+<div id="d945f830" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Platzhalter x &amp; y</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> hooke[<span class="st">'distance'</span>]</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> hooke[<span class="st">'force'</span>]</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot erstellen</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, label <span class="op">=</span> <span class="st">'Messdaten'</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>plt.axline(xy1 <span class="op">=</span> (<span class="dv">0</span>, lm[<span class="dv">0</span>]), slope <span class="op">=</span> lm[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'Regressionsgerade</span><span class="ch">\n</span><span class="st">y = '</span> <span class="op">+</span> <span class="st">"</span><span class="sc">{beta_0:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(beta_0 <span class="op">=</span> lm[<span class="dv">0</span>]) <span class="op">+</span> <span class="st">' + '</span> <span class="op">+</span> <span class="st">"</span><span class="sc">{beta_1:.3f}</span><span class="st"> "</span>.<span class="bu">format</span>(beta_1 <span class="op">=</span> lm[<span class="dv">1</span>]) <span class="op">+</span> <span class="st">'x'</span> )</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="st">"$R^2$ = </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(np.corrcoef(x, y)[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span>), (<span class="bu">max</span>(x) <span class="op">*</span> <span class="fl">0.9</span>, <span class="dv">1</span>))</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 95-%-Konfidenzintervall einzeichnen</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co">## poly.polyval(hooke['distance'], [lm[0]])</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>beta1_lower_boundary <span class="op">=</span> lm[<span class="dv">1</span>] <span class="op">-</span> (t_wert <span class="op">*</span> standardfehler_beta_1)</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>beta1_upper_boundary <span class="op">=</span> lm[<span class="dv">1</span>] <span class="op">+</span> (t_wert <span class="op">*</span> standardfehler_beta_1)</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>y_lower_boundary <span class="op">=</span> poly.polyval(hooke[<span class="st">'distance'</span>], [lm[<span class="dv">0</span>], beta1_lower_boundary])</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>y_upper_boundary <span class="op">=</span> poly.polyval(hooke[<span class="st">'distance'</span>], [lm[<span class="dv">0</span>], beta1_upper_boundary])</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>plt.fill_between(x <span class="op">=</span> x, y1 <span class="op">=</span> y_lower_boundary , y2 <span class="op">=</span> y_upper_boundary, alpha <span class="op">=</span> <span class="fl">0.3</span>, label <span class="op">=</span> <span class="st">'95-%-Konfidenzintervall $</span><span class="ch">\\</span><span class="st">beta_1$'</span>)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>plt.title(label <span class="op">=</span> <span class="st">'Messdaten und geschätzte Linearfunktion im 95-%-Intervall'</span>)</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'gemessene Abstandsänderung in m'</span>)</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'wirkende Kraft'</span>)</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hooke_files/figure-html/cell-29-output-1.png" alt="Messdaten des Federexperiments (Abstandsänderung vs. wirkende Kraft) mit eingezeichneter Regressionsgeraden und 95% Konfidenzintervall des Anstiegs." width="576" height="449" class="figure-img"></p>
+<p><img src="hooke_files/figure-html/cell-29-output-1.png" alt="Messdaten des Federexperiments (Abstandsänderung vs. wirkende Kraft) mit eingezeichneter Regressionsgeraden und 95-%-Konfidenzintervall des Anstiegs." width="576" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="scipy-stats.linregress" class="level4">
-<h4 class="anchored" data-anchor-id="scipy-stats.linregress">SciPy stats.linregress</h4>
+</section>
+<section id="das-modul-scipy" class="level3">
+<h3 class="anchored" data-anchor-id="das-modul-scipy">Das Modul SciPy</h3>
 <p>Die Funktion <code>scipy.stats.lingress(x, y)</code> liefert mit einem Funktionsaufruf zahlreiche Rückgabewerte:</p>
 <ul>
 <li>Steigung der Regressionsgerade,</li>
@@ -1256,34 +1257,65 @@ obere 95%-Intervallgrenze: 33.7688</code></pre>
 <li>Standardfehler des y-Achsenschnittpunkts.</li>
 </ul>
 <p>Der Standardfehler des y-Achsenschnittpunkts ist nur verfügbar, wenn die Rückgabewerte in einem Objekt gespeichert werden. Die Rückgabewerte können dann als Attribute abgerufen werden.</p>
-<div id="8c8c0b35" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuweisung mehrerer Objekte</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>slope, intercept, rvalue, pvalue, slope_stderr <span class="op">=</span> scipy.stats.linregress(x, y)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"y = </span><span class="sc">{</span>intercept<span class="sc">:.4f}</span><span class="ss"> + </span><span class="sc">{</span>slope<span class="sc">:.4f}</span><span class="ss"> * x</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"r = </span><span class="sc">{</span>rvalue<span class="sc">:.4f}</span><span class="ss"> R2 = </span><span class="sc">{</span>rvalue <span class="op">**</span> <span class="dv">2</span><span class="sc">:.4f}</span><span class="ss"> p = </span><span class="sc">{</span>pvalue<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Standardfehler des Anstiegs: </span><span class="sc">{</span>slope_stderr<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuweisung eines Objekts</span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> scipy.stats.linregress(x, y)</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, lm, sep <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lm.intercept)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1f23f1c8" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuweisung mehrerer Objekte</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>slope, intercept, rvalue, pvalue, slope_stderr <span class="op">=</span> scipy.stats.linregress(x, y)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"y = </span><span class="sc">{</span>intercept<span class="sc">:.4f}</span><span class="ss"> + </span><span class="sc">{</span>slope<span class="sc">:.4f}</span><span class="ss"> * x</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"r = </span><span class="sc">{</span>rvalue<span class="sc">:.4f}</span><span class="ss"> R2 = </span><span class="sc">{</span>rvalue <span class="op">**</span> <span class="dv">2</span><span class="sc">:.4f}</span><span class="ss"> p = </span><span class="sc">{</span>pvalue<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Standardfehler des Anstiegs: </span><span class="sc">{</span>slope_stderr<span class="sc">:.4f}</span><span class="ss">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Zuweisung eines Objekts</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> scipy.stats.linregress(x, y)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, lm, sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"y-Achsenschnittpunkt: </span><span class="sc">{</span>lm<span class="sc">.</span>intercept<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">Standardfehler des y-Achsenschnittpunkts:</span><span class="sc">{</span>lm<span class="sc">.</span>intercept_stderr<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>y = 0.0575 + 33.0190 * x
- r = 0.9928 R2 = 0.9856 p = 0.0000
- Standardfehler des Anstiegs: 0.3784
+r = 0.9928 R2 = 0.9856 p = 0.0000
+Standardfehler des Anstiegs: 0.3784
 
 LinregressResult(slope=np.float64(33.01899550918018), intercept=np.float64(0.05753158907970102), rvalue=np.float64(0.9927907555799099), pvalue=np.float64(4.115211719827619e-104), stderr=np.float64(0.37837320019327897), intercept_stderr=np.float64(0.0506707972676925))
-0.05753158907970102</code></pre>
+y-Achsenschnittpunkt: 0.0575
+Standardfehler des y-Achsenschnittpunkts:0.0507</code></pre>
+</div>
+</div>
+<p>So kann mit dem entsprechenden t-Wert das Konfidenzintervall berechnet werden.</p>
+<div id="871057bf" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>slope <span class="op">-</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">  ≤ </span><span class="sc">{</span>slope<span class="sc">:.3f}</span><span class="ss"> ≤ </span><span class="sc">{</span>slope <span class="op">+</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>32.269  ≤ 33.019 ≤ 33.769</code></pre>
 </div>
 </div>
 </section>
+<section id="ergebnis-federkonstante" class="level3">
+<h3 class="anchored" data-anchor-id="ergebnis-federkonstante">Ergebnis Federkonstante</h3>
+<p>Die Federkonstante des Versuchaufbaus liegt mit 95 prozentiger Sicherheit im Intervall zwischen 32.27 und 33.77. Die Punktschätzung für die Federkonstante beträgt 33.02.</p>
+<p><strong>Aufgabe könnte sein, das Konfidenzintervall 99-Prozent zu berechnen.</strong><br>
+–&gt; Dann muss man aber nur eine Zahl ändern</p>
 </section>
 </section>
-<section id="resterampe" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="resterampe"><span class="header-section-number">3.3</span> Resterampe</h2>
-<p><strong>to do: plt.errorbar (capsize = 3 macht kleine Linien an den Enden der Kerze)</strong></p>
-<p><strong>wann / wozu braucht man das:</strong> Durch Umstellen nach der Federkonstante <span class="math inline">\(k\)</span> kann diese wie folgt ermittelt werden:</p>
+<section id="resterampe---größtfehler" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="resterampe---größtfehler"><span class="header-section-number">3.3</span> Resterampe - Größtfehler?!</h2>
+<p>Siehe Musterbericht WA S. 12-13</p>
+<p>Der Größtfehler quantifiziert den ungünstigsten Fall, bei dem sich alle möglichen Fehlerquellen addieren.</p>
+<ul>
+<li>grobe Fehler: falscher Versuchsaufbau, ungeeignete Messgeräte, falsches Ablesen, Unachtsamkeit –&gt; betroffene Werte streichen und Messung Wiederholen</li>
+</ul>
+<p>Der Größtfehler <span class="math inline">\(\Delta x\)</span> setzt sich zusammen aus dem systematischen Fehler und dem zufälligen Fehler.</p>
+<ul>
+<li>systematische Fehler: Fehler der Messgeräte, der Art der Messung (bspw. Genauigkeit Abstandssenor)
+<ul>
+<li>das ist die Küchenwaage, deren systematischer Fehler auf <span class="math inline">\(\frac{g}{\Delta x} = \frac{9.81}{\Delta x}\)</span> ? Was ist Delta-x, die Ausdehnung?!
+<ul>
+<li>Die Masse wäre 705g –&gt; müsste die Messungenauigkeit der Küchenwaage mit 0.5 g nicht ins Verhältnis zu 705 g gesetzt werden?</li>
+</ul></li>
+</ul></li>
+<li>zufällige Fehler: Streuung von Messwerten um Erwartungswert –&gt; statistischer Charakter der Fehler</li>
+</ul>
+<p>Durch Umstellen nach der Federkonstante <span class="math inline">\(k\)</span> kann diese wie folgt ermittelt werden:</p>
 <p><span class="math display">\[
 k = \frac{m \times g}{\Delta{x}}
 \]</span></p>
