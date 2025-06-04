@@ -11,7 +11,9 @@ Das [Hooke'sche Gesetz](https://de.wikipedia.org/wiki/Hookesches_Gesetz), benann
 
 Die Federkonstante ist eine grundlegende Eigenschaft elastischer Materialien und gibt an, wie viel Kraft erforderlich ist, um eine Feder um eine bestimmte Länge zu dehnen oder zu komprimieren. Das Hooke'sche Gesetz besagt, dass die Deformation eines elastischen Körpers proportional zur aufgebrachten Kraft ist, solange die Feder nicht über den elastischen Bereich hinaus gedehnt oder gestaucht wird.
 
-In einem Experiment wurde das Hooke'sche Gesetz überprüft.
+In einem Experiment wurde das Hooke'sche Gesetz überprüft. An einer an einer Halterung hängenden Metallfeder ist ein (variables) Gewicht angebracht. Darunter befindet sich in einigem Abstand ein Ultraschallsensor zur Abstandsmessung. Der Abstand zwischen der Unterseite des an der Feder befestigten Gewichts und dem Ultraschallsensor ist der gemessene Abstand.
+
+Die Gewichte konnten mit einer Genauigkeit von $\epsilon_{m} = 0,5 g$ mit einer Küchenwaage bestimmt werden.
 
 ```{python}
 #| echo: false
@@ -23,7 +25,7 @@ import scipy
 import matplotlib.pyplot as plt
 ```
 
-![Versuchsaufbau](00-bilder/aufbau.png){fig-alt="Darstellung des Versuchsaufbaus. An einer an einer Halterung hängenden Metallfeder ist ein (variables) Gewicht angebracht. Darunter befindet sich in einigem Abstand ein Ultraschallsensor zur Abstandsmessung. Der Abstand zwischen der Unterseite des an der Feder befestigten Gewichts und dem Ultraschallsensor ist der gemessene Abstand."}
+![Versuchsaufbau](00-bilder/aufbau.png){fig-alt="Darstellung des Versuchsaufbaus."}
 
 Die Messreihe liegt in Form einer CSV-Datei unter dem Pfad '01-daten/hooke_data.csv' vor. Die Datei wird mit Pandas eingelesen.
 
@@ -158,12 +160,11 @@ hooke.plot(x = 'mass', y = 'distance', kind = 'scatter', title = 'bereinigter un
 
 &nbsp;
 
-Mit der Funktion `plt.errorbars()` können die Mittelwerte und Standardfehler für jedes Gewicht grafisch dargestellt werden.
+Mit der Funktion `plt.errorbars()` können die Mittelwerte und Standardfehler für jedes Gewicht grafisch dargestellt werden. Da die Standardfehler eher klein sind, werden mit dem Parameter `capsize` horizontale Linien am Ende des Fehlerbalkens eingezeichnet.
 
 ```{python}
 # Mittelwerte nach Gewicht
 distance_means_by_weight = hooke['distance'].groupby(by = hooke['mass']).mean()
-print()
 distance_means_by_weight.name = 'Federausdehnung'
 
 # Standardfehler nach Gewicht
@@ -172,7 +173,9 @@ distance_stderrors_by_weight.name = 'Standardfehler'
 
 hooke.plot(x = 'mass', y = 'distance', kind = 'scatter', title = 'bereinigter und invertierter Datensatz', ylabel = 'Federausdehnung in cm', xlabel = 'Gewicht in Gramm', alpha = 0.6)
 
-errorbar_container = plt.errorbar(x = distance_means_by_weight.index, y = distance_means_by_weight, yerr = distance_stderrors_by_weight, fmt = 'xr', markersize = 12, elinewidth = 3) # fmt = 'xr' == marker = 'x', color = 'red', draw no line
+errorbar_container = plt.errorbar(
+  x = distance_means_by_weight.index, y = distance_means_by_weight, yerr = distance_stderrors_by_weight,
+  linestyle = 'none', marker = 'x', color = 'black', markersize = 12, elinewidth = 3, ecolor = 'red', capsize = 12)
 
 # siehe: https://matplotlib.org/stable/api/container_api.html#matplotlib.container.ErrorbarContainer
 plt.legend([errorbar_container.lines[0], errorbar_container.lines[2][0]],
@@ -310,7 +313,7 @@ $$
 :::
 
 
-Die Funktionen dafür stellen sowohl das Paket `numpy.polynomial` bzw. für Polynomfunktionen dessen Modul `numpy.polynomial.polynomial` als auch das Modul `scipy.stats.linregress` bereit. Beide Module werden im Folgenden vorgestellt.
+Die Funktionen dafür stellen sowohl das Paket `numpy.polynomial` bzw. für Polynomfunktionen dessen Modul `numpy.polynomial.polynomial` als auch das Modul `scipy.stats.linregress` bereit. Im Folgenden wird die Berechnung mit NumPy gezeigt und anschließend die Funktionen aus dem Modul SciPy vorgestellt. Die Funktionsweise beider Module ist ähnlich.
 
 #### NumPy polyfit und polyeval
 
@@ -448,22 +451,20 @@ plt.show()
 ### Messabweichung quantifizieren
 Für den geschätzten Regressionskoeffizienten kann für die lineare Regression mit einer erklärenden Variable der Standardfehler des Regressionskoeffizienten $SE = \hat{\sigma}_\hat{\beta_1}$ ermittelt werden (siehe [Wikipedia](https://de.wikipedia.org/wiki/Standardfehler_des_Regressionskoeffizienten#Spezialfall:_Lineare_Einfachregression)). 
 
-empirisch:
 $$
 SE = \sqrt{\frac{\frac{1}{n-2} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{ \sum_{i=1}^{n} (x_i - \bar{x})^2}}
 $$
 
-  - im Zähler steht die mittlere [Residuenquadratsumme](https://de.wikipedia.org/wiki/Residuenquadratsumme) (Summe der quadrierten Residuen / Anzahl der Freiheitsgrade)
-  - im Nenner steht die [Summe der Abweichungsquadrate von $x$](https://de.wikipedia.org/wiki/Summe_der_Abweichungsquadrate)
+  - Im Zähler steht die mittlere [Residuenquadratsumme](https://de.wikipedia.org/wiki/Residuenquadratsumme) (Summe der quadrierten Residuen / Anzahl der Freiheitsgrade).
+  - Im Nenner steht die [Summe der Abweichungsquadrate von $x$](https://de.wikipedia.org/wiki/Summe_der_Abweichungsquadrate).
 
 Für ein Signifikanzniveau $\alpha$ kann ein Konfidenzniveau $1 - \alpha$ angegeben werden als:
 
 $$
-\hat{\beta_1} \pm SE \times t_{1-\alpha / 2} (n - 2)
+\hat{\beta_1} \pm SE \times t_{1-\alpha / 2} ~ (n - 2)
 $$
 
- - t ist der Wert der t-Verteilung mit 2 Freiheitsgraden bzw. der Rückgabewert der Funktionen:
-    - `scipy.stats.t.ppf(q = alpha/2, df = n - 2)` für die untere Intervallgrenze.
+ - $t_{1-\alpha / 2} ~ (n - 2)$ ist der Wert der t-Verteilung mit 2 Freiheitsgraden bzw. der Rückgabewert der Funktion:
     - `scipy.stats.t.ppf(q = 1 - alpha/2, df = n - 2)` für die obere Intervallgrenze.
 
 ```{python}
@@ -479,17 +480,17 @@ alpha = 0.05
 n = len(x)
 
 t_wert = scipy.stats.t.ppf(q = 1 - alpha/2, df = n - 2)
-print(f"t-Wert 95%-Intervall (zweiseitig): {t_wert:.4f}")
+print(f"t-Wert 95-%-Intervall (zweiseitig): {t_wert:.4f}")
 print(f"Konfidenzintervall 95%: {lm[1]:.4f} ± {t_wert:.4f} * {standardfehler_beta_1:.4f}")
-print(f"untere 95%-Intervallgrenze: {lm[1] - t_wert * standardfehler_beta_1:.4f}")
-print(f"obere 95%-Intervallgrenze: {lm[1] + t_wert * standardfehler_beta_1:.4f}")
+print(f"untere 95-%-Intervallgrenze: {lm[1] - t_wert * standardfehler_beta_1:.4f}")
+print(f"obere 95-%-Intervallgrenze: {lm[1] + t_wert * standardfehler_beta_1:.4f}")
 ```
 
 Das Konfidenzintervall kann auch grafisch dargestellt werden.  
-**geht das nicht einfacher?! Das Konfidenzintervall mit `plt.fill_between()` endet bei max(x), die Regressionsgerade ist aber kontinuierlich.**  
+**geht das nicht einfacher?! Das Konfidenzintervall mit `plt.fill_between()` endet bei max(x), die Regressionsgerade ist aber kontinuierlich. Man müsste mit np.linspace() x-Werte erzeugen, für diese mit poly.polyval(x, lm[0]) y-Werte erzeugen und plotten. Dabei müssten die Grenzen des Plots aus einem vorherigen plot-Aufruf abgegriffen und fest gesetzt werden.**  
 
 ```{python}
-#| fig-alt: "Messdaten des Federexperiments (Abstandsänderung vs. wirkende Kraft) mit eingezeichneter Regressionsgeraden und 95% Konfidenzintervall des Anstiegs."
+#| fig-alt: "Messdaten des Federexperiments (Abstandsänderung vs. wirkende Kraft) mit eingezeichneter Regressionsgeraden und 95-%-Konfidenzintervall des Anstiegs."
 
 # Platzhalter x & y
 x = hooke['distance']
@@ -500,7 +501,7 @@ plt.scatter(x, y, label = 'Messdaten')
 plt.axline(xy1 = (0, lm[0]), slope = lm[1], label = 'Regressionsgerade\ny = ' + "{beta_0:.3f}".format(beta_0 = lm[0]) + ' + ' + "{beta_1:.3f} ".format(beta_1 = lm[1]) + 'x' )
 plt.annotate("$R^2$ = {:.2f}".format(np.corrcoef(x, y)[0, 1] ** 2), (max(x) * 0.9, 1))
 
-# 95 % Konfidenzintervall einzeichnen
+# 95-%-Konfidenzintervall einzeichnen
 ## poly.polyval(hooke['distance'], [lm[0]])
 beta1_lower_boundary = lm[1] - (t_wert * standardfehler_beta_1)
 beta1_upper_boundary = lm[1] + (t_wert * standardfehler_beta_1)
@@ -508,10 +509,10 @@ beta1_upper_boundary = lm[1] + (t_wert * standardfehler_beta_1)
 y_lower_boundary = poly.polyval(hooke['distance'], [lm[0], beta1_lower_boundary])
 y_upper_boundary = poly.polyval(hooke['distance'], [lm[0], beta1_upper_boundary])
 
-plt.fill_between(x = x, y1 = y_lower_boundary , y2 = y_upper_boundary, alpha = 0.3, label = '95 % Konfidenzintervall $\\beta_1$')
+plt.fill_between(x = x, y1 = y_lower_boundary , y2 = y_upper_boundary, alpha = 0.3, label = '95-%-Konfidenzintervall $\\beta_1$')
 
 
-plt.title(label = 'Messdaten und geschätzte Linearfunktion')
+plt.title(label = 'Messdaten und geschätzte Linearfunktion im 95-%-Intervall')
 plt.xlabel('gemessene Abstandsänderung in m')
 plt.ylabel('wirkende Kraft')
 plt.legend()
@@ -520,7 +521,7 @@ plt.grid()
 plt.show()
 ```
 
-#### SciPy stats.linregress
+### Das Modul SciPy
 Die Funktion `scipy.stats.lingress(x, y)` liefert mit einem Funktionsaufruf zahlreiche Rückgabewerte:
 
   - Steigung der Regressionsgerade,
@@ -537,20 +538,45 @@ Der Standardfehler des y-Achsenschnittpunkts ist nur verfügbar, wenn die Rückg
 slope, intercept, rvalue, pvalue, slope_stderr = scipy.stats.linregress(x, y)
 print(f"y = {intercept:.4f} + {slope:.4f} * x\n",
       f"r = {rvalue:.4f} R2 = {rvalue ** 2:.4f} p = {pvalue:.4f}\n",
-      f"Standardfehler des Anstiegs: {slope_stderr:.4f}")
+      f"Standardfehler des Anstiegs: {slope_stderr:.4f}", sep = '')
 
 # Zuweisung eines Objekts
 lm = scipy.stats.linregress(x, y)
 
 print("\n", lm, sep = '')
-print(lm.intercept)
+print(f"y-Achsenschnittpunkt: {lm.intercept:.4f}\nStandardfehler des y-Achsenschnittpunkts:{lm.intercept_stderr:.4f}")
 ```
 
+So kann mit dem entsprechenden t-Wert das Konfidenzintervall berechnet werden.
+```{python}
+alpha = 0.05
+n = len(x)
 
-## Resterampe
-**to do: plt.errorbar (capsize = 3 macht kleine Linien an den Enden der Kerze)**
+print(f"{slope - scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}  ≤ {slope:.3f} ≤ {slope + scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}")
+```
 
-**wann / wozu braucht man das:** Durch Umstellen nach der Federkonstante $k$ kann diese wie folgt ermittelt werden:
+### Ergebnis Federkonstante
+Die Federkonstante des Versuchaufbaus liegt mit 95 prozentiger Sicherheit im Intervall zwischen 32.27 und 33.77. Die Punktschätzung für die Federkonstante beträgt 33.02.
+
+
+**Aufgabe könnte sein, das Konfidenzintervall 99-Prozent zu berechnen.**  
+--> Dann muss man aber nur eine Zahl ändern
+
+## Resterampe - Größtfehler?!
+Siehe Musterbericht WA S. 12-13
+
+Der Größtfehler quantifiziert den ungünstigsten Fall, bei dem sich alle möglichen Fehlerquellen addieren.
+
+- grobe Fehler: falscher Versuchsaufbau, ungeeignete Messgeräte, falsches Ablesen, Unachtsamkeit --> betroffene Werte streichen und Messung Wiederholen
+
+Der Größtfehler $\Delta x$ setzt sich zusammen aus dem systematischen Fehler und dem zufälligen Fehler. 
+
+- systematische Fehler: Fehler der Messgeräte, der Art der Messung (bspw. Genauigkeit Abstandssenor)
+  - das ist die Küchenwaage, deren systematischer Fehler auf  $\frac{g}{\Delta x} = \frac{9.81}{\Delta x}$ ? Was ist Delta-x, die Ausdehnung?!
+    - Die Masse wäre 705g --> müsste die Messungenauigkeit der Küchenwaage mit 0.5 g nicht ins Verhältnis zu 705 g gesetzt werden?
+- zufällige Fehler: Streuung von Messwerten um Erwartungswert --> statistischer Charakter der Fehler
+
+Durch Umstellen nach der Federkonstante $k$ kann diese wie folgt ermittelt werden:
 
 $$
 k = \frac{m \times g}{\Delta{x}}

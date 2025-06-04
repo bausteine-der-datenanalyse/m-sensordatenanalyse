@@ -1,0 +1,21 @@
+# Anwendung Hooke'sches Gesetz
+**Das ganze Kapitel ist eine geführte Aufgabe mit Lösungen**  
+"Das Ergebnis könnte so aussehen."
+
+Wir können ja fragen: Liegen gültige Messungen vor? Wurden die Messungen mit der selben Feder durchgeführt?  
+**Dafür wäre die Einführung der Fehlerrechnung bzw. des Größtfehlers sinnvoll, weil hier auf das Vorliegen grober Fehler geprüft werden kann / soll.**
+
+Häufig liegen Sensordaten in mehreren Dateien vor. Mögliche Gründe dafür können sein, dass die Messung
+
+  - von unterschiedlichen Personen,
+  - an unterschiedlichen Standorten,
+  - zu unterschiedlichen Zeiten oder
+  - für unterschiedliche Messgrößen durchgeführt wurden.
+
+Im Ordner 'aufgaben/01-daten/hooke' liegen mehrere txt-Dateien mit Messdaten 
+
+Wir prüfen 'automatisiert', ob mehrere Datensätze Fehlmessungen enthalten. Anschließend bestimmen wir die Federkonstanten und die Konfidenzintervalle.
+
+  - einlesen mit glob - aufgaben/01-daten
+  - z-Werte (studentisiert) nach Gewicht bestimmen
+  - Federkonstante im Konfidenzintervall ausgeben

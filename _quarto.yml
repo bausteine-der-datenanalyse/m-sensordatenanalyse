@@ -19,6 +19,7 @@ book:
     - skript/einleitung.qmd
     - skript/normalverteilung.qmd
     - skript/hooke.qmd
+    - skript/hooke2.qmd
 
   sidebar:
     title: "Methodenbaustein Sensordatenanalyse"

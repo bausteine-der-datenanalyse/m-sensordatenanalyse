@@ -18,5 +18,8 @@ _environment
 # Ignore venv
 /.venv/
 
+# Ignore _book
+/_book/
+
 # Ignore Jupyter cache files
 .jupyter_cache
