@@ -95,6 +95,7 @@ z_values.name = 'z-values'
 
 # z-Transformation mit scipy
 scipy_z_values = scipy.stats.zscore(hooke[hooke['mass'] == gewicht].loc[: , 'distance'], ddof = 1)
+print(type(scipy_z_values))
 scipy_z_values.name = 'scipy z-values'
 
 # gemeinsame Ausgabe der Daten
