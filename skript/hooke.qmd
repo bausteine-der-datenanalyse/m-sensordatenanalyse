@@ -450,7 +450,7 @@ plt.show()
 ```
 
 ### Messabweichung quantifizieren
-Für den geschätzten Regressionskoeffizienten kann für die lineare Regression mit einer erklärenden Variable der Standardfehler des Regressionskoeffizienten $SE = \hat{\sigma}_\hat{\beta_1}$ ermittelt werden (siehe [Wikipedia](https://de.wikipedia.org/wiki/Standardfehler_des_Regressionskoeffizienten#Spezialfall:_Lineare_Einfachregression)). 
+Für den geschätzten Regressionskoeffizienten kann für die lineare Regression mit einer erklärenden Variable der Standardfehler des Regressionskoeffizienten $SE = \hat{\sigma}_{\hat{\beta_1}}$ ermittelt werden (siehe [Wikipedia](https://de.wikipedia.org/wiki/Standardfehler_des_Regressionskoeffizienten#Spezialfall:_Lineare_Einfachregression)). 
 
 $$
 SE = \sqrt{\frac{\frac{1}{n-2} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{ \sum_{i=1}^{n} (x_i - \bar{x})^2}}
