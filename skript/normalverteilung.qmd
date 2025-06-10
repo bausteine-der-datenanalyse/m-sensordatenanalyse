@@ -7,9 +7,11 @@ Mit zunehmender Stichprobengröße wird eine immer bessere Schätzung des Erwart
 
 # Pakete importieren
 import numpy as np
+import numpy.polynomial.polynomial as poly
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy
+import glob
 
 # Funktionen definieren
 

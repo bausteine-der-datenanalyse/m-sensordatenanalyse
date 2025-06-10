@@ -21,8 +21,9 @@ Die Gewichte konnten mit einer Genauigkeit von $\epsilon_{m} = 0,5 g$ mit einer 
 import numpy as np
 import numpy.polynomial.polynomial as poly
 import pandas as pd
-import scipy
 import matplotlib.pyplot as plt
+import scipy
+import glob
 ```
 
 ![Versuchsaufbau](00-bilder/aufbau.png){fig-alt="Darstellung des Versuchsaufbaus."}
@@ -95,7 +96,6 @@ z_values.name = 'z-values'
 
 # z-Transformation mit scipy
 scipy_z_values = scipy.stats.zscore(hooke[hooke['mass'] == gewicht].loc[: , 'distance'], ddof = 1)
-print(type(scipy_z_values))
 scipy_z_values.name = 'scipy z-values'
 
 # gemeinsame Ausgabe der Daten
@@ -164,6 +164,8 @@ hooke.plot(x = 'mass', y = 'distance', kind = 'scatter', title = 'bereinigter un
 Mit der Funktion `plt.errorbars()` können die Mittelwerte und Standardfehler für jedes Gewicht grafisch dargestellt werden. Da die Standardfehler eher klein sind, werden mit dem Parameter `capsize` horizontale Linien am Ende des Fehlerbalkens eingezeichnet.
 
 ```{python}
+#| fig-alt: "Auf der x-Achse ist das Gewicht in Gramm, auf der y-Achse die Federausdehnung in cm abgetragen. Zusätzlich zu den Messpunkten sind für jedes Gewicht der Mittelwert mit einem großen X und von dessen Mittelpunkt ausgehend der Bereich des Mittelwerts ± 1 Standardfehler eingezeichnet."
+
 # Mittelwerte nach Gewicht
 distance_means_by_weight = hooke['distance'].groupby(by = hooke['mass']).mean()
 distance_means_by_weight.name = 'Federausdehnung'

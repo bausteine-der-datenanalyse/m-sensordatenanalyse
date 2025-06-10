@@ -22,6 +22,7 @@ import numpy.polynomial.polynomial as poly
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy
+import glob
 ```
 
 Physikalische Größen werden mit der Hilfe von Messgeräten bestimmt. Diese ordnen der tatsächlichen Merkmalsausprägung eine numerische Entsprechung relativ zu einem Bezugssystem zu.

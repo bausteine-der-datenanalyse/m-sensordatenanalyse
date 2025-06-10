@@ -8,7 +8,8 @@ Die Bearbeitungszeit dieses Bausteins beträgt circa **Platzhalter**. Für die B
 
 Querverweis auf: 
 
-  - ...
+  - w-python
+  - m-EsD
 
 Im Baustein werden folgende Daten verwendet:
 
