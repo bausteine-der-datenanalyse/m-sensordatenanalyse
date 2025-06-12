@@ -19,7 +19,6 @@ Im Abschnitt @sec-dateien-einlesen finden Sie Hinweise und im Abschnitt @sec-auf
 
 **Dafür wäre die Einführung der Fehlerrechnung bzw. des Größtfehlers sinnvoll, weil hier auf das Vorliegen grober Fehler geprüft wird.**
 
-**Lernziel: Auswertung von potenziell sehr vielen Datensätzen**
 
 Wir prüfen 'automatisiert', ob mehrere Datensätze Fehlmessungen enthalten. Anschließend bestimmen wir die Federkonstanten und die Konfidenzintervalle.
 
@@ -206,7 +205,7 @@ print(hooke['Gewicht'].tail())
 ```
 
 ```{python}
-print(hooke.info())
+print(hooke.info(), "\n")
 
 # explizite Zuweisung
 hooke['Abstand'] = hooke['Abstand'].astype('float')

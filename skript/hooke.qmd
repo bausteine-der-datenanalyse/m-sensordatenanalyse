@@ -428,7 +428,7 @@ vorhersagewerte_hooke = poly.polyval(hooke['distance'], lm)
 
 Die Messreihe und die darauf angepasste lineare Funktion können grafisch dargestellt werden.
 
-**Hier mal überlegen: Die lineare Funktion kennt keine Grenzen, aber die gemessene Abstandsänderung kann nicht (sinnvoll) kleiner als Null werden. Grafisch ist `plt.axline()` ggf. nicht so optimal.**
+**Hier mal überlegen: Die lineare Funktion kennt keine Grenzen, aber die gemessene Abstandsänderung kann nicht (sinnvoll) kleiner als Null werden. Grafisch ist `plt.axline()` ggf. nicht so optimal. Außerdem könnte in der linearen Regression der y-Achsenabschnitt als 0 vorgegeben werden (denn das wissen wir ja).**
 
 ```{python}
 #| fig-alt: "Messdaten des Federexperiments (Abstandsänderung vs. wirkende Kraft) mit eingezeichneter Regressionsgeraden."
