@@ -137,7 +137,7 @@ dateiobjekt_problem_datei.close()
 
 ```
 
-Jede zweite Zeile ist leer. In Zeile 134 wird ein Zeilenumbruch ''\n'' eingelesen. Die Datei wird deshalb mit einer angepassten Schleife erneut durchlaufen. Aus der betreffenden Zeile wird der zusätzliche Zeilenumbruch '\n' entfernt. Leere Zeilen werden übersprungen. Die korrekten Zeilen werden an den DataFrame hooke angefügt.
+Jede zweite Zeile ist leer. In Zeile 134 wird ein Zeilenumbruch '\\n' eingelesen. Die Datei wird deshalb mit einer angepassten Schleife erneut durchlaufen. Aus der betreffenden Zeile wird der zusätzliche Zeilenumbruch '\\n' entfernt. Leere Zeilen werden übersprungen. Die korrekten Zeilen werden an den DataFrame hooke angefügt.
 
 **Der Code muss ggf. noch angepasst werden, weil vermutlich so leere zeilen angefügt werden**
 ```{python}
