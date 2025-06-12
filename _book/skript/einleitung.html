@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e4aa0397115c41deec761c50bad4326d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-02b5c06fcb5d43549e4a4e75410967ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -273,7 +273,7 @@ window.Quarto = {
 </div>
 <p><strong>to do: Größtfehler ergänzen</strong></p>
 <p>In diesem Baustein werden die folgenden Module verwendet:</p>
-<div id="5d850172" class="cell" data-execution_count="1">
+<div id="c24ecd51" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy.polynomial.polynomial <span class="im">as</span> poly</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -525,7 +525,7 @@ Hinweis&nbsp;1.1: Standardabweichung und Varianz in der Grundgesamtheit
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Ergebnisse</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">grafische Darstellung</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="2dd1b15e" class="cell" data-execution_count="2">
+<div id="0f827291" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>Würfe pro Person: 3             Stichprobengröße: 300
 kleinster Mittelwert: 1.00      größter Mittelwert: 6.00
@@ -546,11 +546,11 @@ Stichprobenmittelwert: 3.50     Standardfehler: 0.02
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Die Häufigkeit der individuellen Mittelwerte ist in den folgenden Histogrammen dargestellt.</p>
-<div id="ef69cf49" class="cell" data-execution_count="3">
+<div id="b40b38ab" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-4-output-1.png" alt="Dargestellt sind drei Histogramme für 3, 10 und 30 Würfe pro Person. Während für 3 Würfe noch ein breites Spektrum an Mittelwerten erzielt wird, wird die Streuung für 10 und 30 Würfe pro Person immer enger." width="662" height="469" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img" alt="Dargestellt sind drei Histogramme für 3, 10 und 30 Würfe pro Person. Während für 3 Würfe noch ein breites Spektrum an Mittelwerten erzielt wird, wird die Streuung für 10 und 30 Würfe pro Person immer enger."></p>
 </figure>
 </div>
 </div>
@@ -558,7 +558,7 @@ Stichprobenmittelwert: 3.50     Standardfehler: 0.02
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <p>Berechnung</p>
-<div id="7bd14d74" class="cell" data-execution_count="4">
+<div id="bcc883b5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>personen <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>standardabweichung_grundgesamtheit <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">7</span>).std(ddof <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">1</span></span>
@@ -609,7 +609,7 @@ Stichprobenmittelwert: 3.50     Standardfehler: 0.02
 <span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>      sep <span class="op">=</span> <span class="st">""</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Darstellung</p>
-<div id="3ecb3ba7" class="cell" data-execution_count="5">
+<div id="67023463" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>personen <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>standardabweichung_grundgesamtheit <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">7</span>).std(ddof <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">1</span></span>
@@ -668,7 +668,7 @@ Stichprobenmittelwert: 3.50     Standardfehler: 0.02
 <div id="lst-readfile" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <div aria-describedby="lst-readfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="1871e392" class="cell" data-execution_count="6">
+<div id="d8c4f5df" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/ToothGrowth.csv"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>meerschweinchen <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, <span class="op">\</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  names <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'len'</span>, <span class="st">'supp'</span>, <span class="st">'dose'</span>], dtype <span class="op">=</span> {<span class="st">'ID'</span>: <span class="st">'int'</span>, <span class="st">'len'</span>: <span class="st">'float'</span>, <span class="st">'dose'</span>: <span class="st">'float'</span>, <span class="st">'supp'</span>: <span class="st">'category'</span>})</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -681,11 +681,11 @@ Code-Block&nbsp;1.1
 </div>
 <p>Crampton, E. W. 1947. „THE GROWTH OF THE ODONTOBLASTS OF THE INCISOR TOOTH AS A CRITERION OF THE VITAMIN C INTAKE OF THE GUINEA PIG“. The Journal of Nutrition 33 (5): 491–504. <a href="https://doi.org/10.1093/jn/33.5.491" class="uri">https://doi.org/10.1093/jn/33.5.491</a></p>
 <p>Der Datensatz kann in R mit dem Befehl “ToothGrowth” aufgerufen werden.</p>
-<div id="97601931" class="cell" data-execution_count="7">
+<div id="4f6a6d7a" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-8-output-1.png" alt="Illustrative Darstellung der Zahnlänge in der Spalte 'len'" width="585" height="449" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img" alt="Illustrative Darstellung der Zahnlänge in der Spalte 'len'"></p>
 </figure>
 </div>
 </div>
@@ -694,7 +694,7 @@ Code-Block&nbsp;1.1
 <p>&nbsp;</p>
 <p><strong>Berechnen Sie den arithmetischen Mittelwert, die Varianz, die Standardabweichung und den Stichprobenfehler der Messreihe zur Zahnlänge (len). Verwenden Sie dazu die vorgestellten Formeln.</strong></p>
 <p>Das Ergebnis könnte so aussehen:</p>
-<div id="7fd2189f" class="cell" data-execution_count="8">
+<div id="6846cb24" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>N: 60
 arithmetisches Mittel: 18.81
@@ -715,7 +715,7 @@ Tipp&nbsp;1.1: Musterlösung Verteilungskenngrößen
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="d48b2f1c" class="cell" data-execution_count="9">
+<div id="e12d023f" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verteilungskennwerte(x, output <span class="op">=</span> <span class="va">True</span>):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Anzahl Messwerte bestimmen</span></span>
@@ -755,7 +755,7 @@ Tipp&nbsp;1.1: Musterlösung Verteilungskenngrößen
 <section id="varianz-und-standardabweichung-mit-numpy-und-pandas" class="level3">
 <h3 class="anchored" data-anchor-id="varianz-und-standardabweichung-mit-numpy-und-pandas">Varianz und Standardabweichung mit NumPy und Pandas</h3>
 <p>Die Varianz und Standardabweichung werden mit den Funktion <code>np.var()</code> und <code>np.std()</code> bzw. den Methoden <code>pd.var()</code> und <code>pd.std()</code> berechnet. Der Parameter <code>ddof</code> (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy 0 ist, berechnet Pandas mit dem Standardwert <code>ddof=1</code> die Stichprobenvarianz.</p>
-<div id="ddab1201" class="cell" data-execution_count="10">
+<div id="a1dd8d08" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Varianz:"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy:</span><span class="ch">\t</span><span class="sc">{</span>np<span class="sc">.</span>var(meerschweinchen[<span class="st">'len'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pandas:</span><span class="ch">\t</span><span class="sc">{</span>meerschweinchen[<span class="st">'len'</span>]<span class="sc">.</span>var()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
