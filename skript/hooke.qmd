@@ -1,13 +1,15 @@
 # Lineare Parameterschätzung
 **Geht es in diesem Kapitel überhaupt um Kennlinien? Lineare Parameterschätzung?!**
 
+**Messwerte in den Grafiken in die Legende aufnehmen**
+
 Mögliche Quellen:
 
   - https://messtechnik-und-sensorik.org/2-kennlinien-und-messgenauigkeit/  
   - https://www.stssensors.com/de/characteristic-curve-hysteresis-measurement-error-terminology-in-pressure-measurement-technology/ 
 
 ## Messreihe Hooke'sches Gesetz
-Das [Hooke'sche Gesetz](https://de.wikipedia.org/wiki/Hookesches_Gesetz), benannt nach dem englischen Wissenschaftler Robert Hooke, beschreibt die Beziehung zwischen der Kraft $F$ und der Längenänderung $\Delta{x}$ einer Feder durch die Gleichung $F = k \times \Delta{x}$, wobei $k$ die Federkonstante ist.
+Das [Hooke'sche Gesetz](https://de.wikipedia.org/wiki/Hookesches_Gesetz), benannt nach dem englischen Wissenschaftler Robert Hooke, beschreibt die Beziehung zwischen der Kraft $F$ und der Längenänderung $\Delta{x}$ einer Feder durch die Gleichung $F = k \cdot \Delta{x}$, wobei $k$ die Federkonstante ist.
 
 Die Federkonstante ist eine grundlegende Eigenschaft elastischer Materialien und gibt an, wie viel Kraft erforderlich ist, um eine Feder um eine bestimmte Länge zu dehnen oder zu komprimieren. Das Hooke'sche Gesetz besagt, dass die Deformation eines elastischen Körpers proportional zur aufgebrachten Kraft ist, solange die Feder nicht über den elastischen Bereich hinaus gedehnt oder gestaucht wird.
 
@@ -191,7 +193,7 @@ print(pd.concat([distance_means_by_weight, distance_stderrors_by_weight], axis =
 ```
 
 ## Federkonstante bestimmen
-Die Beziehung zwischen der Kraft $F$ und der Längenänderung $\Delta{x}$ einer Feder mit Federkonstante $k$ wird durch die Gleichung $F = k \times \Delta{x}$ beschrieben. Dabei entspricht die Kraft $F$ dem mit der Fallbeschleunigung $g$  multiplizierten Gewicht in Kilogramm $m$. Die Fallbeschleunigung beträgt auf der Erde $9,81 \frac{m}{s^2}$.
+Die Beziehung zwischen der Kraft $F$ und der Längenänderung $\Delta{x}$ einer Feder mit Federkonstante $k$ wird durch die Gleichung $F = k \cdot \Delta{x}$ beschrieben. Dabei entspricht die Kraft $F$ dem mit der Fallbeschleunigung $g$  multiplizierten Gewicht in Kilogramm $m$. Die Fallbeschleunigung beträgt auf der Erde $9,81 \frac{m}{s^2}$.
 
 Deshalb wird im Datensatz das in der Spalte 'mass' eingetragene Gewicht in Gramm in die wirkende Kraft umgerechnet. Ebenso wird die gemessene Abstandsänderung in der Spalte 'distance' von Zentimeter in Meter umgerechnet.
 
@@ -204,7 +206,7 @@ hooke['distance'] = hooke['distance'].div(100)
 print(hooke.head())
 ```
 
-Für die grafische Darstellung des Zusammenhangs $F = k \times \Delta{x}$ ist es zweckmäßiger, die Abstandsänderung auf der x-Achse und die wirkende Kraft auf der y-Achse darzustellen.
+Für die grafische Darstellung des Zusammenhangs $F = k \cdot \Delta{x}$ ist es zweckmäßiger, die Abstandsänderung auf der x-Achse und die wirkende Kraft auf der y-Achse darzustellen.
 
 ```{python}
 #| fig-alt: "Darstellung der auf der x-Achse aufgetragenen Federausdehnung und der auf der y-Achse aufgetragenen wirkenden Kraft."
@@ -218,13 +220,13 @@ Die Ausgleichsrechnung (oder auch Parameterschätzung) ist eine Methode, um für
 Eine lineare Funktion wird durch die Konstante $\beta_0$, den Schnittpunkt mit der y-Achse, und den Steigungskoeffizienten $\beta_1$ bestimmt.
 
 $$
-y = \beta_0 + \beta_1 \times x
+y = \beta_0 + \beta_1 \cdot x
 $$
 
 In der Regel liegt kein deterministischer Zusammenhang vor, sondern es treten zufällige Abweichungen auf, die mit dem additiven Fehlerterm ausgedrückt und aus dem Englischen error mit $e_i$ notiert werden. Diese Fehler werden Residuen genannt.
 
 $$
-y = \beta_0 + \beta_1 \times x + e_i
+y = \beta_0 + \beta_1 \cdot x + e_i
 $$
 
 Zur Bestimmung der Parameter einer linearen Funktion wird die Methode der [kleinsten Quadrate](https://de.wikipedia.org/wiki/Methode_der_kleinsten_Quadrate) verwendet.
@@ -236,7 +238,7 @@ Zur Bestimmung der Parameter einer linearen Funktion wird die Methode der [klein
 ::: {#nte-ols .callout-note collapse="true"}
 ## Methode der kleinsten Quadrate
 
-Mit der Methode der kleinsten Quadrate soll diejenige Gerade $\hat{y} = \beta_0 + \beta_1 \times x$ gefunden werden, die die quadrierten Abstände der  Vorhersagewerte $\hat{y}$ von den tatsächlich gemessenen Werten $y$ minimiert. Die Werte $y_i - \hat{y_i}$ sind die Residuen $e_i$. Es gilt also:
+Mit der Methode der kleinsten Quadrate soll diejenige Gerade $\hat{y} = \beta_0 + \beta_1 \cdot x$ gefunden werden, die die quadrierten Abstände der  Vorhersagewerte $\hat{y}$ von den tatsächlich gemessenen Werten $y$ minimiert. Die Werte $y_i - \hat{y_i}$ sind die Residuen $e_i$. Es gilt also:
 
 $$
 \sum_{i=1}^{N}(y_i - \hat{y_i})^2 = \sum_{i=1}^{N} e_i = \min
@@ -301,7 +303,7 @@ print("Regressionskoeffizienten:", lm)
 
 &nbsp;
 
-Die eingezeichnete Gerade entspricht der linearen Funktion $\hat{y} = \beta_0 + \beta_1 \times x + e_i$. Die Dreiecksmarker sind die Vorhersagewerte $\hat{y_i}$ des linearen Modells für die Werte $x_i = np.arange(1, 11)$. Die tatsächlichen Messwerte $y$ sind mit Kreismarkern markiert. Die Länge der gestrichelten Linien entspricht der Größe der Abweichung zwischen den Mess- und Vorhersagewerten $y_i - \hat{y_i}$, also den Residuen $e_i$.
+Die eingezeichnete Gerade entspricht der linearen Funktion $\hat{y} = \beta_0 + \beta_1 \cdot x + e_i$. Die Dreiecksmarker sind die Vorhersagewerte $\hat{y_i}$ des linearen Modells für die Werte $x_i = np.arange(1, 11)$. Die tatsächlichen Messwerte $y$ sind mit Kreismarkern markiert. Die Länge der gestrichelten Linien entspricht der Größe der Abweichung zwischen den Mess- und Vorhersagewerten $y_i - \hat{y_i}$, also den Residuen $e_i$.
 
 Gesucht wird diejenige Gerade, die die Summe der quadrierten Residuen minimiert. Die gesuchten Werte $\beta_0$ und $\beta_1$ sind die Kleinst-Quadrate-Schätzer.
 
@@ -464,7 +466,7 @@ $$
 Für ein Signifikanzniveau $\alpha$ kann ein Konfidenzniveau $1 - \alpha$ angegeben werden als:
 
 $$
-\hat{\beta_1} \pm SE \times t_{1-\alpha / 2} ~ (n - 2)
+\hat{\beta_1} \pm SE \cdot t_{1-\alpha / 2} ~ (n - 2)
 $$
 
  - $t_{1-\alpha / 2} ~ (n - 2)$ ist der Wert der t-Verteilung mit 2 Freiheitsgraden bzw. der Rückgabewert der Funktion:
@@ -565,23 +567,11 @@ Die Federkonstante des Versuchaufbaus liegt mit 95 prozentiger Sicherheit im Int
 **Aufgabe könnte sein, das Konfidenzintervall 99-Prozent zu berechnen.**  
 --> Dann muss man aber nur eine Zahl ändern
 
-## Resterampe - Größtfehler?!
-Siehe Musterbericht WA S. 12-13
-
-Der Größtfehler quantifiziert den ungünstigsten Fall, bei dem sich alle möglichen Fehlerquellen addieren.
-
-- grobe Fehler: falscher Versuchsaufbau, ungeeignete Messgeräte, falsches Ablesen, Unachtsamkeit --> betroffene Werte streichen und Messung Wiederholen
-
-Der Größtfehler $\Delta x$ setzt sich zusammen aus dem systematischen Fehler und dem zufälligen Fehler. 
-
-- systematische Fehler: Fehler der Messgeräte, der Art der Messung (bspw. Genauigkeit Abstandssenor)
-  - das ist die Küchenwaage, deren systematischer Fehler auf  $\frac{g}{\Delta x} = \frac{9.81}{\Delta x}$ ? Was ist Delta-x, die Ausdehnung?!
-    - Die Masse wäre 705g --> müsste die Messungenauigkeit der Küchenwaage mit 0.5 g nicht ins Verhältnis zu 705 g gesetzt werden?
-- zufällige Fehler: Streuung von Messwerten um Erwartungswert --> statistischer Charakter der Fehler
+## Resterampe
 
 Durch Umstellen nach der Federkonstante $k$ kann diese wie folgt ermittelt werden:
 
 $$
-k = \frac{m \times g}{\Delta{x}}
+k = \frac{m \cdot g}{\Delta{x}}
 $$
 

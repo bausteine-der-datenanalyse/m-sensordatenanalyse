@@ -509,7 +509,7 @@ f(x) = \frac{1}{3.7742 \sqrt{2\pi}} ~ e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742
 $$
 
 $$
-f(x) = 0.1057 \times e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742}\right)^2}
+f(x) = 0.1057 \cdot e^{-\frac{1}{2}\left(\frac{x-26.10}{3.7742}\right)^2}
 $$
 
 In Python können die Berechnungen umgesetzt und grafisch dargestellt werden:
@@ -653,7 +653,8 @@ plt.show()
 ```
 
 **Beschreibung**  
-Die Funktion `scipy.stats.norm.rvs(size)` zieht `size` Zufallszahlen aus der Normalverteilung.
+Die Funktion `scipy.stats.norm.rvs(size)` zieht `size` Zufallszahlen aus der Normalverteilung.  
+*Hinweis: Die Zufallszahlen werden im Skript dynamisch gezogen.*
 :::
 
 Mit den Parametern `loc = mittelwert` und `scale = standardabweichung` kann die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit `loc = 0` und `scale = 1` berechnet. Die Parameter der Funktionen können Einzelwerte (Skalare) oder auch Arrays bzw. Listen sein.

@@ -17,7 +17,8 @@ Im Abschnitt @sec-dateien-einlesen finden Sie Hinweise und im Abschnitt @sec-auf
 
 *Hinweis: Je nach gewähltem Vorgehen ergeben sich unterschiedliche Ergebnisse.*
 
-**Dafür wäre die Einführung der Fehlerrechnung bzw. des Größtfehlers sinnvoll, weil hier auf das Vorliegen grober Fehler geprüft wird.**
+**Dafür wäre die Einführung der Fehlerrechnung bzw. des Größtfehlers sinnvoll, weil hier auf das Vorliegen grober Fehler geprüft wird. Eventuell als Kapitel vor diesem. Dazu muss die Messungenauigkeit der Waage und des Abstandssensors genommen werden.**
+Gauß´sche Fehlerfortpflanzung
 
 
 Wir prüfen 'automatisiert', ob mehrere Datensätze Fehlmessungen enthalten. Anschließend bestimmen wir die Federkonstanten und die Konfidenzintervalle.

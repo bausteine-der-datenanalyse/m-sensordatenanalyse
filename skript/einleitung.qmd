@@ -181,7 +181,13 @@ $$
 \sigma_{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}}
 $$
 
-Der Standardfehler wird umso kleiner (die Messung umso präziser), je kleiner die Varianz in der Grundgesamtheit und je größer der Stichprobenumfang ist.
+Manchmal wird der Standardfehler zur längeren Schreibeweise umgeformt.
+
+$$
+\sigma_{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}} ~ = ~ \sqrt{\frac{1}{N(N-1)} \sum_{i=1}^{N}(x_i - \bar{x})^2}
+$$
+
+Der Standardfehler wird umso kleiner (die Messung umso präziser), je kleiner die Varianz in der Grundgesamtheit und je größer der Stichprobenumfang ist. 
 
 Dies lässt sich mit einem simulierten Würfelexperiment verdeutlichen. Bei einem idealen, fairen Würfel kommt jede Augenzahl gleich oft vor. Der Erwartungswert eines sechsseitigen Würfels ist:
 
