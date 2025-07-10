@@ -432,7 +432,7 @@ Definition&nbsp;4.2: signifikante Stellen
 </div>
 <div class="callout-body-container callout-body">
 <p>“Jede zuverlässig bekannte Stelle mit Ausnahme der Nullen, die die Position des Dezimalkommas angeben, wird signifikante Stelle genannt.” <span class="citation" data-cites="EdenGebhard-2024">(<a href="#ref-EdenGebhard-2024" role="doc-biblioref">Eden und Gebhard 2024, 24</a>)</span></p>
-<p>“Gerundete numerische Unsicherheitwerte sind mit zwei (oder bei Bedarf mit drei) signifikanten Ziffern anzugeben. Sie sind aufzurunden. Das Meßergebnis ist an derselben Stelle wie die zugehörige Unsicherheit zu runden, z.B. y = 245,5716 mm auf y = 245,57 mm, wenn u(y) = 0,4528 mm auf u(y) = 0,46 mm aufgerundet wird.” <span class="citation" data-cites="DIN1319-3">(<a href="#ref-DIN1319-3" role="doc-biblioref">Deutsches Institut für Normung 1996, 6</a>)</span></p>
+<p>“Gerundete numerische Unsicherheitwerte sind mit zwei (oder bei Bedarf mit drei) signifikanten Ziffern anzugeben. <strong>Sie sind aufzurunden</strong>. Das Meßergebnis ist an derselben Stelle wie die zugehörige Unsicherheit zu runden, z.B. y = 245,5716 mm auf y = 245,57 mm, wenn u(y) = 0,4528 mm auf u(y) = 0,46 mm aufgerundet wird.” <span class="citation" data-cites="DIN1319-3">(<a href="#ref-DIN1319-3" role="doc-biblioref">Deutsches Institut für Normung 1996, 6</a>, eigene Hervorhebung)</span></p>
 </div>
 </div>
 <p>Beispielsweise liegen die im vorherigen Kapitel verwendeten Abstandsmessung im Format <span class="math inline">\(153,29\)</span> vor, die Messwerte weisen also 5 signifikante Stellen auf. Für den arithmetischen Mittelwert einer Messreihe <span class="math inline">\(153,008889\)</span> gelten deshalb ebenfalls 5 signifikante Stellen. Es wird an der ersten nicht mehr signifikanten Stelle gerundet, sodass der arithmetische Mittelwert <span class="math inline">\(153,01\)</span> angegeben wird.</p>
@@ -560,13 +560,13 @@ Beispiel&nbsp;4.1: Garantiefehlergrenze
 <div class="callout-body-container callout-body">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="..\skript/00-bilder/thermometer.jpg" class="img-fluid figure-img"></p>
+<p><img src="../skript/00-bilder/thermometer.jpg" class="img-fluid figure-img"></p>
 <figcaption>Thermometer</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="..\skript/00-bilder/thermometerspecifications.jpg" class="img-fluid figure-img"></p>
+<p><img src="../skript/00-bilder/thermometerspecifications.jpg" class="img-fluid figure-img"></p>
 <figcaption>Spezifikationen</figcaption>
 </figure>
 </div>
@@ -618,14 +618,10 @@ u(T) = 0,05605 °C
 <p>Der Größtfehler beträgt: <span class="math display">\[
 \Delta T = |e(T)_{s,b}| + |e(T)_{r}|
 \]</span></p>
-<p>Wenn kaufmännisch gerundet wird: <span class="math display">\[
+<p>Die Messunsicherheit ist aufzurunden: <span class="math display">\[
 \Delta T = |0,35605 °C| + |0,1 ~ °C| = 0,45605 ~ °C \approx 0,5 °C
 \]</span></p>
 <p>Das vollständige Messergebnis lautet also <span class="math inline">\(T = 112,1 \pm 0,5 ~ °C\)</span>.</p>
-<p>Wenn wissenschaftlich gerundet wird: <span class="math display">\[
-\Delta T = |0,35605 °C| + |0,1 ~ °C| = 0,45605 ~ °C \approx 0,4 °C
-\]</span></p>
-<p>Das vollständige Messergebnis lautet also <span class="math inline">\(T = 112,1 \pm 0,4 ~ °C\)</span>.</p>
 </div>
 </div>
 </div>
@@ -688,8 +684,8 @@ Beispiel&nbsp;4.3: Zweiter Messvorgang Daumen
 <li>die elastische Fingerkuppe nicht fixiert werden konnte.</li>
 </ul></li>
 </ul>
-<p>Aus der Summe der Beträge ergibt sich der Größtfehler <span class="math inline">\(\Delta x = |0,025| mm + |0,05| mm + |3| mm = 3,075 mm\)</span>.</p>
-<p>Das Messergebnis, bestehend aus dem Messwert und dem Fehlerintervall lautet also: <span class="math inline">\(64,7 ± 3,075 mm\)</span>. Der relative Größtfehler beträgt: <span class="math inline">\(64,7 mm ± 4,75 \%\)</span>.</p>
+<p>Aus der Summe der Beträge ergibt sich der Größtfehler <span class="math inline">\(\Delta x = |0,025| mm + |0,05| mm + |3| mm = 3,075 mm \approx 3,1 mm\)</span>.</p>
+<p>Das Messergebnis, bestehend aus dem Messwert und dem Fehlerintervall lautet also: <span class="math inline">\(64,7 ± 3,1 mm\)</span>. Der relative Größtfehler beträgt: <span class="math inline">\(64,7 mm ± 4,79 \%\)</span>.</p>
 </div>
 </div>
 </div>
@@ -877,7 +873,7 @@ k = \frac{m \cdot g}{\Delta{x}} = \frac{m \cdot g}{s}
 (<em>Hinweis: Es gibt meiner Kenntnis nach kein etabliertes Verfahren dazu und es handelt sich hierbei um einen methodischen Vorschlag.</em> **Das ist Quatsch - musst du DIN 1319-4 lesen.)</p>
 <p><strong>Größtfehler der Masse</strong> Soll für jedes Gewicht mit dem statistischen Vertrauensbereich der Strecke durchgeführt werden. Da die Strecke im Nenner steht, nimmt man die untere Grenze des Vertrauensintervalls <strong>ist ein Vorschlag von mir</strong>.</p>
 <p><span class="math inline">\(\bar{s} - t_{1-\alpha / 2} ~ (n - 1) \frac{s}{\sqrt{N}}\)</span></p>
-<div id="f687f7a7" class="cell" data-execution_count="2">
+<div id="35e84830" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Messdaten aus dem Kapitel hooke.qmd wiederherstellen</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Datei einlesen und Fehler entfernen</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/hooke_data.csv"</span></span>
@@ -939,7 +935,7 @@ mass
 \]</span></p>
 <p><strong>gewichteten Größtfehler der Masse berechnen</strong></p>
 <p>Wurzel des Mittelwerts der Größtfehlerquadrate</p>
-<div id="e6ca6b17" class="cell" data-execution_count="3">
+<div id="80a5d294" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fehler_masse_kg <span class="op">=</span> <span class="fl">0.0005</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>gewichteter_größtfehler_masse <span class="op">=</span> pd.Series((<span class="fl">9.81</span> <span class="op">/</span> untere_intervallgrenze_abstand <span class="op">*</span> fehler_masse_kg)).<span class="bu">pow</span>(<span class="dv">2</span>).mean() <span class="op">**</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span></span>
@@ -955,7 +951,7 @@ mass
 \]</span></p>
 <p><strong>gewichteten Größtfehler der Strecke berechnen</strong><br>
 <em>Für die Masse nehmen wir keine Intervallgrenze, weil die Masse einmal gemessen wurde und dieser Fehler im Größtfehler steckt</em></p>
-<div id="3cca740a" class="cell" data-execution_count="4">
+<div id="7b4e2587" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fehler_strecke_m <span class="op">=</span> <span class="fl">0.0031</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">## die Masse kann in der korrekten Reihenfolge aus dem Index abgegriffen werden. hooke['mass'].unique() gibt die Massen absteigend zurück</span></span>
