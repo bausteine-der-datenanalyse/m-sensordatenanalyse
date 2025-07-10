@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -206,11 +240,19 @@ window.Quarto = {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#fehlerarten-und-umgang-mit-messfehlern" id="toc-fehlerarten-und-umgang-mit-messfehlern" class="nav-link active" data-scroll-target="#fehlerarten-und-umgang-mit-messfehlern"><span class="header-section-number">4.1</span> Fehlerarten und Umgang mit Messfehlern</a></li>
-  <li><a href="#methoden-zur-fehlerabschätzung" id="toc-methoden-zur-fehlerabschätzung" class="nav-link" data-scroll-target="#methoden-zur-fehlerabschätzung"><span class="header-section-number">4.2</span> Methoden zur Fehlerabschätzung</a>
+  <li><a href="#bevor-es-losgeht" id="toc-bevor-es-losgeht" class="nav-link active" data-scroll-target="#bevor-es-losgeht"><span class="header-section-number">4.1</span> Bevor es losgeht</a></li>
+  <li><a href="#din-1319" id="toc-din-1319" class="nav-link" data-scroll-target="#din-1319"><span class="header-section-number">4.2</span> DIN 1319</a></li>
+  <li><a href="#absoluter-und-relativer-fehler" id="toc-absoluter-und-relativer-fehler" class="nav-link" data-scroll-target="#absoluter-und-relativer-fehler"><span class="header-section-number">4.3</span> Absoluter und relativer Fehler</a></li>
+  <li><a href="#signifikante-stellen" id="toc-signifikante-stellen" class="nav-link" data-scroll-target="#signifikante-stellen"><span class="header-section-number">4.4</span> Signifikante Stellen</a></li>
+  <li><a href="#fehlerarten" id="toc-fehlerarten" class="nav-link" data-scroll-target="#fehlerarten"><span class="header-section-number">4.5</span> Fehlerarten</a></li>
+  <li><a href="#größtfehler" id="toc-größtfehler" class="nav-link" data-scroll-target="#größtfehler"><span class="header-section-number">4.6</span> Größtfehler</a></li>
+  <li><a href="#methoden-zur-fehlerrechnung" id="toc-methoden-zur-fehlerrechnung" class="nav-link" data-scroll-target="#methoden-zur-fehlerrechnung"><span class="header-section-number">4.7</span> Methoden zur Fehlerrechnung</a>
   <ul class="collapse">
-  <li><a href="#fehlerabschätzung" id="toc-fehlerabschätzung" class="nav-link" data-scroll-target="#fehlerabschätzung">Fehlerabschätzung</a></li>
+  <li><a href="#fehlerabschätzung" id="toc-fehlerabschätzung" class="nav-link" data-scroll-target="#fehlerabschätzung">1. Fehlerabschätzung</a></li>
+  <li><a href="#fehlerstatistik" id="toc-fehlerstatistik" class="nav-link" data-scroll-target="#fehlerstatistik">2. Fehlerstatistik</a></li>
+  <li><a href="#fehlerfortpflanzung" id="toc-fehlerfortpflanzung" class="nav-link" data-scroll-target="#fehlerfortpflanzung">3. Fehlerfortpflanzung</a></li>
   </ul></li>
+  <li><a href="#resterampe" id="toc-resterampe" class="nav-link" data-scroll-target="#resterampe"><span class="header-section-number">4.8</span> Resterampe</a></li>
   </ul>
 </nav>
     </div>
@@ -236,97 +278,743 @@ window.Quarto = {
 </header>
 
 
-<p><strong>eventuell noch vor hooke.qmd - dann Einleitungstext ändern.</strong> In den vorausgehenden Kapiteln haben wir mit der statistischen Beschreibung der empirischen Streuung von Messdaten einem (nämlich dem kompliziertesten) Teilbereich der Fehlerrechnung eingeführt. Bei der Auswertung von Sensordaten kann jedoch eine Vielzahl von Fehlerarten auftreten und zusammenwirken.</p>
-<p><strong>Siehe Musterbericht WA S. 12-13</strong></p>
-<p>**Notiz: Größtfehler der linearen Regression = Absolutbetrag des größten Residuums. abs(beobachteter Wert - Vorhersage)</p>
-<section id="fehlerarten-und-umgang-mit-messfehlern" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="fehlerarten-und-umgang-mit-messfehlern"><span class="header-section-number">4.1</span> Fehlerarten und Umgang mit Messfehlern</h2>
-<p>Folgende Fehlerarten lassen sich unterscheiden:</p>
+<div>
+
+</div>
+<div class="border quarto-layout-panel" data-layout="[[5, 90, 5], [1]]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 5.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 90.0%;justify-content: flex-start;">
+<p>“Das Experimentieren ist ein dornenvoller Weg und so ganz sicher ist man sich nie.”</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 5.0%;justify-content: flex-start;">
+<p>&nbsp;</p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p>Wagner, Paul. 2015. “Einführung in die Physik I. PH I - 04 - Die Messgenauigkeit / Fehlerrechnung Teil 1.” Universität Wien Physik, <a href="https://youtu.be/sF2_1YNiWXI?feature=shared&amp;t=245">YouTube</a>, Zeitstempel. 04:05</p>
+</div>
+</div>
+</div>
+<p><strong>to do: Eden-Gebhard-2014 auf -2024 aktualisieren oder entfernen</strong></p>
+<p>Kein Messgerät misst exakt und Messdaten streuen zufällig um ihren wahren Wert. Das Ziel der Fehlerrechnung ist es, die sich daraus ergebende gesamte Messunsicherheit zu quantifizieren.</p>
+<section id="bevor-es-losgeht" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="bevor-es-losgeht"><span class="header-section-number">4.1</span> Bevor es losgeht</h2>
+<p>Das Thema ist jedoch mit einigen Schwierigkeiten verbunden, die den Einstieg und die eigenständige Vertiefung des Themas erschweren.</p>
+<ol type="1">
+<li><p>Wiederholte Messungen enthalten eine zufällige Komponente statistischer Unsicherheit. Die statistische Unsicherheit kann immer nur mit einer Vertrauenswahrscheinlichkeit angegeben werden. (Die Berechnung von Konfidenzintervallen haben wir im Kapitel <a href="hooke.html" class="quarto-xref"><span>Kapitel 3</span></a> behandelt.) Dazu gehört im ersten Schritt, das Konfidenzniveau, das gelten soll, festzulegen. Hieraus leiten sich die zu verwendenden Vielfachen der Standardabweichung <span class="math inline">\(s\)</span> bzw. des Korrekturfaktors <span class="math inline">\(t\)</span> ab. Hierbei gibt es je nach Disziplin unterschiedliche Konventionen.</p>
+<p>“In der Physik und der Vermessungstechnik begnügt man sich mit einer statistischen Sicherheit von 68,3% und setzt deshalb t = 1 […] (In der Industrie wird t = 2, in der Biologie t = 3 bevorzugt.)” <span class="citation" data-cites="HS-Aalen-2016">(<a href="#ref-HS-Aalen-2016" role="doc-biblioref">Hochschule Aalen 2016, 4</a>)</span></p>
+<p>In der ingenieurswissenschaftlichen Literatur wird dieser Schritt nicht immer explizit gemacht (weil es üblich ist, <span class="math inline">\(1 s\)</span> bzw. <span class="math inline">\(1 t\)</span> zu verwenden).</p></li>
+<li><p>Häufig wird der Begriff des Fehlers verwendet. Dabei handelt es sich jedoch nicht um einen genormten Begriff. Die einschlägige DIN 1319 umfasst dagegen eine Vielzahl aufeinander bezogener Begriffsdefinitionen, Anmerkungen und Bemerkungen.<br>
+Die DIN 1319 bzw. ihre Teile sind zuletzt zwischen 1995 und 2005 aktualisiert worden und in der über die Bibliothekssysteme bereitgestellten Form nicht sonderlich gut zu lesen.</p></li>
+<li><p>Die Notation ist komplex: neben dem lateinischen und griechischen Alphabet wird auch das kyrillische Alphabet verwendet. Die Notation wird außerdem uneinheitlich gehandhabt. Während in der DIN 1319 Fehler (genauer Messabweichungen bzw. Messunsicherheit) mit <span class="math inline">\(e\)</span> notiert werden, sind in der Literatur <span class="math inline">\(\epsilon\)</span> (epsilon) und <span class="math inline">\(\Delta\)</span> (Delta) gebräuchlich, wobei letzeres auch für den Größtfehler verwendet wird.</p></li>
+<li><p>Schließlich besteht bei der Auswahl der geeigneten Methode der Fehlerrechnung ein Ermessensraum. <strong>Für den mir noch keine Erwägungsgründe bekannt sind</strong>. (<span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span>, S. 2)</p></li>
+</ol>
+<p>Das Lernziel dieses Kapitels besteht darin, die folgende Grafik erklären zu können.</p>
 <div class="border">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="00-bilder/hempel-2016-fehlerrechnung.png" class="img-fluid figure-img"></p>
-<figcaption>Fehlerquellen</figcaption>
+<p><img src="00-bilder/fehlerarten-nach-DIN-1319.png" class="img-fluid figure-img"></p>
+<figcaption>Messergebnis nach DIN 1319</figcaption>
 </figure>
 </div>
-<p><strong>zeitabhängige Fehler</strong></p>
-<ul>
-<li>Drift: Änderung der Ausgangsgröße eines Messgeräts bei konstanter Eingangsgröße, z. B. durch Alterung der Bauteile, Änderungen der Umgebungstemperatur oder Luftfeuchtigkeit.</li>
-<li>dynamische Fehler: zeitliche Veränderung der Messgröße, z. B. der Körpergröße im Tagesverlauf (langsam) oder der Partikelanzahl in einem Luftstrom (schnell), die von (digitalen) Messgeräten nur in einem bestimmten Intervall (<a href="https://de.wikipedia.org/wiki/Quantisierungsabweichung">Quantifizierungsfehler</a>) und / oder mit einer Verzögerung (z. B. <a href="https://de.wikipedia.org/wiki/Einschwingzeit">Einschwingzeit</a>) gemessen werden können.</li>
-</ul>
-<p><strong>zeitunabhängige Fehler</strong></p>
-<ul>
-<li>systematische Fehler: unter identischen Bedingungen konstante, d.&nbsp;h. nach Betrag und Vorzeichen gleiche, Verzerrung der Messergebnisse durch Fehler der Messgeräte (Genauigkeit des Messgeräts, bspw. in Abhängigkeit von der Temperatur, fehlerhafte Kalibrierung) oder die Art der Messung (bspw. Ablese- und Skalenfehler bei Volumenbestimmung mittels Eimer mit Literteilung)</li>
-<li>zufällige Fehler: statistische Streuung der Messwerte um ihren Erwartungswert (z. B. Stichprobenfehler)</li>
-<li>grobe Fehler: Verfälschen der Messergebnisse durch falschen Versuchsaufbau, ungeeignete Messgeräte, falsches Ablesen, Unachtsamkeit (z. B. Mitwiegen des Gefäßes)</li>
-</ul>
-<p><span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span> <span class="citation" data-cites="EdenGebhard-2014">Eden und Gebhard (<a href="#ref-EdenGebhard-2014" role="doc-biblioref">2014</a>)</span>, S. 20</p>
+<p><span class="citation" data-cites="DIN1319-1">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 30</a>)</span></p>
 </div>
 <p>&nbsp;</p>
-<p>Das ist auch eine gute Quelle: https://www.ipc.kit.edu/download/Messwerte_und_ihre_Fehler_April2016.pdf</p>
-<p>Auch andere Einteilungen sind möglich. Beispielsweise können zeitabhängige Fehler auch den systematischen Fehlern zugeordnet werden. Für den Umgang mit unterschiedlichen Fehlern bietet sich die Unterteilung in grobe, systematische und zufällige Fehler an.</p>
+<p>Falls Sie die Erläuterungen zur Grafik aus der DIN nachlesen möchten, finden Sie diese in dem folgenden Aufklapper. <strong>eventuell ans Ende schieben</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Grafikbeschreibung aus DIN 1319-1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Folgender Text erläutert in der DIN 1319-1 die obenstehende Grafik. In Klammern angegebene Nummern verweisen auf Begriffsdefinitionen, die die jeweilige Nummer tragen.</p>
+<div class="border">
+<p>“Unter Wiederholbedingungen (2.7) aufgenomnnene Meßwerte (3.2) einer Meßgröße (1.1) gruppieren sich in Form einer Häufigkeitsverteilung um den Erwartungswert (3.3) <span class="math inline">\(\mu\)</span>, der zu dieser Verteilung gehört. Im Bild ist sie als etwa normale Häufigkeitsdichtefunktion skizziert. Wird der (nicht eingezeichnete) arithmetische Mittelwert (Anmerkung 2 zu 3.4) von Meßwerten gebildet, so Ist dessen Abweichung vom Erwartungswert um so weniger wahrscheinlich, je größer die Anzahl der Meßwerte ist. Der Erwartungswert weicht vom unbekannten wahren Wert (1.3) <span class="math inline">\(x_w\)</span> um die systematische Meßabweichung (3.5.2) <span class="math inline">\(e_s\)</span> ab.</p>
+<p>Im Bild eingezeichnet Ist ein einzelner Meßwert <span class="math inline">\(x\)</span>. Er verfehlt den wahren Wert um die Meßabweichung (3.5), die sich additiv aus systematischer Meßabweichung <span class="math inline">\(e_s\)</span> und zufälliger Meßabweichung (3.5.1) <span class="math inline">\(e_r\)</span> zusammensetzt.</p>
+<p>Die systematische Meßabweichung <span class="math inline">\(e_s\)</span> setzt sich aus einem bekannten (<span class="math inline">\(e_{s,b}\)</span>) und einem unbekannt bleibenden Anteil (<span class="math inline">\(e_{s,u}\)</span>) zusammen (Anmerkung 1 zu 3.2). Zur bekannten systematischen Meßabweichung <span class="math inline">\(e_{s,b}\)</span> trägt z. B. auch die bei einer früheren Kalibrierung (4.10) des benutzten Meßgerätes (4.1) festgestellte systematische Meßabweichung des Meßgerätes (5.11) bei. Der bekannte Anteil der systematischen Meßabweichung kann mit umgekehrtem Vorzeichen als Korrektion (3.4.3) zum Meßwert <span class="math inline">\(x\)</span> addiert werden. Damit findet man den berichtigten Meßwert (Anmerkung 2 zu 3.2) <span class="math inline">\(x_E\)</span>. Er weicht vom wahren Wert nur noch um die Summe aus dem unbekannt bleibenden Anteil <span class="math inline">\(e_{s,u}\)</span> der systematischen Meßabweichung und der nicht genau feststellbaren zufälligen Meßabweichung <span class="math inline">\(e_r\)</span> ab.</p>
+<p>Die Darstellung bleibt gültig, wenn der Meßwert <span class="math inline">\(x\)</span> durch das unberichtigte Meßergebnis (3.4.1 ), der berichtigte Meßwert durch das Meßergebnis (3.4) und die Häufigkeitsdichtefunktion der Meßwerte durch die der unberichtigten Meßergebnisse ersetzt wird.”</p>
+<p><span class="citation" data-cites="DIN1319-1">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 30</a>)</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="din-1319" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="din-1319"><span class="header-section-number">4.2</span> DIN 1319</h2>
+<p>Die DIN 1319 normt Grundbegriffe und Verfahren der Messtechnik.</p>
+<ul>
+<li>Teil 1 DIN 1319-1 und Teil 2 DIN 1319-2 definieren Grundbegriffe der Messtechnik und für Messmittel.</li>
+<li>Teil 3 DIN 1319-3 befasst sich mit der Auswertung von Messungen einer <em>einzelnen</em> Messgröße und deren Messunsicherheit. DIN 1319-3 wird auch angewendet, wenn die Meßgröße mittels einer gegebenen Funktion aus anderen Größen berechnet wird (beispielsweise die Geschwindigkeit <span class="math inline">\(v\)</span> als Quotient der Strecke <span class="math inline">\(s\)</span> und der Zeit <span class="math inline">\(t\)</span>).</li>
+<li>Teil 4 DIN 1319-4 befasst sich mit der Angabe von Messergebnissen und deren Messunsicherheit, wenn die Messgrößen aus anderen Größen berechnet werden, z. B. durch eine Ausgleichsrechung.</li>
+</ul>
+<p>Die Norm definiert eine ganze Reihe von aufeinander bezogenen Begriffen. Der in der Literatur gebräuchliche Begriff Fehler bzw. Messfehler ist allerdings kein genormter Begriff.</p>
+<div id="imp-DIN1319" class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definition&nbsp;4.1: Grundbegriffe nach DIN 1319
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Messabweichung</strong>: “Abweichung eines aus Messungen gewonnenen und der Meßgröße […] zugeordneten Wertes vom wahren Wert […]. Ist <span class="math inline">\(m\)</span> der der Meßgröße zugeordnete Wert und <span class="math inline">\(x_w\)</span> der wahre Wert, so ist die Meßabweichung des zugeordneten Wertes <span class="math inline">\(m - x_w\)</span> […].” <span class="citation" data-cites="DIN1319-1">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 12</a>)</span></p>
+<ul>
+<li>Die Messabweichung des <em>unberichtigten Messergebnisses</em> setzt sich additiv aus der zufälligen Messabweichung <span class="math inline">\(e_r\)</span> und der systematischen Messabweichung <span class="math inline">\(e_s\)</span> zusammen.</li>
+<li>Die systematische Meßabweichung <span class="math inline">\(e_s\)</span> setzt sich aus einem bekannten <span class="math inline">\(e_{s,b}\)</span> und einem unbekannten Anteil <span class="math inline">\(e_{s,u}\)</span> zusammen.</li>
+<li>Die systematische Messabweichung ist die Differenz aus Erwartungswert <span class="math inline">\(\mu\)</span> und wahrem Wert <span class="math inline">\(x_w\)</span>: <span class="math inline">\(e_s = \mu - x_w\)</span></li>
+<li>Die bekannte, systematische Messabweichung <span class="math inline">\(e_{s,b}\)</span> wird mit entgegengesetzten Vorzeichen <span class="math inline">\(- e_{s,b}\)</span> <em>Korrektion</em> genannt.</li>
+</ul>
+<p>Das <strong>Messergebnis</strong> <span class="math inline">\(\bar{x}_E\)</span> ist das um die bekannte, systematische Messabweichung <span class="math inline">\(e_{s,b}\)</span> berichtigte arithmetische Mittel einer Messreihe <span class="math inline">\(\bar{x}\)</span>, das als Schätzer des Erwartungswerts <span class="math inline">\(\mu\)</span> verwendet wird.<br>
+<span class="math inline">\(\bar{x}_E = \bar{x} - e_{s,b}\)</span></p>
+<p><span class="citation" data-cites="DIN1319-1">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 11–13</a>)</span></p>
+<p><strong>Messunsicherheit</strong>: “Kennwert, der aus Messungen […] gewonnen wird und zusammen mit dem Meßergebnis […] zur Kennzeichnung eines Wertebereis für den wahren Wert der Meßgröße […] dient.” <span class="citation" data-cites="DIN1319-1">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 14</a>)</span><br>
+“Die Meßunsicherheit ist ein Maß für die Genauigkeit der Messung und kennzeichnet die Streuung oder den Bereich der Werte, die der Meßgröße vernünftigerweise als <em>Schätzwerte</em> [… zugewiesen] werden können […]. Sie kann auch als ein Maß für die Unkenntnis der Meßgröße aufgefasst werden […].” <span class="citation" data-cites="DIN1319-4">(<a href="#ref-DIN1319-4" role="doc-biblioref">Deutsches Institut für Normung 1999, 4</a>)</span></p>
+<ul>
+<li><strong>Standardmessunsicherheit</strong> oder kurz Standardunsicherheit wird verwendet, wenn die Messunsicherheit durch eine Standardabweichung ausgedrückt wird. <span class="citation" data-cites="DIN1319-3">(<a href="#ref-DIN1319-3" role="doc-biblioref">Deutsches Institut für Normung 1996, 3</a>)</span> So auch in der DIN 1319: “Die Meßunsicherheit wird in dieser Norm als Standardmeßunsicherheit durch eine Standardabweichung (Quadratwurzel einer Varianz*) oder quadriert durch eine Varianz ausgedrückt […].” <span class="citation" data-cites="DIN1319-4">(<a href="#ref-DIN1319-4" role="doc-biblioref">Deutsches Institut für Normung 1999, 4</a>)</span></li>
+</ul>
+<p>Das <strong>vollständige Messergebnis</strong> ist das Messergebnis mit quantitativen Angaben zur Messunsicherheit <span class="math inline">\(u\)</span>. <span class="math inline">\(x = \bar{x}_E \pm u\)</span> <span class="citation" data-cites="DIN1319-1">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 16</a>)</span></p>
+</div>
+</div>
+<p>Der in der Fehlerrechnung gebräuchliche Begriff des (Mess-)Fehlers meint also im engeren Sinn die Messabweichung nach DIN 1319. Da der wahre Wert einer gemessenen Größe in der Regel aber unbekannt ist, kann nur die Messunsicherheit nach DIN 1319 angegeben werden. Diese ist somit im weiteren Sinn mit dem Begriff (Mess-)Fehler gemeint.</p>
+<p>In diesem Kapitel werden die in der Fehlerrechnung gebräuchlichen Begriffe aufgegriffen, um die Verbindung zu den genormten Begriffen herzustellen. Im Allgemeinen werden jedoch die genormten Begriffe verwendet.</p>
+<p>Wie das Messergebnis angegeben werden kann, behandeln wir in den folgenden Abschnitten.</p>
+</section>
+<section id="absoluter-und-relativer-fehler" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="absoluter-und-relativer-fehler"><span class="header-section-number">4.3</span> Absoluter und relativer Fehler</h2>
+<p>In der Fehlerrechnung werden absolute und relative Fehlerangaben unterschieden. Hier sollte besser von absoluter und relativer Messabweichung bzw. genauer - da der wahre Wert in der Regel unbekannt ist und die Messabweichung durch Schätzer angenähert werden muss - von absoluter und relativer Messunsicherheit gesprochen werden.</p>
+<ul>
+<li><p>Die <strong>absolute Messunsicherheit</strong> <span class="math inline">\(u\)</span> wird in der Einheit der gemessenen Größe angegebenen: <span class="math inline">\(u(m) = 0,2 kg\)</span>. Das vollständige Messergebnis lautet: <span class="math inline">\(m = 5,0 \pm 0,2 kg\)</span> oder <span class="math inline">\(m = 5,0 kg \pm 0,2 kg\)</span>.</p></li>
+<li><p>Die <strong>relative Messunsicherheit</strong> <span class="math inline">\(\frac{u(x)}{ | \bar{x}_E | }\)</span> wird entweder als Produkt in der Form <span class="math inline">\(m \cdot (1 \pm \frac{u(x)}{\bar{x}_E})\)</span> angegeben. Bspw.:</p>
+<p><span class="math inline">\(m = 5,0 kg \cdot (1 \pm \frac{0,2 kg}{5,0 kg}) = 5,0 kg \cdot (1 \pm 0,04)\)</span></p>
+<p>Alternativ wird die relative Messunsicherheit in Prozent <span class="math inline">\(\frac{u(x)}{\bar{x}_E} \cdot 100 ~ \%\)</span> angegeben: <span class="math inline">\(m = 5,0 kg \pm 4 ~ \%\)</span>.</p></li>
+</ul>
+<div id="wrn-notation" class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis&nbsp;4.1: (Alternative) Notationen
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In der DIN 1319 werden Messabweichungen mit <span class="math inline">\(e\)</span>, die Messunsicherheit mit <span class="math inline">\(u\)</span> notiert. In der Literatur zur Fehlerrechnung wird zumeist der Begriff des (Mess-)Fehlers verwendet. Die Notation ist allerdings uneinheitlich.</p>
+<ul>
+<li><p>Der absolute Fehler wird häufig mit <span class="math inline">\(\epsilon x\)</span> (epsilon x) notiert. Üblich ist aber auch die Notation mit <span class="math inline">\(\Delta x\)</span> (Delta) (beispielsweise <span class="citation" data-cites="HS-Aalen-2016 Dinter-2011">(<a href="#ref-HS-Aalen-2016" role="doc-biblioref">Hochschule Aalen 2016</a>; <a href="#ref-Dinter-2011" role="doc-biblioref">Dinter, Ralf 2011</a>)</span>). <span class="math inline">\(\Delta\)</span> wird aber ebenfalls für den Größtfehler verwendet.</p></li>
+<li><p>Der relative Fehler wird mit <span class="math inline">\(\delta x\)</span> (delta x) notiert, bspw: <span class="math inline">\(\delta x = 4 \%\)</span>. Die DIN 1319 definiert keine Notation für die relative Messunsicherheit.</p></li>
+</ul>
+<p><span class="citation" data-cites="DIN1319-1">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 9–10, 16</a>)</span></p>
+</div>
+</div>
+</section>
+<section id="signifikante-stellen" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="signifikante-stellen"><span class="header-section-number">4.4</span> Signifikante Stellen</h2>
+<p>Bei der Angabe des Messergebnisses ist die Anzahl der signifikanten oder zuverlässig bekannten Stellen zu beachten.</p>
+<div id="imp-signif" class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definition&nbsp;4.2: signifikante Stellen
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Jede zuverlässig bekannte Stelle mit Ausnahme der Nullen, die die Position des Dezimalkommas angeben, wird signifikante Stelle genannt.” <span class="citation" data-cites="EdenGebhard-2024">(<a href="#ref-EdenGebhard-2024" role="doc-biblioref">Eden und Gebhard 2024, 24</a>)</span></p>
+<p>“Gerundete numerische Unsicherheitwerte sind mit zwei (oder bei Bedarf mit drei) signifikanten Ziffern anzugeben. Sie sind aufzurunden. Das Meßergebnis ist an derselben Stelle wie die zugehörige Unsicherheit zu runden, z.B. y = 245,5716 mm auf y = 245,57 mm, wenn u(y) = 0,4528 mm auf u(y) = 0,46 mm aufgerundet wird.” <span class="citation" data-cites="DIN1319-3">(<a href="#ref-DIN1319-3" role="doc-biblioref">Deutsches Institut für Normung 1996, 6</a>)</span></p>
+</div>
+</div>
+<p>Beispielsweise liegen die im vorherigen Kapitel verwendeten Abstandsmessung im Format <span class="math inline">\(153,29\)</span> vor, die Messwerte weisen also 5 signifikante Stellen auf. Für den arithmetischen Mittelwert einer Messreihe <span class="math inline">\(153,008889\)</span> gelten deshalb ebenfalls 5 signifikante Stellen. Es wird an der ersten nicht mehr signifikanten Stelle gerundet, sodass der arithmetische Mittelwert <span class="math inline">\(153,01\)</span> angegeben wird.</p>
+<p>Die Anzahl signifikanter Stellen ist allerdings nicht immer zuverlässig zu bestimmen. Es gilt:</p>
+<ol type="1">
+<li>Alle Ziffern ungleich Null sind immer signifikant.</li>
+<li>Führende Nullen sind niemals signifikante Stellen. Beispielsweise hat 0012 km 2 signifikante Stellen. 0,001 mm hat eine signifikante Stelle.</li>
+<li>Nullen am Ende einer Zahl sind signifikant, wenn sie sich rechts vom Dezimaltrennzeichen befinden, bspw: 12,100 km hat 5 signifikante Stellen.</li>
+<li>Nullen, die sich am Ende einer Zahl ohne Komma befinden, können signifikant sein. 1200 m kann zwei oder vier signifikante Stellen haben.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+signifikante Stellen und wissenschaftliches Runden
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/s0gPyypiGOs" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Runden und signifikante Stellen (Vorkurs Mathematik) von Edmund Weitz ist abrufbar auf <a href="https://www.youtube.com/watch?v=q2iZDtotiM0">YouTube</a>. 2019</p>
+</div>
+</div>
+</section>
+<section id="fehlerarten" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="fehlerarten"><span class="header-section-number">4.5</span> Fehlerarten</h2>
+<p>Bei Messungen können unterschiedliche Arten von Messabweichungen auftreten. Am gebräuchlichsten ist die Unterteilung in grobe, systematische und zufällige <em>Fehler</em> (Nach DIN 1319 sollte besser von systematischen und zufälligen Messabweichungen gesprochen werden).</p>
+<ul>
+<li><p>Systematische Fehler: unter identischen Bedingungen konstante, d.&nbsp;h. nach Betrag und Vorzeichen gleiche, Verzerrung der Messergebnisse durch Abweichungen der Messgeräte. Beispielsweise:</p>
+<ul>
+<li>in Abhängigkeit von der Temperatur</li>
+<li>fehlerhafte Kalibrierung</li>
+<li>Alterung der Bauteile</li>
+<li>die Art der Messung, z. B. Ablese- und Skalenfehler, Messintervall bei digitalen Messgeräten (<a href="https://de.wikipedia.org/wiki/Quantisierungsabweichung">Quantifizierungsfehler</a>)</li>
+</ul></li>
+<li><p>Zufällige Fehler: statistische Streuung der Messwerte um ihren Erwartungswert. Beispielsweise:</p>
+<ul>
+<li>Stichprobenfehler</li>
+<li>Ablesefehler, z. B. Volumenbestimmung mit Eimer in Literteilung</li>
+</ul></li>
+<li><p>Grobe Fehler: Verfälschen der Messergebnisse. Beispielsweise durch:</p>
+<ul>
+<li>falschen Versuchsaufbau</li>
+<li>ungeeignete Messgeräte</li>
+<li>falsches Ablesen, z. B. Missachtung <a href="https://de.wikipedia.org/wiki/Einschwingzeit">Einschwingzeit</a>), Unachtsamkeit (z. B. Mitwiegen des Gefäßes)</li>
+</ul></li>
+</ul>
+<p><span class="citation" data-cites="Hempel-2016 EdenGebhard-2024">(<a href="#ref-Hempel-2016" role="doc-biblioref">Hempel 2016, 1–2</a>; <a href="#ref-EdenGebhard-2024" role="doc-biblioref">Eden und Gebhard 2024, 17–18</a>)</span></p>
+<p>Bestimmte Abweichungen können mehreren Fehlerarten zugehörig sein, z. B. der Ablesefehler:</p>
+<ul>
+<li>unaufmerksames Ablesen und Flüchtigkeitsfehler sind grobe Fehler,</li>
+<li>winkel- und positionsabhängige Fehler wie der <a href="https://de.wikipedia.org/wiki/Parallaxenfehler">Parallaxenfehler</a> sind systematische Abweichungen,</li>
+<li>Fehler infolge des begrenzten Auflösungsvermögens des menschlichen Auges sind zufällige Abweichungen.</li>
+</ul>
+<div id="tip-umgangmitfehlern" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;4.1: Umgang mit verschiedenen Arten von Messabweichungen
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Grobe Fehler: betroffene Werte streichen und Messung wiederholen.</p></li>
+<li><p>Systematische Messabweichung: Systematische Messabweichungen werden, wenn sie bekannt sind, korrigiert (bspw. temperaturabhängige Genauigkeit des Messgeräts) oder quantifiziert (bspw. Genauigkeit des Ablesens).</p></li>
+<li><p>Zufällige Messabweichung: Die statistische Streuung von Messwerten um den Erwartungswert sollte quantifiziert werden.</p></li>
+</ol>
+<p>Einige systematische und zufällige Messabweichungen können nur mit hohem Aufwand reduziert werden (genauere Messgeräte, größere Anzahl von Messvorgängen). Der Aufwand muss gegen den Gewinn an Genauigkeit abgewogen werden: Ist das Messergebnis mit dem angegebenen Fehler akzeptabel?</p>
+<p>(<span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span>, S. 2)</p>
+</div>
+</div>
+</section>
+<section id="größtfehler" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="größtfehler"><span class="header-section-number">4.6</span> Größtfehler</h2>
+<p>Systematische Messabweichungen bewirken eine einseitige Verzerrung des Messergebnisses, sodass der Messwert immer zu hoch oder zu niedrig ausfällt. Zufällige Messabweichungen führen unkontrolliert mal zum Über-, mal zum Unterschätzen des Messwerts.</p>
+<p>Als Größtfehler wird der ungünstigste Fall bezeichnet, bei dem sich alle Messabweichungen jeweils um ihren maximalen (oder minimalen) Wert gegenseitig verstärken, sodass der Messwert die maximal mögliche Abweichung vom (unbekannten) tatsächlichen Wert aufweist. Der Größtfehler ist eine vereinfachte Form der Ferhlerabschätzung und überschätzt die wahrscheinliche Messunsicherheit.</p>
+<p>Der <strong>Größtfehler</strong> wird als <span class="math inline">\(\Delta x\)</span> (Delta x) notiert und ermittelt, indem man die Beträge der einzelnen Messabweichungen addiert.</p>
+<p><span class="math display">\[
+\Delta x = |\epsilon x_{systematisch}| + |\epsilon x_{zufällig}|
+\]</span></p>
+<p>Da Messungen bei groben Fehlern als ungültig anzusehen sind, entfällt der Anteil grober Fehler <span class="math inline">\(|\epsilon x_{grob}|\)</span>.</p>
+<p>(<span class="citation" data-cites="EdenGebhard-2024">Eden und Gebhard (<a href="#ref-EdenGebhard-2024" role="doc-biblioref">2024</a>)</span>, S. 35-36) <strong>to do: Quelle am besten ersetzen</strong></p>
+<p>Werden mehrere Größen betrachtet, so addieren sich die Größtfehler der beteiligten Größen zum Größtfehler des Messergebnisses. Die Berechnung wird im nächsten Abschnitt behandelt.</p>
+</section>
+<section id="methoden-zur-fehlerrechnung" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="methoden-zur-fehlerrechnung"><span class="header-section-number">4.7</span> Methoden zur Fehlerrechnung</h2>
+<p>Das Ziel der Fehlerrechnung ist es, Unsicherheitsintervalle für die gemessene Größe zu ermitteln. Dafür stehen verschiedene Methode zur Verfügung:</p>
+<ol type="1">
+<li>Fehlerabschätzung</li>
+<li>Fehlerstatistik</li>
+<li>Fehlerfortpflanzung</li>
+</ol>
+<p><strong>Bei der Auswahl der Methode besteht ein Ermessensspielraum. (<span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span>, S. 2) Ergänzen: Erwägungsgründe.</strong></p>
+<section id="fehlerabschätzung" class="level3">
+<h3 class="anchored" data-anchor-id="fehlerabschätzung">1. Fehlerabschätzung</h3>
+<p>Die Fehlerabschätzung wird verwendet, wenn</p>
+<ul>
+<li><strong>eine Größe</strong></li>
+<li><strong>nur einmal</strong> gemessen wird.</li>
+</ul>
+<p>Da der wahre Wert eine Messgröße unbekannt ist, bezweckt die Fehlerabschätzung, die maximal mögliche Abweichung des Messwerts vom tatsächlichen Wert, also den <strong>Größtfehler</strong>, zu bestimmen. Bei einer einmaligen Messung gibt es keine statistische Komponente. In die Fehlerabschätzung eines einzelnen Messwerts gehen deshalb ein:</p>
+<ul>
+<li>die Garantiefehlergrenze des Messgerätes (das vom Hersteller auf dem Gerät oder in der Bedienungsanleitung angegeben ist - siehe Beispiel), also die bekannte systematische Messabweichung <span class="math inline">\(e_{s,b}\)</span>, und</li>
+<li>ein abgeschätzter Anteil, der sich nach den konkreten Bedingungen des Experiments, etwa der Skalenteilung des Messgerätes oder den Ablesebedingungen richtet. Dieser Anteil kann also aus einem systematischen Anteil (bspw. eine analoge Skala konnte nur aus einem Winkel abgelesen werden) und einem zufälligen Anteil (bspw. Ablesegenauigkeit des Messgeräts) bestehen.</li>
+</ul>
+<p>Der Größtfehler <span class="math inline">\(\Delta x\)</span> ergibt sich aus der Addition der Beträge der bekannten systematischen Messabweichung und der geschätzten zufälligen Fehler: <span class="math inline">\(\Delta x = |e(x)_{s,b}| + |e(x)_{r}|\)</span>.</p>
+<p>(<span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span>, S. 3)</p>
+<section id="aufgabe-temperaturmessung" class="level4">
+<h4 class="anchored" data-anchor-id="aufgabe-temperaturmessung">Aufgabe Temperaturmessung</h4>
+<p>Mit einem digitalen Thermometer und einem thermoelektrischen Element vom Typ K wurde die Temperatur <span class="math inline">\(T = 112,1 ~ °C\)</span> gemessen. Welche systematischen und zufälligen Messabweichungen sind bekannt und können angegeben werden (siehe Beispiel)? Es soll wissenschaftlich gerundet werden.</p>
+<div id="nte-thermometer" class="callout callout-style-default callout-note callout-titled" data-layout-ncol="2">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel&nbsp;4.1: Garantiefehlergrenze
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\skript/00-bilder/thermometer.jpg" class="img-fluid figure-img"></p>
+<figcaption>Thermometer</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="..\skript/00-bilder/thermometerspecifications.jpg" class="img-fluid figure-img"></p>
+<figcaption>Spezifikationen</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tip-skalengenauigkeit" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;4.2: Halber oder ganzer Skalenstrich?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Messgeräte mit digitaler Anzeige machen es leicht: Die Ablesegenauigkeit beträgt eine Skaleneinheit. Bei Messgeräten mit analoger Anzeige ist es Ermessenssache, welche Messgenauigkeit Sie angeben können bzw. möchten.</p>
+<p>Sind Sie sich absolut sicher, dass Sie zwischen “genau auf dem Strich” und “zwischen zwei Strichen” unterscheiden können, beträgt Ihr Ablesefehler einen halben Skalenstrich. Sind Sie sich nicht sicher, beträgt Ihr Ablesefehler einen ganzen Skalenstrich.</p>
+<p>(Siehe: <a href="https://www.physik.uni-jena.de/pafmedia/9072/fehlerrechnungleichtgemachtpdf.pdf">Fehlerrechnung leicht gemacht, FSU Jena</a>)</p>
+</div>
+</div>
+<p>&nbsp;</p>
+<div id="tip-thermometer" class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp&nbsp;4.3: Musterlösung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>systematische Messabweichung</strong></p>
+<p>Die absolute Messabweichung beträgt <span class="math inline">\(u(T) = 0,3 ~ °C\)</span>. Die relative Messabweichung beträgt <span class="math inline">\(0,05 ~ \%\)</span>. Das bedeutet: <span class="math display">\[
+\frac{u(T)}{112,1 °C} \cdot 100 ~ \% = 0,05 ~ \%
+\]</span> <span class="math display">\[
+\frac{u(T)}{112,1 °C} \cdot 100 = 0,05
+\]</span> <span class="math display">\[
+u(T) = 0,05 \cdot \frac{112,1 °C}{100}
+\]</span> <span class="math display">\[
+u(T) = 0,05605 °C
+\]</span></p>
+<p>Die bekannte systematische Messabweichung <span class="math inline">\(e(T)_{s,b} = 0,3 + 0,05605 = 0,35605 ~ °C\)</span>.</p>
+<p><strong>zufällige Messabweichung</strong></p>
+<p>Die zufällige Messabweichung beträgt eine Skaleneinheit, also <span class="math inline">\(e(T)_{r} = 0,1 ~ °C\)</span>.</p>
+<p><strong>Größtfehler</strong></p>
+<p>Der Größtfehler beträgt: <span class="math display">\[
+\Delta T = |e(T)_{s,b}| + |e(T)_{r}|
+\]</span></p>
+<p>Wenn kaufmännisch gerundet wird: <span class="math display">\[
+\Delta T = |0,35605 °C| + |0,1 ~ °C| = 0,45605 ~ °C \approx 0,5 °C
+\]</span></p>
+<p>Das vollständige Messergebnis lautet also <span class="math inline">\(T = 112,1 \pm 0,5 ~ °C\)</span>.</p>
+<p>Wenn wissenschaftlich gerundet wird: <span class="math display">\[
+\Delta T = |0,35605 °C| + |0,1 ~ °C| = 0,45605 ~ °C \approx 0,4 °C
+\]</span></p>
+<p>Das vollständige Messergebnis lautet also <span class="math inline">\(T = 112,1 \pm 0,4 ~ °C\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="beispiel-messbedingungen" class="level4">
+<h4 class="anchored" data-anchor-id="beispiel-messbedingungen">Beispiel Messbedingungen</h4>
+<p>Was ist mit den konkreten Bedingungen eines Messvorgangs gemeint? Das soll mit zwei einfachen Messvorgängen demonstriert werden.</p>
+<p><strong>Hier können Sie mitmachen!</strong></p>
+<p>Sie benötigen:</p>
+<ul>
+<li>ein geeignetes Messinstrument, z. B. ein Lineal, und</li>
+<li>eine Münze (idealerweise 1-Euro-Münze).</li>
+</ul>
+<p>Im ersten Messvorgang soll der Durchmesser der 1-Euro-Münze bestimmt werden.</p>
+<div id="nte-münze" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel&nbsp;4.2: Erster Messvorgang Münze
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Die Messung wird mit einem <a href="https://de.wikipedia.org/wiki/Nonius">Messschieber mit Nonius</a> 0,05 nach DIN 862 durchgeführt (DIN862 wurde 2011 durch DIN EN ISO 13385-1 ersetzt, in der der Begriff der Abweichung verwendet wird.). Die DIN 862 normiert symmetrische Fehlergrenzen von Messschiebern. Die Fehlergrenze ist abhängig von der Skalengenauigkeit des Messschiebers sowie von der gemessenen Länge und ist aus einer Tabelle abzulesen.</p>
+<p>Messwert: <span class="math inline">\(x = 23,25 mm\)</span></p>
+<ul>
+<li>Die Skaleneinteilung ist 0,05 mm, die zufällige Ableseabweichung <span class="math inline">\(e_r\)</span> beträgt also <span class="math inline">\(\pm 0,025 mm\)</span>.</li>
+<li>Die DIN 862 normiert Fehlergrenzen, die abhängig von der gemessenen Länge zunehmen, mindestens aber 50 <span class="math inline">\(\mu m\)</span> oder 0,05 mm betragen. Für den Messwert 23,25 mm gilt somit als bekannte systematische Messabweichung <span class="math inline">\(e_{s,b} = \pm 0,05 mm\)</span>.</li>
+</ul>
+<p>Aus der Summe der Beträge ergibt sich der Größtfehler: <span class="math inline">\(\Delta x = |0,05| mm + |0,025| mm = 0,075 mm \approx 0,08 mm\)</span>.</p>
+<p>Das vollständige Messergebnis, bestehend aus dem Messwert und der auf die Anzahl signifikanter Stellen gerundeten Messunsicherheit lautet also: <span class="math inline">\(23,25 ± 0,08 mm\)</span>. Der relative Größtfehler beträgt: <span class="math inline">\(23,25 mm ± 0,34\%\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Im zweiten Messvorgang soll die Länge des Daumens bestimmt werden. (<a href="https://de.wikipedia.org/wiki/Daumen">Der Daumen besteht anatomisch aus nur 2 Fingergliedknochen</a>)</p>
+<div id="nte-daumen" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel&nbsp;4.3: Zweiter Messvorgang Daumen
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Die Messung wird erneut mit dem Messschieber durchgeführt.</p>
+<p>Messwert: <span class="math inline">\(x = 64,7 mm\)</span></p>
+<ul>
+<li>Die Skaleneinteilung ist 0,05 mm, der zufällige Ablesefehler beträgt also <span class="math inline">\(\pm 0,025 mm\)</span>.</li>
+<li>Die von der DIN 862 für gemessene Längen zwischen 50 und 300 mm normierte Fehlergrenze beträgt 50 <span class="math inline">\(\mu m\)</span> oder 0,05 mm. Für den Messwert 64,7 mm gilt somit die Fehlergrenze <span class="math inline">\(\pm  0,05 mm\)</span>.</li>
+<li>zusätzlich wird ein symmetrischer Fehler von 3 mm veranschlagt, da
+<ul>
+<li>das Messgerät nicht gerade angesetzt,</li>
+<li>die Daumenwurzel nicht exakt lokalisiert und</li>
+<li>die elastische Fingerkuppe nicht fixiert werden konnte.</li>
+</ul></li>
+</ul>
+<p>Aus der Summe der Beträge ergibt sich der Größtfehler <span class="math inline">\(\Delta x = |0,025| mm + |0,05| mm + |3| mm = 3,075 mm\)</span>.</p>
+<p>Das Messergebnis, bestehend aus dem Messwert und dem Fehlerintervall lautet also: <span class="math inline">\(64,7 ± 3,075 mm\)</span>. Der relative Größtfehler beträgt: <span class="math inline">\(64,7 mm ± 4,75 \%\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="fehlerstatistik" class="level3">
+<h3 class="anchored" data-anchor-id="fehlerstatistik">2. Fehlerstatistik</h3>
+<p>Die Fehlerstatistik wird verwendet, wenn</p>
+<ul>
+<li><strong>eine Größe</strong></li>
+<li><strong>mehrfach gemessen</strong></li>
+</ul>
+<p>wird.</p>
+<p>Die Fehlerstatistik ist nur dann als zuverlässig anzusehen, wenn die Messabweichung zufällig ist, die Messwerte also betragsmäßig und mit wechselndem Vorzeichen streuen. Dann ist die Messabweichung in der ermittelten Standardabweichung enthalten. Liegt jedoch eine bekannte, systematische Messabweichung vor, müssen die Messwerte entsprechend korrigiert werden.</p>
+<p>Der Fehlerstatistik haben wir in vorausgehenden Kapiteln mit der statistischen Beschreibung der empirischen Streuung des Mittelwerts vorgegriffen. Zur Wiederholung:</p>
+<ol type="1">
+<li>Legen Sie ein Signifikanzniveau <span class="math inline">\(\alpha\)</span> bzw. ein zweiseitiges Konfidenzniveau <span class="math inline">\(1 - \frac{\alpha}{2}\)</span> fest.</li>
+<li>Bestimmen Sie den Stichprobenmittelwert <span class="math inline">\(\bar{x}\)</span>.</li>
+<li>Bestimmen Sie die Stichprobenstandardabweichung <span class="math inline">\(s\)</span>, die Stichprobengröße <span class="math inline">\(N\)</span> und den Standardfehler <span class="math inline">\(\frac{s}{\sqrt{N}}\)</span>.</li>
+<li>Bestimmen Sie die z- oder t-Werte der Normal- bzw. t-Verteilung für das gewählte Konfidenzniveau - für einen zweiseitigen Hypothesentest <span class="math inline">\(\frac{\alpha}{2}\)</span> und <span class="math inline">\(1 - \frac{\alpha}{2}\)</span></li>
+<li>Berechnen Sie das Konfidenzintervall <span class="math inline">\(\bar{x} \pm t_{\alpha / 2} ~ \frac{s}{\sqrt{n}}\)</span>.</li>
+</ol>
+<p>Dieses Konfidenzintervall sagt für eine gewählte Wahrscheinlichkeit aus, in welchem Bereich der Mittelwert einer erneut durchgeführten Messreihe oder der <em>wahre Wert</em> liegen wird.</p>
+<p>Dagegen gibt die Standardabweichung <span class="math inline">\(s\)</span> Auskunft darüber, in welchem Bereich ein einzelner Messwert liegen wird. Die Sicherheit dieser Aussage kann durch Ausweitung des Konfidenzintervalls erhöht werden (bspw. <span class="math inline">\(2 \cdot s\)</span>). Auch hier ist der t-Wert als Korrekturfaktor für kleine Stichproben zu verwenden.</p>
+<p><strong>Wohin?!</strong> “u* kennzeichnet die halbe Weite des Vertrauensbereichs zu festgelegtem Vertrauensniveau. […] Es ist üblich, das Vertrauensniveau (<span class="math inline">\(1 - \alpha\)</span>) in Prozent anzugeben, wobei meist <span class="math inline">\(\alpha = 0,05\)</span> (Vertrauensniveau: 95 %) benutzt wird.” <span class="citation" data-cites="DIN1319-1">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 17</a>)</span></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Problem, das ich nicht verstehe:</strong> In der Fehlerrrechnung scheint es üblich zu sein, 1s als Fehler des Mittelwerts einer Größe zu nehmen.</p>
+<p>“Die Berechnung der Standardabweichung s führt zu einem Zahlenwert, der die Größe der Abweichung beschreibt, mit einer Einheit, welche mit der Einheit des Messwertes übereinstimmt. Hierbei handelt es sich um den sogenannten absoluten Fehler εx .” (<span class="citation" data-cites="EdenGebhard-2014">Eden und Gebhard (<a href="#ref-EdenGebhard-2014" role="doc-biblioref">2014</a>)</span>, S. 25 <strong>to do: aktualisieren</strong>)</p>
+<p>–&gt; Das Maß für Mittelwerte ist aber der Standardfehler <span class="math inline">\(s / \sqrt N\)</span></p>
+<ul>
+<li>Vergleiche Beispiel 2.4 und Beispiel 2.5 (<span class="citation" data-cites="EdenGebhard-2014">Eden und Gebhard (<a href="#ref-EdenGebhard-2014" role="doc-biblioref">2014</a>)</span>, S. 25 - 26), in denen mal der Standardfehler, mal die Standardabweichung verwendet wird.</li>
+</ul>
+<p>–&gt; Für kleine N muss ein Korrekturfaktor (t-Wert) verwendet werden, wenn der gleiche Anteil an Werten innerhalb dieses Intervalls liegen soll - das gilt auch für 1 s</p>
+</div>
+</div>
+<p><span class="citation" data-cites="EdenGebhard-2014">Eden und Gebhard (<a href="#ref-EdenGebhard-2014" role="doc-biblioref">2014</a>)</span>, S. 20, 23, 25 <strong>to do: aktualisieren</strong>; <span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span>, S. 3-7</p>
+</section>
+<section id="fehlerfortpflanzung" class="level3">
+<h3 class="anchored" data-anchor-id="fehlerfortpflanzung">3. Fehlerfortpflanzung</h3>
+<p>Die Fehlerfortpflanzung wird verwendet, wenn</p>
+<ul>
+<li><strong>mehrere Größen</strong></li>
+</ul>
+<p>gemessen werden.</p>
+<p>Für die Ermittlung des Gesamtfehlers gibt es zwei Verfahren:</p>
+<ul>
+<li>die <strong>lineare Fehlerfortpflanzung</strong> wird benutzt, wenn die Fehler der beteiligten Größen durch Fehlerabschätzung einer Einzelmessung ermittelt wurden.</li>
+<li>die <strong>Gauß’sche Fehlerfortpflanzung</strong> wird benutzt, wenn die Einzelfehler statistisch ermittelt und mit Konfidenzintervallen angegeben werden.</li>
+</ul>
+<p>Problematisch ist allerdings die Ermittlung eines Gesamtfehlers, der sich aus statistischen Vertrauensbereichen und abgeschätzten Fehleranteilen zusammensetzt. Beispielsweise hängt die im vorherigen Kapitel ermittelte Federkonstante von drei Größen ab:</p>
+<ul>
+<li>der gemessenen Masse,</li>
+<li>dem mit einem Abstandssensor gemessenen Abstand zum Gewicht bzw. nach der Aufbereitung der Daten der Ausdehnung der Feder und</li>
+<li>der statistischen Schätzung der Federkonstante.</li>
+</ul>
+<p>Für die Berechnung eines Gesamtfehlers, muss ein Kompromiss eingegangen werden.</p>
+<ol type="1">
+<li>Die lineare Fehlerfortpflanzung wird mit dem abgeschätzten Fehler und dem statistischen Vertrauensbereich durchgeführt.</li>
+<li>Die Gauß’sche Fehlerfortpflanzung wird mit dem statistischen Vertrauensbereich durchgeführt und ein Fehleranteil addiert, der aus der linearen Fehlerfortpflanzung der abgeschätzten Fehler ermittelt wird.</li>
+</ol>
+<p>“Beide Verfahren sind wohl gleich gut (oder schlecht) als Kompromiss in der Laborpraxis geeignet.” (<span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span>, S. 9)</p>
+<p>(<span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span>, S. 8 - 9)</p>
+<p>Im Folgenden werden zunächst die lineare Fehlerfortpflanzung und die Gauß’sche Fehlerfortpflanzung vorgestellt. Abschließend werden die Verfahren zur Ermittlung des Gesamtfehlers der Federkonstante gezeigt.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Umgang mit verschiedenen Fehlerarten
+Formelbahnhof
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li><p>Grobe Fehler: betroffene Werte streichen und Messung wiederholen.</p></li>
-<li><p>Systematische Fehler: Systematische Fehler sollten, wenn sie bekannt sind, korrigiert (bspw. temperaturabhängige Genauigkeit des Messgeräts) oder quantifiziert (bspw. Genauigkeit des Ablesens) werden.</p></li>
-<li><p>Zufällige Fehler: Die statistische Streuung von Messwerten um den Erwartungswert sollte quantifiziert werden.</p></li>
-</ol>
+<p>“Für viele Betrachtungen, speziell in den Grundlagenpraktika der ersten Semester in technischen, naturwissenschaftlichen und ingenieurmäßigen Studiengängen, reicht es aus, den maximalen Fehler (<em>absoluter Größtfehler</em>) zu bestimmen. Dieser ist größer oder gleich der […] Standardabweichung <span class="math inline">\(\epsilon y\)</span>.”</p>
+<p><span class="math display">\[
+\epsilon y = \pm \sum_{i=1}^{N} | \frac{\partial F}{\partial x_i} \epsilon x_i |
+\]</span></p>
+<p>(<span class="citation" data-cites="EdenGebhard-2014">Eden und Gebhard (<a href="#ref-EdenGebhard-2014" role="doc-biblioref">2014</a>)</span>, S. 37 <strong>to do: aktualisieren</strong>)</p>
+<p>–&gt; das ist die lineare Fehlerfortpflanzung</p>
+<p>“so beträgt die Standardabweichung <span class="math inline">\(\epsilon y\)</span> (der absolute Fehler) des Messergebnisses y:</p>
+<p><span class="math display">\[
+\epsilon y = \pm \sqrt {\sum_{i=1}^{N} (\frac{\partial F}{\partial x_i} \epsilon x_i)^2}
+\]</span></p>
+<p>”</p>
+<p>–&gt; das ist Gauß’sche Fehlerfortpflanzung</p>
+<p>(<span class="citation" data-cites="EdenGebhard-2014">Eden und Gebhard (<a href="#ref-EdenGebhard-2014" role="doc-biblioref">2014</a>)</span>, S. 34 <strong>to do: aktualisieren</strong>)</p>
+</div>
+</div>
+<section id="lineare-fehlerfortpflanzung" class="level4">
+<h4 class="anchored" data-anchor-id="lineare-fehlerfortpflanzung">Lineare Fehlerfortpflanzung</h4>
+<p>Die lineare Fehlerfortpflanzung betrachtet, wie sich die Größtfehler mehrerer gemessener Größen auf den Gesamtfehler auswirken.</p>
+<p>Für eine Funktion <span class="math inline">\(f = f(x, y)\)</span> soll die Auswirkung der Größtfehler <span class="math inline">\(\Delta x\)</span> und <span class="math inline">\(\Delta y\)</span> auf den Fehler <span class="math inline">\(\Delta f\)</span> ermittelt werden.</p>
+<p>Unter der Voraussetzung gegenüber den Messwerten kleinen Fehler (<strong>Wann sind die Fehler klein?</strong>) kann der Fehler <span class="math inline">\(\Delta f\)</span> durch die Beträge der partiellen Ableitung des ersten Glieds der Taylorreihe berechnet werden (<strong>worauf verlinken?!</strong>).</p>
+<p><span class="math display">\[
+f + \Delta f = f(x + \Delta x, y + \Delta y) = f(x, y) + | \frac{\partial f(x, y)}{\partial x}  | \cdot \Delta x + | \frac{\partial f(x, y)}{\partial y} | \cdot \Delta y
+\]</span></p>
+<p>Der Größtfehler ergibt sich aus:</p>
+<p><span class="math display">\[
+\Delta f = | \frac{\partial f(x, y)}{\partial x}  | \cdot \Delta x + | \frac{\partial f(x, y)}{\partial y} | \cdot \Delta y
+\]</span></p>
+<div id="nte-partielleableitung" class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Beispiel&nbsp;4.4: Partielle Ableitung
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Die partielle Ableitung ist die Ableitung einer Funktion mit mehreren Variablen nach einer Variablen, wobei die übrigen Variablen als Konstanten behandelt werden.</p>
+<p>Für eine Funktion <span class="math inline">\(f(x, y) = 2x + y^2\)</span> wird die partielle Ableitung nach x so ausgedrückt:</p>
+<p><span class="math inline">\(\frac{\partial f(x, y)}{\partial x}\)</span></p>
+<ul>
+<li>Das Symbol ∂ ist die kursive Darstellung des kyrillischen Kleinbuchstaben д (d) und wird als “d” oder “del” gelesen. Es zeigt an, das eine partielle Ableitung durchgeführt wird.</li>
+<li>Im Zähler steht die Funktion, die abgeleitet werden soll. Im Nenner steht die Variable nach der abgeleitet wird. Der Term wird gelesen als “del f von x und y nach del x”.</li>
+</ul>
+<p>Die partielle Ableitung <span class="math inline">\(\frac{\partial f(x, y)}{\partial x} = 2\)</span>.</p>
+<p>Die partielle Ableitung <span class="math inline">\(\frac{\partial f(x, y)}{\partial y} = 2y\)</span>.</p>
+</div>
 </div>
 </div>
 </section>
-<section id="methoden-zur-fehlerabschätzung" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="methoden-zur-fehlerabschätzung"><span class="header-section-number">4.2</span> Methoden zur Fehlerabschätzung</h2>
-<p>Das Ziel der Fehlerabschätzung ist es, Unsicherheitsintervalle für die gemessene Größe zu ermitteln. Dafür stehen verschiedene Methode zur Verfügung:</p>
-<ol type="1">
-<li>Fehlerabschätzung</li>
-<li>Fehlerstatistik</li>
-<li>Lineare Fehlerfortpflanzung</li>
-<li>Gauß’sche Fehlerfortpflanzung</li>
-</ol>
-<p><strong>Nach DIN soundso soll man nicht mehr von Fehlern, sondern von Messabweichung sprechen. Aber es sind Fehler.</strong> Größtfehler lassen wir erst einmal raus.</p>
-<section id="fehlerabschätzung" class="level3">
-<h3 class="anchored" data-anchor-id="fehlerabschätzung">Fehlerabschätzung</h3>
-<p>Die Fehlerabschätzung wird verwendet, wenn <strong>eine Größe nur einmal gemessen</strong> wird. In die Fehlerabschätzung eines einzelnen Messwerts gehen ein:</p>
+<section id="gaußsche-fehlerfortpflanzung" class="level4">
+<h4 class="anchored" data-anchor-id="gaußsche-fehlerfortpflanzung">Gauß’sche Fehlerfortpflanzung</h4>
+<p>Für jede Variable wird die partielle Ableitung der Funktion gebildet und mit dem absoluten Fehler jeder Variablen multipliziert. Die Quadrate dieser Fehlerprodukte werden summiert und die Quadratwurzel gebildet. Das ist <span class="math inline">\(\pm\)</span> der absolute Fehler des Messergebnisses.</p>
+</section>
+<section id="spezialfall-fehlerfortpflanzung-der-federkonstante" class="level4">
+<h4 class="anchored" data-anchor-id="spezialfall-fehlerfortpflanzung-der-federkonstante">Spezialfall: Fehlerfortpflanzung der Federkonstante</h4>
+<p><strong>Problem:</strong></p>
 <ul>
-<li>die Garantiefehlergrenze des Messgerätes (das vom Hersteller auf dem Gerät oder in der Bedienungsanleitung angegeben ist) und</li>
-<li>ein abgeschätzter Anteil, der sich nach den konkreten Bedingungen des Experiments, etwa der Skalenteilung des Messgerätes oder den Ablesebedingungen (bspw. eine analoge Skala konnte nur aus einem Winkel abgelesen werden) richtet.</li>
+<li>der Abstand wurde mehrmals gemessen. Das ist ein statistischer Fehler - der Standardfehler (der vermutlich mit einem Vertrauensbereich 1t, 2t oder <span class="math inline">\(t_{95\%}\)</span> multipliziert werden muss). Der größte Standardfehler liegt für 301 Gramm mit 0.525247 vor. … und der muss mit der Gauß’schen Fehlerfortpflanzung berechnet werden.</li>
+<li>Da aber der Größtfehler gesucht ist, müsste eigentlich die lineare Fehlerfortpflanzung verwendet werden, bei der sich die einzelnen Fehler nicht gegenseitig aufheben können. Aber wie ist das mit mehreren Messreihen für verschiedene Gewichte? Für die Masse haben wir ja keinen gemeinsamen Standardfehler.</li>
 </ul>
-<p>Die Fehlerabschätzung versucht nicht, die Ungenauigkeit der Messung, also die Abweichung des Messwerts vom wahren Wert der gemessenen Größe (der unbekannt ist), zu quantifizieren. Vielmehr geht es darum, die maximal mögliche Abweichung des Messwerts vom tatsächlichen Wert zu bestimmen, den <strong>Größtfehler</strong> <span class="math inline">\(\Delta x\)</span> (Delta x). Deshalb werden die Beträge der einzelnen Fehler addiert.</p>
-<section id="beispiel-messbedingungen" class="level4">
-<h4 class="anchored" data-anchor-id="beispiel-messbedingungen">Beispiel Messbedingungen</h4>
-<p>Die konkreten Bedingungen eines Messvorgangs können sehr unterschiedlich sein. Dies wird anhand von zwei Messvorgängen demonstriert.</p>
-<p><strong>Hier können Sie mitmachen!</strong> Sie benötigen:</p>
+<p>Die im vorherigen Kapitel ermittelte Federkonstante hängt von drei Größen ab:</p>
 <ul>
-<li>ein geeignetes Messinstrument, z. B. ein Lineal, und</li>
-<li>eine Münze (idealerweise 1-Euro-Münze).</li>
+<li>der gemessenen Masse,</li>
+<li>dem mit einem Abstandssensor gemessene Abstand zum Gewicht bzw. nach der Aufbereitung der Daten der Ausdehnung der Feder und</li>
+<li>der statistischen Schätzung der Federkonstante.</li>
 </ul>
-<p>Im ersten Messvorgang soll der Durchmesser der 1-Euro-Münze bestimmt werden. Im zweiten Messvorgang bestimmen Sie die Länge Ihres Daumens. (<a href="https://de.wikipedia.org/wiki/Daumen">Der Daumen besteht anatomisch aus nur 2 Fingergliedknochen</a></p>
-<p><strong>Erster Messvorgang: Münze</strong></p>
-<p>Die Messung wird mit einem <a href="https://de.wikipedia.org/wiki/Nonius">Messschieber mit Nonius</a> 0,05 nach DIN 862 durchgeführt. Die DIN 862 normiert Fehlergrenzen von Messschiebern. Die Fehlergrenze ist abhängig von der Skalengenauigkeit des Messschiebers sowie von der gemessenen Länge und ist aus einer Tabelle abzulesen.</p>
-<p>Messergebnis: <span class="math inline">\(x = 23,25 mm\)</span></p>
+<p>Um den Gesamtfehler mehrerer fehlerbehafteter Größen zu ermitteln, müssen die Fehler der beteiligten Größen bekannt sein oder ermittelt werden.</p>
 <ul>
-<li>Die Skaleneinteilung ist 0,05 mm, der Ablesefehler beträgt also 0,025 mm.</li>
-<li>Fehlergrenze nach DIN 862 beträgt 50 <span class="math inline">\(\mu m\)</span> oder 0,05 mm.</li>
+<li>Die Masse <span class="math inline">\(m\)</span> der verwendeten Gewichte wurde mit einer Küchenwaage ermittelt, deren absoluter Fehler auf <span class="math inline">\(\epsilon m = 0,5 g = 0,0005 kg\)</span> geschätzt wird.</li>
+<li>Der Abstand <span class="math inline">\(s\)</span> wurde mit einem elektronischen Abstandssensor und einem Arduino ermittelt (Ultrasonic Ranging Module HC - SR04).
+<ul>
+<li>Der Ablesefehler des Messsystems beträgt eine Einheit der Messauflösung, also <span class="math inline">\(\epsilon s_{zufällig} = 0,01 cm = 0,0001 m\)</span>.</li>
+<li>Die Messabweichung des Messsystems beträgt laut Datenblatt bis zu 3 mm, also <span class="math inline">\(\epsilon s_{systematisch} = 3 mm = 0,003 m\)</span>.</li>
+<li>Der abgeschätzte Fehler beträgt also <span class="math inline">\(\epsilon x = 0,0001 m + 0,003 m = 0,0031m\)</span></li>
+</ul></li>
+<li>Der Standardfehler der Federkonstante <span class="math inline">\(k\)</span> wurde mit <span class="math inline">\(0.3784 \frac{N}{m}\)</span> bestimmt. Im festgelegten Vertrauensintervall <span class="math inline">\(95 \%\)</span> beträgt der Fehler der Federkonstante <span class="math inline">\(\epsilon k = 0.75 \frac{N}{m}\)</span></li>
 </ul>
-<p>In Summe ergibt sich ein Größtfehler <span class="math inline">\(\Delta x = 0,025 mm + 0,05 mm = 0,075 mm\)</span>.</p>
-<p>Das Messergebnis und das Fehlerintervall betragen also: <span class="math inline">\(23,25 ± 0.075 mm\)</span></p>
-<p>Bestimmen Sie mit Hilfe eines Lineals .) (Wo beginnt der Daumen? Wo endet die weiche Fingerkuppe [oder zählt der Nagel?])</p>
-<p>Ablesung auf Schieblehre mit Nonius: 64,7 mm - Genauigkeit der Skala ist 0.05 mm - d.&nbsp;h. Ablesefehler ist 0.025 mm</p>
-<p>Der Größtfehler quantifiziert den ungünstigsten Fall, bei dem sich alle möglichen Fehlerquellen addieren.</p>
-<p>halber Skalenstrich (ein ganzer geht aber auch, z. B. wenn man schief abgelesen hat oder automatisch, wenn man ein digitales Messgerät nutzt.)</p>
-<p>Callout Beispiel: Thermometer</p>
+<p>Für die Federkonstante gilt (die Abstandsänderung <span class="math inline">\(\Delta x\)</span> wird mit <span class="math inline">\(s\)</span> notiert):</p>
+<p><span class="math display">\[
+k = \frac{m \cdot g}{\Delta{x}} = \frac{m \cdot g}{s}
+\]</span></p>
+<p>So gilt für den Größtfehler der Funktion:</p>
+<p><span class="math display">\[
+\Delta k(m, s) = | \frac{\partial f(m, s)}{\partial m} | \cdot \Delta m + | \frac{\partial f(m, s)}{\partial s} | \cdot \Delta s
+\]</span></p>
+<p>Die partielle Ableitung nach m lautet mit Faktorregel:</p>
+<p><span class="math display">\[
+\frac{\partial f(m, s)}{\partial m} = \frac{\partial}{\partial m} \frac{m \cdot g}{s} = \frac{\partial}{\partial m} m \cdot \frac{g}{s} = 1 \cdot \frac{g}{s} = \frac{g}{s}
+\]</span></p>
+<p>Die partielle Ableitung nach s lautet:</p>
+<p><span class="math display">\[
+\frac{\partial f(m, s)}{\partial s} = \frac{\partial}{\partial s} \frac{m \cdot g}{s} = - \frac {m \cdot g}{s^{2}}
+\]</span></p>
+<p>Werden die Beträge eingesetzt und mit dem jeweiligen Größtfehler multipliziert ergibt sich aus der linearen Fehlerfortpflanzung der Größtfehler von <span class="math inline">\(k\)</span> durch:</p>
+<p><span class="math display">\[
+\Delta k = | \frac{g}{s} | \cdot \Delta m ~ + ~ | (-) \frac {m \cdot g}{s^{2}} | \cdot \Delta s
+\]</span></p>
+<p>Für die mit verschiedenen Gewichten durchgeführten Messungen müssen nun sinnvolle Werte gefunden werden, die für die Masse <span class="math inline">\(m\)</span> und die Abstandsänderung <span class="math inline">\(s\)</span> verwendet werden können. Einerseits soll das Prinzip der Größtfehlerbestimmung, den ungünstigsten Fall widerzuspiegeln, gewahrt werden. Andererseits soll der sinkenden Messunsicherheit infolge der durch die Messung mit mehreren Gewichten steigenden Stichprobengröße Rechnung getragen werden.</p>
+<p>Deshalb soll ein gewichteter Größtfehler bestimmt werden, der große Fehler stärker berücksichtigt. Dazu wird die lineare Fehlerfortpflanzung für jedes der verwendeten Gewichte durchgeführt. Die so gewonnenen Größtfehler werden quadriert, gemittelt und anschließend durch die Quadratwurzel zu einem gewichteten Größtfehler zusammengefasst.<br>
+(<em>Hinweis: Es gibt meiner Kenntnis nach kein etabliertes Verfahren dazu und es handelt sich hierbei um einen methodischen Vorschlag.</em> **Das ist Quatsch - musst du DIN 1319-4 lesen.)</p>
+<p><strong>Größtfehler der Masse</strong> Soll für jedes Gewicht mit dem statistischen Vertrauensbereich der Strecke durchgeführt werden. Da die Strecke im Nenner steht, nimmt man die untere Grenze des Vertrauensintervalls <strong>ist ein Vorschlag von mir</strong>.</p>
+<p><span class="math inline">\(\bar{s} - t_{1-\alpha / 2} ~ (n - 1) \frac{s}{\sqrt{N}}\)</span></p>
+<div id="f687f7a7" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Messdaten aus dem Kapitel hooke.qmd wiederherstellen</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Datei einlesen und Fehler entfernen</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/hooke_data.csv"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>hooke <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">';'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> <span class="dv">113</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">## Abstandsmessung auf Nullpunkt normieren</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>nullpunkt <span class="op">=</span> hooke[hooke[<span class="st">'mass'</span>] <span class="op">==</span> <span class="dv">0</span>].loc[: , <span class="st">'distance'</span>].mean()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'distance'</span>] <span class="op">=</span> hooke[<span class="st">'distance'</span>].sub(nullpunkt).mul(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">## Masse in kg, Abstand in m umrechnen</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'mass'</span>] <span class="op">=</span> hooke[<span class="st">'mass'</span>].div(<span class="dv">1000</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'distance'</span>] <span class="op">=</span> hooke[<span class="st">'distance'</span>].div(<span class="dv">100</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">## untere Intervallgrenze bestimmen</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">### mittlere Ausdehnung nach Gewicht berechnen (in m)</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>distance_means_by_weight <span class="op">=</span> hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).mean()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>distance_means_by_weight.name <span class="op">=</span> <span class="st">'Federausdehnung in m'</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">### Standardfehler nach Gewicht berechnen (in m)</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_weight <span class="op">=</span> hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).std(ddof <span class="op">=</span> <span class="dv">1</span>).div(np.sqrt(hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).size()))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_weight.name <span class="op">=</span> <span class="st">'Standardfehler in m'</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">### n bestimmen</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>sizes_by_weight <span class="op">=</span> hooke[<span class="st">'distance'</span>].groupby(by <span class="op">=</span> hooke[<span class="st">'mass'</span>]).size()</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>sizes_by_weight.name <span class="op">=</span> <span class="st">'Stichprobengröße'</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">### Signifikanzniveau (alpha-Niveau) 1 - 95 % wählen</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">### unter Inervallgrenzen ausrechnen</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>untere_intervallgrenze_abstand <span class="op">=</span> scipy.stats.t.ppf(q <span class="op">=</span> alpha <span class="op">/</span> <span class="dv">2</span>, loc <span class="op">=</span> distance_means_by_weight, scale <span class="op">=</span> distance_stderrors_by_weight, df <span class="op">=</span> sizes_by_weight <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>df_abstand <span class="op">=</span> pd.DataFrame({<span class="st">'mittlere Abstandsänderung'</span>: distance_means_by_weight,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'Standardfehler'</span>: distance_stderrors_by_weight,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'untere 95-%-Intervallgrenze'</span>: untere_intervallgrenze_abstand})</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">## wissenschaftliche Notation in der Ausgabe unterdrücken</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_abstand.<span class="bu">round</span>(<span class="dv">6</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       mittlere Abstandsänderung  Standardfehler  untere 95-%-Intervallgrenze
+mass                                                                         
+0.000                  -0.000000        0.001108                    -0.002468
+0.100                   0.025864        0.002972                     0.019241
+0.201                   0.058391        0.000893                     0.056400
+0.301                   0.099209        0.005252                     0.087327
+0.401                   0.116639        0.000991                     0.114398
+0.452                   0.129179        0.001985                     0.124688
+0.503                   0.143169        0.002470                     0.137581
+0.554                   0.160839        0.001656                     0.157092
+0.605                   0.174889        0.001120                     0.172355
+0.655                   0.196082        0.000677                     0.194574
+0.705                   0.206220        0.000805                     0.204364</code></pre>
+</div>
+</div>
+<p><strong>An der Schreibweise muss man noch arbeiten… N ist ja eigentlich die Stichprobengröße, mit i haben wir die einzelnen Messwerte bezeichnet - gemeint ist die Anzahl der Messreihen.</strong> <span class="math display">\[
+\sqrt{\frac {1}{N} \sum_{i=1}^{N} (\frac{g}{{s_{\alpha / 2}}_i} \cdot \Delta m_i)^2}
+\]</span></p>
+<p><strong>gewichteten Größtfehler der Masse berechnen</strong></p>
+<p>Wurzel des Mittelwerts der Größtfehlerquadrate</p>
+<div id="e6ca6b17" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fehler_masse_kg <span class="op">=</span> <span class="fl">0.0005</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>gewichteter_größtfehler_masse <span class="op">=</span> pd.Series((<span class="fl">9.81</span> <span class="op">/</span> untere_intervallgrenze_abstand <span class="op">*</span> fehler_masse_kg)).<span class="bu">pow</span>(<span class="dv">2</span>).mean() <span class="op">**</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Gewichteter Größtfehler der Masse:"</span>, gewichteter_größtfehler_masse)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gewichteter Größtfehler der Masse: 0.18328924940841781</code></pre>
+</div>
+</div>
+<p><strong>Größtfehler der Strecke</strong> Für den Größtfehler der Strecke wird ebenfalls die untere Intervallgrenze verwendet, da die Strecke im Nenner steht. Das negative Vorzeichen entfällt aufgrund der Betragsbildung.</p>
+<p><strong>An der Schreibweise muss man noch arbeiten… N ist ja eigentlich die Stichprobengröße, mit i haben wir die einzelnen Messwerte bezeichnet - gemeint ist die Anzahl der Messreihen.</strong> <span class="math display">\[
+\sqrt{\frac {1}{N} \sum_{i=1}^{N} (\frac{m \cdot g}{{s^2_{\alpha / 2}}_i} \cdot \Delta m_i)^2}
+\]</span></p>
+<p><strong>gewichteten Größtfehler der Strecke berechnen</strong><br>
+<em>Für die Masse nehmen wir keine Intervallgrenze, weil die Masse einmal gemessen wurde und dieser Fehler im Größtfehler steckt</em></p>
+<div id="3cca740a" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fehler_strecke_m <span class="op">=</span> <span class="fl">0.0031</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">## die Masse kann in der korrekten Reihenfolge aus dem Index abgegriffen werden. hooke['mass'].unique() gibt die Massen absteigend zurück</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>gewichteter_größtfehler_strecke <span class="op">=</span> pd.Series(<span class="fl">9.81</span> <span class="op">*</span> distance_means_by_weight.index <span class="op">/</span> untere_intervallgrenze_abstand <span class="op">**</span> <span class="dv">2</span> <span class="op">*</span> fehler_strecke_m).<span class="bu">pow</span>(<span class="dv">2</span>).mean() <span class="op">**</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Gewichteter Größtfehler Strecke:"</span>, gewichteter_größtfehler_strecke)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">## Ausgabe der Zwischenergebnisse</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>größtfehler_strecke_nach_messreihe <span class="op">=</span> pd.Series(<span class="fl">9.81</span> <span class="op">*</span> distance_means_by_weight.index <span class="op">/</span> untere_intervallgrenze_abstand <span class="op">**</span> <span class="dv">2</span> <span class="op">*</span> fehler_strecke_m)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>df_strecke <span class="op">=</span> pd.DataFrame({<span class="st">'Gewicht'</span>: distance_means_by_weight.index, <span class="st">'Größtfehler der Strecke der Messreihen'</span>: größtfehler_strecke_nach_messreihe, <span class="st">'quadratischer Größtfehler'</span>: größtfehler_strecke_nach_messreihe <span class="op">**</span> <span class="dv">2</span>})</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_strecke)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mittlerer Größtfehler'</span>, df_strecke[<span class="st">'Größtfehler der Strecke der Messreihen'</span>].mean())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gewichteter Größtfehler Strecke: 3.4684830244889313
+
+    Gewicht  Größtfehler der Strecke der Messreihen  quadratischer Größtfehler
+0     0.000                                0.000000                   0.000000
+1     0.100                                8.214633                  67.480188
+2     0.201                                1.921604                   3.692560
+3     0.301                                1.200324                   1.440777
+4     0.401                                0.931827                   0.868301
+5     0.452                                0.884142                   0.781707
+6     0.503                                0.808126                   0.653067
+7     0.554                                0.682703                   0.466083
+8     0.605                                0.619351                   0.383596
+9     0.655                                0.526140                   0.276824
+10    0.705                                0.513345                   0.263523
+mittlerer Größtfehler 1.482017592591965</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+\Delta k = 0.183 + 3.468 = 3.651
+\]</span></p>
+<p>Für die Masse müsste noch ein Größtfehler geschätzt werden… das ist bislang nur die Ableseungenauigkeit</p>
+<ul>
+<li>Die Masse <span class="math inline">\(m\)</span> der verwendeten Gewichte wurde mit einer Küchenwaage ermittelt, deren absoluter Fehler auf <span class="math inline">\(\epsilon m = 0,5 g = 0,0005 kg\)</span> geschätzt wird <strong>Das ist doch nur der Ablesefehler oder (sieht nach halbem Skalenstrich aus?!</strong>.</li>
+<li>Der Abstand <span class="math inline">\(s\)</span> wurde mit einem elektronischen Abstandssensor und einem Arduino ermittelt Der absolute Fehler dess Messsystems beträgt eine Einheit der Messauflösung, also <span class="math inline">\(\epsilon s = 0,01 cm\)</span>, die Garantiefehlergrenze <span class="math inline">\(3 mm\)</span>. Der Größtfehler des Abstands beträgt also <span class="math inline">\(\Delta s = 0,0001 + 0,003 m = 0,0031 m\)</span>.</li>
+<li>Der Standardfehler der Federkonstante <span class="math inline">\(k\)</span> wurde mit <span class="math inline">\(0.3784 \frac{N}{m}\)</span> bestimmt.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="resterampe" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="resterampe"><span class="header-section-number">4.8</span> Resterampe</h2>
 <p>Größtfehler bei Messung mehrerer fehlerbehafteter Größen: Fehlerfortpflanzung<br>
 https://www.uni-ulm.de/fileadmin/website_uni_ulm/nawi.inst.225/teaching/Grundpraktikum/Fehlerrechnung/Einfuehrung_FehlerrechnungHankelPaul.pdf</p>
-<p>die Garantiefehlergrenze des Messgerätes (vom Hersteller gegeben - siehe Bedienungsanleitung) - ein abgeschätzter Anteil, der sich nach der Sorgfalt des Experimentierens, konkreten Bedingungen des Experiments, der Skalenteilung des Messgerätes u.ä. richtet.</p>
+<p>Wiederholung Fehlerstatistik Steigungskoeffizient der linearen Regression</p>
+<ol type="1">
+<li>Legen Sie ein Signifikanzniveau <span class="math inline">\(\alpha\)</span> bzw. ein zweiseitiges Konfidenzniveau <span class="math inline">\(1 - \frac{\alpha}{2}\)</span> fest.</li>
+<li>Bestimmen Sie den Steigungskoeffizienten <span class="math inline">\(\hat{\beta_1}\)</span></li>
+<li>Bestimmen Sie den Standardfehler des Steigungskoeffizienten <span class="math inline">\(SE = \hat{\sigma}_{\hat{\beta_1}}\)</span></li>
+<li>Bestimmen Sie den Wert der t-Verteilung mit n - 2 Freiheitsgraden für das gewählte Konfidenzniveau und einen zweiseitigen Hypothesentest <span class="math inline">\(t_{1-\alpha / 2} ~ (n - 2)\)</span></li>
+<li>Berechnen Sie das Konfidenzintervall <span class="math inline">\(\hat{\beta_1} \pm SE \cdot t_{1-\alpha / 2} ~ (n - 2)\)</span></li>
+</ol>
 <p>Der Größtfehler <span class="math inline">\(\Delta x\)</span> setzt sich zusammen aus dem systematischen Fehler und dem zufälligen Fehler.</p>
 <ul>
 <li>systematische Fehler: Fehler der Messgeräte, der Art der Messung (bspw. Genauigkeit Abstandssenor) –&gt; sollten, wenn sie bekannt sind, korrigiert werden!
@@ -338,23 +1026,41 @@ https://www.uni-ulm.de/fileadmin/website_uni_ulm/nawi.inst.225/teaching/Grundpra
 </ul></li>
 <li>zufällige Fehler: Streuung von Messwerten um Erwartungswert –&gt; sollten quantifiziert werden.</li>
 </ul>
-<p>Hier Gauß’sche Fehlerfortpflanzung und Größtfehler</p>
-<ul>
-<li>der Größtfehler bezieht sich auf einzelne Werte bzw. wird auf alle Werte einer Messreihe einzeln angewandt</li>
-<li>der Größtfehler kann aber auch für eine ganze Messreihe bzw. die lineare Regression angegeben werden.</li>
-</ul>
+<p>Bei der Fehlerabschätzung von Addition aus Fehlerabschätzung und Fehlerstatistik, beispielsweise t-Wert des gewählten Konfidenzniveaus mal Standardfehler einer Messreihe plus minus Fehlerabschätzung</p>
+<p>” - Bei Einfachmessung geht der Garantiefehler des Messgerätes ein, der Ablesefehler des Experimentators, Fehler, die aus Umwelteinflüssen resultieren und gegebenenfalls noch vieles andere. Alle diese Fehler werden so gut es eben geht abgeschätzt, addiert und bilden in ihrer Gesamtheit die sogenannte Messunsicherheit.</p>
+<p>Der gute Herr Hempel schreibt also, 2t würde man üblicherweise nehmen.</p>
+<p><a href="https://users.physics.unc.edu/~deardorf/uncertainty/UNCguide.pdf">Hier (S. 9)</a> steht man würde die Standardunsicherheit überweise im Intervall von ca. 68 % - das ist eben 1t bzw. 1s - angeben. Bei vielfachen von s ist es eigentlich auch egal was man nimmt.</p>
+<p><a href="https://users.physics.unc.edu/~deardorf/uncertainty/UNCguide.pdf">Hier (S. 20)</a> wird ein Trick - das gemeinsame Messen - zur Redzuierung des systematischen Messfehlers genannt (wenn anwendbar.)</p>
+<p>“Die Benennung Standardmeßunsicherheit, kurz Standardunsicherheit [1], wird verwendet, wenn herausgestellt werden soll, daß die Meßunsicherheit durch eine Standardabweichung Standardabweichung* ausgedrückt wird […].” <span class="citation" data-cites="DIN1319-3">(<a href="#ref-DIN1319-3" role="doc-biblioref">Deutsches Institut für Normung 1996, 3</a>)</span></p>
+<p>“Die Standardabweichung ist ein Maß für die Streuung der einzelnen Meßwerte um den Erwartungswert oder der zufälligen Meßabweichungen* um Null.” <span class="citation" data-cites="DIN1319-3">(<a href="#ref-DIN1319-3" role="doc-biblioref">Deutsches Institut für Normung 1996, 5</a>)</span></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-DIN1319-1" class="csl-entry" role="listitem">
+Deutsches Institut für Normung. 1995. <em>Grundlagen der Meßtechnik - Teil 1: Grundbegriffe</em>. DIN Media. <a href="https://doi.org/10.31030/2713411">https://doi.org/10.31030/2713411</a>.
+</div>
+<div id="ref-DIN1319-3" class="csl-entry" role="listitem">
+———. 1996. <em>Grundlagen der Meßtechnik - Teil 3: Auswertung von Messungen einer einzelnen Meßgröße, Meßunsicherheit</em>. DIN Media. <a href="https://doi.org/10.31030/7204542">https://doi.org/10.31030/7204542</a>.
+</div>
+<div id="ref-DIN1319-4" class="csl-entry" role="listitem">
+———. 1999. <em>Grundlagen der Meßtechnik - Teil 4: Auswertung von Messungen Meßunsicherheit</em>. DIN Media. <a href="https://doi.org/10.31030/8036548">https://doi.org/10.31030/8036548</a>.
+</div>
+<div id="ref-Dinter-2011" class="csl-entry" role="listitem">
+Dinter, Ralf. 2011. <span>„Fehlerrechnung für Einsteiger. Eine beispielorientierte Einführung für Studierende der TUHH“</span>. <a href="https://www2.physnet.uni-hamburg.de/TUHH/Versuchsanleitung/Fehlerrechnung.pdf">https://www2.physnet.uni-hamburg.de/TUHH/Versuchsanleitung/Fehlerrechnung.pdf</a>.
+</div>
 <div id="ref-EdenGebhard-2014" class="csl-entry" role="listitem">
-Eden, Klaus, und Hermann Gebhard. 2014. <span>„Dokumentation in der Mess- und Prüftechnik: Messen - Auswerten - Darstellen Protokolle - Berichte - Präsentationen“</span>. <a href="https://doi.org/10.1007/978-3-658-06114-2">https://doi.org/10.1007/978-3-658-06114-2</a>.
+Eden, Klaus, und Hermann Gebhard. 2014. <em>Dokumentation in der Mess- und Prüftechnik: Messen - Auswerten - Darstellen Protokolle - Berichte - Präsentationen</em>. 2. Auflage. <a href="https://doi.org/10.1007/978-3-658-06114-2">https://doi.org/10.1007/978-3-658-06114-2</a>.
+</div>
+<div id="ref-EdenGebhard-2024" class="csl-entry" role="listitem">
+———. 2024. <em>Dokumentation in der Mess- und Prüftechnik: Messen - Auswerten - Darstellen Protokolle - Berichte - Präsentationen</em>. 3. Auflage. <a href="https://doi.org/10.1007/978-3-658-44779-3">https://doi.org/10.1007/978-3-658-44779-3</a>.
 </div>
 <div id="ref-Hempel-2016" class="csl-entry" role="listitem">
 Hempel, Rainer. 2016. <span>„Script zur Einführung in die Grundlagen der Fehlerrechnung“</span>. <a href="https://www.tu-braunschweig.de/index.php?eID=dumpFile&amp;t=f&amp;f=45992&amp;token=b041478add5f7a3e136b69905b72bfa0e192d82b">https://www.tu-braunschweig.de/index.php?eID=dumpFile&amp;t=f&amp;f=45992&amp;token=b041478add5f7a3e136b69905b72bfa0e192d82b</a>.
 </div>
+<div id="ref-HS-Aalen-2016" class="csl-entry" role="listitem">
+Hochschule Aalen. 2016. <span>„Anleitung zur Fehlerrechnung im Physikpraktikum“</span>. <a href="https://www.hs-aalen.de/uploads/mediapool/media/file/13430/F_Fehlerrechnung.pdf">https://www.hs-aalen.de/uploads/mediapool/media/file/13430/F_Fehlerrechnung.pdf</a>.
 </div>
-</section>
-</section>
+</div>
 </section>
 
 </main> <!-- /main -->

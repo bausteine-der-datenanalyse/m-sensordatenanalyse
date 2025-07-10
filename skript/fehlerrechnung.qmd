@@ -1,115 +1,684 @@
 # Fehlerrechnung
-**eventuell noch vor hooke.qmd - dann Einleitungstext ändern.**
-In den vorausgehenden Kapiteln haben wir mit der statistischen Beschreibung der empirischen Streuung von Messdaten einem (nämlich dem kompliziertesten) Teilbereich der Fehlerrechnung eingeführt. Bei der Auswertung von Sensordaten kann jedoch eine Vielzahl von Fehlerarten auftreten und zusammenwirken.
 
-**Siehe Musterbericht WA S. 12-13**
+``` {python}
+#| echo: false
 
-**Notiz: Größtfehler der linearen Regression = Absolutbetrag des größten Residuums. abs(beobachteter Wert - Vorhersage)
+# Module laden
+import numpy as np
+import numpy.polynomial.polynomial as poly
+import pandas as pd
+import matplotlib.pyplot as plt
+import scipy
+import glob
+```
 
-## Fehlerarten und Umgang mit Messfehlern
-Folgende Fehlerarten lassen sich unterscheiden:
+::: {.border layout="[[5, 90, 5], [1]]"}
+
+&nbsp;
+
+"Das Experimentieren ist ein dornenvoller Weg und so ganz sicher ist man sich nie." 
+
+&nbsp;
+
+Wagner, Paul. 2015. "Einführung in die Physik I. PH I - 04 - Die Messgenauigkeit / Fehlerrechnung Teil 1." Universität Wien Physik, [YouTube](https://youtu.be/sF2_1YNiWXI?feature=shared&t=245), Zeitstempel. 04:05
+:::
+
+**to do: Eden-Gebhard-2014 auf -2024 aktualisieren oder entfernen**
+
+Kein Messgerät misst exakt und Messdaten streuen zufällig um ihren wahren Wert. Das Ziel der Fehlerrechnung ist es, die sich daraus ergebende gesamte Messunsicherheit zu quantifizieren.
+
+## Bevor es losgeht
+Das Thema ist jedoch mit einigen Schwierigkeiten verbunden, die den Einstieg und die eigenständige Vertiefung des Themas erschweren.
+
+1. Wiederholte Messungen enthalten eine zufällige Komponente statistischer Unsicherheit. Die statistische Unsicherheit kann immer nur mit einer Vertrauenswahrscheinlichkeit angegeben werden. (Die Berechnung von Konfidenzintervallen haben wir im Kapitel @sec-hooke behandelt.) Dazu gehört im ersten Schritt, das Konfidenzniveau, das gelten soll, festzulegen. Hieraus leiten sich die zu verwendenden Vielfachen der Standardabweichung $s$ bzw. des Korrekturfaktors $t$ ab. Hierbei gibt es je nach Disziplin unterschiedliche Konventionen.
+
+    "In der Physik und der Vermessungstechnik begnügt man sich mit einer statistischen Sicherheit von 68,3% und setzt deshalb t = 1 [...] (In der Industrie wird t = 2, in der Biologie t = 3 bevorzugt.)" [@HS-Aalen-2016 S. 4]
+
+   In der ingenieurswissenschaftlichen Literatur wird dieser Schritt nicht immer explizit gemacht (weil es üblich ist, $1 s$ bzw. $1 t$ zu verwenden).
+
+2. Häufig wird der Begriff des Fehlers verwendet. Dabei handelt es sich jedoch nicht um einen genormten Begriff. Die einschlägige DIN 1319 umfasst dagegen eine Vielzahl aufeinander bezogener Begriffsdefinitionen, Anmerkungen und Bemerkungen.  
+Die DIN 1319 bzw. ihre Teile sind zuletzt zwischen 1995 und 2005 aktualisiert worden und in der über die Bibliothekssysteme bereitgestellten Form nicht sonderlich gut zu lesen.
+
+3. Die Notation ist komplex: neben dem lateinischen und griechischen Alphabet wird auch das kyrillische Alphabet verwendet. Die Notation wird außerdem uneinheitlich gehandhabt. Während in der DIN 1319 Fehler (genauer Messabweichungen bzw. Messunsicherheit) mit $e$ notiert werden, sind in der Literatur $\epsilon$ (epsilon) und $\Delta$ (Delta) gebräuchlich, wobei letzeres auch für den Größtfehler verwendet wird.
+
+4. Schließlich besteht bei der Auswahl der geeigneten Methode der Fehlerrechnung ein Ermessensraum. **Für den mir noch keine Erwägungsgründe bekannt sind**. (@Hempel-2016, S. 2)
+
+Das Lernziel dieses Kapitels besteht darin, die folgende Grafik erklären zu können.
 
 ::: {.border}
+![Messergebnis nach DIN 1319](00-bilder/fehlerarten-nach-DIN-1319.png)
 
-![Fehlerquellen](00-bilder/hempel-2016-fehlerrechnung.png)
+[@DIN1319-1, S. 30]
+:::
 
-**zeitabhängige Fehler**
+&nbsp;
 
-  - Drift: Änderung der Ausgangsgröße eines Messgeräts bei konstanter Eingangsgröße, z. B. durch Alterung der Bauteile, Änderungen der Umgebungstemperatur oder Luftfeuchtigkeit.
-  - dynamische Fehler: zeitliche Veränderung der Messgröße, z. B. der Körpergröße im Tagesverlauf (langsam) oder der Partikelanzahl in einem Luftstrom (schnell), die von (digitalen) Messgeräten nur in einem bestimmten Intervall ([Quantifizierungsfehler](https://de.wikipedia.org/wiki/Quantisierungsabweichung)) und / oder mit einer Verzögerung (z. B. [Einschwingzeit](https://de.wikipedia.org/wiki/Einschwingzeit)) gemessen werden können. 
+Falls Sie die Erläuterungen zur Grafik aus der DIN nachlesen möchten, finden Sie diese in dem folgenden Aufklapper. **eventuell ans Ende schieben**
 
-**zeitunabhängige Fehler**
+::: {.callout-note collapse="true"}
+## Grafikbeschreibung aus DIN 1319-1
+Folgender Text erläutert in der DIN 1319-1 die obenstehende Grafik. In Klammern angegebene Nummern verweisen auf Begriffsdefinitionen, die die jeweilige Nummer tragen.
 
-  - systematische Fehler: unter identischen Bedingungen konstante, d. h. nach Betrag und Vorzeichen gleiche,  Verzerrung der Messergebnisse durch Fehler der Messgeräte (Genauigkeit des Messgeräts, bspw. in Abhängigkeit von der Temperatur, fehlerhafte Kalibrierung) oder die Art der Messung (bspw. Ablese- und Skalenfehler bei Volumenbestimmung mittels Eimer mit Literteilung)
-  - zufällige Fehler: statistische Streuung der Messwerte um ihren Erwartungswert (z. B. Stichprobenfehler)
-  - grobe Fehler: Verfälschen der Messergebnisse durch falschen Versuchsaufbau, ungeeignete Messgeräte, falsches Ablesen, Unachtsamkeit (z. B. Mitwiegen des Gefäßes)
+:::: {.border}
+"Unter Wiederholbedingungen (2.7) aufgenomnnene Meßwerte (3.2) einer Meßgröße (1.1) gruppieren sich in Form einer Häufigkeitsverteilung um den Erwartungswert (3.3) $\mu$, der zu dieser Verteilung gehört. Im Bild ist sie als etwa normale Häufigkeitsdichtefunktion skizziert. Wird der (nicht eingezeichnete) arithmetische Mittelwert (Anmerkung 2 zu 3.4) von Meßwerten gebildet, so Ist dessen Abweichung vom Erwartungswert um so weniger wahrscheinlich, je größer die Anzahl der Meßwerte ist. Der Erwartungswert weicht vom unbekannten wahren Wert (1.3) $x_w$ um die systematische Meßabweichung (3.5.2) $e_s$ ab.
 
-@Hempel-2016
-@EdenGebhard-2014, S. 20
+Im Bild eingezeichnet Ist ein einzelner Meßwert $x$. Er verfehlt den wahren Wert um die Meßabweichung (3.5), die sich additiv aus
+systematischer Meßabweichung $e_s$ und zufälliger Meßabweichung (3.5.1) $e_r$ zusammensetzt.
+
+Die systematische Meßabweichung $e_s$ setzt sich aus einem bekannten ($e_{s,b}$) und einem unbekannt bleibenden Anteil ($e_{s,u}$) zusammen (Anmerkung 1 zu 3.2). Zur bekannten systematischen Meßabweichung $e_{s,b}$ trägt z. B. auch die bei einer früheren Kalibrierung (4.10) des benutzten Meßgerätes (4.1) festgestellte systematische Meßabweichung des Meßgerätes (5.11) bei. Der bekannte Anteil der systematischen Meßabweichung kann mit umgekehrtem Vorzeichen als Korrektion (3.4.3) zum Meßwert $x$ addiert werden. Damit findet man den berichtigten Meßwert (Anmerkung 2 zu 3.2) $x_E$. Er weicht vom wahren Wert nur noch um die Summe aus dem unbekannt bleibenden Anteil $e_{s,u}$ der systematischen Meßabweichung und der nicht genau feststellbaren zufälligen Meßabweichung $e_r$ ab.
+
+Die Darstellung bleibt gültig, wenn der Meßwert $x$ durch das unberichtigte Meßergebnis (3.4.1 ), der berichtigte Meßwert durch das Meßergebnis (3.4) und die Häufigkeitsdichtefunktion der Meßwerte durch die der unberichtigten Meßergebnisse ersetzt wird."
+
+[@DIN1319-1, S. 30]
+::::
+:::
+
+## DIN 1319
+Die DIN 1319 normt Grundbegriffe und Verfahren der Messtechnik.
+
+  - Teil 1 DIN 1319-1 und Teil 2 DIN 1319-2 definieren Grundbegriffe der Messtechnik und für Messmittel.
+  - Teil 3 DIN 1319-3 befasst sich mit der Auswertung von Messungen einer *einzelnen* Messgröße und deren Messunsicherheit. DIN 1319-3 wird auch angewendet, wenn die Meßgröße mittels einer gegebenen Funktion aus anderen Größen berechnet wird (beispielsweise die Geschwindigkeit $v$ als Quotient der Strecke $s$ und der Zeit $t$).
+  - Teil 4 DIN 1319-4 befasst sich mit der Angabe von Messergebnissen und deren Messunsicherheit, wenn die Messgrößen aus anderen Größen berechnet werden, z. B. durch eine Ausgleichsrechung.
+
+Die Norm definiert eine ganze Reihe von aufeinander bezogenen Begriffen. Der in der Literatur gebräuchliche Begriff Fehler bzw. Messfehler ist allerdings kein genormter Begriff.
+
+::: {#imp-DIN1319 .callout-important}
+## Grundbegriffe nach DIN 1319
+
+**Messabweichung**: "Abweichung eines aus Messungen gewonnenen und der Meßgröße [...] zugeordneten Wertes vom wahren Wert [...]. Ist $m$ der der Meßgröße zugeordnete Wert und $x_w$ der wahre Wert, so ist die Meßabweichung des zugeordneten Wertes $m - x_w$ [...]." [@DIN1319-1, S. 12]
+
+  - Die Messabweichung des *unberichtigten Messergebnisses* setzt sich additiv aus der zufälligen Messabweichung $e_r$ und der systematischen Messabweichung $e_s$ zusammen.
+ - Die systematische Meßabweichung $e_s$ setzt sich aus einem bekannten $e_{s,b}$ und einem unbekannten Anteil $e_{s,u}$ zusammen.
+ - Die systematische Messabweichung ist die Differenz aus Erwartungswert $\mu$ und wahrem Wert $x_w$: $e_s = \mu - x_w$
+ - Die bekannte, systematische Messabweichung $e_{s,b}$ wird mit entgegengesetzten Vorzeichen $- e_{s,b}$ *Korrektion* genannt.
+
+Das **Messergebnis** $\bar{x}_E$ ist das um die bekannte, systematische Messabweichung $e_{s,b}$ berichtigte arithmetische Mittel einer Messreihe $\bar{x}$, das als Schätzer des Erwartungswerts $\mu$ verwendet wird.  
+$\bar{x}_E = \bar{x} - e_{s,b}$
+
+[@DIN1319-1, S. 11-13]
+
+**Messunsicherheit**: "Kennwert, der aus Messungen [...] gewonnen wird und zusammen mit dem Meßergebnis [...] zur Kennzeichnung eines Wertebereis für den wahren Wert der Meßgröße [...] dient." [@DIN1319-1, S. 14]  
+"Die Meßunsicherheit ist ein Maß für die Genauigkeit der Messung und kennzeichnet die Streuung oder den Bereich der Werte, die der Meßgröße vernünftigerweise als *Schätzwerte* [... zugewiesen] werden können [...]. Sie kann auch als ein Maß für die Unkenntnis der Meßgröße aufgefasst werden [...]." [@DIN1319-4, S. 4]
+
+  - **Standardmessunsicherheit** oder kurz Standardunsicherheit wird verwendet, wenn die Messunsicherheit durch eine Standardabweichung ausgedrückt wird. [@DIN1319-3, S. 3] So auch in der DIN 1319: "Die Meßunsicherheit wird in dieser Norm als Standardmeßunsicherheit durch eine Standardabweichung (Quadratwurzel einer Varianz*) oder quadriert durch eine Varianz ausgedrückt [...]." [@DIN1319-4, S. 4]
+
+Das **vollständige Messergebnis** ist das Messergebnis mit quantitativen Angaben zur Messunsicherheit $u$. $x = \bar{x}_E \pm u$ [@DIN1319-1, S. 16]
+:::
+
+Der in der Fehlerrechnung gebräuchliche Begriff des (Mess-)Fehlers meint also im engeren Sinn die Messabweichung nach DIN 1319. Da der wahre Wert einer gemessenen Größe in der Regel aber unbekannt ist, kann nur die Messunsicherheit nach DIN 1319 angegeben werden. Diese ist somit im weiteren Sinn mit dem Begriff (Mess-)Fehler gemeint.
+
+In diesem Kapitel werden die in der Fehlerrechnung gebräuchlichen Begriffe aufgegriffen, um die Verbindung zu den genormten Begriffen herzustellen. Im Allgemeinen werden jedoch die genormten Begriffe verwendet.
+
+Wie das Messergebnis angegeben werden kann, behandeln wir in den folgenden Abschnitten.
+
+## Absoluter und relativer Fehler
+In der Fehlerrechnung werden absolute und relative Fehlerangaben unterschieden. Hier sollte besser von absoluter und relativer Messabweichung bzw. genauer - da der wahre Wert in der Regel unbekannt ist und die Messabweichung durch Schätzer angenähert werden muss - von absoluter und relativer Messunsicherheit gesprochen werden.
+
+  - Die **absolute Messunsicherheit** $u$ wird in der Einheit der gemessenen Größe angegebenen: $u(m) = 0,2 kg$. Das vollständige Messergebnis lautet: $m = 5,0 \pm 0,2 kg$ oder  $m = 5,0 kg \pm 0,2 kg$.
+  
+  - Die **relative Messunsicherheit** $\frac{u(x)}{ | \bar{x}_E | }$ wird entweder als Produkt in der Form  $m \cdot (1 \pm \frac{u(x)}{\bar{x}_E})$ angegeben. Bspw.:
+
+      $m = 5,0 kg \cdot (1 \pm \frac{0,2 kg}{5,0 kg}) = 5,0 kg \cdot (1 \pm 0,04)$
+  
+    Alternativ wird die relative Messunsicherheit in Prozent $\frac{u(x)}{\bar{x}_E} \cdot 100 ~ \%$ angegeben: $m = 5,0 kg \pm 4 ~ \%$.
+
+::: {#wrn-notation .callout-warning}
+## (Alternative) Notationen
+
+In der DIN 1319 werden Messabweichungen mit $e$, die Messunsicherheit mit $u$ notiert. In der Literatur zur Fehlerrechnung wird zumeist der Begriff des (Mess-)Fehlers verwendet. Die Notation ist allerdings uneinheitlich.
+
+  - Der absolute Fehler wird häufig mit $\epsilon x$ (epsilon x) notiert. Üblich ist aber auch die Notation mit $\Delta x$ (Delta) (beispielsweise [@HS-Aalen-2016; @Dinter-2011]). $\Delta$ wird aber ebenfalls für den Größtfehler verwendet. 
+
+  - Der relative Fehler wird mit $\delta x$ (delta x) notiert, bspw: $\delta x = 4 \%$. Die DIN 1319 definiert keine Notation für die relative Messunsicherheit.
+
+[@DIN1319-1, S. 9-10, 16]
+:::
+
+## Signifikante Stellen
+Bei der Angabe des Messergebnisses ist die Anzahl der signifikanten oder zuverlässig bekannten Stellen zu beachten.
+
+::: {#imp-signif .callout-important}
+## signifikante Stellen
+
+"Jede zuverlässig bekannte Stelle mit Ausnahme der Nullen, die die Position des Dezimalkommas angeben, wird signifikante Stelle genannt." [@EdenGebhard-2024, S. 24]
+
+"Gerundete numerische Unsicherheitwerte sind mit zwei (oder bei Bedarf mit drei) signifikanten Ziffern anzugeben. **Sie sind aufzurunden**. Das Meßergebnis ist an derselben Stelle wie die zugehörige Unsicherheit zu runden, z.B. y = 245,5716 mm auf y = 245,57 mm, wenn u(y) = 0,4528 mm auf u(y) = 0,46 mm aufgerundet wird." [@DIN1319-3, S. 6, eigene Hervorhebung]
+:::
+
+Beispielsweise liegen die im vorherigen Kapitel verwendeten Abstandsmessung im Format $153,29$ vor, die Messwerte weisen also 5 signifikante Stellen auf. Für den arithmetischen Mittelwert einer Messreihe $153,008889$ gelten deshalb ebenfalls 5 signifikante Stellen. Es wird an der ersten nicht mehr signifikanten Stelle gerundet, sodass der arithmetische Mittelwert $153,01$ angegeben wird.
+
+Die Anzahl signifikanter Stellen ist allerdings nicht immer zuverlässig zu bestimmen. Es gilt:
+
+1. Alle Ziffern ungleich Null sind immer signifikant.
+2. Führende Nullen sind niemals signifikante Stellen. Beispielsweise hat 0012 km 2 signifikante Stellen. 0,001 mm hat eine signifikante Stelle.
+3. Nullen am Ende einer Zahl sind signifikant, wenn sie sich rechts vom Dezimaltrennzeichen befinden, bspw: 12,100 km hat 5 signifikante Stellen.
+4. Nullen, die sich am Ende einer Zahl ohne Komma befinden, können signifikant sein. 1200 m kann zwei oder vier signifikante Stellen haben.
+
+::: {.callout-tip}
+## signifikante Stellen und wissenschaftliches Runden
+
+{{< video https://www.youtube.com/watch?v=s0gPyypiGOs >}}
+
+Runden und signifikante Stellen (Vorkurs Mathematik) von Edmund Weitz ist abrufbar auf [YouTube](https://www.youtube.com/watch?v=q2iZDtotiM0). 2019
+:::
+
+## Fehlerarten
+Bei Messungen können unterschiedliche Arten von Messabweichungen auftreten. Am gebräuchlichsten ist die Unterteilung in grobe, systematische und zufällige *Fehler* (Nach DIN 1319 sollte besser von systematischen und zufälligen Messabweichungen gesprochen werden).
+
+  - Systematische Fehler: unter identischen Bedingungen konstante, d. h. nach Betrag und Vorzeichen gleiche, Verzerrung der Messergebnisse durch Abweichungen der Messgeräte. Beispielsweise:
+  
+    - in Abhängigkeit von der Temperatur
+    - fehlerhafte Kalibrierung
+    - Alterung der Bauteile
+    - die Art der Messung, z. B. Ablese- und Skalenfehler, Messintervall bei digitalen Messgeräten ([Quantifizierungsfehler](https://de.wikipedia.org/wiki/Quantisierungsabweichung))
+
+  - Zufällige Fehler: statistische Streuung der Messwerte um ihren Erwartungswert. Beispielsweise:
+    
+    - Stichprobenfehler
+    - Ablesefehler, z. B. Volumenbestimmung mit Eimer in Literteilung
+  
+  - Grobe Fehler: Verfälschen der Messergebnisse. Beispielsweise durch:
+  
+    - falschen Versuchsaufbau
+    - ungeeignete Messgeräte
+    - falsches Ablesen, z. B. Missachtung [Einschwingzeit](https://de.wikipedia.org/wiki/Einschwingzeit)), Unachtsamkeit (z. B. Mitwiegen des Gefäßes)
+
+[@Hempel-2016, S. 1-2; @EdenGebhard-2024, S. 17-18]
+
+Bestimmte Abweichungen können mehreren Fehlerarten zugehörig sein, z. B. der Ablesefehler:
+
+  - unaufmerksames Ablesen und Flüchtigkeitsfehler sind grobe Fehler,
+  - winkel- und positionsabhängige Fehler wie der [Parallaxenfehler](https://de.wikipedia.org/wiki/Parallaxenfehler) sind systematische Abweichungen,
+  - Fehler infolge des begrenzten Auflösungsvermögens des menschlichen Auges sind zufällige Abweichungen.
+
+::: {#tip-umgangmitfehlern .callout-tip}
+## Umgang mit verschiedenen Arten von Messabweichungen
+
+1. Grobe Fehler: betroffene Werte streichen und Messung wiederholen.
+
+2. Systematische Messabweichung: Systematische Messabweichungen werden, wenn sie bekannt sind, korrigiert (bspw. temperaturabhängige Genauigkeit des Messgeräts) oder quantifiziert (bspw. Genauigkeit des Ablesens).
+
+3. Zufällige Messabweichung: Die statistische Streuung von Messwerten um den Erwartungswert sollte quantifiziert werden.
+
+Einige systematische und zufällige Messabweichungen können nur mit hohem Aufwand reduziert werden (genauere Messgeräte, größere Anzahl von Messvorgängen). Der Aufwand muss gegen den Gewinn an Genauigkeit abgewogen werden: Ist das Messergebnis mit dem angegebenen Fehler akzeptabel?
+
+(@Hempel-2016, S. 2)
+
+:::
+
+## Größtfehler
+Systematische Messabweichungen bewirken eine einseitige Verzerrung des Messergebnisses, sodass der Messwert immer zu hoch oder zu niedrig ausfällt. Zufällige Messabweichungen führen unkontrolliert mal zum Über-, mal zum Unterschätzen des Messwerts.
+
+Als Größtfehler wird der ungünstigste Fall bezeichnet, bei dem sich alle Messabweichungen jeweils um ihren maximalen (oder minimalen) Wert gegenseitig verstärken, sodass der Messwert die maximal mögliche Abweichung vom (unbekannten) tatsächlichen Wert aufweist. Der Größtfehler ist eine vereinfachte Form der Ferhlerabschätzung und überschätzt die wahrscheinliche Messunsicherheit.
+
+Der **Größtfehler** wird als $\Delta x$ (Delta x) notiert und ermittelt, indem man die Beträge der einzelnen Messabweichungen addiert.
+
+$$
+\Delta x = |\epsilon x_{systematisch}| + |\epsilon x_{zufällig}|
+$$
+
+Da Messungen bei groben Fehlern als ungültig anzusehen sind, entfällt der Anteil grober Fehler $|\epsilon x_{grob}|$.
+
+(@EdenGebhard-2024, S. 35-36) **to do: Quelle am besten ersetzen**
+
+Werden mehrere Größen betrachtet, so addieren sich die Größtfehler der beteiligten Größen zum Größtfehler des Messergebnisses. Die Berechnung wird im nächsten Abschnitt behandelt.
+
+## Methoden zur Fehlerrechnung
+Das Ziel der Fehlerrechnung ist es, Unsicherheitsintervalle für die gemessene Größe zu ermitteln. Dafür stehen verschiedene Methode zur Verfügung:
+
+1. Fehlerabschätzung
+2. Fehlerstatistik
+3. Fehlerfortpflanzung
+
+**Bei der Auswahl der Methode besteht ein Ermessensspielraum. (@Hempel-2016, S. 2) Ergänzen: Erwägungsgründe.**
+
+### 1. Fehlerabschätzung
+Die Fehlerabschätzung wird verwendet, wenn
+
+  - **eine Größe**
+  - **nur einmal** gemessen wird. 
+
+Da der wahre Wert eine Messgröße unbekannt ist, bezweckt die Fehlerabschätzung, die maximal mögliche Abweichung des Messwerts vom tatsächlichen Wert, also den **Größtfehler**, zu bestimmen. Bei einer einmaligen Messung gibt es keine statistische Komponente. In die Fehlerabschätzung eines einzelnen Messwerts gehen deshalb ein:
+
+  - die Garantiefehlergrenze des Messgerätes (das vom Hersteller auf dem Gerät oder in der Bedienungsanleitung angegeben ist - siehe Beispiel), also die bekannte systematische Messabweichung $e_{s,b}$, und 
+  - ein abgeschätzter Anteil, der sich nach den konkreten Bedingungen des Experiments, etwa der Skalenteilung des Messgerätes oder den Ablesebedingungen richtet. Dieser Anteil kann also aus einem systematischen Anteil (bspw. eine analoge Skala konnte nur aus einem Winkel abgelesen werden) und einem zufälligen Anteil (bspw. Ablesegenauigkeit des Messgeräts) bestehen.
+
+Der Größtfehler $\Delta x$ ergibt sich aus der Addition der Beträge der bekannten systematischen Messabweichung und der geschätzten zufälligen Fehler: 
+$\Delta x = |e(x)_{s,b}| + |e(x)_{r}|$.
+
+(@Hempel-2016, S. 3)
+
+#### Aufgabe Temperaturmessung
+Mit einem digitalen Thermometer und einem thermoelektrischen Element vom Typ K wurde die Temperatur $T = 112,1 ~ °C$ gemessen. Welche systematischen und zufälligen Messabweichungen sind bekannt und können angegeben werden (siehe Beispiel)? Es soll wissenschaftlich gerundet werden.
+
+::: {#nte-thermometer .callout-note collapse="true" layout-ncol=2}
+## Garantiefehlergrenze
+![Thermometer](/skript/00-bilder/thermometer.jpg)
+
+![Spezifikationen](/skript/00-bilder/thermometerspecifications.jpg)
+:::
+
+::: {#tip-skalengenauigkeit .callout-tip}
+## Halber oder ganzer Skalenstrich?
+
+Messgeräte mit digitaler Anzeige machen es leicht: Die Ablesegenauigkeit beträgt eine Skaleneinheit. Bei Messgeräten mit analoger Anzeige ist es Ermessenssache, welche Messgenauigkeit Sie angeben können bzw. möchten. 
+
+Sind Sie sich absolut sicher, dass Sie zwischen "genau auf dem Strich" und "zwischen zwei Strichen" unterscheiden können, beträgt Ihr Ablesefehler einen halben Skalenstrich. Sind Sie sich nicht sicher, beträgt Ihr Ablesefehler einen ganzen Skalenstrich.
+
+(Siehe: [Fehlerrechnung leicht gemacht, FSU Jena](https://www.physik.uni-jena.de/pafmedia/9072/fehlerrechnungleichtgemachtpdf.pdf))
 
 :::
 
 &nbsp;
 
-Das ist auch eine gute Quelle:
-https://www.ipc.kit.edu/download/Messwerte_und_ihre_Fehler_April2016.pdf
+::: {#tip-thermometer .callout-tip collapse="true"}
+## Musterlösung
 
-Auch andere Einteilungen sind möglich. Beispielsweise können zeitabhängige Fehler auch den systematischen Fehlern zugeordnet werden. Für den Umgang mit unterschiedlichen Fehlern bietet sich die Unterteilung in grobe, systematische und zufällige Fehler an.
+**systematische Messabweichung**
 
-::: {.callout-important}
-## Umgang mit verschiedenen Fehlerarten
+Die absolute Messabweichung beträgt $u(T) = 0,3 ~ °C$.
+Die relative Messabweichung beträgt $0,05 ~ \%$. Das bedeutet:
+$$
+\frac{u(T)}{112,1 °C} \cdot 100 ~ \% = 0,05 ~ \%
+$$
+$$
+\frac{u(T)}{112,1 °C} \cdot 100 = 0,05
+$$
+$$
+u(T) = 0,05 \cdot \frac{112,1 °C}{100}
+$$
+$$
+u(T) = 0,05605 °C 
+$$
 
-1. Grobe Fehler: betroffene Werte streichen und Messung wiederholen.
+Die bekannte systematische Messabweichung $e(T)_{s,b} = 0,3 + 0,05605 = 0,35605 ~ °C$.
 
-2. Systematische Fehler: Systematische Fehler sollten, wenn sie bekannt sind, korrigiert (bspw. temperaturabhängige Genauigkeit des Messgeräts) oder quantifiziert (bspw. Genauigkeit des Ablesens) werden.
+**zufällige Messabweichung**
 
-3. Zufällige Fehler: Die statistische Streuung von Messwerten um den Erwartungswert sollte quantifiziert werden.
+Die zufällige Messabweichung beträgt eine Skaleneinheit, also $e(T)_{r} = 0,1 ~ °C$. 
 
+**Größtfehler**
+
+Der Größtfehler beträgt:
+$$
+\Delta T = |e(T)_{s,b}| + |e(T)_{r}|
+$$
+
+Die Messunsicherheit ist aufzurunden:
+$$
+\Delta T = |0,35605 °C| + |0,1 ~ °C| = 0,45605 ~ °C \approx 0,5 °C
+$$
+
+Das vollständige Messergebnis lautet also $T = 112,1 \pm 0,5 ~ °C$.
 :::
 
-## Methoden zur Fehlerabschätzung
-Das Ziel der Fehlerabschätzung ist es, Unsicherheitsintervalle für die gemessene Größe zu ermitteln. Dafür stehen verschiedene Methode zur Verfügung:
-
-1. Fehlerabschätzung
-2. Fehlerstatistik
-3. Lineare Fehlerfortpflanzung
-4. Gauß'sche Fehlerfortpflanzung
-
-**Nach DIN soundso soll man nicht mehr von Fehlern, sondern von Messabweichung sprechen. Aber es sind Fehler.**
-Größtfehler lassen wir erst einmal raus.
-
-### Fehlerabschätzung
-Die Fehlerabschätzung wird verwendet, wenn **eine Größe nur einmal gemessen** wird. In die Fehlerabschätzung eines einzelnen Messwerts gehen ein:
-
-  - die Garantiefehlergrenze des Messgerätes (das vom Hersteller auf dem Gerät oder in der Bedienungsanleitung angegeben ist) und 
-  - ein abgeschätzter Anteil, der sich nach den konkreten Bedingungen des Experiments, etwa der Skalenteilung des Messgerätes oder den Ablesebedingungen (bspw. eine analoge Skala konnte nur aus einem Winkel abgelesen werden) richtet.
-
-Die Fehlerabschätzung versucht nicht, die Ungenauigkeit der Messung, also die Abweichung des Messwerts vom wahren Wert der gemessenen Größe (der unbekannt ist), zu quantifizieren. Vielmehr geht es darum, die maximal mögliche Abweichung des Messwerts vom tatsächlichen Wert zu bestimmen, den **Größtfehler** $\Delta x$ (Delta x). Deshalb werden die Beträge der einzelnen Fehler addiert.
-
 #### Beispiel Messbedingungen
-Die konkreten Bedingungen eines Messvorgangs können sehr unterschiedlich sein. Dies wird anhand von zwei Messvorgängen demonstriert.
+Was ist mit den konkreten Bedingungen eines Messvorgangs gemeint? Das soll mit zwei einfachen Messvorgängen demonstriert werden.
 
-**Hier können Sie mitmachen!** Sie benötigen:
+**Hier können Sie mitmachen!**
+
+Sie benötigen:
 
   - ein geeignetes Messinstrument, z. B. ein Lineal, und
   - eine Münze (idealerweise 1-Euro-Münze).
 
-Im ersten Messvorgang soll der Durchmesser der 1-Euro-Münze bestimmt werden. Im zweiten Messvorgang bestimmen Sie die Länge Ihres Daumens. ([Der Daumen besteht anatomisch aus nur 2 Fingergliedknochen](https://de.wikipedia.org/wiki/Daumen)
+Im ersten Messvorgang soll der Durchmesser der 1-Euro-Münze bestimmt werden. 
 
-**Erster Messvorgang: Münze**
+::: {#nte-münze .callout-note collapse="true"}
+## Erster Messvorgang Münze
 
-Die Messung wird mit einem [Messschieber mit Nonius](https://de.wikipedia.org/wiki/Nonius) 0,05 nach DIN 862 durchgeführt. Die DIN 862 normiert Fehlergrenzen von Messschiebern. Die Fehlergrenze ist abhängig von der Skalengenauigkeit des Messschiebers sowie von der gemessenen Länge und ist aus einer Tabelle abzulesen. 
+Die Messung wird mit einem [Messschieber mit Nonius](https://de.wikipedia.org/wiki/Nonius) 0,05 nach DIN 862 durchgeführt (DIN862 wurde 2011 durch DIN EN ISO 13385-1 ersetzt, in der der Begriff der Abweichung verwendet wird.). Die DIN 862 normiert symmetrische Fehlergrenzen von Messschiebern. Die Fehlergrenze ist abhängig von der Skalengenauigkeit des Messschiebers sowie von der gemessenen Länge und ist aus einer Tabelle abzulesen. 
 
-Messergebnis: $x = 23,25 mm$
+Messwert: $x = 23,25 mm$
 
-  - Die Skaleneinteilung ist 0,05 mm, der Ablesefehler beträgt also 0,025 mm.
-  - Fehlergrenze nach DIN 862 beträgt 50 $\mu m$  oder 0,05 mm.
+  - Die Skaleneinteilung ist 0,05 mm, die zufällige Ableseabweichung $e_r$ beträgt also $\pm 0,025 mm$.
+  - Die DIN 862 normiert Fehlergrenzen, die abhängig von der gemessenen Länge zunehmen, mindestens aber 50 $\mu m$ oder 0,05 mm betragen. Für den Messwert 23,25 mm gilt somit als bekannte systematische Messabweichung $e_{s,b} = \pm 0,05 mm$.
 
-In Summe ergibt sich ein Größtfehler $\Delta x = 0,025 mm + 0,05 mm = 0,075 mm$.
+Aus der Summe der Beträge ergibt sich der Größtfehler: $\Delta x = |0,05| mm + |0,025| mm = 0,075 mm \approx 0,08 mm$.
 
-Das Messergebnis und das Fehlerintervall betragen also: $23,25 ± 0.075 mm$ 
+Das vollständige Messergebnis, bestehend aus dem Messwert und der auf die Anzahl signifikanter Stellen gerundeten Messunsicherheit lautet also: $23,25 ± 0,08 mm$. Der relative Größtfehler beträgt: $23,25 mm ± 0,34\%$.
 
-Bestimmen Sie mit Hilfe eines Lineals .) (Wo beginnt der Daumen? Wo endet die weiche Fingerkuppe \[oder zählt der Nagel?\])
+:::
 
-Ablesung auf Schieblehre mit Nonius: 64,7 mm - Genauigkeit der Skala ist 0.05 mm - d. h. Ablesefehler ist 0.025 mm
+Im zweiten Messvorgang soll die Länge des Daumens bestimmt werden. ([Der Daumen besteht anatomisch aus nur 2 Fingergliedknochen](https://de.wikipedia.org/wiki/Daumen))
 
-Der Größtfehler quantifiziert den ungünstigsten Fall, bei dem sich alle möglichen Fehlerquellen addieren.
+::: {#nte-daumen .callout-note collapse="true"}
+## Zweiter Messvorgang Daumen
+
+Die Messung wird erneut mit dem Messschieber durchgeführt.
+
+Messwert: $x = 64,7 mm$
+
+  - Die Skaleneinteilung ist 0,05 mm, der zufällige Ablesefehler beträgt also $\pm 0,025 mm$.
+  - Die von der DIN 862 für gemessene Längen zwischen 50 und 300 mm normierte Fehlergrenze beträgt 50 $\mu m$ oder 0,05 mm. Für den Messwert 64,7 mm gilt somit die Fehlergrenze $\pm  0,05 mm$.
+  - zusätzlich wird ein symmetrischer Fehler von 3 mm veranschlagt, da
+    - das Messgerät nicht gerade angesetzt,
+    - die Daumenwurzel nicht exakt lokalisiert und 
+    - die elastische Fingerkuppe nicht fixiert werden konnte.
+
+Aus der Summe der Beträge ergibt sich der Größtfehler $\Delta x = |0,025| mm + |0,05| mm + |3| mm = 3,075 mm \approx 3,1 mm$.
+
+Das Messergebnis, bestehend aus dem Messwert und dem Fehlerintervall lautet also: $64,7 ± 3,1 mm$. Der relative Größtfehler beträgt: $64,7 mm ± 4,79 \%$.
+:::
+
+### 2. Fehlerstatistik
+Die Fehlerstatistik wird verwendet, wenn 
+
+  - **eine Größe**
+  - **mehrfach gemessen**
+  
+wird.
+
+Die Fehlerstatistik ist nur dann als zuverlässig anzusehen, wenn die Messabweichung zufällig ist, die Messwerte also betragsmäßig und mit wechselndem Vorzeichen streuen. Dann ist die Messabweichung in der ermittelten Standardabweichung enthalten. Liegt jedoch eine bekannte, systematische Messabweichung vor, müssen die Messwerte entsprechend korrigiert werden.
+
+Der Fehlerstatistik haben wir in vorausgehenden Kapiteln mit der statistischen Beschreibung der empirischen Streuung des Mittelwerts vorgegriffen. Zur Wiederholung:
+
+1. Legen Sie ein Signifikanzniveau $\alpha$ bzw. ein zweiseitiges Konfidenzniveau $1 - \frac{\alpha}{2}$ fest.
+2. Bestimmen Sie den Stichprobenmittelwert $\bar{x}$.
+3. Bestimmen Sie die Stichprobenstandardabweichung $s$, die Stichprobengröße $N$ und den Standardfehler $\frac{s}{\sqrt{N}}$.
+4. Bestimmen Sie die z- oder t-Werte der Normal- bzw. t-Verteilung für das gewählte Konfidenzniveau - für einen zweiseitigen Hypothesentest $\frac{\alpha}{2}$ und $1 - \frac{\alpha}{2}$
+5. Berechnen Sie das Konfidenzintervall $\bar{x} \pm t_{\alpha / 2} ~ \frac{s}{\sqrt{n}}$.
+
+Dieses Konfidenzintervall sagt für eine gewählte Wahrscheinlichkeit aus, in welchem Bereich der Mittelwert einer erneut durchgeführten Messreihe oder der *wahre Wert* liegen wird.
+
+Dagegen gibt die Standardabweichung $s$ Auskunft darüber, in welchem Bereich ein einzelner Messwert liegen wird. Die Sicherheit dieser Aussage kann durch Ausweitung des Konfidenzintervalls erhöht werden (bspw. $2 \cdot s$). Auch hier ist der t-Wert als Korrekturfaktor für kleine Stichproben zu verwenden.
+
+**Wohin?!**
+"u* kennzeichnet die halbe Weite des Vertrauensbereichs zu festgelegtem Vertrauensniveau. [...] Es ist üblich, das Vertrauensniveau ($1 - \alpha$) in Prozent anzugeben, wobei meist $\alpha = 0,05$ (Vertrauensniveau: 95 %) benutzt wird." [@DIN1319-1, S. 17]
+
+::: {.callout-warning}
+**Problem, das ich nicht verstehe:** In der Fehlerrrechnung scheint es üblich zu sein, 1s als Fehler des Mittelwerts einer Größe zu nehmen.
+
+"Die Berechnung der Standardabweichung s führt zu einem Zahlenwert, der die
+Größe der Abweichung beschreibt, mit einer Einheit, welche mit der Einheit des
+Messwertes übereinstimmt. Hierbei handelt es sich um den sogenannten absoluten
+Fehler εx ." (@EdenGebhard-2014, S. 25 **to do: aktualisieren**)
+
+--> Das Maß für Mittelwerte ist aber der Standardfehler $s / \sqrt N$
+
+  - Vergleiche Beispiel 2.4 und Beispiel 2.5 (@EdenGebhard-2014, S. 25 - 26), in denen mal der Standardfehler, mal die Standardabweichung verwendet wird.
+
+--> Für kleine N muss ein Korrekturfaktor (t-Wert) verwendet werden, wenn der gleiche Anteil an Werten innerhalb dieses Intervalls liegen soll - das gilt auch für 1 s
+:::
 
 
-halber Skalenstrich (ein ganzer geht aber auch, z. B. wenn man schief abgelesen hat oder automatisch, wenn man ein digitales Messgerät nutzt.)
+@EdenGebhard-2014, S. 20, 23, 25 **to do: aktualisieren**; @Hempel-2016, S. 3-7
 
-Callout Beispiel: Thermometer
+### 3. Fehlerfortpflanzung
+Die Fehlerfortpflanzung wird verwendet, wenn
 
+  - **mehrere Größen**
+
+gemessen werden.
+
+Für die Ermittlung des Gesamtfehlers gibt es zwei Verfahren:
+
+  - die **lineare Fehlerfortpflanzung** wird benutzt, wenn die Fehler der beteiligten Größen durch Fehlerabschätzung einer Einzelmessung ermittelt wurden.
+  - die **Gauß'sche Fehlerfortpflanzung** wird benutzt, wenn die Einzelfehler statistisch ermittelt und mit Konfidenzintervallen angegeben werden.
+
+Problematisch ist allerdings die Ermittlung eines Gesamtfehlers, der sich aus statistischen Vertrauensbereichen und abgeschätzten Fehleranteilen zusammensetzt. Beispielsweise hängt die im vorherigen Kapitel ermittelte Federkonstante von drei Größen ab:
+
+  - der gemessenen Masse,
+  - dem mit einem Abstandssensor gemessenen Abstand zum Gewicht bzw. nach der Aufbereitung der Daten der Ausdehnung der Feder und
+  - der statistischen Schätzung der Federkonstante.
+
+Für die Berechnung eines Gesamtfehlers, muss ein Kompromiss eingegangen werden.
+
+1. Die lineare Fehlerfortpflanzung wird mit dem abgeschätzten Fehler und dem statistischen Vertrauensbereich durchgeführt.
+2. Die Gauß’sche Fehlerfortpflanzung wird mit dem statistischen Vertrauensbereich durchgeführt und ein Fehleranteil addiert, der aus der linearen Fehlerfortpflanzung der abgeschätzten Fehler ermittelt wird.
+
+"Beide Verfahren sind wohl gleich gut (oder schlecht) als Kompromiss in der Laborpraxis geeignet." (@Hempel-2016, S. 9)
+
+(@Hempel-2016, S. 8 - 9)
+
+Im Folgenden werden zunächst die lineare Fehlerfortpflanzung und die Gauß'sche Fehlerfortpflanzung vorgestellt. Abschließend werden die Verfahren zur Ermittlung des Gesamtfehlers der Federkonstante gezeigt.
+
+::: {.callout-important}
+## Formelbahnhof
+
+"Für viele Betrachtungen, speziell in den Grundlagenpraktika der ersten Semester
+in technischen, naturwissenschaftlichen und ingenieurmäßigen Studiengängen,
+reicht es aus, den maximalen Fehler (*absoluter Größtfehler*) zu bestimmen. Dieser
+ist größer oder gleich der [...] Standardabweichung $\epsilon y$."
+
+$$
+\epsilon y = \pm \sum_{i=1}^{N} | \frac{\partial F}{\partial x_i} \epsilon x_i |
+$$
+
+(@EdenGebhard-2014, S. 37 **to do: aktualisieren**)
+
+--> das ist die lineare Fehlerfortpflanzung
+
+"so beträgt die Standardabweichung $\epsilon y$ (der absolute Fehler) des Messergebnisses y:
+
+$$
+\epsilon y = \pm \sqrt {\sum_{i=1}^{N} (\frac{\partial F}{\partial x_i} \epsilon x_i)^2}
+$$
+
+"
+
+--> das ist Gauß'sche Fehlerfortpflanzung
+
+(@EdenGebhard-2014, S. 34 **to do: aktualisieren**)
+
+:::
+
+#### Lineare Fehlerfortpflanzung
+
+Die lineare Fehlerfortpflanzung betrachtet, wie sich die Größtfehler mehrerer gemessener Größen auf den Gesamtfehler auswirken.
+
+Für eine Funktion $f = f(x, y)$ soll die Auswirkung der Größtfehler $\Delta x$ und $\Delta y$ auf den Fehler $\Delta f$ ermittelt werden. 
+
+Unter der Voraussetzung gegenüber den Messwerten kleinen Fehler (**Wann sind die Fehler klein?**) kann der Fehler $\Delta f$ durch die Beträge der partiellen Ableitung des ersten Glieds der Taylorreihe berechnet werden (**worauf verlinken?!**).
+
+$$
+f + \Delta f = f(x + \Delta x, y + \Delta y) = f(x, y) + | \frac{\partial f(x, y)}{\partial x}  | \cdot \Delta x + | \frac{\partial f(x, y)}{\partial y} | \cdot \Delta y
+$$
+
+Der Größtfehler ergibt sich aus:
+
+$$
+\Delta f = | \frac{\partial f(x, y)}{\partial x}  | \cdot \Delta x + | \frac{\partial f(x, y)}{\partial y} | \cdot \Delta y
+$$
+
+::: {#nte-partielleableitung .callout-note collapse="true"}
+## Partielle Ableitung
+Die partielle Ableitung ist die Ableitung einer Funktion mit mehreren Variablen nach einer Variablen, wobei die übrigen Variablen als Konstanten behandelt werden.
+
+Für eine Funktion $f(x, y) = 2x + y^2$ wird die partielle Ableitung nach x so ausgedrückt:
+
+$\frac{\partial f(x, y)}{\partial x}$
+
+  - Das Symbol ∂ ist die kursive Darstellung des kyrillischen Kleinbuchstaben д (d) und wird als "d" oder "del" gelesen. Es zeigt an, das eine partielle Ableitung durchgeführt wird.
+  - Im Zähler steht die Funktion, die abgeleitet werden soll. Im Nenner steht die Variable nach der abgeleitet wird. Der Term wird gelesen als "del f von x und y nach del x".
+
+Die partielle Ableitung $\frac{\partial f(x, y)}{\partial x} = 2$.
+
+Die partielle Ableitung $\frac{\partial f(x, y)}{\partial y} = 2y$.
+
+:::
+
+#### Gauß’sche Fehlerfortpflanzung
+Für jede Variable wird die partielle Ableitung der Funktion gebildet und mit dem absoluten Fehler jeder Variablen multipliziert. Die Quadrate dieser Fehlerprodukte werden summiert und die Quadratwurzel gebildet. Das ist $\pm$ der absolute Fehler des Messergebnisses.
+
+#### Spezialfall: Fehlerfortpflanzung der Federkonstante
+**Problem:**
+
+  - der Abstand wurde mehrmals gemessen. Das ist ein statistischer Fehler - der Standardfehler (der vermutlich mit einem Vertrauensbereich 1t, 2t oder $t_{95\%}$ multipliziert werden muss). Der größte Standardfehler liegt für 301 Gramm mit 0.525247 vor. ... und der muss mit der Gauß'schen Fehlerfortpflanzung berechnet werden.
+  - Da aber der Größtfehler gesucht ist, müsste eigentlich die lineare Fehlerfortpflanzung verwendet werden, bei der sich die einzelnen Fehler nicht gegenseitig aufheben können. Aber wie ist das mit mehreren Messreihen für verschiedene Gewichte? Für die Masse haben wir ja keinen gemeinsamen Standardfehler.
+
+Die im vorherigen Kapitel ermittelte Federkonstante hängt von drei Größen ab:
+
+  - der gemessenen Masse,
+  - dem mit einem Abstandssensor gemessene Abstand zum Gewicht bzw. nach der Aufbereitung der Daten der Ausdehnung der Feder und
+  - der statistischen Schätzung der Federkonstante.
+
+Um den Gesamtfehler mehrerer fehlerbehafteter Größen zu ermitteln, müssen die Fehler der beteiligten Größen bekannt sein oder ermittelt werden. 
+
+  - Die Masse $m$ der verwendeten Gewichte wurde mit einer Küchenwaage ermittelt, deren absoluter Fehler auf $\epsilon m = 0,5 g = 0,0005 kg$ geschätzt wird.
+  - Der Abstand $s$ wurde mit einem elektronischen Abstandssensor und einem Arduino ermittelt (Ultrasonic Ranging Module HC - SR04).
+     - Der Ablesefehler des Messsystems beträgt eine Einheit der Messauflösung, also $\epsilon s_{zufällig} = 0,01 cm = 0,0001 m$.
+     - Die Messabweichung des Messsystems beträgt laut Datenblatt bis zu 3 mm, also $\epsilon s_{systematisch} = 3 mm = 0,003 m$.
+     - Der abgeschätzte Fehler beträgt also $\epsilon x = 0,0001 m + 0,003 m = 0,0031m$
+  - Der Standardfehler der Federkonstante $k$ wurde mit $0.3784 \frac{N}{m}$ bestimmt. Im festgelegten Vertrauensintervall $95 \%$ beträgt der Fehler der Federkonstante $\epsilon k = 0.75 \frac{N}{m}$
+
+Für die Federkonstante gilt (die Abstandsänderung $\Delta x$ wird mit $s$ notiert):
+
+$$
+k = \frac{m \cdot g}{\Delta{x}} = \frac{m \cdot g}{s}
+$$
+
+So gilt für den Größtfehler der Funktion:
+
+$$
+\Delta k(m, s) = | \frac{\partial f(m, s)}{\partial m} | \cdot \Delta m + | \frac{\partial f(m, s)}{\partial s} | \cdot \Delta s
+$$
+
+Die partielle Ableitung nach m lautet mit Faktorregel:
+
+$$
+\frac{\partial f(m, s)}{\partial m} = \frac{\partial}{\partial m} \frac{m \cdot g}{s} = \frac{\partial}{\partial m} m \cdot \frac{g}{s} = 1 \cdot \frac{g}{s} = \frac{g}{s}
+$$
+
+Die partielle Ableitung nach s lautet:
+
+$$
+\frac{\partial f(m, s)}{\partial s} = \frac{\partial}{\partial s} \frac{m \cdot g}{s} = - \frac {m \cdot g}{s^{2}}
+$$
+
+Werden die Beträge eingesetzt und mit dem jeweiligen Größtfehler multipliziert ergibt sich aus der linearen Fehlerfortpflanzung der Größtfehler von $k$ durch:
+
+$$
+\Delta k = | \frac{g}{s} | \cdot \Delta m ~ + ~ | (-) \frac {m \cdot g}{s^{2}} | \cdot \Delta s
+$$
+
+Für die mit verschiedenen Gewichten durchgeführten Messungen müssen nun sinnvolle Werte gefunden werden, die für die Masse $m$ und die Abstandsänderung $s$ verwendet werden können. Einerseits soll das Prinzip der Größtfehlerbestimmung, den ungünstigsten Fall widerzuspiegeln, gewahrt werden. Andererseits soll der sinkenden Messunsicherheit infolge der durch die Messung mit mehreren Gewichten steigenden Stichprobengröße Rechnung getragen werden. 
+
+Deshalb soll ein gewichteter Größtfehler bestimmt werden, der große Fehler stärker berücksichtigt. Dazu wird die lineare Fehlerfortpflanzung für jedes der verwendeten Gewichte durchgeführt. Die so gewonnenen Größtfehler werden quadriert, gemittelt und anschließend durch die Quadratwurzel zu einem gewichteten Größtfehler zusammengefasst.  
+(*Hinweis: Es gibt meiner Kenntnis nach kein etabliertes Verfahren dazu und es handelt sich hierbei um einen methodischen Vorschlag.* **Das ist Quatsch - musst du DIN 1319-4 lesen.)
+
+**Größtfehler der Masse**
+Soll für jedes Gewicht mit dem statistischen Vertrauensbereich der Strecke durchgeführt werden. Da die Strecke im Nenner steht, nimmt man die untere Grenze des Vertrauensintervalls **ist ein Vorschlag von mir**. 
+
+$\bar{s} - t_{1-\alpha / 2} ~ (n - 1) \frac{s}{\sqrt{N}}$
+
+``` {python}
+# Messdaten aus dem Kapitel hooke.qmd wiederherstellen
+## Datei einlesen und Fehler entfernen
+dateipfad = "01-daten/hooke_data.csv"
+hooke = pd.read_csv(filepath_or_buffer = dateipfad, sep = ';')
+hooke.drop(index = 113, inplace = True)
+
+## Abstandsmessung auf Nullpunkt normieren
+nullpunkt = hooke[hooke['mass'] == 0].loc[: , 'distance'].mean()
+hooke['distance'] = hooke['distance'].sub(nullpunkt).mul(-1)
+
+## Masse in kg, Abstand in m umrechnen
+hooke['mass'] = hooke['mass'].div(1000)
+hooke['distance'] = hooke['distance'].div(100)
+
+## untere Intervallgrenze bestimmen
+### mittlere Ausdehnung nach Gewicht berechnen (in m)
+distance_means_by_weight = hooke['distance'].groupby(by = hooke['mass']).mean()
+distance_means_by_weight.name = 'Federausdehnung in m'
+
+### Standardfehler nach Gewicht berechnen (in m)
+distance_stderrors_by_weight = hooke['distance'].groupby(by = hooke['mass']).std(ddof = 1).div(np.sqrt(hooke['distance'].groupby(by = hooke['mass']).size()))
+distance_stderrors_by_weight.name = 'Standardfehler in m'
+
+### n bestimmen
+sizes_by_weight = hooke['distance'].groupby(by = hooke['mass']).size()
+sizes_by_weight.name = 'Stichprobengröße'
+
+### Signifikanzniveau (alpha-Niveau) 1 - 95 % wählen
+alpha = 0.05
+
+### unter Inervallgrenzen ausrechnen
+untere_intervallgrenze_abstand = scipy.stats.t.ppf(q = alpha / 2, loc = distance_means_by_weight, scale = distance_stderrors_by_weight, df = sizes_by_weight - 1)
+
+# Ausgabe
+df_abstand = pd.DataFrame({'mittlere Abstandsänderung': distance_means_by_weight,
+                   'Standardfehler': distance_stderrors_by_weight,
+                   'untere 95-%-Intervallgrenze': untere_intervallgrenze_abstand})
+
+## wissenschaftliche Notation in der Ausgabe unterdrücken
+print(df_abstand.round(6))
+```
+
+**An der Schreibweise muss man noch arbeiten... N ist ja eigentlich die Stichprobengröße, mit i haben wir die einzelnen Messwerte bezeichnet - gemeint ist die Anzahl der Messreihen.**
+$$
+\sqrt{\frac {1}{N} \sum_{i=1}^{N} (\frac{g}{{s_{\alpha / 2}}_i} \cdot \Delta m_i)^2}
+$$
+
+**gewichteten Größtfehler der Masse berechnen**
+
+Wurzel des Mittelwerts der Größtfehlerquadrate
+
+``` {python}
+fehler_masse_kg = 0.0005
+
+gewichteter_größtfehler_masse = pd.Series((9.81 / untere_intervallgrenze_abstand * fehler_masse_kg)).pow(2).mean() ** 1/2
+
+print("Gewichteter Größtfehler der Masse:", gewichteter_größtfehler_masse)
+```
+
+
+**Größtfehler der Strecke**
+Für den Größtfehler der Strecke wird ebenfalls die untere Intervallgrenze verwendet, da die Strecke im Nenner steht. Das negative Vorzeichen entfällt aufgrund der Betragsbildung.
+
+**An der Schreibweise muss man noch arbeiten... N ist ja eigentlich die Stichprobengröße, mit i haben wir die einzelnen Messwerte bezeichnet - gemeint ist die Anzahl der Messreihen.**
+$$
+\sqrt{\frac {1}{N} \sum_{i=1}^{N} (\frac{m \cdot g}{{s^2_{\alpha / 2}}_i} \cdot \Delta m_i)^2}
+$$
+
+**gewichteten Größtfehler der Strecke berechnen**  
+*Für die Masse nehmen wir keine Intervallgrenze, weil die Masse einmal gemessen wurde und dieser Fehler im Größtfehler steckt*
+
+``` {python}
+fehler_strecke_m = 0.0031
+
+## die Masse kann in der korrekten Reihenfolge aus dem Index abgegriffen werden. hooke['mass'].unique() gibt die Massen absteigend zurück
+
+gewichteter_größtfehler_strecke = pd.Series(9.81 * distance_means_by_weight.index / untere_intervallgrenze_abstand ** 2 * fehler_strecke_m).pow(2).mean() ** 1/2
+
+# Ausgabe
+print("Gewichteter Größtfehler Strecke:", gewichteter_größtfehler_strecke)
+print()
+
+## Ausgabe der Zwischenergebnisse
+größtfehler_strecke_nach_messreihe = pd.Series(9.81 * distance_means_by_weight.index / untere_intervallgrenze_abstand ** 2 * fehler_strecke_m)
+
+df_strecke = pd.DataFrame({'Gewicht': distance_means_by_weight.index, 'Größtfehler der Strecke der Messreihen': größtfehler_strecke_nach_messreihe, 'quadratischer Größtfehler': größtfehler_strecke_nach_messreihe ** 2})
+
+print(df_strecke)
+print('mittlerer Größtfehler', df_strecke['Größtfehler der Strecke der Messreihen'].mean())
+
+```
+
+$$
+\Delta k = 0.183 + 3.468 = 3.651
+$$
+
+
+Für die Masse müsste noch ein Größtfehler geschätzt werden... das ist bislang nur die Ableseungenauigkeit
+
+  - Die Masse $m$ der verwendeten Gewichte wurde mit einer Küchenwaage ermittelt, deren absoluter Fehler auf $\epsilon m = 0,5 g = 0,0005 kg$ geschätzt wird **Das ist doch nur der Ablesefehler oder (sieht nach halbem Skalenstrich aus?!**.
+  - Der Abstand $s$ wurde mit einem elektronischen Abstandssensor und einem Arduino ermittelt Der absolute Fehler dess Messsystems beträgt eine Einheit der Messauflösung, also $\epsilon s = 0,01 cm$, die Garantiefehlergrenze $3 mm$. Der Größtfehler des Abstands beträgt also $\Delta s = 0,0001 + 0,003 m = 0,0031 m$.
+  - Der Standardfehler der Federkonstante $k$ wurde mit $0.3784 \frac{N}{m}$ bestimmt.
+
+
+## Resterampe
 
 Größtfehler bei Messung mehrerer fehlerbehafteter Größen: Fehlerfortpflanzung  
 https://www.uni-ulm.de/fileadmin/website_uni_ulm/nawi.inst.225/teaching/Grundpraktikum/Fehlerrechnung/Einfuehrung_FehlerrechnungHankelPaul.pdf
 
+Wiederholung Fehlerstatistik Steigungskoeffizient der linearen Regression
 
-
-die Garantiefehlergrenze des Messgerätes (vom Hersteller gegeben - siehe Bedienungsanleitung)
-- ein abgeschätzter Anteil, der sich nach der Sorgfalt des Experimentierens, konkreten Bedingungen
-des Experiments, der Skalenteilung des Messgerätes u.ä. richtet.
-
+1. Legen Sie ein Signifikanzniveau $\alpha$ bzw. ein zweiseitiges Konfidenzniveau $1 - \frac{\alpha}{2}$ fest.
+2. Bestimmen Sie den Steigungskoeffizienten $\hat{\beta_1}$
+3. Bestimmen Sie den Standardfehler des Steigungskoeffizienten $SE = \hat{\sigma}_{\hat{\beta_1}}$
+4. Bestimmen Sie den Wert der t-Verteilung mit n - 2 Freiheitsgraden für das gewählte Konfidenzniveau und einen zweiseitigen Hypothesentest $t_{1-\alpha / 2} ~ (n - 2)$
+5. Berechnen Sie das Konfidenzintervall $\hat{\beta_1} \pm SE \cdot t_{1-\alpha / 2} ~ (n - 2)$
 
 Der Größtfehler $\Delta x$ setzt sich zusammen aus dem systematischen Fehler und dem zufälligen Fehler. 
 
@@ -118,7 +687,29 @@ Der Größtfehler $\Delta x$ setzt sich zusammen aus dem systematischen Fehler u
     - Die Masse wäre 705g --> müsste die Messungenauigkeit der Küchenwaage mit 0.5 g nicht ins Verhältnis zu 705 g gesetzt werden?
 - zufällige Fehler: Streuung von Messwerten um Erwartungswert --> sollten quantifiziert werden.
 
-Hier Gauß'sche Fehlerfortpflanzung und Größtfehler
 
-  - der Größtfehler bezieht sich auf einzelne Werte bzw. wird auf alle Werte einer Messreihe einzeln angewandt
-  - der Größtfehler kann aber auch für eine ganze Messreihe bzw. die lineare Regression angegeben werden.
+
+
+Bei der Fehlerabschätzung von 
+Addition aus Fehlerabschätzung und Fehlerstatistik, beispielsweise t-Wert des gewählten Konfidenzniveaus mal Standardfehler einer Messreihe plus minus Fehlerabschätzung
+
+"
+- Bei Einfachmessung geht der Garantiefehler des Messgerätes ein, der Ablesefehler des Experimentators,
+Fehler, die aus Umwelteinflüssen resultieren und gegebenenfalls noch vieles andere.
+Alle diese Fehler werden so gut es eben geht abgeschätzt, addiert und bilden in ihrer Gesamtheit
+die sogenannte Messunsicherheit.
+
+
+
+
+Der gute Herr Hempel schreibt also, 2t würde man üblicherweise nehmen.
+
+[Hier (S. 9)](https://users.physics.unc.edu/~deardorf/uncertainty/UNCguide.pdf) steht man würde die Standardunsicherheit überweise im Intervall von ca. 68 % - das ist eben 1t bzw. 1s - angeben. Bei vielfachen von s ist es eigentlich auch egal was man nimmt.
+
+[Hier (S. 20)](https://users.physics.unc.edu/~deardorf/uncertainty/UNCguide.pdf) wird ein Trick - das gemeinsame Messen - zur Redzuierung des systematischen Messfehlers genannt (wenn anwendbar.)
+
+"Die Benennung Standardmeßunsicherheit, kurz Standardunsicherheit [1], wird verwendet, wenn herausgestellt werden soll, daß die Meßunsicherheit durch eine Standardabweichung Standardabweichung* ausgedrückt wird [...]." [@DIN1319-3, S. 3]
+
+"Die Standardabweichung
+ist ein Maß für die Streuung der einzelnen Meßwerte um den Erwartungswert oder der zufälligen Meßabweichungen*
+um Null." [@DIN1319-3, S. 5]

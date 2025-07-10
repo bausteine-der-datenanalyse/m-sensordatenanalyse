@@ -637,3 +637,8 @@ Unabhängig vom gewählten Vertrauensniveau liegt die Punktschätzung der Federk
 Abhängig vom gewählten Vorgehen sind andere Ergebnisse möglich, beispielsweise durch das Entfernen von als Ausreißern eingestuften Einzelwerten oder einer anderen Behandlung der Messreihe vom Team fabi für das angehängte Gewicht 50 Gramm.
 ::::
 :::
+
+## Zusammenfassung
+**to do:** (studentisierte) z-Werte sind hilfreich, um einzelne abweichende Werte zu identfizieren. Sind viele oder die ganze Messreihe fehlerhaft, reicht dies jedoch nicht aus. 
+
+Die grafische Darstellung von Messwerten ist sehr viel aussagekräftiger.
