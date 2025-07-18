@@ -486,7 +486,7 @@ n = len(x)
 
 t_wert = scipy.stats.t.ppf(q = 1 - alpha/2, df = n - 2)
 print(f"t-Wert 95-%-Intervall (zweiseitig): {t_wert:.4f}")
-print(f"Konfidenzintervall 95%: {lm[1]:.4f} ± {t_wert:.4f} * {standardfehler_beta_1:.4f}")
+print(f"Konfidenzintervall 95 %: {lm[1]:.4f} ± {t_wert:.4f} * {standardfehler_beta_1:.4f}")
 print(f"untere 95-%-Intervallgrenze: {lm[1] - t_wert * standardfehler_beta_1:.4f}")
 print(f"obere 95-%-Intervallgrenze: {lm[1] + t_wert * standardfehler_beta_1:.4f}")
 ```
