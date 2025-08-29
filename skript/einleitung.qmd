@@ -12,8 +12,6 @@ Merz, Ludwig.1968. "Grundkurs der Messtechnik. Teil I: Das Messen elektrischer G
 
 :::
 
-**to do: Größtfehler ergänzen**
-
 In diesem Baustein werden die folgenden Module verwendet:
 
 ``` {python}
@@ -34,7 +32,7 @@ Ein Beispiel: "Johanna ist am Messbrett 173 Zentimeter groß."
   - Die numerische Entsprechung ist 173.
   - Das Bezugssystem ist das metrische System.
 
-Messwerte sind aus verschiedenen Gründen Annäherungen an den wahren Wert der zugrundeliegenden physikalischen Größe. Zum einen variiert die [Größe eines Menschen im Tagesverlauf](https://www.barmer.de/presse/presseinformationen/newsletter-gesundheit-im-blick/koerpergroesse-1126334). Zum anderen ist das Messergebnis auch ein Ergebnis der verwendeten Skala. Wäre die Messung im imperialen Messsystem erfolgt, wäre Johannas Größe mit 68 Zoll bestimmt worden, was 172,72 Zentimetern entspricht.
+Messwerte können aus verschiedenen Gründen immer nur eine Annäherungen an den wahren Wert der zugrundeliegenden physikalischen Größe sein. Zum einen variiert die [Größe eines Menschen im Tagesverlauf](https://www.barmer.de/presse/presseinformationen/newsletter-gesundheit-im-blick/koerpergroesse-1126334). Zum anderen ist das Messergebnis auch ein Ergebnis der verwendeten Skala. Wäre die Messung im imperialen Messsystem erfolgt, wäre Johannas Größe mit 68 Zoll bestimmt worden, was 172,72 Zentimetern entspricht.
 
 Das Messergebnis ist also keine exakte Entsprechung der tatsächlichen Merkmalsausprägung. Ein bekanntes Beispiel für die mit dem Messvorgang verbundene Unsicherheit ist das Küstenlinienparadox: Das Ergebnis der Vermessung unregelmäßiger Küstenlinien wird umso größer, je kleiner die Messabschnitte gewählt werden.
 
@@ -66,10 +64,11 @@ Britain-fractal-coastline-200km, Britain-fractal-coastline-100km und Britain-fra
 
 Die Messung ergibt zunächst einen Messwert. Dieser stimmt aber aufgrund störender Einflüsse mit dem wahren Wert der Messgröße praktisch nie überein, sondern weist eine gewisse Messabweichung auf. Zum *vollständigen Messergebnis* wird der Messwert, wenn er mit quantitativen Aussagen über die zu erwartende Größe der Messabweichung ergänzt wird. Dies wird in der Messtechnik als Teil der Messaufgabe und damit der Messung verstanden."
 
-Messung. von verschiedenen [Autor:innen](https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung) steht unter der Lizenz [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) ist abrufbar auf [Wikipedia] (https://de.wikipedia.org/wiki/Messung). 2025
+Messung. von verschiedenen [Autor:innen](https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung) steht unter der Lizenz [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de) ist abrufbar auf [Wikipedia](https://de.wikipedia.org/wiki/Messung). 2025
 
- - Die ideale Messung ist eine direkte Messung oder der gesuchte Wert hängt linear (**direkt?!**) vom gemessenen Wert ab.
+  - Die ideale Messung ist eine direkte Messung oder der gesuchte Wert hängt direkt vom gemessenen Wert ab.
   - Die ideale Messung ist *genau* und *präzise*.
+
 :::
 
 ### Direkte und indirekte Messung
@@ -91,7 +90,7 @@ Gliedermaßstäbe von Fst76 ist lizensiert unter [CC-BY-SA 3.0](https://creative
 
 &nbsp;
 
-Bei einer indirekten Messung wird die Messgröße auf eine andere pyhsikalische Größe zurückgeführt.
+Bei einer indirekten Messung wird die Messgröße auf eine andere physikalische Größe zurückgeführt.
 
 ::: {.border}
 :::: {#fig-indirektemessung layout-ncol=2}
@@ -127,9 +126,9 @@ Genauigkeit und Präzision
 :::
 
 ## Messreihen
-Um die Unsicherheit einer Messung zu verringern, kann man einen Messwert in Form einer Messreihe wiederholt aufnehmen. Die (**erste**) beste Schätzung der Messgröße bietet der arithmetische Mittelwert der Messreihe.
+Um die Unsicherheit einer Messung zu verringern, kann man einen Messwert in Form einer Messreihe wiederholt aufnehmen. Die beste Schätzung der Messgröße bietet der arithmetische Mittelwert der Messreihe.
 
-Der arithmetische Mittelwert einer Messreihe $\bar{x}$ ist die Summe aller Einzelmesswerte dividiert durch die Anzahl der Messwerte $N$.
+Der arithmetische Mittelwert einer Messreihe $\bar{x}$ ist die Summe aller Einzelmesswerte $x_i$ dividiert durch die Anzahl der Messwerte $N$.
 
 $$
 \bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
@@ -175,16 +174,22 @@ $$
 
 :::
 
-Mit Hilfe der Standardabweichung kann der *Standardfehler* der Messung bestimmt werden. Der Standardfehler ist ein Maß dafür, wie genau sich der arithmetische Mittelwert der Stichprobe an den tatsächlichen Mittelwert der Grundgesamtheit, den Erwartungswert, annähert (dazu gleich mehr) und wird auch *Stichprobenfehler* genannt. Der Standardfehler wird aus der Standardabweichung einer Messung und der Wurzel der Stichprobengröße berechnet. Da die Varianz in der Grundgesamtheit in der Regel unbekannt ist, wird der Standardfehler mit der Stichprobenvarianz geschätzt.
+Mit Hilfe der Standardabweichung kann der *Standardfehler des Mittelwerts* bestimmt werden. Der Standardfehler des Mittelwerts ist ein Maß dafür, wie genau sich der arithmetische Mittelwert der Stichprobe an den tatsächlichen Mittelwert der Grundgesamtheit, den Erwartungswert, annähert (dazu gleich mehr) und wird auch *Stichprobenfehler* genannt. Der Standardfehler des Mittelwerts wird aus der Standardabweichung einer Messung und der Wurzel der Stichprobengröße berechnet.
 
 $$
 \sigma_{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}}
 $$
 
-Manchmal wird der Standardfehler zur längeren Schreibeweise umgeformt.
+Da die Standardabweichung in der Grundgesamtheit in der Regel unbekannt ist, wird der Standardfehler des Mittelwerts mit der Stichprobenstandardabweichung geschätzt.
 
 $$
-\sigma_{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}} ~ = ~ \sqrt{\frac{1}{N(N-1)} \sum_{i=1}^{N}(x_i - \bar{x})^2}
+\sigma_{\bar{x}}~ = ~ \frac{s_{n-1}}{\sqrt{N}}
+$$
+
+Manchmal wird der Standardfehler zur längeren Schreibweise umgeformt.
+
+$$
+\sigma_{\bar{x}} ~ = ~ \frac{s_{n-1}}{\sqrt{N}} ~ = ~ \sqrt{\frac{1}{N(N-1)} \sum_{i=1}^{N}(x_i - \bar{x})^2}
 $$
 
 Der Standardfehler wird umso kleiner (die Messung umso präziser), je kleiner die Varianz in der Grundgesamtheit und je größer der Stichprobenumfang ist. 
@@ -263,7 +268,7 @@ print(f"Würfe pro Person: {würfe}\t\t\t",
 
 Mit zunehmender Anzahl an Würfen nähern sich Minimum und Maximum der individuellen Durchschnittswerte sowie der Stichprobenmittelwert dem Erwartungswert an.
 
-*Hinweis: Da das Skript dynamisch generiert wird, wurden die Zufallszahlen von einem festgelegten Startwert aus erzeugt.*
+*Hinweis: Da das Skript dynamisch generiert wird, wurden die Zufallszahlen mit einem festgelegten Startwert erzeugt.*
 
 ## grafische Darstellung
 Die Häufigkeit der individuellen Mittelwerte ist in den folgenden Histogrammen dargestellt.
@@ -475,11 +480,11 @@ def verteilungskennwerte(x, output = True):
   # Stichprobenvarianz bestimmen
   stichprobenvarianz = sum((x - stichprobenmittelwert) ** 2) / (N - 1)
 
-  # Standardabweichung bestimmen
-  standardabweichung = stichprobenvarianz ** (1/2)
+  # Stichprobenstandardabweichung bestimmen
+  stichprobenstandardabweichung = stichprobenvarianz ** (1/2)
 
   # Stichprobenfehler bestimmen
-  stichprobenfehler = standardabweichung / (N ** (1/2))
+  stichprobenfehler = stichprobenstandardabweichung / (N ** (1/2))
 
   # Ausgabe
   if output: # output = True
@@ -487,11 +492,11 @@ def verteilungskennwerte(x, output = True):
           f"arithmetisches Mittel: {stichprobenmittelwert:.2f}\n",
           f"Stichprobenfehler: {stichprobenfehler:.2f}\n",
           f"Stichprobenvarianz: {stichprobenvarianz:.2f}\n",
-          f"Standardabweichung: {standardabweichung:.2f}",
+          f"Stichprobenstandardabweichung: {stichprobenstandardabweichung:.2f}",
           sep = '')
 
   else: # output = False
-    return N, stichprobenmittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
+    return N, stichprobenmittelwert, stichprobenfehler, stichprobenvarianz, stichprobenstandardabweichung
 
 verteilungskennwerte(meerschweinchen['len'])
 ```
@@ -537,11 +542,9 @@ verteilungskennwerte(meerschweinchen['len'])
 
 :::
 
-Die Module NumPy und Pandas verfügen über eigene Funktionen zur Berechnung der Varianz und der Standardabweichung (siehe folgendes Beispiel).
-
 ### Varianz und  Standardabweichung mit NumPy und Pandas
 
-Die Varianz und Standardabweichung werden mit den Funktion `np.var()` und `np.std()` bzw. den Methoden `pd.var()` und `pd.std()` berechnet. Der Parameter `ddof` (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy 0 ist, berechnet Pandas mit dem Standardwert `ddof=1` die Stichprobenvarianz.
+Die Module NumPy und Pandas verfügen über eigene Funktionen zur Berechnung der Varianz und der Standardabweichung. Die Varianz und Standardabweichung werden mit den Funktion `np.var()` und `np.std()` bzw. den Methoden `pd.var()` und `pd.std()` berechnet. Der Parameter `ddof` (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy `ddof=0` ist, berechnet Pandas mit dem Standardwert `ddof=1` die Stichprobenvarianz.
 ```{python}
 
 print("Varianz:")

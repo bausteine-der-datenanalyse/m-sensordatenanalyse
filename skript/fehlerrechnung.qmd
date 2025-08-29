@@ -1,7 +1,4 @@
 # Fehlerrechnung
-**to do: einfache Variante umsetzen, mit vernachlässigbarer Unsicherheit über die systematische Messabweichung**  
-**weiter bei: ## Standardfehler vs. Größtfehler**
-
 ``` {python}
 #| echo: false
 
@@ -28,27 +25,8 @@ Wagner, Paul. 2015. "Einführung in die Physik I. PH I - 04 - Die Messgenauigkei
 ::: {.border}
 **to do:**
 
-- Eden-Gebhard-2014 auf -2024 aktualisieren oder entfernen
 - Hinweis: statistische Überlegung gelten für große N und Normalverteilung der Werte
-- Fehlerfortpflanzung gilt für unkorrellierte Größen (korrelierte Größen sind komplizierter und nicht Teil dieses Kapitels)
-- Angabe Messunsicherheit mit Standardabweichung nach DIN
-- Ablesegenauigkeit + Messabweichung Abstandssensor + Arduino & Waage einführen 
 
-**Aufbau kann vereinfacht werden.**
-
-1. einmalige Messung einer Größe
-
-2. mehrmalige Messung einer Größe
-
-  a) zufälliger Anteil
-
-  b) systematischer Anteil
-
-3. einmalige Messung mehrerer Größen (lineare Fehlerfortpflanzung = Größtfehler)
-
-4. mehrmalige Messung mehrerer Größen (Gauß'sche Fehlerfortpflanzung = Standardmessunsicherheit)
-
-Erst Fehlerarten erklären, dann DIN einführen, weil die so kompliziert ist.
 :::
 
 &nbsp;
@@ -67,7 +45,7 @@ In diesem Kapitel werden die in der Fehlerrechnung gebräuchlichen Begriffe aufg
   - vernachlässigbarer Unsicherheit über die systematische Messabweichung.
 
 ### Konfidenzniveau
-Wiederholte Messungen enthalten eine zufällige Komponente statistischer Unsicherheit. Die statistische Unsicherheit kann immer nur mit einer Vertrauenswahrscheinlichkeit angegeben werden. Die Berechnung von Konfidenzintervallen haben wir in den Kapiteln @sec-normalverteilung und @sec-hooke behandelt.
+Wiederholte Messungen enthalten eine zufällige Komponente statistischer Unsicherheit. Die statistische Unsicherheit kann immer nur mit einer Vertrauenswahrscheinlichkeit angegeben werden. Die Berechnung von Konfidenzintervallen haben wir in @sec-normalverteilung und @sec-hooke behandelt.
 
 Zur statistischen Analyse gehört als erster Schritt, das Konfidenzniveau, das gelten soll, festzulegen. Hieraus leiten sich die zu verwendenden Vielfachen der Standardabweichung $s$ bzw. des Korrekturfaktors $t$ ab. Hierbei gibt es je nach Disziplin unterschiedliche Konventionen.
 
@@ -140,6 +118,8 @@ Die DIN 1319 normt Grundbegriffe und Verfahren der Messtechnik.
   - Teil 1 DIN 1319-1 und Teil 2 DIN 1319-2 definieren Grundbegriffe der Messtechnik und für Messmittel.
   - Teil 3 DIN 1319-3 befasst sich mit der Auswertung von Messungen einer *einzelnen* Messgröße und deren Messunsicherheit. DIN 1319-3 wird auch angewendet, wenn die Meßgröße mittels einer gegebenen Funktion aus anderen Größen berechnet wird (beispielsweise die Geschwindigkeit $v$ als Quotient der Strecke $s$ und der Zeit $t$).
   - Teil 4 DIN 1319-4 befasst sich mit der Angabe von Messergebnissen und deren Messunsicherheit, wenn die Messgrößen aus anderen Größen berechnet werden, z. B. durch eine Ausgleichsrechung.
+
+DIN 1319-4 befasst sich mit der Berechnung einer Ergebnisgröße $Y$ durch eine Funktion wie z. B. die lineare Ausgleichsrechnung. Der Anwendungsfall des vorherigen Kapitels, die Federkonstante über den Regressionskoeffizienten $\beta_1$ zu bestimmt, wird in der Norm nicht behandelt. Dieser Teil der Norm wird hier deshalb nicht behandelt.
 
 Das Lernziel dieses Kapitels besteht darin, dass Sie die folgende Grafik erklären können.
 
@@ -265,7 +245,7 @@ In der DIN wird der arithmetische Mittelwert einer Messreihe statt mit $\bar{x}$
 :::
 
 ### Übersicht
-In der DIN 1319 werden eine Reihe weiterer Begriffe definiert, die im folgenden Kasten zusammengestellt wurden.
+In der DIN 1319 werden eine Reihe weiterer Begriffe definiert, die im folgenden Kasten zusammen mit den wichtigsten Grundbegriffen zusammengestellt wurden.
 
 ::: {#imp-DIN1319 .callout-important}
 ## Grundbegriffe nach DIN 1319
@@ -286,7 +266,8 @@ $\bar{x}_E = \bar{x} - e_{s,b}$
 
   - **Standardmessunsicherheit** oder kurz Standardunsicherheit wird verwendet, wenn die Messunsicherheit durch eine Standardabweichung ausgedrückt wird. [@DIN1319-3, S. 3]
 
-  - **erweiterte Messunsicherheit** $U(y) = k \cdot u(y)$: Wertebereich, der den wahren Wert der Messgröße wahrscheinlich enthält. Der Erweiterungsfaktor $k$ sollte zwischen 2 und 3 festgelegt werden, vorzugsweise wird $k = 2$ verwendet. Der Erweiterungsfaktor $k$ ist mitzuteilen, damit die Standardmessunsicherheit $u(y) = U(y) / k$ ermittelt werden kann. [@DIN1319-3, S. 7] 
+  - **erweiterte Messunsicherheit** $U(y) = k \cdot u(y)$: Wertebereich, der den wahren Wert der Messgröße wahrscheinlich enthält. Der Erweiterungsfaktor $k$ sollte zwischen 2 und 3 festgelegt werden, vorzugsweise wird $k = 2$ verwendet. Der Erweiterungsfaktor $k$ ist mitzuteilen, damit die Standardmessunsicherheit $u(y) = U(y) / k$ ermittelt werden kann. [@DIN1319-3, S. 7]  
+  *Hinweis: Die erweiterte Messunsicherheit unterscheidet sich vom Konfidenzintervall dadurch, dass keine Normalverteilung unterstellt wird - es ist schlicht ein Faktor, 'um auf Nummer sicher zu gehen', dass der wahre Wert vom angegebenen Bereich eingeschlossen wird*.
 
 Das **vollständige Messergebnis** ist das Messergebnis mit quantitativen Angaben zur Messunsicherheit $u$. $x = \bar{x}_E \pm u$. [@DIN1319-1, S. 16]
 
@@ -405,11 +386,17 @@ Die Auswahl der geeigneten Methode hängt auch von den zur Verfügung stehenden 
   1. der Masse $m$, die mit einer Küchenwaage ermittelt wurde, deren Ablesegenauigkeit mit $e_r(m) = 0,5 g = 0,0005 kg$ geschätzt wird.
 
   2. dem Abstand zum Gewicht bzw. nach der Aufbereitung der Daten der Ausdehnung der Feder $\Delta x$, die mit einem elektronischen Abstandssensor und einem Arduino ermittelt wurden (Ultrasonic Ranging Module HC - SR04).
-    - Die Ablesegenauigkeit des Messsystems beträgt eine Einheit der Messauflösung, also $\e_{r} = 0,01 cm = 0,0001 m$.
+    - Die Ablesegenauigkeit des Messsystems beträgt eine Einheit der Messauflösung, also $e_{r} = 0,01 cm = 0,0001 m$.
     - Die Messabweichung des Messsystems beträgt laut Datenblatt bis zu 3 mm, die symmetrisch zu verstehen ist, also $e_{r} = 3 mm = 0,003 m$.
     - Die zufällige Komponente der Messabweichung beträgt also $e_r(x) = 0,0001 m + 0,003 m = 0,0031m$
 
   3. der statistischen Schätzung der Federkonstante $k = \frac{m \cdot g}{\Delta x} = 33,019 \pm 0.378$ bzw. im festgelegten Vertrauensintervall $k_{95\%} = 32,269 ≤ 33,019 ≤ 33,769$.
+
+::: {#wrn-formelzeichen .callout-warning appearance="simple"}
+## Formelzeichen und Einheiten
+
+Im folgenden werden identische Zeichen für Sekunde und Strecke $s$, Masse und Meter $m$, Gramm und die Konstante $g$ sowie $\Delta$ für die Veränderung einer Größe und den Größtfehler verwendet. Die Formeln sollten also mit großer Aufmerksamkeit gelesen werden.
+:::
 
 ### 1. Fehlerabschätzung
 Die Fehlerabschätzung wird verwendet, wenn
@@ -622,9 +609,6 @@ sep = "\n")
 :::
 
 ### 3. Fehlerfortpflanzung
-
-**to do: erklären, dass es in der DIN 2 verschiedene Arten gibt, die Messunsicherheit anzugeben. -> einmal mit der Gaußschen Fehlerfortpflanzung, einmal via halbes Konfidenzintervall.**
-
 Die Fehlerfortpflanzung wird verwendet, wenn
 
   - **mehrere Eingangsgrößen**,
@@ -671,7 +655,7 @@ Für eine Funktion $f(x, y) = 2x + y^2$ wird die partielle Ableitung nach x so a
 
 $\frac{\partial f(x, y)}{\partial x}$
 
-  - Das Symbol ∂ ist die kursive Darstellung des kyrillischen Kleinbuchstaben д (d) und wird als "d" oder "del" gelesen. Es zeigt an, das eine partielle Ableitung durchgeführt wird.
+  - Das Symbol ∂ ist die kursive Darstellung des kyrillischen Kleinbuchstaben д (d) und wird als "del" gelesen. Es zeigt an, das eine partielle Ableitung durchgeführt wird.
   - Im Zähler steht die Funktion, die abgeleitet werden soll. Im Nenner steht die Variable nach der abgeleitet wird. Der Term wird gelesen als "del f von x und y nach del x".
 
 Die partielle Ableitung $\frac{\partial f(x, y)}{\partial x} = 2$. $y^2$ wird als Konstante behandelt (z. B. $5^2$ ) und ist abgeleitet Null.
@@ -694,8 +678,8 @@ $$
 
 [nach @EdenGebhard-2024, S. 35, Notation angepasst]
 
-##### Beispiel Federkonstante
-**Die Messgenauigkeit der Messgeräte muss irgendwo anders vorgestellt werden.**
+::: {#nte-beispiellineareff .callout-note collapse="true"}
+## Beispiel Federkonstante
 
 Beispielhaft betrachten wir die erste Messung aus der Messreihe mit dem Gewicht 503 Gramm.
 ``` {python}
@@ -717,7 +701,6 @@ print(hooke_503g_einzelwert)
 ```
 
 Für die Federkonstante gilt (die Abstandsänderung $\Delta x$ wird mit $s$ notiert):  
-**Identische Zeichen für Sekunde und Strecke $s$, Masse und Meter $m$, Gramm und Konstante $g$, $\Delta$ für die Veränderung von x und den Größtfehler ist ungünstig.**
 
 $$
 k = \frac{m \cdot g}{\Delta{x}} = \frac{m \cdot g}{s}
@@ -784,6 +767,8 @@ $$
 k = 33,14 \frac{N}{m}; \Delta k = 0,73 \frac{N}{{m}}
 $$
 
+:::
+
 #### Gauß’sche Fehlerfortpflanzung
 Bei der Gauß’schen Fehlerfortpflanzung wird unterstellt, dass sich die Messunsicherheiten der beteiligten Größen teilweise kompensieren können. Dadurch wird eine realistischere Abschätzung der Messunsicherheit erreicht.
 
@@ -824,7 +809,9 @@ $$
 
 *Hinweis: In der Regel wird man die empirische Standardabweichung $s_{n-1} / \sqrt{N}$ verwenden.* 
 
-##### Beispiel Messreihe 503 Gramm
+::: {#nte-beispiel503g .callout-note collapse="true"}
+## Beispiel Messreihe 503 Gramm
+
 Betrachten wir noch einmal die Messreihe für das Gewicht 503 Gramm. Es soll das vereinbarte Konfidenzniveau $95 ~ \%$ gelten.
 ``` {python}
 # Messdaten aus dem Kapitel hooke.qmd wiederherstellen
@@ -860,9 +847,6 @@ print(f"Gewicht in Kilogramm: {hooke_503g['mass'].unique()}",
 ```
 
 Für die Federkonstante gilt (die Abstandsänderung $\Delta x$ wird mit $s$ notiert):  
-**identische Zeichen für Sekunde und Strecke $s$, Masse und Meter $m$, Gramm und Konstante $g$ ist ungünstig**  
-**Was noch fehlt: Das vereinbarte Vertrauensniveau gilt für die gemessene Ausdehnung und das Gewicht**
-
 $$
 k = \frac{m \cdot g}{\Delta{x}} = \frac{m \cdot g}{s}
 $$
@@ -903,7 +887,7 @@ $$
 u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \bar{s}_{m})^2 + (- \frac {m \cdot g}{s^{2}} \cdot \bar{s}_{s})^2 }
 $$
 
-::: {.panel-tabset}
+:::: {.panel-tabset}
 ## Vollständiges Messergebnis
 Die Messwerte, die Konstante $g$ und die Standardfehler der Mittelwerte werden eingesetzt.
 $$
@@ -984,6 +968,17 @@ $$
 k_{95\%} = 33,11 \frac{N}{m} \le 34,46 \frac{N}{m} \le 35,81 \frac{N}{m}
 $$
 
+::::
+:::
+
+#### Übersicht Fehlerfortpflanzung für Grundrechenarten und Potenzprodukte
+Eine Funktionen sind besonders leicht zu berechnen. In der folgenden Tabelle sind Rechenwege zur Ermittlung der Messunsicherheit nach der Gauß'schen Fehlerfortpflanzung (Standardfehler) und nach der linearen Fehlerfortpflanzung (Größtfehler) aufgelistet.
+
+::: {.border}
+
+![Fehlerfortpflanzung für Grundrechenarten und Potenzprodukte](00-bilder/tabelle-edengebhard2024.png)
+
+[@EdenGebhard-2024, S. 36]
 :::
 
 #### Spezialfall: Fehlerfortpflanzung mit Einzelwerten
@@ -1002,6 +997,8 @@ Die DIN 1319 behandelt nur die Gauß’sche Fehlerfortpflanzung. Liegt für eine
 
 Als Beispiel verwenden wir wieder die Messreihe für das Gewicht 503 Gramm.
 
+::: {#nte-beispieleinzelwert .callout-note collapse="true"}
+## Beispiel Federkonstante
 ```{python}
 # Ausgabe
 print(f"Gewicht in Kilogramm: {hooke_503g['mass'].unique()}",
@@ -1012,7 +1009,7 @@ print(f"Gewicht in Kilogramm: {hooke_503g['mass'].unique()}",
       sep = "\n")
 ```
 
-::: {.panel-tabset}
+:::: {.panel-tabset}
 ## Lineare Fehlerfortpflanzung
 Analog zur Fehlerabschätzung ergibt sich der Größtfehler der Federkonstante durch:
 $$
@@ -1024,45 +1021,43 @@ $$
 
 Die Messwerte, die Konstante $g$ und die Größtfehler werden eingesetzt.
 $$
-\Delta k = | \frac{9,81 m}{{s}^2 \cdot 0,1432 m} | \cdot 0,0005 kg ~ + ~ | (-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot (0,1432 m)^2} | \cdot 0,00559 m
+\Delta k = | \frac{9,81 m}{{s}^2 \cdot 0,1432 m} | \cdot 0,0005 kg ~ + ~ | (-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot (0,1432 m)^2} | \cdot 0,00247 m
 $$
 
 Trennen von Werten und Einheiten:
 $$
-\Delta k = | \frac{9,81 \cdot 0,0005}{ 0,1432 } \frac{m \cdot kg}{{s}^2 \cdot m} | ~ + | (-) \frac{0,503 \cdot 9,81 \cdot 0,00559}{0,020506} \frac{kg \cdot m^2}{{s}^2 \cdot m^2} |
+\Delta k = | \frac{9,81 \cdot 0,0005}{ 0,1432 } \frac{m \cdot kg}{{s}^2 \cdot m} | ~ + | (-) \frac{0,503 \cdot 9,81 \cdot 0,00247}{0,020506} \frac{kg \cdot m^2}{{s}^2 \cdot m^2} |
 $$
 
 Berechnen und Newton $\frac{kg \cdot m}{s^2}$ einsetzen:
 $$
-\Delta k = | 0,0342 \frac{N}{{m}} | ~ + | (-) 1,345 \frac{N \cdot m}{{m^2}} |
+\Delta k = | 0,0342 \frac{N}{{m}} | ~ + | (-) 0,594 \frac{N \cdot m}{{m^2}} |
 $$
 
 Meter im zweiten Term kürzen:
 $$
-\Delta k = |0,0342 \frac{N}{{m}} | ~ + | (-) 1,345 \frac{N}{{m}} |
+\Delta k = |0,0342 \frac{N}{{m}} | ~ + | (-) 0,594 \frac{N}{{m}} |
 $$
 
 Die Messunsicherheit wird auf zwei Dezimalstellen aufgerundet.
 $$
-\Delta k = 1.379 \frac{N}{{m}} \approx 1,38 \frac{N}{{m}}
+\Delta k = 0,628 \frac{N}{{m}} \approx 0,63 \frac{N}{{m}}
 $$
 
-Das vollständige Messergebnis lautet somit:
+Das Messergebnis und der Größtfehler lauten somit:
 $$
-k = 34,46 \frac{N}{m}; \Delta k = 1,38 \frac{N}{{m}}
+k = 34,46 \frac{N}{m}; \Delta k = 0,63 \frac{N}{{m}}
 $$
 
 ## Gauß'sche Fehlerfortpflanzung
-
+Die Unsicherheit der Federkonstante berechnet sich durch:
 $$
-u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \bar{s}_{s})^2 }
+u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}} \cdot \bar{s}_{s})^2 }
 $$
 
-Dies sind für die Masse $t = 2,3646$ und für die Ausdehnung $t = 2,2622$.
-
-Die Messwerte, die Konstante $g$ und der Größtfehler der Masse werden in den ersten Term eingesetzt.
+Die Messwerte, die Konstante $g$ und der abgeschätzte Fehleranteil (Größtfehler) der Masse werden in den ersten Term eingesetzt.
 $$
-(\frac{g}{s} \cdot t_{\alpha/2} \cdot \Delta m)^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m} \cdot 0,0005 kg)^2
+(\frac{g}{s} \cdot \Delta m)^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m} \cdot 0,0005 kg)^2
 $$
 
 Trennen von Werten und Einheiten, Newton $\frac{kg \cdot m}{s^2}$ einsetzen:
@@ -1070,7 +1065,43 @@ $$
  (\frac{9,81 \cdot 0,0005}{ 0,1432 } \frac{m \cdot kg}{{s}^2 \cdot m})^2 = (0,0342 \frac{N}{m})^2
 $$
 
-Die Messwerte, die Konstante $g$, der Standardfehler des Mittelwerts der Ausdehnung und der t-Wert der Ausdehnung $t = 2,2622$ werden in den zweiten Term eingesetzt.
+Die Masse des Gewichts, die Konstante $g$ und der Standardfehler des Mittelwerts der Ausdehnung werden in den zweiten Term eingesetzt.
+$$
+(- \frac {m \cdot g}{s^{2}} \cdot \bar{s}_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  0,00247 m)^2
+$$
+
+Trennen von Werten und Einheiten, Newton $\frac{kg \cdot m}{s^2}$ einsetzen und $m$ kürzen:
+$$
+((-) \frac{0,503 \cdot 9,81 \cdot 0,00247}{0,02051} \frac{kg \cdot m^2}{{s}^2 \cdot m^2})^2 = ((-) 0,594 \frac{N}{m})^2
+$$
+
+Die Formel lautet somit:
+$$
+u(k(m, s)) = \sqrt{ ( 0,0342  \frac{N}{m})^2 + ((-) 0,594 \frac{N}{m})^2 }
+$$
+
+Ausrechnen:
+$$
+u(k(m, s)) = 0,595 \frac{N}{m} \approx 0,60 \frac{N}{m}
+$$
+
+Das vollständige Messergebnis lautet somit:
+$$
+k = 34,46 \frac{N}{m}; \Delta k = 0,60 \frac{N}{{m}}
+$$
+
+Für das 95-%-Konfidenzintervall wird der t-Wert der Ausdehnung $t = 2,2622$ eingesetzt.
+$$
+u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \bar{s}_{s})^2 }
+$$
+
+Der erste Term lautet unverändert:
+
+$$
+(\frac{g}{s} \cdot \Delta m)^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m} \cdot 0,0005 kg)^2 = ( 0,0342  \frac{N}{m})^2
+$$
+
+Die Masse, die Konstante $g$, der Standardfehler des Mittelwerts der Ausdehnung und der t-Wert der Ausdehnung $t = 2,2622$ werden in den zweiten Term eingesetzt.
 $$
 (- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \bar{s}_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
 $$
@@ -1090,239 +1121,12 @@ $$
 u(k(m, s)) = 1,344 \frac{N}{m} \approx 1,35 \frac{N}{m}
 $$
 
-Das vollständige Messergebnis lautet somit:
+Die Intervallgrenzen lauten somit:
 $$
-k = 34,46 \frac{N}{m}; \Delta k = 1,35 \frac{N}{{m}}
+k_{95\%} = 33,11 \frac{N}{m} \le 34,46 \frac{N}{m} \le 35,81 \frac{N}{m}
 $$
 
+::::
 :::
 
-#### Ausgleichsrechnung
-hierhier
-**Außerdem wurde die Federkonstante durch lineare Regression bestimmt --> DIN 1319-4**
 
-Gemeinsame Komponenten der Messunsicherheit - also die Kovarianz und Korrelation der Eingangsgrößen - darf gleich Null gesetzt werden, wenn die Größen unkorreliert sind. (@DIN1319-4, S. 12). Die gemeinsame Komponente der Messunsicherheit ist in der DIN als $u(x_k, x_l)$ notiert (ist sehr unleserlich).
--> Soweit ist es das Gleiche wie in deiner normalen Modellfunktion. **Wann kommt den der Standardfehler des Korrelationskoeffizienten ins Spiel? Gar nicht! -> Das ist die erweiterte Messunsicherheit U(y) und die DIN 1319-3 formuliert es so:**
-"Ein **anderer** Kennwert für die Genauigkeit einer Messung ist die erweiterte Meßunsicherheit". [@DIN1319-3, S. 7]
-
-
-  - "Für eine ausgewählte Ergebnisgröße kann zusätzlich die erweiterte Meßunsicherheit und ein (angenähertes) Vertrauensintervall zu einem zu nennenden Vertrauensniveau mitgeteilt werden (siehe 10.1). Bei der Methode der kleinsten Quadrate (siehe Abschnitt 8) sind schließlich der Wert der benutzten Prüfgröße $\xi_k$ [xi k] und die globale Standardmeßunsicherheit $u$ von Interesse." (@DIN1319-4, S. 18)
-    - $\xi_k$ ist die Summe der quadrierten Abstände der Vorhersagewerte $\hat{x_k}$ von den tatsächlich gemessenen Werten $x_k$? [@DIN1319-4, Gleichung 55, S. 15] 
-    - Was ist $u$? -> das kann doch nur die Standardmeßunsicherheit u(y) sein.
-
-  - 10.1 Vertrauensbereich, Gleichung 76, S. 19: "Für eine einzelne ausgewählte Ergebnisgröße $Y$ kann jedoch näherungsweise ein Vertrauensintervall* (Konfidenzintervall*) zum Vertrauensniveau $1 — \alpha$ angegeben werden, das eingeschlossen wird von den Vertrauensgrenzen* $y — ku(y)$ und $y + ku(y)$. Hier ist $U(y) = ku(y)$ die erweiterte Meßunsicherheit [...]."
-  "Für $1 — \alpha = 68,27 \%$ ist $k = 1$ und die Standardmeßunsicherheit $u(y)$ gleich der halben Weite des Vertrauensintervalls. (siehe auch Gleichung (75)). Für $1 — \alpha \approx 95 \%$ ist $k = 2$. Dieser Wert wird im industriellen Meßwesen bevorzugt, $k$ ist auch das $(1 — \alpha/2)$-Quantil* der standardisierten Normalverteilung* [...]." (@DIN1319-4, S. 19)
-
-Die erweiterte Messunsicherheit ist also als das Vertrauensintervall definiert.
-
-Der Erweiterungsfaktor k ist anzugeben. Nur so lässt sich die Standardunsicherheit $u(y) = U(y) / k$ wieder berechnen. (@DIN1319-3, S. 7)
-
-Also man gibt ein Vertrauensintervall für ein gewähltes Vertrauensniveau.
-
-  Gleichung 70: $u^2 = (z-x)^T (z-x) / \nu$    
-Bei unkorrelierten Eingangsgrößen und einer Ergebnisgröße Y **Den Begriff oben ebenfalls verwenden** lautet die Gleichung:
-
-$$
-u(y) = \sqrt{\sum_{k=1}^{m} (\frac{\partial G}{\partial x_k})^2 \cdot u^2(x_k)}
-$$
-
-  - G ist die Modellfunktion
-  - m ist die Anzahl Eingangsgrößen
-
-Und ein "Fundstück": "ANMERKUNG 2: Gleichung (39) wurde früher "Fehlerfortpflanzungsgesetz" genannt. Sie betrifft jedoch nicht die Fortpflanzung von Meßabweichungen (früher 'Fehler'), sondern die von Unsicherheiten." [@DIN1319-4, Gleichung 39, S. 13]
-
-[@DIN1319-4, Gleichung 39, S. 13]
-
-::: {.callout-important}
-## Formelbahnhof
-
-
---> das ist die lineare Fehlerfortpflanzung
-
-"so beträgt die Standardabweichung $\epsilon y$ (der absolute Fehler) des Messergebnisses y:
-
-$$
-\epsilon y = \pm \sqrt {\sum_{i=1}^{N} (\frac{\partial F}{\partial x_i} \epsilon x_i)^2}
-$$
-
-"
-
---> das ist Gauß'sche Fehlerfortpflanzung
-
-(@EdenGebhard-2014, S. 34 **to do: aktualisieren**)
-
-:::
-
-#### Spezialfall: Fehlerfortpflanzung der Federkonstante
-**Problem:**
-
-  - der Abstand wurde mehrmals gemessen. Das ist ein statistischer Fehler - der Standardfehler (der vermutlich mit einem Vertrauensbereich 1t, 2t oder $t_{95\%}$ multipliziert werden muss). Der größte Standardfehler liegt für 301 Gramm mit 0.525247 vor. ... und der muss mit der Gauß'schen Fehlerfortpflanzung berechnet werden.
-  - Da aber der Größtfehler gesucht ist, müsste eigentlich die lineare Fehlerfortpflanzung verwendet werden, bei der sich die einzelnen Fehler nicht gegenseitig aufheben können. Aber wie ist das mit mehreren Messreihen für verschiedene Gewichte? Für die Masse haben wir ja keinen gemeinsamen Standardfehler.
-
-Die im vorherigen Kapitel ermittelte Federkonstante hängt von drei Größen ab:
-
-  - der gemessenen Masse,
-  - dem mit einem Abstandssensor gemessene Abstand zum Gewicht bzw. nach der Aufbereitung der Daten der Ausdehnung der Feder und
-  - der statistischen Schätzung der Federkonstante.
-
-hierhier: Dopplung der Fehler entfernen
-**Größtfehler der Masse**
-Soll für jedes Gewicht mit dem statistischen Vertrauensbereich der Strecke durchgeführt werden. Da die Strecke im Nenner steht, nimmt man die untere Grenze des Vertrauensintervalls **ist ein Vorschlag von mir**. 
-
-$\bar{s} - t_{1-\alpha / 2} ~ (n - 1) \frac{s}{\sqrt{N}}$
-
-``` {python}
-# Messdaten aus dem Kapitel hooke.qmd wiederherstellen
-## Datei einlesen und Fehler entfernen
-dateipfad = "01-daten/hooke_data.csv"
-hooke = pd.read_csv(filepath_or_buffer = dateipfad, sep = ';')
-hooke.drop(index = 113, inplace = True)
-
-## Abstandsmessung auf Nullpunkt normieren
-nullpunkt = hooke[hooke['mass'] == 0].loc[: , 'distance'].mean()
-hooke['distance'] = hooke['distance'].sub(nullpunkt).mul(-1)
-
-## Masse in kg, Abstand in m umrechnen
-hooke['mass'] = hooke['mass'].div(1000)
-hooke['distance'] = hooke['distance'].div(100)
-
-## untere Intervallgrenze bestimmen
-### mittlere Ausdehnung nach Gewicht berechnen (in m)
-distance_means_by_weight = hooke['distance'].groupby(by = hooke['mass']).mean()
-distance_means_by_weight.name = 'Federausdehnung in m'
-
-### Standardfehler nach Gewicht berechnen (in m)
-distance_stderrors_by_weight = hooke['distance'].groupby(by = hooke['mass']).std(ddof = 1).div(np.sqrt(hooke['distance'].groupby(by = hooke['mass']).size()))
-distance_stderrors_by_weight.name = 'Standardfehler in m'
-
-### n bestimmen
-sizes_by_weight = hooke['distance'].groupby(by = hooke['mass']).size()
-sizes_by_weight.name = 'Stichprobengröße'
-
-### Signifikanzniveau (alpha-Niveau) 1 - 95 % wählen
-alpha = 0.05
-
-### unter Inervallgrenzen ausrechnen
-untere_intervallgrenze_abstand = scipy.stats.t.ppf(q = alpha / 2, loc = distance_means_by_weight, scale = distance_stderrors_by_weight, df = sizes_by_weight - 1)
-
-# Ausgabe
-df_abstand = pd.DataFrame({'mittlere Abstandsänderung': distance_means_by_weight,
-                   'Standardfehler': distance_stderrors_by_weight,
-                   'untere 95-%-Intervallgrenze': untere_intervallgrenze_abstand})
-
-## wissenschaftliche Notation in der Ausgabe unterdrücken
-print(df_abstand.round(6))
-```
-
-**An der Schreibweise muss man noch arbeiten... N ist ja eigentlich die Stichprobengröße, mit i haben wir die einzelnen Messwerte bezeichnet - gemeint ist die Anzahl der Messreihen.**
-$$
-\sqrt{\frac {1}{N} \sum_{i=1}^{N} (\frac{g}{{s_{\alpha / 2}}_i} \cdot \Delta m_i)^2}
-$$
-
-**gewichteten Größtfehler der Masse berechnen**
-
-Wurzel des Mittelwerts der Größtfehlerquadrate
-
-``` {python}
-fehler_masse_kg = 0.0005
-
-gewichteter_größtfehler_masse = pd.Series((9.81 / untere_intervallgrenze_abstand * fehler_masse_kg)).pow(2).mean() ** 1/2
-
-print("Gewichteter Größtfehler der Masse:", gewichteter_größtfehler_masse)
-```
-
-
-**Größtfehler der Strecke**
-Für den Größtfehler der Strecke wird ebenfalls die untere Intervallgrenze verwendet, da die Strecke im Nenner steht. Das negative Vorzeichen entfällt aufgrund der Betragsbildung.
-
-**An der Schreibweise muss man noch arbeiten... N ist ja eigentlich die Stichprobengröße, mit i haben wir die einzelnen Messwerte bezeichnet - gemeint ist die Anzahl der Messreihen.**
-$$
-\sqrt{\frac {1}{N} \sum_{i=1}^{N} (\frac{m \cdot g}{{s^2_{\alpha / 2}}_i} \cdot \Delta m_i)^2}
-$$
-
-**gewichteten Größtfehler der Strecke berechnen**  
-*Für die Masse nehmen wir keine Intervallgrenze, weil die Masse einmal gemessen wurde und dieser Fehler im Größtfehler steckt*
-
-``` {python}
-fehler_strecke_m = 0.0031
-
-## die Masse kann in der korrekten Reihenfolge aus dem Index abgegriffen werden. hooke['mass'].unique() gibt die Massen absteigend zurück
-
-gewichteter_größtfehler_strecke = pd.Series(9.81 * distance_means_by_weight.index / untere_intervallgrenze_abstand ** 2 * fehler_strecke_m).pow(2).mean() ** 1/2
-
-# Ausgabe
-print("Gewichteter Größtfehler Strecke:", gewichteter_größtfehler_strecke)
-print()
-
-## Ausgabe der Zwischenergebnisse
-größtfehler_strecke_nach_messreihe = pd.Series(9.81 * distance_means_by_weight.index / untere_intervallgrenze_abstand ** 2 * fehler_strecke_m)
-
-df_strecke = pd.DataFrame({'Gewicht': distance_means_by_weight.index, 'Größtfehler der Strecke der Messreihen': größtfehler_strecke_nach_messreihe, 'quadratischer Größtfehler': größtfehler_strecke_nach_messreihe ** 2})
-
-print(df_strecke)
-print('mittlerer Größtfehler', df_strecke['Größtfehler der Strecke der Messreihen'].mean())
-
-```
-
-$$
-\Delta k = 0,183 + 3,468 = 3,651
-$$
-
-
-Für die Masse müsste noch ein Größtfehler geschätzt werden... das ist bislang nur die Ableseungenauigkeit
-
-  - Die Masse $m$ der verwendeten Gewichte wurde mit einer Küchenwaage ermittelt, deren absoluter Fehler auf $\epsilon m = 0,5 g = 0,0005 kg$ geschätzt wird **Das ist doch nur der Ablesefehler oder (sieht nach halbem Skalenstrich aus?!**.
-  - Der Abstand $s$ wurde mit einem elektronischen Abstandssensor und einem Arduino ermittelt Der absolute Fehler dess Messsystems beträgt eine Einheit der Messauflösung, also $\epsilon s = 0,01 cm$, die Garantiefehlergrenze $3 mm$. Der Größtfehler des Abstands beträgt also $\Delta s = 0,0001 + 0,003 m = 0,0031 m$.
-  - Der Standardfehler der Federkonstante $k$ wurde mit $0,3784 \frac{N}{m}$ bestimmt.
-
-
-## Resterampe
-
-Größtfehler bei Messung mehrerer fehlerbehafteter Größen: Fehlerfortpflanzung  
-https://www.uni-ulm.de/fileadmin/website_uni_ulm/nawi.inst.225/teaching/Grundpraktikum/Fehlerrechnung/Einfuehrung_FehlerrechnungHankelPaul.pdf
-
-Wiederholung Fehlerstatistik Steigungskoeffizient der linearen Regression
-
-1. Legen Sie ein Signifikanzniveau $\alpha$ bzw. ein zweiseitiges Konfidenzniveau $1 - \frac{\alpha}{2}$ fest.
-2. Bestimmen Sie den Steigungskoeffizienten $\hat{\beta_1}$
-3. Bestimmen Sie den Standardfehler des Steigungskoeffizienten $SE = \hat{\sigma}_{\hat{\beta_1}}$
-4. Bestimmen Sie den Wert der t-Verteilung mit n - 2 Freiheitsgraden für das gewählte Konfidenzniveau und einen zweiseitigen Hypothesentest $t_{1-\alpha / 2} ~ (n - 2)$
-5. Berechnen Sie das Konfidenzintervall $\hat{\beta_1} \pm SE \cdot t_{1-\alpha / 2} ~ (n - 2)$
-
-Der Größtfehler $\Delta x$ setzt sich zusammen aus dem systematischen Fehler und dem zufälligen Fehler. 
-
-- systematische Fehler: Fehler der Messgeräte, der Art der Messung (bspw. Genauigkeit Abstandssenor) --> sollten, wenn sie bekannt sind, korrigiert werden!
-  - das ist die Küchenwaage, deren systematischer Fehler auf  $\frac{g}{\Delta x} = \frac{9.81}{\Delta x}$ ? Was ist Delta-x, die Ausdehnung?!
-    - Die Masse wäre 705g --> müsste die Messungenauigkeit der Küchenwaage mit 0.5 g nicht ins Verhältnis zu 705 g gesetzt werden?
-- zufällige Fehler: Streuung von Messwerten um Erwartungswert --> sollten quantifiziert werden.
-
-
-
-
-Bei der Fehlerabschätzung von 
-Addition aus Fehlerabschätzung und Fehlerstatistik, beispielsweise t-Wert des gewählten Konfidenzniveaus mal Standardfehler einer Messreihe plus minus Fehlerabschätzung
-
-"
-- Bei Einfachmessung geht der Garantiefehler des Messgerätes ein, der Ablesefehler des Experimentators,
-Fehler, die aus Umwelteinflüssen resultieren und gegebenenfalls noch vieles andere.
-Alle diese Fehler werden so gut es eben geht abgeschätzt, addiert und bilden in ihrer Gesamtheit
-die sogenannte Messunsicherheit.
-
-
-
-
-Der gute Herr Hempel schreibt also, 2t würde man üblicherweise nehmen.
-
-[Hier (S. 9)](https://users.physics.unc.edu/~deardorf/uncertainty/UNCguide.pdf) steht man würde die Standardunsicherheit überweise im Intervall von ca. 68 % - das ist eben 1t bzw. 1s - angeben. Bei vielfachen von s ist es eigentlich auch egal was man nimmt.
-
-[Hier (S. 20)](https://users.physics.unc.edu/~deardorf/uncertainty/UNCguide.pdf) wird ein Trick - das gemeinsame Messen - zur Redzuierung des systematischen Messfehlers genannt (wenn anwendbar.)
-
-"Die Benennung Standardmeßunsicherheit, kurz Standardunsicherheit [1], wird verwendet, wenn herausgestellt werden soll, daß die Meßunsicherheit durch eine Standardabweichung Standardabweichung* ausgedrückt wird [...]." [@DIN1319-3, S. 3]
-
-"Die Standardabweichung
-ist ein Maß für die Streuung der einzelnen Meßwerte um den Erwartungswert oder der zufälligen Meßabweichungen*
-um Null." [@DIN1319-3, S. 5]
-
-erweiterte Messunsicherheit vs. Vertrauensbereich 
-DIN 1319-3 definiert einerseits die erweiterte Messunsicherheit als U(y) = k * u(y). Der Erweiterungsfaktor k soll zwischen 2 und 3 liegen und vorzugsweise = 2 betragen. (DIN 1319-3, S. 7)
-Andererseits wird der Vertrauensbereich, als optionale, zusätzliche Angabe zum vollständigen Messergebnis (bspw. Y = y plus / minus u(y)) unter Verweis auf DIN 1319-1 definiert: u* = t * s / sqrt(n) (DIN 1319-1, S. 14, DIN 1319-3, S. 7). 

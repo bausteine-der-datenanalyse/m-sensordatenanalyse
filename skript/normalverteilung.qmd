@@ -27,10 +27,10 @@ def verteilungskennwerte(x, output = True):
   stichprobenvarianz = sum((x - stichprobenmittelwert) ** 2) / (N - 1)
 
   # Standardabweichung bestimmen
-  standardabweichung = stichprobenvarianz ** (1/2)
+  stichprobenstandardabweichung = stichprobenvarianz ** (1/2)
 
   # Stichprobenfehler bestimmen
-  stichprobenfehler = standardabweichung / (N ** (1/2))
+  stichprobenfehler = stichprobenstandardabweichung / (N ** (1/2))
 
   # Ausgabe
   if output: # output = True
@@ -38,11 +38,11 @@ def verteilungskennwerte(x, output = True):
           f"arithmetisches Mittel: {stichprobenmittelwert:.2f}\n",
           f"Stichprobenfehler: {stichprobenfehler:.2f}\n",
           f"Stichprobenvarianz: {stichprobenvarianz:.2f}\n",
-          f"Standardabweichung: {standardabweichung:.2f}",
+          f"Stichprobenstandardabweichung: {stichprobenstandardabweichung:.2f}",
           sep = '')
 
   else: # output = False
-    return N, stichprobenmittelwert, stichprobenfehler, stichprobenvarianz, standardabweichung
+    return N, stichprobenmittelwert, stichprobenfehler, stichprobenvarianz, stichprobenstandardabweichung
 
 # Datensätze einlesen
 ## meerschweinchen
@@ -172,7 +172,7 @@ Der Datensatz enthält Daten für drei Pinguinarten.
 print(penguins.groupby(by = penguins['species']).size())
 ```
 
-Unter anderen wurde das Körpergewicht in Gramm gemessen, das in der Spalte 'body_mass_g' eingetragen ist. Die Gewichtsverteilung der drei Spezies wird jeweils mit einem Histogramm dargestellt. Außerdem werden für jede Spezies  der Stichprobenmittelwert und die Stichprobenstandardabweichung bestimmt. Mit diesen Werten kann eine Normalverteilungskurve berechnet und in das Histogramm eingezeichnet werden (wie das geht, wird in @nte-normalverteilungdarstellen gezeigt). So kann optisch geprüft werden, ob die empirische Verteilung der Werte in der Stichprobe einer Normalverteilung mit den selben Werten für Mittelwert und Standardabspreichung entspricht.
+Unter anderen wurde das Körpergewicht in Gramm gemessen, das in der Spalte 'body_mass_g' eingetragen ist. Die Gewichtsverteilung der drei Spezies wird jeweils mit einem Histogramm dargestellt. Außerdem werden für jede Spezies  der Stichprobenmittelwert und die Stichprobenstandardabweichung bestimmt. Mit diesen Werten kann eine Normalverteilungskurve berechnet und in das Histogramm eingezeichnet werden (wie das geht, wird in @nte-normalverteilungdarstellen gezeigt). So kann optisch geprüft werden, ob die empirische Verteilung der Werte in der Stichprobe einer Normalverteilung mit den selben Werten für Mittelwert und Standardabweichung entspricht. (Bei aus Messungen gewonnenen Daten ist dies häufig nicht so eindeutig, wie bei der Häufigkeitsverteilung von Würfelergebnissen.)
 
 ::: {.panel-tabset}
 
@@ -316,7 +316,7 @@ Die Normalverteilung ist eine Dichtekurve, an die sich der Verlauf eines Histogr
 
 ::: {#imp-histogramm .callout-important collapse="false"}
 ## Histogramm
-Das Histogramm ist eine grafische Darstellung der Häufigkeitsverteilung kardinal skalierter Merkmale. Die Daten werden in Klassen, die eine konstante oder variable Breite haben können, eingeteilt. Es werden direkt nebeneinanderliegende Rechtecke von der Breite der jeweiligen Klasse gezeichnet, deren Flächeninhalte die (relativen oder absoluten) Klassenhäufigkeiten darstellen. Die Höhe jedes Rechtecks stellt dann die (relative oder absolute) Häufigkeitsdichte dar, also die (relative oder
+Das Histogramm ist eine grafische Darstellung der Häufigkeitsverteilung kardinal skalierter Merkmale (d. h. mit numerischen, geordneten Merkmalsausprägungen). Die Daten werden in Klassen, die eine konstante oder variable Breite haben können, eingeteilt. Es werden direkt nebeneinanderliegende Rechtecke von der Breite der jeweiligen Klasse gezeichnet, deren Flächeninhalte die (relativen oder absoluten) Klassenhäufigkeiten darstellen. Die Höhe jedes Rechtecks stellt dann die (relative oder absolute) Häufigkeitsdichte dar, also die (relative oder
 absolute) Häufigkeit dividiert durch die Breite der entsprechenden Klasse.
 
 :::: {#nte-histogram .callout-note collapse="true"}
@@ -366,7 +366,7 @@ Die Summe der relativen Häufigkeiten ist 1.
 
 Ein Histogramm kann mit der Funktion `plt.hist(x, bins = None, *, range = None, density = False)` aufgerufen werden, welche intern `np.histogram()` für die Berechnungen aufruft. Die Parameter der Funktion entsprechenen denen der NumPy-Funktion, wobei mit dem Argument `x` die darzustellenden Daten übergeben werden. Zusätzlich können verschiedene Grafikparameter übergeben werden.
 
-Die Funktion hat 3 Rückgabewerte: die absolute Häufigkeit der Klassen (bzw. wenn `density = True` die Häufigkeitsdichte), die x-Position der Rechtecke.
+Die Funktion hat 3 Rückgabewerte: die absolute Häufigkeit der Klassen (bzw. wenn `density = True` die Häufigkeitsdichte), die x-Position der Rechtecke und die Objekte für die Grafikerstellung (letztere werden im folgenden Code im Objekt `ignore` gespeichert und nicht weiter verwendet.).
 
 ::::: {.panel-tabset}
 ## absolute Häufigkeit
@@ -470,7 +470,7 @@ plt.show()
 ::::
 :::
 
-<!-- &nbsp; -->
+::: {.border}
 
 Die Dichtefunktion der Normalverteilung beschreibt, welcher Anteil der Werte innerhalb eines bestimmten Wertebereichs liegt. Bei der Berechnung der relativen Häufigkeiten in @nte-histogram haben wir gesehen, dass die Summe der relativen Häufigkeiten 1 ist. Dies entspricht der Fläche unterhalb der Dichtekurve.
 
@@ -483,6 +483,12 @@ $$
 Die Form der Normalverteilung ergibt sich aus dem Faktor $e^{-\frac{1}{2}\left(\frac{x -\mu}{\sigma}\right)^2}$ der Funktionsgleichung. Das Maximum der Funktion liegt am Punkt $x = \mu$. Von dort fällt sie symmetrisch ab und nähert sich der x-Achse an. Der Abfall der Funktion erfolgt umso schneller, je kleiner $\sigma$ ist. Die Wendepunkte der Kurve liegen jeweils eine Standardabweichung vom Mittelwert entfernt.
 
 Eine Normalverteilung mit dem Mittelwert $\mu = 0$ und einer Standardabweichung $\sigma = 1$ heißt Standardnormalverteilung.
+
+[@Baitsch-2019, S. 51-54]
+
+:::
+
+&nbsp;
 
 ## Normalverteilung anpassen
 Um die Verteilung in einem Datensatz durch eine Normalverteilung anzunähern, werden dessen Mittelwert und Standardabweichung in die Funktionsgleichung der Normalverteilung eingesetzt. Mit Python können die Berechnungen direkt vorgenommen werden. In der Handhabung einfacher sind die vom Paket SciPy bereitgestellten Funktionen, die im nächsten Abschnitt ausführlicher vorgestellt werden. Das folgende Beispiel zeigt die Berechnung und Visualisierung mit Python und mit SciPy.
@@ -547,8 +553,6 @@ Die Verteilung der Länge zahnbildender Zellen bei Meerschweinchen, die eine Dos
 
 :::
 
-**Quelle: Skript MB S. 51-54**
-
 &nbsp;
 
 ## Das Paket SciPy
@@ -584,7 +588,7 @@ plt.show()
 ```
 
 **Beschreibung**  
-Die Funktion `scipy.stats.norm.pdf(x)` berechnet die Dichte der Normalverteilung am Punkt `x` (PDF = probability density function). `x` kann auch ein array sein - so wurde die linksstehende Kurve mit dem Befehl `scipy.stats.norm.pdf(np.linspace(-4, 4, 100))` berechnet.
+Die Funktion `scipy.stats.norm.pdf(x)` berechnet die Dichte der Normalverteilung am Punkt `x` (pdf = probability density function). `x` kann auch ein array sein - so wurde die linksstehende Kurve mit dem Befehl `scipy.stats.norm.pdf(np.linspace(-4, 4, 100))` berechnet.
 
 ```{python}
 #| echo: false
@@ -602,7 +606,7 @@ plt.show()
 ```
 
 **Beschreibung**  
-Die Funktion `scipy.stats.norm.cdf(x)` berechnet den Anteil der Werte links von `x` (CDF = cumulative density function).
+Die Funktion `scipy.stats.norm.cdf(x)` berechnet den Anteil der Werte links von `x` (cdf = cumulative density function).
 
 ```{python}
 #| echo: false
@@ -629,7 +633,7 @@ plt.show()
 ```
 
 **Beschreibung**  
-Die Funktion `scipy.stats.norm.ppf(q)` ist die Quantilfunktion der Normalverteilung und die Umkehrfunktion der kumulativen Häufigkeitsdichtefunktion (CDF). Die Funktion berechnet für $0 \le q \le 1$ den Wert `x`, links von dem der Anteil `q` aller Werte liegt und rechts von dem der Anteil `1-q` liegt (PPF = percentile point function).
+Die Funktion `scipy.stats.norm.ppf(q)` ist die Quantilfunktion der Normalverteilung und die Umkehrfunktion der kumulativen Häufigkeitsdichtefunktion (cdf). Die Funktion berechnet für $0 \le q \le 1$ den Wert `x`, links von dem der Anteil `q` aller Werte liegt und rechts von dem der Anteil `1-q` liegt (ppf = percentile point function).
 
 ```{python}
 #| echo: false
@@ -664,7 +668,7 @@ Möglicherweise haben Sie schon einmal von Mensa International gehört, einer Ve
 
 1. Wenn der durchschnittliche IQ 100 und die Standardabweichung 15 beträgt, welchen IQ müssten Sie haben, um bei Mensa International aufgenommen zu werden?
 
-2. Mensa International ist nicht die einzige Organisation ihrer Art, andere Organisationen haben sogar noch strengere Kriterien. Welcher IQ wird benötigt, um hier Mitglied zu werden?
+2. Mensa International ist nicht die einzige Organisation ihrer Art. Andere Organisationen haben sogar noch strengere Kriterien. Welcher IQ wird benötigt, um hier Mitglied zu werden?
 
   - Intertel (Kriterium: IQ aus dem höchsten 1 %)
   - Triple Nine Society (Kriterium: IQ aus dem höchsten 0,1 %)
@@ -699,7 +703,7 @@ print(scipy.stats.norm.cdf(loc = 71, scale = 15, x = 100))
 Übrigens: Wie [der Spiegel berichtet](https://www.spiegel.de/lebenundlernen/intelligenz-von-studenten-neugier-schlaegt-iq-a-816084.html), schneiden Studierende mit mittelmäßigem Intelligenzquotienten ebenso erfolgreich ab wie Hochbegabte, vorausgesetzt sie sind neugierig genug und arbeiten gewissenhaft.
 
 ## Konfidenzintervalle
-Die Grundidee in der Statistik ist, dass von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit geschlossen werden kann. Die Überlegung ist wie folgt:
+Die schließende Statistik beruht auf dem Prinzip, von Stichprobenwerten auf den tatsächlichen Wert in der Grundgesamtheit zu schließen. Die Überlegung ist wie folgt:
 
 1. Wenn eine Stichprobe aus einer Grundgesamtheit gezogen wird, dann streuen die Stichprobenwerte normalverteilt um den Mittelwert der Grundgesamtheit. Bei einer Normalverteilung liegen 
 
@@ -717,7 +721,7 @@ Die Grundidee in der Statistik ist, dass von Stichprobenwerten auf den tatsächl
 
 Häufig wird das Alphaniveau $\alpha = 0.05$ bzw. das Konfidenzintervall 95 % gewählt, was $\pm 1.96 ~ \frac{s}{\sqrt{n}}$ entspricht. Dies gilt aber nur für große Stichproben. Für kleine Stichprobengrößen folgen die Stichprobenmittelwerte der t-Verteilung, die im nächsten Abschnitt vorgestellt wird.
 
-**hier könnte / müsste man noch einseitige und zweiseitige Hypothesentests und den Begriff "Alpha-Halbe" einführen. Das ließe sich auch gut grafisch mit nur nach rechts gehenden und beidseitigen Pfeilen darstellen.**
+**to do Maik: hier könnte / müsste man noch einseitige und zweiseitige Hypothesentests und den Begriff "Alpha-Halbe" einführen. Das ließe sich auch gut grafisch mit nur nach rechts gehenden und beidseitigen Pfeilen darstellen.**
 
 Im folgenden Beispiel wird die Idee, dass mit einer gewissen  Wahrscheinlichkeit vom Stichprobenmittelwert auf den Mittelwert der Grundgesamtheit (Erwartungswert) geschlossen werden kann, noch einmal grafisch dargestellt.
 
@@ -726,6 +730,10 @@ Im folgenden Beispiel wird die Idee, dass mit einer gewissen  Wahrscheinlichkeit
 
 :::: {.panel-tabset}
 ## Standardnormalverteilung
+In einer Normalverteilung kommen Werte in der Nähe des Erwartungswerts häufiger vor als weit vom Erwartungswert entfernt liegende Werte. Wie häufig oder selten ein Wert relativ zum Mittelwert der Verteilung vorkommt, kann mit der Standardabweichung ausgedrückt werden.
+
+In der Grafik sehen Sie zufällig gezogene Werte und eine Normalverteilungskurve.
+
 ```{python}
 #| echo: false
 #| fig-alt: "Dargestellt ist ein Histgramm mit 30 Klassen. Auf der x-Achse sind die Einheiten der Standardabweichung von -3 bis +3 abgetragen, auf der y-Achse die Häufigkeitsdichte. Zusätzlich sind der Stichprobenmittelwert 0 durch einer vertikale Linie und die ganzzahligen Einheiten der Standardabweichugn durch gestrichelte vertikale Linien eingezeichnet. Über dem Histogramm liegt die Kurve der Standardnormalverteilung. Mit horizontalen Pfeilen sind die Entfernungen zwischen den Standardabweichungen plus/minus 1, 2 und 3 markiert und der Anteil der dazwischen liegenden Werte annotiert (68,27 %, 95,45 %, 99,73 %)."
@@ -774,6 +782,8 @@ plt.show()
 ```
 
 ## Einzelner Messwert
+Ein einzelner Messwert aus der Verteilung entspricht so gut wie nie dem Erwartungswert. Man weiß aber, dass ein Wert nahe des Erwartungswerts häufiger vorkommt, als ein weit entfernter.
+
 ```{python}
 #| echo: false
 #| fig-alt: "Aufbauend auf der vorherigen Grafik ist ein einzelner Messerwert bei s = -1.25 eingezeichnet, um den eine Normalverteilungskurve eingezeichnet ist."
@@ -830,6 +840,7 @@ plt.show()
 ```
 
 ## Stichprobe N = 12
+Der Mittelwert einer Stichprobe entspricht ebenfalls so gut wie nie dem Erwartungswert. Der zu erwartende, in Einheiten des Standardfehlers des Mittelwerts ausgedrückte Streuungsbereich ist jedoch erheblich schmaler als der eines einzelnen Messwerts. Dies ist auch grafisch gut zu sehen. Die Dichtekurve ist erheblich schmaler und höher als die Normalverteilungskurve eines einzelnen Messwerts. Dies liegt an der geringen Standardabweichung in der Stichprobe von ~ 0.2, was die Kurve staucht.
 
 ```{python}
 #| echo: false
@@ -900,8 +911,6 @@ plt.ylabel('Häufigkeitsdichte')
 plt.show()
 
 ```
-
-Ein Stichprobenmittelwert streut inform einer Normalverteilungskurve mit sigma = stichprobenfehler. Diese Dichtekurve ist erheblich schmaler und höher als die Normalverteilungskurve eines einzelnen Messwerts. Dies liegt an der geringen Standardabweichung in der Stichprobe von ~ 0.2, was die Kurve staucht.
 
 ## Code
 Code für das Panel Stichprobe N = 12
@@ -1011,9 +1020,9 @@ $$
 
 Das Modul scipy.stats stellt Funktionen zur Berechnung der t-Verteilung bereit.
 
-  - `scipy.stats.t.pdf(x, df, loc=0, scale=1)` berechnet die Häufigkeitsdichte für die Werte `x` für eine t-Verteilung mit `df` Freiheitsgraden, Mittelwert `loc` und Standardabweichung `scale` (PDF = probability density function).
-  - `scipy.stats.t.cdf(x, df, loc=0, scale=1)` berechnet den Anteil der Werte links von `x` (CDF = cumulative density function). 
-  - `scipy.stats.t.ppf(q, df, loc=0, scale=1)` ist die Quantilfunktion der t-Verteilung (PPF = percentile point function).
+  - `scipy.stats.t.pdf(x, df, loc=0, scale=1)` berechnet die Häufigkeitsdichte für die Werte `x` für eine t-Verteilung mit `df` Freiheitsgraden, Mittelwert `loc` und Standardabweichung `scale` (pdf = probability density function).
+  - `scipy.stats.t.cdf(x, df, loc=0, scale=1)` berechnet den Anteil der Werte links von `x` (cdf = cumulative density function). 
+  - `scipy.stats.t.ppf(q, df, loc=0, scale=1)` ist die Quantilfunktion der t-Verteilung (ppf = percentile point function).
   - `scipy.stats.t.rvs(df, loc=0, scale=1, size=1)` zieht `size` Zufallzahlen aus der t-Verteilung.
 
 Die Parameter der Funktionen können Einzelwerte (Skalare) oder auch Arrays bzw. Listen sein.
@@ -1086,6 +1095,14 @@ $$
     - `scipy.stats.t.ppf(q = alpha/2, df = n - 1, loc = stichprobenmittelwert, scale = stichprobenstandardfehler)`
     - `scipy.stats.t.ppf(q = 1 - alpha/2, df = n - 1, loc = stichprobenmittelwert, scale = stichprobenstandardfehler)`
 
+::: {#tip-t .callout-tip collapse="false"}
+## t-Verteilung oder Normalverteilung?
+
+Am Computer ist die t-Verteilung genauso leicht (oder schwer) zu berechnen wie die Normalverteilung. Da sich die t-Verteilung für größere Stichprobengrößen ohnehin der Normalverteilung annähert, empfiehlt es sich, stets die t-Verteilung zu verwenden.
+
+:::
+
+### Beispiel Gewicht weiblicher Pinguine
 Die t-Verteilung des geschätzten Stichprobenmittelwerts für kleine Stichproben wird für im Jahr 2008 beobachtete weibliche Pinguine dargestellt.
 
 ```{python}

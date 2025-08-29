@@ -1,5 +1,5 @@
 # Lineare Parameterschätzung {#sec-hooke}
-**Geht es in diesem Kapitel überhaupt um Kennlinien? Lineare Parameterschätzung?!**
+**Dieses Kapitel braucht eine Einleitung**
 
 **Messwerte in den Grafiken in die Legende aufnehmen**
 
@@ -430,8 +430,6 @@ vorhersagewerte_hooke = poly.polyval(hooke['distance'], lm)
 
 Die Messreihe und die darauf angepasste lineare Funktion können grafisch dargestellt werden.
 
-**Hier mal überlegen: Die lineare Funktion kennt keine Grenzen, aber die gemessene Abstandsänderung kann nicht (sinnvoll) kleiner als Null werden. Grafisch ist `plt.axline()` ggf. nicht so optimal. Außerdem könnte in der linearen Regression der y-Achsenabschnitt als 0 vorgegeben werden (denn das wissen wir ja).**
-
 ```{python}
 #| fig-alt: "Messdaten des Federexperiments (Abstandsänderung vs. wirkende Kraft) mit eingezeichneter Regressionsgeraden."
 
@@ -561,7 +559,7 @@ print(f"{slope - scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr
 ```
 
 ### Ergebnis Federkonstante
-Die Federkonstante des Versuchaufbaus liegt mit 95 prozentiger Sicherheit im Intervall zwischen 32.27 und 33.77. Die Punktschätzung für die Federkonstante beträgt 33.02.
+Die Federkonstante des Versuchaufbaus liegt mit 95 prozentiger Sicherheit im Intervall zwischen 32,27 und 33,77. Die Punktschätzung für die Federkonstante beträgt 33,02.
 
 
 **Aufgabe könnte sein, das Konfidenzintervall 99-Prozent zu berechnen.**  
