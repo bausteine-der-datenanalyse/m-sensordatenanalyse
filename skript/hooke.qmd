@@ -139,6 +139,7 @@ z_values.name = 'z-values'
 print(pd.concat([hooke[hooke['mass'] == gewicht], z_values], axis = 1))
 ```
 
+### Explorative Statistik
 Die Grafik des bereinigten Datensatzes legt einen linearen Zusammenhang nahe. Darüber hinaus sticht der mit zunehmendem Gewicht abfallende Trend der Datenpunkte ins Auge.
 
 ```{python}
