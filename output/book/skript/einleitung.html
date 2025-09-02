@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e4aa0397115c41deec761c50bad4326d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-130c2ef3da62f04209ff5e2fb00d8304.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -277,9 +277,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p><strong>to do: Größtfehler ergänzen</strong></p>
 <p>In diesem Baustein werden die folgenden Module verwendet:</p>
-<div id="8be42f3b" class="cell" data-execution_count="1">
+<div id="9e6e43b2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy.polynomial.polynomial <span class="im">as</span> poly</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -295,7 +294,7 @@ window.Quarto = {
 <li>Die numerische Entsprechung ist 173.</li>
 <li>Das Bezugssystem ist das metrische System.</li>
 </ul>
-<p>Messwerte sind aus verschiedenen Gründen Annäherungen an den wahren Wert der zugrundeliegenden physikalischen Größe. Zum einen variiert die <a href="https://www.barmer.de/presse/presseinformationen/newsletter-gesundheit-im-blick/koerpergroesse-1126334">Größe eines Menschen im Tagesverlauf</a>. Zum anderen ist das Messergebnis auch ein Ergebnis der verwendeten Skala. Wäre die Messung im imperialen Messsystem erfolgt, wäre Johannas Größe mit 68 Zoll bestimmt worden, was 172,72 Zentimetern entspricht.</p>
+<p>Messwerte können aus verschiedenen Gründen immer nur eine Annäherungen an den wahren Wert der zugrundeliegenden physikalischen Größe sein. Zum einen variiert die <a href="https://www.barmer.de/presse/presseinformationen/newsletter-gesundheit-im-blick/koerpergroesse-1126334">Größe eines Menschen im Tagesverlauf</a>. Zum anderen ist das Messergebnis auch ein Ergebnis der verwendeten Skala. Wäre die Messung im imperialen Messsystem erfolgt, wäre Johannas Größe mit 68 Zoll bestimmt worden, was 172,72 Zentimetern entspricht.</p>
 <p>Das Messergebnis ist also keine exakte Entsprechung der tatsächlichen Merkmalsausprägung. Ein bekanntes Beispiel für die mit dem Messvorgang verbundene Unsicherheit ist das Küstenlinienparadox: Das Ergebnis der Vermessung unregelmäßiger Küstenlinien wird umso größer, je kleiner die Messabschnitte gewählt werden.</p>
 <div class="border">
 <div id="fig-coastlines" class="quarto-layout-panel">
@@ -350,9 +349,9 @@ Definition&nbsp;1.1: Messung
 <div class="callout-body-container callout-body">
 <p>“Eine Messung ist der experimentelle Vorgang, durch den ein spezieller Wert einer physikalischen Größe als Vielfaches einer Einheit oder eines Bezugswertes ermittelt wird.</p>
 <p>Die Messung ergibt zunächst einen Messwert. Dieser stimmt aber aufgrund störender Einflüsse mit dem wahren Wert der Messgröße praktisch nie überein, sondern weist eine gewisse Messabweichung auf. Zum <em>vollständigen Messergebnis</em> wird der Messwert, wenn er mit quantitativen Aussagen über die zu erwartende Größe der Messabweichung ergänzt wird. Dies wird in der Messtechnik als Teil der Messaufgabe und damit der Messung verstanden.”</p>
-<p>Messung. von verschiedenen <a href="https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung">Autor:innen</a> steht unter der Lizenz <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de">CC BY-SA 4.0</a> ist abrufbar auf [Wikipedia] (https://de.wikipedia.org/wiki/Messung). 2025</p>
+<p>Messung. von verschiedenen <a href="https://xtools.wmcloud.org/authorship/de.wikipedia.org/Messung">Autor:innen</a> steht unter der Lizenz <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de">CC BY-SA 4.0</a> ist abrufbar auf <a href="https://de.wikipedia.org/wiki/Messung">Wikipedia</a>. 2025</p>
 <ul>
-<li>Die ideale Messung ist eine direkte Messung oder der gesuchte Wert hängt linear (<strong>direkt?!</strong>) vom gemessenen Wert ab.</li>
+<li>Die ideale Messung ist eine direkte Messung oder der gesuchte Wert hängt direkt vom gemessenen Wert ab.</li>
 <li>Die ideale Messung ist <em>genau</em> und <em>präzise</em>.</li>
 </ul>
 </div>
@@ -391,7 +390,7 @@ Abbildung&nbsp;1.2: Direkte Messung
 <p>Gliedermaßstäbe von Fst76 ist lizensiert unter <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA 3.0</a> und ist abrufbar auf <a href="https://commons.wikimedia.org/wiki/File:Gliederma%C3%9Fst%C3%A4be.jpg">Wikimedia</a>. 2014</p>
 </div>
 <p>&nbsp;</p>
-<p>Bei einer indirekten Messung wird die Messgröße auf eine andere pyhsikalische Größe zurückgeführt.</p>
+<p>Bei einer indirekten Messung wird die Messgröße auf eine andere physikalische Größe zurückgeführt.</p>
 <div class="border">
 <div id="fig-indirektemessung" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
@@ -466,8 +465,8 @@ Abbildung&nbsp;1.4: Genauigkeit und Präzision
 </section>
 <section id="messreihen" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="messreihen"><span class="header-section-number">1.2</span> Messreihen</h2>
-<p>Um die Unsicherheit einer Messung zu verringern, kann man einen Messwert in Form einer Messreihe wiederholt aufnehmen. Die (<strong>erste</strong>) beste Schätzung der Messgröße bietet der arithmetische Mittelwert der Messreihe.</p>
-<p>Der arithmetische Mittelwert einer Messreihe <span class="math inline">\(\bar{x}\)</span> ist die Summe aller Einzelmesswerte dividiert durch die Anzahl der Messwerte <span class="math inline">\(N\)</span>.</p>
+<p>Um die Unsicherheit einer Messung zu verringern, kann man einen Messwert in Form einer Messreihe wiederholt aufnehmen. Die beste Schätzung der Messgröße bietet der arithmetische Mittelwert der Messreihe.</p>
+<p>Der arithmetische Mittelwert einer Messreihe <span class="math inline">\(\bar{x}\)</span> ist die Summe aller Einzelmesswerte <span class="math inline">\(x_i\)</span> dividiert durch die Anzahl der Messwerte <span class="math inline">\(N\)</span>.</p>
 <p><span class="math display">\[
 \bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
 \]</span></p>
@@ -510,13 +509,17 @@ Hinweis&nbsp;1.1: Standardabweichung und Varianz in der Grundgesamtheit
 \]</span></p>
 </div>
 </div>
-<p>Mit Hilfe der Standardabweichung kann der <em>Standardfehler</em> der Messung bestimmt werden. Der Standardfehler ist ein Maß dafür, wie genau sich der arithmetische Mittelwert der Stichprobe an den tatsächlichen Mittelwert der Grundgesamtheit, den Erwartungswert, annähert (dazu gleich mehr) und wird auch <em>Stichprobenfehler</em> genannt. Der Standardfehler wird aus der Standardabweichung einer Messung und der Wurzel der Stichprobengröße berechnet. Da die Varianz in der Grundgesamtheit in der Regel unbekannt ist, wird der Standardfehler mit der Stichprobenvarianz geschätzt.</p>
+<p>Mit Hilfe der Standardabweichung kann der <em>Standardfehler des Mittelwerts</em> bestimmt werden. Der Standardfehler des Mittelwerts ist ein Maß dafür, wie genau sich der arithmetische Mittelwert der Stichprobe an den tatsächlichen Mittelwert der Grundgesamtheit, den Erwartungswert, annähert (dazu gleich mehr) und wird auch <em>Stichprobenfehler</em> genannt. Der Standardfehler des Mittelwerts wird aus der Standardabweichung einer Messung und der Wurzel der Stichprobengröße berechnet.</p>
 <p><span class="math display">\[
 \sigma_{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}}
 \]</span></p>
-<p>Manchmal wird der Standardfehler zur längeren Schreibeweise umgeformt.</p>
+<p>Da die Standardabweichung in der Grundgesamtheit in der Regel unbekannt ist, wird der Standardfehler des Mittelwerts mit der Stichprobenstandardabweichung geschätzt.</p>
 <p><span class="math display">\[
-\sigma_{\bar{x}} ~ = ~ \frac{s}{\sqrt{N}} ~ = ~ \sqrt{\frac{1}{N(N-1)} \sum_{i=1}^{N}(x_i - \bar{x})^2}
+\sigma_{\bar{x}}~ = ~ \frac{s_{n-1}}{\sqrt{N}}
+\]</span></p>
+<p>Manchmal wird der Standardfehler zur längeren Schreibweise umgeformt.</p>
+<p><span class="math display">\[
+\sigma_{\bar{x}} ~ = ~ \frac{s_{n-1}}{\sqrt{N}} ~ = ~ \sqrt{\frac{1}{N(N-1)} \sum_{i=1}^{N}(x_i - \bar{x})^2}
 \]</span></p>
 <p>Der Standardfehler wird umso kleiner (die Messung umso präziser), je kleiner die Varianz in der Grundgesamtheit und je größer der Stichprobenumfang ist.</p>
 <p>Dies lässt sich mit einem simulierten Würfelexperiment verdeutlichen. Bei einem idealen, fairen Würfel kommt jede Augenzahl gleich oft vor. Der Erwartungswert eines sechsseitigen Würfels ist:</p>
@@ -535,7 +538,7 @@ Hinweis&nbsp;1.1: Standardabweichung und Varianz in der Grundgesamtheit
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Ergebnisse</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">grafische Darstellung</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="568a42fd" class="cell" data-execution_count="2">
+<div id="c2c4b938" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>Würfe pro Person: 3             Stichprobengröße: 300
 kleinster Mittelwert: 1.00      größter Mittelwert: 6.00
@@ -552,15 +555,15 @@ Stichprobenmittelwert: 3.50     Standardfehler: 0.02
 </div>
 </div>
 <p>Mit zunehmender Anzahl an Würfen nähern sich Minimum und Maximum der individuellen Durchschnittswerte sowie der Stichprobenmittelwert dem Erwartungswert an.</p>
-<p><em>Hinweis: Da das Skript dynamisch generiert wird, wurden die Zufallszahlen von einem festgelegten Startwert aus erzeugt.</em></p>
+<p><em>Hinweis: Da das Skript dynamisch generiert wird, wurden die Zufallszahlen mit einem festgelegten Startwert erzeugt.</em></p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Die Häufigkeit der individuellen Mittelwerte ist in den folgenden Histogrammen dargestellt.</p>
-<div id="803e4632" class="cell" data-execution_count="3">
+<div id="b74e7ac7" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-4-output-1.png" alt="Dargestellt sind drei Histogramme für 3, 10 und 30 Würfe pro Person. Während für 3 Würfe noch ein breites Spektrum an Mittelwerten erzielt wird, wird die Streuung für 10 und 30 Würfe pro Person immer enger." width="662" height="469" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img" alt="Dargestellt sind drei Histogramme für 3, 10 und 30 Würfe pro Person. Während für 3 Würfe noch ein breites Spektrum an Mittelwerten erzielt wird, wird die Streuung für 10 und 30 Würfe pro Person immer enger."></p>
 </figure>
 </div>
 </div>
@@ -568,7 +571,7 @@ Stichprobenmittelwert: 3.50     Standardfehler: 0.02
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <p>Berechnung</p>
-<div id="03feb69b" class="cell" data-execution_count="4">
+<div id="ea85de49" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>personen <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>standardabweichung_grundgesamtheit <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">7</span>).std(ddof <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">1</span></span>
@@ -619,7 +622,7 @@ Stichprobenmittelwert: 3.50     Standardfehler: 0.02
 <span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>      sep <span class="op">=</span> <span class="st">""</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Darstellung</p>
-<div id="2dfe9a00" class="cell" data-execution_count="5">
+<div id="025cb21a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>personen <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>standardabweichung_grundgesamtheit <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">7</span>).std(ddof <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">1</span></span>
@@ -678,7 +681,7 @@ Stichprobenmittelwert: 3.50     Standardfehler: 0.02
 <div id="lst-readfile" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <div aria-describedby="lst-readfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="b290feaa" class="cell" data-execution_count="6">
+<div id="01aa03ae" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/ToothGrowth.csv"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>meerschweinchen <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, <span class="op">\</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  names <span class="op">=</span> [<span class="st">'ID'</span>, <span class="st">'len'</span>, <span class="st">'supp'</span>, <span class="st">'dose'</span>], dtype <span class="op">=</span> {<span class="st">'ID'</span>: <span class="st">'int'</span>, <span class="st">'len'</span>: <span class="st">'float'</span>, <span class="st">'dose'</span>: <span class="st">'float'</span>, <span class="st">'supp'</span>: <span class="st">'category'</span>})</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -691,11 +694,11 @@ Code-Block&nbsp;1.1
 </div>
 <p>Crampton, E. W. 1947. „THE GROWTH OF THE ODONTOBLASTS OF THE INCISOR TOOTH AS A CRITERION OF THE VITAMIN C INTAKE OF THE GUINEA PIG“. The Journal of Nutrition 33 (5): 491–504. <a href="https://doi.org/10.1093/jn/33.5.491" class="uri">https://doi.org/10.1093/jn/33.5.491</a></p>
 <p>Der Datensatz kann in R mit dem Befehl “ToothGrowth” aufgerufen werden.</p>
-<div id="6a154758" class="cell" data-execution_count="7">
+<div id="8e264c5b" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="einleitung_files/figure-html/cell-8-output-1.png" alt="Illustrative Darstellung der Zahnlänge in der Spalte 'len'" width="585" height="449" class="figure-img"></p>
+<p><img src="einleitung_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img" alt="Illustrative Darstellung der Zahnlänge in der Spalte 'len'"></p>
 </figure>
 </div>
 </div>
@@ -704,13 +707,13 @@ Code-Block&nbsp;1.1
 <p>&nbsp;</p>
 <p><strong>Berechnen Sie den arithmetischen Mittelwert, die Varianz, die Standardabweichung und den Stichprobenfehler der Messreihe zur Zahnlänge (len). Verwenden Sie dazu die vorgestellten Formeln.</strong></p>
 <p>Das Ergebnis könnte so aussehen:</p>
-<div id="1f6b0d48" class="cell" data-execution_count="8">
+<div id="965bcf5d" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>N: 60
 arithmetisches Mittel: 18.81
 Stichprobenfehler: 0.99
 Stichprobenvarianz: 58.51
-Standardabweichung: 7.65</code></pre>
+Stichprobenstandardabweichung: 7.65</code></pre>
 </div>
 </div>
 <div id="tip-loesungkenngrößen" class="callout callout-style-default callout-tip callout-titled">
@@ -725,7 +728,7 @@ Tipp&nbsp;1.1: Musterlösung Verteilungskenngrößen
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="c0ca3f89" class="cell" data-execution_count="9">
+<div id="05a73a97" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verteilungskennwerte(x, output <span class="op">=</span> <span class="va">True</span>):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Anzahl Messwerte bestimmen</span></span>
@@ -760,12 +763,11 @@ Tipp&nbsp;1.1: Musterlösung Verteilungskenngrößen
 </div>
 </div>
 </div>
-<p>Die Module NumPy und Pandas verfügen über eigene Funktionen zur Berechnung der Varianz und der Standardabweichung (siehe folgendes Beispiel).</p>
 </section>
 <section id="varianz-und-standardabweichung-mit-numpy-und-pandas" class="level3">
 <h3 class="anchored" data-anchor-id="varianz-und-standardabweichung-mit-numpy-und-pandas">Varianz und Standardabweichung mit NumPy und Pandas</h3>
-<p>Die Varianz und Standardabweichung werden mit den Funktion <code>np.var()</code> und <code>np.std()</code> bzw. den Methoden <code>pd.var()</code> und <code>pd.std()</code> berechnet. Der Parameter <code>ddof</code> (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy 0 ist, berechnet Pandas mit dem Standardwert <code>ddof=1</code> die Stichprobenvarianz.</p>
-<div id="06d7585b" class="cell" data-execution_count="10">
+<p>Die Module NumPy und Pandas verfügen über eigene Funktionen zur Berechnung der Varianz und der Standardabweichung. Die Varianz und Standardabweichung werden mit den Funktion <code>np.var()</code> und <code>np.std()</code> bzw. den Methoden <code>pd.var()</code> und <code>pd.std()</code> berechnet. Der Parameter <code>ddof</code> (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy <code>ddof=0</code> ist, berechnet Pandas mit dem Standardwert <code>ddof=1</code> die Stichprobenvarianz.</p>
+<div id="a21ec144" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Varianz:"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy:</span><span class="ch">\t</span><span class="sc">{</span>np<span class="sc">.</span>var(meerschweinchen[<span class="st">'len'</span>])<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pandas:</span><span class="ch">\t</span><span class="sc">{</span>meerschweinchen[<span class="st">'len'</span>]<span class="sc">.</span>var()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
