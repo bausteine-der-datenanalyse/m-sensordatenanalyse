@@ -1,0 +1,990 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Übung Hooke'sches Gesetz\n",
+        "Häufig liegen Sensordaten in mehreren Dateien vor. Mögliche Gründe dafür können sein, dass die Messung\n",
+        "\n",
+        "  - von unterschiedlichen Personen,\n",
+        "  - an unterschiedlichen Standorten,\n",
+        "  - zu unterschiedlichen Zeiten,\n",
+        "  - mit verschiedenen Geräten oder\n",
+        "  - für unterschiedliche Messgrößen durchgeführt wurden.\n",
+        "\n",
+        "Im Ordner '01-daten/hooke' liegen mehrere txt-Dateien mit Messdaten zur Federausdehnung. In diesem Kapitel sollen Sie das bisher Gelernte anwenden und die folgenden Fragen beantworten.\n",
+        "\n",
+        "1. Liegen ungültige Messungen vor?\n",
+        "2. Welche Werte können für die Federkonstanten ermittelt werden?\n",
+        "3. Wurden die Messungen mit der gleichen Feder durchgeführt, wenn als Vertrauenswahrscheinlichkeit 90 % bzw. 95 % angenommen werden soll?\n",
+        "\n",
+        "Im Abschnitt @sec-dateien-einlesen finden Sie Hinweise und im Abschnitt @sec-aufgabe-einlesen eine Musterlösung zum Einlesen der Dateien. Anschließend sollen Sie die Aufgabenstellung eigenständig bearbeiten. Ab dem Abschnitt @sec-beginn-lösung finden Sie eine Musterlösung.\n",
+        "\n",
+        "*Hinweis: Je nach gewähltem Vorgehen ergeben sich unterschiedliche Ergebnisse.*\n",
+        "\n",
+        "**Dafür wäre die Einführung der Fehlerrechnung bzw. des Größtfehlers sinnvoll, weil hier auf das Vorliegen grober Fehler geprüft wird. Eventuell als Kapitel vor diesem. Dazu muss die Messungenauigkeit der Waage und des Abstandssensors genommen werden.**\n",
+        "Gauß´sche Fehlerfortpflanzung\n",
+        "\n",
+        "\n",
+        "Wir prüfen 'automatisiert', ob mehrere Datensätze Fehlmessungen enthalten. Anschließend bestimmen wir die Federkonstanten und die Konfidenzintervalle.\n",
+        "\n",
+        "  - einlesen mit glob - aufgaben/01-daten\n",
+        "    - man könnte eine Spalte mit dem teamnamen anlegen und dann mit groupby arbeiten. Das macht auch mehr Sinn, falls es tatsächlich sehr viele Datensätze sind. :) \n",
+        "  - z-Werte (studentisiert) nach Gewicht bestimmen\n",
+        "  - Federkonstante im Konfidenzintervall ausgeben\n"
+      ],
+      "id": "802c4083"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "import numpy as np\n",
+        "import numpy.polynomial.polynomial as poly\n",
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "import scipy\n",
+        "import glob"
+      ],
+      "id": "69499d72",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Dateien einlesen {#sec-dateien-einlesen}\n",
+        "Für das Einlesen der Dateien können Sie das Modul glob verwenden (siehe **Querverweis auf m-Einlesen strukturierter Datensätze**).\n",
+        "\n",
+        "Zunächst kann der Funktion `glob.glob()` im Argument `pathname = *` der Platzhalter `*` für eine beliebige Zeichenfolge (außer Dateipfadelemente wie `/` oder `.`) übergeben werden, sodass die Namen aller im angegebenen Ordner gespeicherten Dateien ausgelesen werden. Auf diese Weise kann die Anzahl der Dateien und die Dateiendung bestimmt werden, falls dies noch unbekannt ist.\n"
+      ],
+      "id": "1af2069a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "ordnerpfad = '01-daten/hooke'\n",
+        "\n",
+        "pfadliste = glob.glob(pathname = '*', root_dir = ordnerpfad, recursive = False)\n",
+        "print(pfadliste)\n",
+        "print(f\"Anzahl Dateien: {len(pfadliste)}\")"
+      ],
+      "id": "3810c6b1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Mit den Dateipfaden können die Dateien mit Hilfe einer Schleife in eine Liste eingelesen werden. Zunächst werden nur die jeweils ersten 3 Zeilen eingelesen, um einen Eindruck vom Aufbau der Dateien zu erhalten.\n"
+      ],
+      "id": "044d58e1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "list_of_files = []\n",
+        "for pfad in pfadliste:\n",
+        "  zwischenspeicher = pd.read_csv(filepath_or_buffer = ordnerpfad + '/' + pfad, nrows = 3)\n",
+        "  list_of_files.append(zwischenspeicher)\n",
+        "  print(pfad, \"\\n\", zwischenspeicher, \"\\n\", sep = '')"
+      ],
+      "id": "0ec35ac2",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Die Dateien beinhalten keine Spaltenbeschriftung und verwenden den Tabulator '\\t' als Trennzeichen. Die erste Spalte enthält einen Zeitstempel, die zweite die gemessene Federausdehnung und die dritte (vermutlich) das angehängte Gewicht.\n",
+        "\n",
+        "## Aufgabe Dateien einlesen {#sec-aufgabe-einlesen}\n",
+        "Lesen Sie die Dateien nun ein. Prüfen Sie dabei:\n",
+        "\n",
+        "  - ob die Datentypen korrekt eingelesen werden und \n",
+        "  - auf fehlende Werte.\n",
+        "\n",
+        "Sie können:\n",
+        "\n",
+        "  a) Jede Datei einzeln einlesen.\n",
+        "  b) Mit dem Modul glob die Dateien automatisch einlesen und jeweils in einem separaten Objekt speichern (*Hinweis:* Dieses Vorgehen wird im  **Methodenbaustein Einlesen strukturierter Datensätze** gezeigt). \n",
+        "  c) Die Dateien mit dem Modul glob automatisch einlesen und zu einer Datei zusammenführen.\n",
+        "\n",
+        "Die verschiedenen Möglichkeiten sind mit zunehmend mehr Aufwand beim Programmieren verbunden. Je mehr separate Dateien Sie auswerten möchten, desto mehr Automatisierung ist gefragt. Da bei der Auswertung von Sensordaten häufig zahlreiche Dateien ausgewertet werden müssen, wird in der Musterlösung Variante c) gezeigt.\n",
+        "  \n",
+        "::: {.callout-tip collapse=\"false\"}\n",
+        "## Schrittweises Vorgehen\n",
+        "Das Einlesen der Dateien wird voraussichtlich der aufwändigste und fehleranfälligste Arbeitsschritt sein. Entwickeln Sie Ihre Lösung Schritt für Schritt. Beginnen Sie mit der Variante a). Wenn Sie die Dateien eingelesen haben, können Sie sich durch die Weiterentwicklung zur Variante b) mit dem Modul glob vertraut machen. Darauf aufbauend können Sie mit der Variante c) die Automatisierung für beliebig viele Dateien umsetzen.\n",
+        ":::\n",
+        "\n",
+        "\n",
+        "::: {.callout-tip collapse=\"true\"}\n",
+        "## Musterlösung Dateien einlesen\n",
+        "\n",
+        "Der erste Versuch, die Dateien einzulesen, scheitert mit einer Fehlermeldung. Die Anweisungen werden deshalb in die Struktur zur Ausnahmebehandlung eingebettet und die verursachende Datei abgefangen. (Sollten mehrere Dateien Fehler aufwerfen, müssten die Dateien in einer Liste gespeichert und später - falls möglich - mit einer Schleife weiter behandelt werden.)\n"
+      ],
+      "id": "f93f8cb7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| warning: false\n",
+        "\n",
+        "hooke = pd.DataFrame(columns = ['Zeit', 'Abstand', 'Gewicht', 'Team']) # ein leerer DataFrame\n",
+        "\n",
+        "for pfad in pfadliste:\n",
+        "\n",
+        "  try:\n",
+        "    zwischenspeicher = pd.read_csv(filepath_or_buffer = ordnerpfad + '/' + pfad, sep = '\\t', names = ['Zeit', 'Abstand', 'Gewicht'])\n",
+        "\n",
+        "    # Dateiname als Spalte einfügen\n",
+        "    zwischenspeicher['Team'] = pfad[5:-4]\n",
+        "\n",
+        "    hooke = pd.concat([hooke, zwischenspeicher], ignore_index = True)\n",
+        "  \n",
+        "  except Exception as error:\n",
+        "    print(pfad, error, sep = \"\\n\")\n",
+        "    pfad_problem_datei = pfad\n",
+        "\n",
+        "print(hooke.info(), \"\\n\")\n",
+        "print(\"Erfolgreich einglesen:\\n\", hooke['Team'].unique(), sep = '')"
+      ],
+      "id": "73548f6f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Der Fehlermeldung zufolge besteht Zeile 135 aus 4 statt aus 3 Spalten. Die fehlerverursachende Datei wird deshalb zeilenweise durchlaufen und jede Zeile ausgegeben, die mehr als 3 Einträge hat. Zur Kontrolle werden auch die ersten 5 Zeilen ausgegeben."
+      ],
+      "id": "213b78e0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# einen leeren DataFrame mit 3 Spalten erstellen\n",
+        "df = pd.DataFrame(data = [], columns = ['Zeit', 'Abstand', 'Gewicht'])\n",
+        "\n",
+        "dateiobjekt_problem_datei = open(file = ordnerpfad + '/' + pfad_problem_datei, mode = 'r')\n",
+        "\n",
+        "index = 0\n",
+        "for zeile in dateiobjekt_problem_datei:\n",
+        "  try:\n",
+        "    zwischenspeicher = zeile.split(sep = \"\\t\")\n",
+        "    if len(zwischenspeicher) > 3:\n",
+        "      print(\"Index =\", index, \":\", zwischenspeicher)\n",
+        "    elif index <= 5:\n",
+        "      print(zeile)\n",
+        "    index += 1\n",
+        "  except Exception as error:\n",
+        "    print(error)\n",
+        "\n",
+        "dateiobjekt_problem_datei.close()"
+      ],
+      "id": "9f34734c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Jede zweite Zeile ist leer. In Zeile 134 wird ein Zeilenumbruch '\\\\n' eingelesen. Die Datei wird deshalb mit einer angepassten Schleife erneut durchlaufen. Aus der betreffenden Zeile wird der zusätzliche Zeilenumbruch '\\\\n' entfernt. Leere Zeilen werden übersprungen. Die korrekten Zeilen werden an den DataFrame hooke angefügt.\n",
+        "\n",
+        "**Der Code muss ggf. noch angepasst werden, weil vermutlich so leere zeilen angefügt werden**"
+      ],
+      "id": "525325ff"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "dateiobjekt_problem_datei = open(file = ordnerpfad + '/' + pfad_problem_datei, mode = 'r')\n",
+        "\n",
+        "for zeile in dateiobjekt_problem_datei:\n",
+        "  try:\n",
+        "    zwischenspeicher = zeile.split(sep = \"\\t\")\n",
+        "    if len(zwischenspeicher) > 3:\n",
+        "      zwischenspeicher = zwischenspeicher[:3]\n",
+        "    elif len(zwischenspeicher) < 3: # leere Zeilen überspringen\n",
+        "      continue\n",
+        "    # Dateinamen anfügen\n",
+        "    zwischenspeicher.append(pfad[5:-4])\n",
+        "\n",
+        "    hooke.loc[len(hooke)] = pd.Series(zwischenspeicher).values\n",
+        "\n",
+        "  except Exception as error:\n",
+        "    print(error)\n",
+        "    print(pd.Series(zwischenspeicher).values)\n",
+        "\n",
+        "dateiobjekt_problem_datei.close()\n",
+        "\n",
+        "print(\"Erfolgreich einglesen:\\n\", hooke['Team'].unique(), \"\\n\", sep = '')\n",
+        "print(hooke.info())"
+      ],
+      "id": "df613858",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Anschließend werden zum einen die Zeilen mit Nullwerten betrachtet ...\n"
+      ],
+      "id": "1e1f3ff2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "print(hooke.loc[hooke.apply(pd.isna).any(axis = 1), :])"
+      ],
+      "id": "1937f79e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "... und entfernt."
+      ],
+      "id": "ab9595a9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hooke.drop(np.where(hooke.apply(pd.isna).any(axis = 1))[0], inplace = True)"
+      ],
+      "id": "b144c170",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Zum anderen werden die Datentypen kontrolliert.\n",
+        "\n",
+        "  - Die Zeit kann als string stehen bleiben, da sie für die Auswertung nicht benötigt wird.\n",
+        "  - Der gemessene Abstand ist mit ' cm' notiert - diese Zeichenkette wird entfernt. Anschließend sollte die Spalte als numerisch erkannt werden.\n",
+        "  - Das Gewicht sollte numerische Werte enthalten, wird aber als Datentyp object eingelesen und muss weiter untersucht werden.\n",
+        "  - Der Spalte Team könnte der [Pandas Datentyp category](https://pandas.pydata.org/docs/user_guide/categorical.html) zugewiesen werden, notwendig ist es aber nicht.\n",
+        "\n",
+        "String ' cm' entfernen."
+      ],
+      "id": "755cf3e9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hooke.replace(' cm', '', regex = True, inplace = True)"
+      ],
+      "id": "59c5c130",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Ob alle Elemente einer Zelle numerisch sind, kann mit der Pandas-Methode `pd.Series.str.isnumeric()` überprüft werden. Ein Blick auf die Daten zeigt die Ursache."
+      ],
+      "id": "e56175ec"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "print(hooke['Gewicht'].str.isnumeric().sum())\n",
+        "\n",
+        "print(hooke['Gewicht'].head())\n",
+        "print(hooke['Gewicht'].tail())"
+      ],
+      "id": "c697b246",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Die Zeilenumbrüche werden ebenfalls entfernt."
+      ],
+      "id": "8252bc3c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hooke.replace('\\n', '', regex = True, inplace = True)\n",
+        "print(hooke['Gewicht'].str.isnumeric().sum())\n",
+        "print(hooke['Gewicht'].tail())"
+      ],
+      "id": "755f2830",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "print(hooke.info(), \"\\n\")\n",
+        "\n",
+        "# explizite Zuweisung\n",
+        "hooke['Abstand'] = hooke['Abstand'].astype('float')\n",
+        "hooke['Gewicht'] = hooke['Gewicht'].astype('float')\n",
+        "\n",
+        "print(hooke.info())"
+      ],
+      "id": "6c5a6e4e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ":::\n",
+        "\n",
+        "Das Ergebnis könnte so aussehen:"
+      ],
+      "id": "453b6001"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].describe()"
+      ],
+      "id": "0b45d00b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Daten aufbereiten {#sec-beginn-lösung}\n",
+        "Im nächsten Schritt werden die Daten geprüft und ggf. bereinigt. Dies umfasst folgende Schritte:\n",
+        "\n",
+        "  - auf Ausreißer prüfen (studentisierte z-Werte und grafisch) und ggf. bereinigen,\n",
+        "  - Normierung der Abstandsmessung auf den Nullpunkt und Umrechnung der verwendeten Einheiten und\n",
+        "  - grafische Darstellung.\n",
+        "\n",
+        "1. **Liegen ungültige Messungen vor?**\n",
+        "\n",
+        "### Auf Ausreißer prüfen\n",
+        "Auf Ausreißer kann (unter anderem) mit studentisierten z-Werten und grafisch geprüft werden.\n",
+        "\n",
+        "::: {.panel-tabset}\n",
+        "\n",
+        "## Ausreißer bestimmen"
+      ],
+      "id": "239e62da"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "# z-Werte größer gleich abs(3) finden\n",
+        "z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()\n",
+        "print(\"Anzahl der studentisierten z-Werte mit Betrag ≥ 3:\", z_values_ge3_sum, \"\\n\")\n",
+        "\n",
+        "# z-Werte größer gleich abs(2.5) finden\n",
+        "z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()\n",
+        "print(\"Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:\", z_values_ge25_sum)\n",
+        "\n",
+        "# Die Zeilen mit z-Werten größer abs(2.5) ausgeben\n",
+        "bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values\n",
+        "z_values_ge_25 = hooke.iloc[bool_index , :]\n",
+        "print(z_values_ge_25, \"\\n\")\n",
+        "\n",
+        "# Kombinationen aus Gewicht & Team bestimmen\n",
+        "print(\"Kombinationen aus Gewicht & Team bestimmen\")\n",
+        "teams = z_values_ge_25['Team'].unique()\n",
+        "\n",
+        "## teams durchlaufen und jeweils die Gewichte speichern\n",
+        "team_gewichte = [] # leere liste\n",
+        "for i in range(len(teams)):\n",
+        "  print(teams[i])\n",
+        "  print(z_values_ge_25.loc[z_values_ge_25['Team'] == teams[i], 'Gewicht'], \"\\n\")\n",
+        "  team_gewichte.append(z_values_ge_25.loc[z_values_ge_25['Team'] == teams[i], 'Gewicht'].values)\n",
+        "\n",
+        "# print(\"Als Liste von arrays:\")\n",
+        "# print(team_gewichte, \"\\n\")"
+      ],
+      "id": "521d11ae",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Gemeinsame Ausgabe der Messreihen"
+      ],
+      "id": "551e1cf9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "# Messreihen auswählen\n",
+        "messreihen = pd.DataFrame()\n",
+        "for i in range(len(teams)):\n",
+        "  for j in range(len(team_gewichte[i])):\n",
+        "\n",
+        "    print(teams[i], team_gewichte[i][j])\n",
+        "\n",
+        "    messreihen = pd.concat([messreihen, hooke.loc[ (hooke['Team'] == teams[i]) & (hooke['Gewicht'] == team_gewichte[i][j]) ]])\n",
+        "\n",
+        "# studentisierte z-Werte der Messreihen bilden\n",
+        "messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)\n",
+        "\n",
+        "# gemeinsame Ausgabe der Daten\n",
+        "messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)\n",
+        "print(messreihen)"
+      ],
+      "id": "64b332e6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Code"
+      ],
+      "id": "bd3c2105"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "\n",
+        "# z-Werte größer gleich abs(3) finden\n",
+        "z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()\n",
+        "print(\"Anzahl der studentisierten z-Werte mit Betrag ≥ 3:\", z_values_ge3_sum)\n",
+        "\n",
+        "# z-Werte größer gleich abs(2.5) finden\n",
+        "z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()\n",
+        "print(\"Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:\", z_values_ge25_sum)\n",
+        "\n",
+        "# Die Zeilen mit z-Werten größer abs(2.5) ausgeben\n",
+        "bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values\n",
+        "z_values_ge_25 = hooke.iloc[bool_index , :]\n",
+        "print(z_values_ge_25, \"\\n\")\n",
+        "\n",
+        "# Kombinationen aus Gewicht & Team bestimmen\n",
+        "\n",
+        "teams = z_values_ge_25['Team'].unique()\n",
+        "\n",
+        "## teams durchlaufen und jeweils die Gewichte speichern\n",
+        "team_gewichte = [] # leere liste\n",
+        "for i in range(len(teams)):\n",
+        "  print(teams[i])\n",
+        "  print(z_values_ge_25.loc[z_values_ge_25['Team'] == teams[i], 'Gewicht'], \"\\n\")\n",
+        "  team_gewichte.append(z_values_ge_25.loc[z_values_ge_25['Team'] == teams[i], 'Gewicht'].values)\n",
+        "\n",
+        "print(team_gewichte, \"\\n\")\n",
+        "\n",
+        "# Messreihen auswählen\n",
+        "messreihen = pd.DataFrame()\n",
+        "for i in range(len(teams)):\n",
+        "  for j in range(len(team_gewichte[i])):\n",
+        "\n",
+        "    print(teams[i], team_gewichte[i][j])\n",
+        "\n",
+        "    messreihen = pd.concat([messreihen, hooke.loc[ (hooke['Team'] == teams[i]) & (hooke['Gewicht'] == team_gewichte[i][j]) ]])\n",
+        "\n",
+        "# studentisierte z-Werte der Messreihen bilden\n",
+        "messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)\n",
+        "\n",
+        "# gemeinsame Ausgabe der Daten\n",
+        "messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)\n",
+        "print(messreihen)"
+      ],
+      "id": "b3a16c07",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ":::\n",
+        "\n",
+        "Die Werte können mit der Pandas-Methode `pd.plot()` mit wenig Aufwand dargestellt werden. Die Methode ist jedoch nicht so flexibel, wie das Paket matplotlib. So ist das Punktdiagramm (`kind = 'scatter'`) nur für DataFrames, nicht aber für groupby-Objekte verfügbar. Dies wird durch das Setzen eines Markers und die Einstellung der Liniendicke auf 0 kompensiert.\n"
+      ],
+      "id": "e4f2532c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| fig-alt: \"Grafische Darstellung der Messreihen, die studentisierte z-Werte >= 2,5 enthalten.\"\n",
+        "\n",
+        "messreihen.reset_index(drop = True).groupby(by = ['Team', 'Gewicht'])['Abstand'].plot(marker = 'o', lw = 0)\n",
+        "\n",
+        "plt.xlabel('Messwert')\n",
+        "plt.ylabel('Abstand')\n",
+        "plt.legend()\n",
+        "\n",
+        "plt.show()"
+      ],
+      "id": "f023829f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "&nbsp;\n",
+        "\n",
+        "Die Werte, die betragsmäßig studentisierte z-Werte $\\ge$ 2,5 aufweisen, könnten als Ausreißer entfernt werden. In diesem Fall wird darauf verzichtet.\n",
+        "\n",
+        "### Umwandlung der Rechengrößen\n",
+        "Im nächsten Schritt wird die Abstandsmessung auf den Nullpunkt normiert, um die Federausdehnung abzubilden. Ebenso wird das Gewicht in $g$ in die wirkende Kraft in \n",
+        "$N$ umgerechnet.\n",
+        "\n",
+        "::: {#tip-einheiten .callout-tip collapse=\"true\"}\n",
+        "## Musterlösung\n",
+        "\n",
+        "#### Abstandsmessung auf Meter und auf den Nullpunkt normieren\n",
+        "Abstandsmessung auf den Nullpunkt normieren. Die Spalte Abstand wird in Abständsänderung umbenannt.\n"
+      ],
+      "id": "c612baf5"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "nullpunkte = hooke.loc[hooke['Gewicht'] == 0, : ].groupby(by = 'Team')['Abstand'].mean()\n",
+        "\n",
+        "print(nullpunkte)\n",
+        "\n",
+        "teams = nullpunkte.index\n",
+        "\n",
+        "for i in range(len(teams)):\n",
+        "\n",
+        "  hooke.loc[hooke['Team'] == teams[i] , 'Abstand'] = hooke.loc[hooke['Team'] == teams[i] , 'Abstand'].sub(nullpunkte.values[i]).mul(-1)\n",
+        "\n",
+        "hooke.rename(columns = {'Abstand': 'Abstandsänderung'}, inplace = True)\n",
+        "hooke['Abstandsänderung'] = hooke['Abstandsänderung'].div(100)"
+      ],
+      "id": "28a38580",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "#### Gewicht in wirkende Kraft umrechnen\n",
+        "Gewicht in $g$ in die wirkende Kraft in $N$ umrechnen. Die Spalte wird in den Datensatz eingefügt. umbenannt.\n"
+      ],
+      "id": "ccf85a48"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hooke['Kraft'] = hooke['Gewicht'].div(1000).mul(9.81)"
+      ],
+      "id": "7a079f21",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ":::\n",
+        "\n",
+        "Das Ergebnis könnte so aussehen. Die Spalte Abstand wurde in Abständsänderung umbenannt.\n"
+      ],
+      "id": "b6fe5caf"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hooke.groupby(by = ['Team', 'Kraft'])['Abstandsänderung'].describe()"
+      ],
+      "id": "d18ea3d3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Grafische Darstellung\n",
+        "Da es nur vier Teams gibt, können die Messreihen grafisch dargestellt werden. Eine mögliche Darstellung können Sie dem ersten Reiter, die Zwischenschritte und Schlussfolgerungen den folgenden Reitern entnehmen.\n",
+        "\n",
+        "::: {.panel-tabset}\n",
+        "\n",
+        "## Grafische Darstellung\n"
+      ],
+      "id": "10b5f4ac"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "#| fig-alt: \"Auf der x-Achse ist die Federausdehnung in m, auf der y-Achse die wirkende Kraft in N abgetragen. Zusätzlich zu den Messpunkten sind für jedes Gewicht der Mittelwert mit einem großen X und von dessen Mittelpunkt ausgehend der Bereich des Mittelwerts ± 1 Standardfehler eingezeichnet.\"\n",
+        "\n",
+        "anzahl_teams = hooke['Team'].unique().size\n",
+        "\n",
+        "plt.figure(figsize = (7.5, 12))\n",
+        "for i in range(anzahl_teams):\n",
+        "  \n",
+        "  plt.subplot(4, 1, i + 1) # plt.subplot zählt ab 1\n",
+        "\n",
+        "  # Punktdiagramm\n",
+        "  plotting_data = hooke.loc[hooke['Team'] == hooke['Team'].unique()[i], :]\n",
+        "  plt.scatter(x = plotting_data['Abstandsänderung'], y = plotting_data['Kraft'], alpha = 0.6)\n",
+        "\n",
+        "  plt.title(label = hooke['Team'].unique()[i])\n",
+        "  plt.xlabel(\"Federausdehnung in m\")\n",
+        "  plt.ylabel(\"wirkende Kraft in N\")\n",
+        "\n",
+        "  # # Fehlerbalken\n",
+        "  distance_means_by_force = plotting_data.groupby(by = plotting_data['Kraft'])['Abstandsänderung'].mean()\n",
+        "  distance_stderrors_by_force = plotting_data.groupby(by = plotting_data['Kraft'])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(plotting_data['Abstandsänderung'].groupby(by = plotting_data['Kraft']).size()))\n",
+        "\n",
+        "  errorbar_container = plt.errorbar(x = distance_means_by_force, y = distance_means_by_force.index, xerr = distance_stderrors_by_force,\n",
+        "  linestyle = 'none', marker = 'x', color = 'black', markersize = 12, elinewidth = 3, ecolor = 'red', capsize = 12)\n",
+        "\n",
+        "  # siehe: https://matplotlib.org/stable/api/container_api.html#matplotlib.container.ErrorbarContainer\n",
+        "  plt.legend([errorbar_container.lines[0], errorbar_container.lines[2][0]],\n",
+        "             ['Mittelwert', 'Standardfehler'],\n",
+        "             loc = 'upper left')\n",
+        "\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "d233083a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Mittelwerte und Standardfehler berechnen\n",
+        "Die Ausgabe ist aus Platzgründen auf die ersten Zeilen beschränkt."
+      ],
+      "id": "9eb5b34d"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "# Mittelwerte der Teams nach Kraft\n",
+        "distance_means_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].mean()\n",
+        "distance_means_by_team_and_force.name = 'Federausdehnung'\n",
+        "\n",
+        "print(distance_means_by_team_and_force.head())\n",
+        "\n",
+        "# Standardfehler der Teams nach Kraft\n",
+        "distance_stderrors_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(hooke['Abstandsänderung'].groupby(by = [hooke['Team'], hooke['Kraft']]).size()))\n",
+        "distance_stderrors_by_team_and_force.name = 'Standardfehler'\n",
+        "\n",
+        "print(distance_stderrors_by_team_and_force.head())"
+      ],
+      "id": "eab89dea",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Code\n"
+      ],
+      "id": "ee34f1f8"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "\n",
+        "# Mittelwerte der Teams nach Kraft\n",
+        "distance_means_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].mean()\n",
+        "distance_means_by_team_and_force.name = 'Federausdehnung'\n",
+        "\n",
+        "print(distance_means_by_team_and_force.head())\n",
+        "\n",
+        "# Standardfehler der Teams nach Kraft\n",
+        "distance_stderrors_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(hooke['Abstandsänderung'].groupby(by = [hooke['Team'], hooke['Kraft']]).size()))\n",
+        "distance_stderrors_by_team_and_force.name = 'Standardfehler'\n",
+        "\n",
+        "print(distance_stderrors_by_team_and_force.head())\n",
+        "\n",
+        "# grafische Darstellung\n",
+        "anzahl_teams = hooke['Team'].unique().size\n",
+        "\n",
+        "plt.figure(figsize = (7.5, 12))\n",
+        "for i in range(anzahl_teams):\n",
+        "  \n",
+        "  plt.subplot(4, 1, i + 1) # plt.subplot zählt ab 1\n",
+        "\n",
+        "  # Punktdiagramm\n",
+        "  plotting_data = hooke.loc[hooke['Team'] == hooke['Team'].unique()[i], :]\n",
+        "  plt.scatter(x = plotting_data['Abstandsänderung'], y = plotting_data['Kraft'], alpha = 0.6)\n",
+        "\n",
+        "  plt.title(label = hooke['Team'].unique()[i])\n",
+        "  plt.xlabel(\"Federausdehnung in m\")\n",
+        "  plt.ylabel(\"wirkende Kraft in N\")\n",
+        "\n",
+        "  # # Fehlerbalken\n",
+        "  distance_means_by_force = plotting_data.groupby(by = plotting_data['Kraft'])['Abstandsänderung'].mean()\n",
+        "  distance_stderrors_by_force = plotting_data.groupby(by = plotting_data['Kraft'])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(plotting_data['Abstandsänderung'].groupby(by = plotting_data['Kraft']).size()))\n",
+        "\n",
+        "  errorbar_container = plt.errorbar(x = distance_means_by_force, y = distance_means_by_force.index, xerr = distance_stderrors_by_force,\n",
+        "  linestyle = 'none', marker = 'x', color = 'black', markersize = 12, elinewidth = 3, ecolor = 'red', capsize = 12)\n",
+        "\n",
+        "  # siehe: https://matplotlib.org/stable/api/container_api.html#matplotlib.container.ErrorbarContainer\n",
+        "  plt.legend([errorbar_container.lines[0], errorbar_container.lines[2][0]],\n",
+        "             ['Mittelwert', 'Standardfehler'],\n",
+        "             loc = 'upper left')\n",
+        "\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "10b3de5b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Auswertung\n",
+        "\n",
+        "- Die Messreihen des Teams die_ahnungslosen entsprechen dem erwarteten linearen Trend.\n",
+        "- Bei Team fabi scheint für das erste angehängte Gewicht (50 Gramm) ein Fehler bei der Datenerhebung vorzuliegen. Vermutlich wurde hier mit 0 Gramm gemessen.\n",
+        "- Die Messreihen des Teams kreativköpfe entsprechen weitgehend dem erwarteten linearen Trend.\n",
+        "- Die Messreihen des Teams ma scheinen wenigstens für die ersten vier angehängten Gewichten durch grobe Messfehler geprägt zu sein.\n",
+        "\n",
+        "Die Messreihe des Teams ma wird wegen grober Messfehler aus dem Datensatz entfernt. Aus der Messreihe des Teams fabi wird die Messung für das Gewicht 50 Gramm entfernt.\n"
+      ],
+      "id": "690e81a9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "hooke.drop(index = hooke.loc[hooke['Team'] == 'ma', :].index, inplace = True)\n",
+        "hooke.drop(index = hooke.loc[(hooke['Team'] == 'fabi') & (hooke['Gewicht'] == 50), :].index, inplace = True)"
+      ],
+      "id": "36a3f0f0",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ":::\n",
+        "\n",
+        "&nbsp;\n",
+        "\n",
+        "::: {#tip-vieledatensätze .callout-tip}\n",
+        "## Vorgehen bei vielen Datensätzen\n",
+        "Bei einer großen Anzahl an Datensätzen kann auch die grafische Kontrolle an Grenzen stoßen. In diesem Fall empfiehlt es sich, die visuelle und kennzahlenbasierende Methoden zusammen zu nutzen, um Muster zu identifizieren und für eine große Zahl von Messungen zu überprüfen. Beispielsweise könnten nach einer visuellen Inspektion von Messreihen mit Extremwerten bzw. Ausreißern alle Messreihen daraufhin überprüft werden, ob mit zunehmenden Gewicht stets auch die mittlere Federausdehnung größer als für leichtere Gewichte ist. Abweichende Messreihen könnten dann grafisch kontrolliert werden.\n",
+        ":::\n",
+        "\n",
+        "## Federkonstanten bestimmen\n",
+        "Im nächsten Schritt können die Federkonstanten mittels linearer Regression bestimmt werden. \n",
+        "\n",
+        "2. **Welche Werte können für die Federkonstanten ermittelt werden?**  \n",
+        "3. **Wurden die Messungen mit der gleichen Feder durchgeführt, wenn als Vertrauenswahrscheinlichkeit 90 % bzw. 95 % angenommen werden soll?**\n",
+        "\n",
+        "::: {.panel-tabset}\n",
+        "## $\\alpha = 0.10$"
+      ],
+      "id": "ee0eea4c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "anzahl_teams = hooke['Team'].unique().size\n",
+        "alpha = 0.10\n",
+        "\n",
+        "for i in range(anzahl_teams):\n",
+        "\n",
+        "  reg_data = hooke.loc[hooke['Team'] == hooke['Team'].unique()[i], :]\n",
+        "  x = reg_data['Abstandsänderung']\n",
+        "  y = reg_data['Kraft']\n",
+        "  n = len(x)\n",
+        "  \n",
+        "  print(\"\\n\", hooke['Team'].unique()[i], \" Konfidenzniveau: \", 1 - alpha, sep = '')\n",
+        "\n",
+        "  slope, intercept, rvalue, pvalue, slope_stderr = scipy.stats.linregress(x, y)\n",
+        "  print(f\"y = {intercept:.4f} + {slope:.4f} * x\\n\",\n",
+        "        f\"r = {rvalue:.4f} R2 = {rvalue ** 2:.4f} p = {pvalue:.4f}\\n\",\n",
+        "        f\"Standardfehler des Anstiegs: {slope_stderr:.4f}\", sep = '')\n",
+        "\n",
+        "  print(f\"{slope - scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}  ≤ {slope:.3f} ≤ {slope + scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}\")"
+      ],
+      "id": "574fdeed",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## $\\alpha = 0.05$"
+      ],
+      "id": "4bd640e7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "anzahl_teams = hooke['Team'].unique().size\n",
+        "alpha = 0.05\n",
+        "\n",
+        "for i in range(anzahl_teams):\n",
+        "\n",
+        "  reg_data = hooke.loc[hooke['Team'] == hooke['Team'].unique()[i], :]\n",
+        "  x = reg_data['Abstandsänderung']\n",
+        "  y = reg_data['Kraft']\n",
+        "  n = len(x)\n",
+        "  \n",
+        "  print(\"\\n\", hooke['Team'].unique()[i], \" Konfidenzniveau: \", 1 - alpha, sep = '')\n",
+        "\n",
+        "  slope, intercept, rvalue, pvalue, slope_stderr = scipy.stats.linregress(x, y)\n",
+        "  print(f\"y = {intercept:.4f} + {slope:.4f} * x\\n\",\n",
+        "        f\"r = {rvalue:.4f} R2 = {rvalue ** 2:.4f} p = {pvalue:.4f}\\n\",\n",
+        "        f\"Standardfehler des Anstiegs: {slope_stderr:.4f}\", sep = '')\n",
+        "\n",
+        "  print(f\"{slope - scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}  ≤ {slope:.3f} ≤ {slope + scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}\")"
+      ],
+      "id": "079f4bcd",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Code"
+      ],
+      "id": "71fc20d3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| output: false\n",
+        "\n",
+        "anzahl_teams = hooke['Team'].unique().size\n",
+        "alpha = 0.10\n",
+        "\n",
+        "for i in range(anzahl_teams):\n",
+        "\n",
+        "  reg_data = hooke.loc[hooke['Team'] == hooke['Team'].unique()[i], :]\n",
+        "  x = reg_data['Abstandsänderung']\n",
+        "  y = reg_data['Kraft']\n",
+        "  n = len(x)\n",
+        "  \n",
+        "  print(\"\\n\", hooke['Team'].unique()[i], \" Konfidenzniveau: \", 1 - alpha, sep = '')\n",
+        "\n",
+        "  slope, intercept, rvalue, pvalue, slope_stderr = scipy.stats.linregress(x, y)\n",
+        "  print(f\"y = {intercept:.4f} + {slope:.4f} * x\\n\",\n",
+        "        f\"r = {rvalue:.4f} R2 = {rvalue ** 2:.4f} p = {pvalue:.4f}\\n\",\n",
+        "        f\"Standardfehler des Anstiegs: {slope_stderr:.4f}\", sep = '')\n",
+        "\n",
+        "  print(f\"{slope - scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}  ≤ {slope:.3f} ≤ {slope + scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}\")\n",
+        "\n",
+        "alpha = 0.05\n",
+        "\n",
+        "for i in range(anzahl_teams):\n",
+        "\n",
+        "  reg_data = hooke.loc[hooke['Team'] == hooke['Team'].unique()[i], :]\n",
+        "  x = reg_data['Abstandsänderung']\n",
+        "  y = reg_data['Kraft']\n",
+        "  n = len(x)\n",
+        "  \n",
+        "  print(\"\\n\", hooke['Team'].unique()[i], \" Konfidenzniveau: \", 1 - alpha, sep = '')\n",
+        "\n",
+        "  slope, intercept, rvalue, pvalue, slope_stderr = scipy.stats.linregress(x, y)\n",
+        "  print(f\"y = {intercept:.4f} + {slope:.4f} * x\\n\",\n",
+        "        f\"r = {rvalue:.4f} R2 = {rvalue ** 2:.4f} p = {pvalue:.4f}\\n\",\n",
+        "        f\"Standardfehler des Anstiegs: {slope_stderr:.4f}\", sep = '')\n",
+        "\n",
+        "  print(f\"{slope - scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}  ≤ {slope:.3f} ≤ {slope + scipy.stats.t.ppf(q = 1 - alpha / 2, df = n - 2) * slope_stderr:.3f}\")"
+      ],
+      "id": "9f636527",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Auswertung\n",
+        "Die Punktschätzung der Federkonstante von Team fabi 34.105 liegt im 95-%-Konfidenzintervall der Messung von Team die_ahnungslosen 33.998 ≤ 34.918 ≤ 35.838. Die Punktschätzung der Federkonstante von Team fabi 34.105 liegt **aber nicht im 90-%-Konfidenzintervall** der Messung von Team die_ahnungslosen 34.148  ≤ 34.918 ≤ 35.689.\n",
+        "\n",
+        "Unabhängig vom gewählten Vertrauensniveau liegt die Punktschätzung der Federkonstante von Team kreativkoepfe 29.764 nicht in den Konfidenzintervallen der beiden übrigen Teams.\n",
+        "\n",
+        ":::: {#wrn-results .callout-warning appearance=\"simple\"}\n",
+        "## Ergebnisse\n",
+        "Abhängig vom gewählten Vorgehen sind andere Ergebnisse möglich, beispielsweise durch das Entfernen von als Ausreißern eingestuften Einzelwerten oder einer anderen Behandlung der Messreihe vom Team fabi für das angehängte Gewicht 50 Gramm.\n",
+        "::::\n",
+        ":::\n",
+        "\n",
+        "## Zusammenfassung\n",
+        "**to do:** (studentisierte) z-Werte sind hilfreich, um einzelne abweichende Werte zu identfizieren. Sind viele oder die ganze Messreihe fehlerhaft, reicht dies jedoch nicht aus. \n",
+        "\n",
+        "Die grafische Darstellung von Messwerten ist sehr viel aussagekräftiger."
+      ],
+      "id": "56634954"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\mapoe004\\AppData\\Local\\Programs\\Python\\Python312\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
