@@ -22,16 +22,9 @@ import glob
 Wagner, Paul. 2015. "Einführung in die Physik I. PH I - 04 - Die Messgenauigkeit / Fehlerrechnung Teil 1." Universität Wien Physik, [YouTube](https://youtu.be/sF2_1YNiWXI?feature=shared&t=245), Zeitstempel 04:05
 :::
 
-::: {.border}
-**to do:**
-
-- Hinweis: statistische Überlegung gelten für große N und Normalverteilung der Werte
-
-:::
-
 &nbsp;
 
-Kein Messgerät misst exakt und nicht alle Umwelteinflüsse können kontrolliert werden.Das Ziel der Fehlerrechnung ist es, die sich daraus ergebende Abweichung der Messwerte um den wahren Wert einer Größe zu quantifizieren.
+Kein Messgerät misst exakt und nicht alle Umwelteinflüsse können kontrolliert werden. Das Ziel der Fehlerrechnung ist es, die sich daraus ergebende Abweichung der Messwerte um den wahren Wert einer Größe zu quantifizieren.
 
 ## Bevor es losgeht
 Das Thema ist jedoch mit einigen Schwierigkeiten verbunden, die den Einstieg und die eigenständige Vertiefung des Themas erschweren.
