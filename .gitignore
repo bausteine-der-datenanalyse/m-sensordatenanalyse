@@ -20,6 +20,7 @@ _environment
 
 # Ignore _book
 /_book/
+/output/
 
 # Ignore Jupyter cache files
 .jupyter_cache
