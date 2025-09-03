@@ -144,7 +144,7 @@
     "href": "skript/fehlerrechnung.html",
     "title": "4  Fehlerrechnung",
     "section": "",
-    "text": "4.1 Bevor es losgeht\nKein Messgerät misst exakt und nicht alle Umwelteinflüsse können kontrolliert werden.Das Ziel der Fehlerrechnung ist es, die sich daraus ergebende Abweichung der Messwerte um den wahren Wert einer Größe zu quantifizieren.\nDas Thema ist jedoch mit einigen Schwierigkeiten verbunden, die den Einstieg und die eigenständige Vertiefung des Themas erschweren.",
+    "text": "4.1 Bevor es losgeht\nKein Messgerät misst exakt und nicht alle Umwelteinflüsse können kontrolliert werden. Das Ziel der Fehlerrechnung ist es, die sich daraus ergebende Abweichung der Messwerte um den wahren Wert einer Größe zu quantifizieren.\nDas Thema ist jedoch mit einigen Schwierigkeiten verbunden, die den Einstieg und die eigenständige Vertiefung des Themas erschweren.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Fehlerrechnung</span>"
     ]
