@@ -54,7 +54,7 @@ Zur statistischen Analyse gehört als erster Schritt, das Konfidenzniveau, das g
 In der ingenieurswissenschaftlichen Literatur wird dieser Schritt nicht immer explizit gemacht (weil es üblich ist, $1 s$ bzw. $1 t$ zu verwenden). Dagegen heißt es in der DIN 1319: "Es ist üblich, das Vertrauensniveau ($1 - \alpha$) in Prozent anzugeben, wobei meist $\alpha = 0,05$ (Vertrauensniveau: 95 %) benutzt wird." [@DIN1319-1, S. 17]
 
 ### Notation
-Die Notation ist komplex: neben dem lateinischen und griechischen Alphabet wird auch das kyrillische Alphabet verwendet. Trotzdem lassen sich Dopplungen von Symbolen für Formelzeichen und Einheiten nicht immer vermeiden (und die Federkonstante ist in dieser Hinsicht der denkbar ungünstigste Fall).
+Die Notation ist komplex: Neben dem lateinischen und griechischen Alphabet wird auch das kyrillische Alphabet verwendet. Trotzdem lassen sich Dopplungen von Symbolen für Formelzeichen und Einheiten nicht immer vermeiden (und die Federkonstante ist in dieser Hinsicht der denkbar ungünstigste Fall).
 
 Die Notation wird außerdem uneinheitlich gehandhabt. Während in der DIN 1319 Messabweichungen mit $e$ notiert werden, sind in der Literatur $\epsilon$ (epsilon) und $\Delta$ (Delta) gebräuchlich, wobei letzteres auch für den Größtfehler verwendet wird.
 
@@ -79,7 +79,7 @@ Bei Messungen können unterschiedliche Arten von Abweichungen des Messergebnisse
   
     - falschen Versuchsaufbau
     - ungeeignete Messgeräte
-    - falsches Ablesen, z. B. Missachtung der [Einschwingzeit](https://de.wikipedia.org/wiki/Einschwingzeit)) oder Unachtsamkeit (z. B. Mitwiegen des Gefäßes)
+    - falsches Ablesen, z. B. Missachtung der [Einschwingzeit](https://de.wikipedia.org/wiki/Einschwingzeit) oder Unachtsamkeit, z. B. Mitwiegen des Gefäßes
 
 [@Hempel-2016, S. 1-2; @EdenGebhard-2024, S. 17-18]
 
@@ -112,9 +112,9 @@ Die DIN 1319 normt Grundbegriffe und Verfahren der Messtechnik.
   - Teil 3 DIN 1319-3 befasst sich mit der Auswertung von Messungen einer *einzelnen* Messgröße und deren Messunsicherheit. DIN 1319-3 wird auch angewendet, wenn die Meßgröße mittels einer gegebenen Funktion aus anderen Größen berechnet wird (beispielsweise die Geschwindigkeit $v$ als Quotient der Strecke $s$ und der Zeit $t$).
   - Teil 4 DIN 1319-4 befasst sich mit der Angabe von Messergebnissen und deren Messunsicherheit, wenn die Messgrößen aus anderen Größen berechnet werden, z. B. durch eine Ausgleichsrechung.
 
-DIN 1319-4 befasst sich mit der Berechnung einer Ergebnisgröße $Y$ durch eine Funktion wie z. B. die lineare Ausgleichsrechnung. Der Anwendungsfall des vorherigen Kapitels, die Federkonstante über den Regressionskoeffizienten $\beta_1$ zu bestimmt, wird in der Norm nicht behandelt. Dieser Teil der Norm wird hier deshalb nicht behandelt.
+DIN 1319-4 befasst sich mit der Berechnung einer Ergebnisgröße $Y$ durch eine Funktion wie z. B. die lineare Ausgleichsrechnung. Der Anwendungsfall des vorherigen Kapitels, die Federkonstante über den Regressionskoeffizienten $\beta_1$ zu bestimmen, wird in der Norm nicht behandelt. Dieser Teil der Norm wird hier deshalb nicht vorgestellt.
 
-Das Lernziel dieses Kapitels besteht darin, dass Sie die folgende Grafik erklären können.
+Das Lernziel dieses Kapitels besteht darin, dass Sie die folgende Grafik aus der DIN 1319 erklären können.
 
 ::: {.border}
 ![Messergebnis nach DIN 1319](00-bilder/fehlerarten-nach-DIN-1319.png)
@@ -141,11 +141,11 @@ Die Messabweichung ist die: "Abweichung eines aus Messungen gewonnenen und der M
 
 Die Messabweichung des **unberichtigten Messergebnisses** setzt sich additiv aus der zufälligen Messabweichung $e_r$ und der systematischen Messabweichung $e_s$ zusammen.
 
-  - Die systematische Messabweichung ist die Differenz aus Erwartungswert $\mu$ und wahrem Wert $x_w$. Es gilt: $e_s = \mu - x_w$  
+  - Die systematische Messabweichung ist die Differenz aus dem Erwartungswert der Messung $\mu$ und dem wahrem Wert $x_w$. Es gilt: $e_s = \mu - x_w$  
   - Die systematische Messabweichung $e_s$ setzt sich aus einem bekannten $e_{s,b}$ und einem unbekannten Anteil $e_{s,u}$ zusammen.
  - Die bekannte, systematische Messabweichung $e_{s,b}$ wird mit entgegengesetzten Vorzeichen $- e_{s,b}$ *Korrektion* genannt.
 
-Das **Messergebnis** $\bar{x}_E$ ist das um die bekannte, systematische Messabweichung $e_{s,b}$ berichtigte arithmetische Mittel einer Messreihe $\bar{x}$, das als Schätzer des Erwartungswerts $\mu$ verwendet wird. $\bar{x}_E = \bar{x} - e_{s,b}$
+Das **(berichtigte) Messergebnis** $\bar{x}_E$ ist das um die bekannte, systematische Messabweichung $e_{s,b}$ berichtigte arithmetische Mittel einer Messreihe $\bar{x}$, das als Schätzer des wahren Werts $x_w$ verwendet wird. $\bar{x}_E = \bar{x} - e_{s,b}$
 
 [@DIN1319-1, S. 11-13]
 
@@ -184,7 +184,7 @@ In der DIN 1319 werden zwei Fälle unterschieden, je nachdem, ob die Unsicherhei
 
 Für den Fall, dass die Unsicherheit der systematischen Messabweichung nicht als vernachlässigbar angesehen wird, verweist die DIN 1319-3 auf Berechnungsregeln in Abschnitt 6.2.5 auf die wir hier nicht eingehen. (@DIN1319-3, S. 5-6)
 
-Die Messunsicherheit des berichtigten Messergebnisses berechnet sich aus der quadratischen Kombination den Unsicherheiten der zufälligen und der systematischen Messabweichung.
+Die Messunsicherheit des berichtigten Messergebnisses berechnet sich aus der quadratischen Kombination der Unsicherheiten der zufälligen und der systematischen Messabweichung.
 
 $$
 u(y) = \sqrt{u^2(\bar x) + u^2(e_s)}
@@ -200,7 +200,7 @@ In der DIN wird die zufällige Messabweichung statt mit $u^2(\bar x)$ mit $u^2(x
 
 ### Vollständiges Messergebnis
 
-Das **berichtigte Messergebnis** $y$ berechnet sich durch die Korrektion der bekannten systematischen Messabweichung:
+Das **berichtigte Messergebnis** $\bar{x}_E = y$ (in der DIN 1319 wechselt die Notation von $\bar{x}_E$ zu $y$) berechnet sich durch die Korrektion der bekannten systematischen Messabweichung:
 
 $$
 y = \bar x - e_{s,b}
@@ -208,7 +208,7 @@ $$
 
 [@DIN1319-3, Gleichung (7), S. 6, Notation angepasst]
 
-Das **vollständige Messergebnis** besteht aus dem berichtigten Messergebnis und einer Angabe über die Unsicherheit der Messung z. B. in der Form:
+Das **vollständige Messergebnis** $Y$ besteht aus dem berichtigten Messergebnis und einer Angabe über die Unsicherheit der Messung z. B. in der Form:
 
 $$
 Y = y \pm u(y)
@@ -293,7 +293,7 @@ In der Fehlerrechnung werden absolute und relative *Fehler* unterschieden. Hier 
 
 In der DIN 1319 werden Messabweichungen mit $e$, die Messunsicherheit mit $u$ notiert. In der Literatur zur Fehlerrechnung wird zumeist der Begriff des (Mess-)Fehlers verwendet. Die Notation ist allerdings uneinheitlich.
 
-  - Der absolute Fehler wird häufig mit $\epsilon x$ (epsilon x) notiert. Üblich ist aber auch die Notation mit $\Delta x$ (Delta) (beispielsweise [@HS-Aalen-2016; @Dinter-2011; @SchrüferEtAl2022]). $\Delta$ wird aber ebenfalls für den Größtfehler verwendet. 
+  - Der absolute Fehler wird häufig mit $\epsilon x$ (epsilon x) notiert. Üblich ist aber auch die Notation mit $\Delta x$ (Delta), (beispielsweise [@HS-Aalen-2016; @Dinter-2011; @SchrüferEtAl2022]. $\Delta$ wird aber ebenfalls für den Größtfehler verwendet. 
 
   - Der relative Fehler wird auch mit $\delta x$ (delta x) notiert, bspw: $\delta x = 4 \%$.
 
@@ -335,10 +335,10 @@ Bei der Angabe des vollständigen Messergebnisses ist die Anzahl der signifikant
 
 "Jede zuverlässig bekannte Stelle mit Ausnahme der Nullen, die die Position des Dezimalkommas angeben, wird signifikante Stelle genannt." [@EdenGebhard-2024, S. 24]
 
-"Gerundete numerische Unsicherheitwerte sind **mit zwei (oder bei Bedarf mit drei) signifikanten Ziffern** anzugeben. **Sie sind aufzurunden**. Das Meßergebnis ist an derselben Stelle wie die zugehörige Unsicherheit zu runden, z.B. y = 245,5716 mm auf y = 245,57 mm, wenn u(y) = 0,4528 mm auf u(y) = 0,46 mm aufgerundet wird." [@DIN1319-3, S. 6, eigene Hervorhebung]
+"Gerundete numerische Unsicherheitwerte sind **mit zwei (oder bei Bedarf mit drei) signifikanten Ziffern** anzugeben. **Sie sind aufzurunden**. Das Meßergebnis ist an derselben Stelle wie die zugehörige Unsicherheit zu runden, z.B. $y = 245,5716 mm$ auf $y = 245,57 mm$, wenn $u(y) = 0,4528 mm$ auf $u(y) = 0,46 mm$ aufgerundet wird." [@DIN1319-3, S. 6, eigene Hervorhebung]
 :::
 
-Beispielsweise liegen die im vorherigen Kapitel verwendeten Abstandsmessung im Format $153,29$ vor, die Messwerte weisen also 5 signifikante Stellen auf. Für den arithmetischen Mittelwert einer Messreihe $153,008889$ gelten deshalb ebenfalls 5 signifikante Stellen. Es wird an der ersten nicht mehr signifikanten Stelle gerundet, sodass der arithmetische Mittelwert $153,01$ angegeben wird.
+Beispielsweise liegen die im vorherigen Kapitel verwendeten Abstandsmessungen im Format $153,29$ vor, die Messwerte weisen also 5 signifikante Stellen auf. Für den arithmetischen Mittelwert einer Messreihe $153,008889$ gelten deshalb ebenfalls 5 signifikante Stellen. Es wird an der ersten nicht mehr signifikanten Stelle gerundet, sodass der arithmetische Mittelwert mit $153,01$ angegeben wird.
 
 Die Anzahl signifikanter Stellen ist allerdings nicht immer zuverlässig zu bestimmen. Es gilt:
 
@@ -365,12 +365,12 @@ print(round(2.5), round(3.5))
 :::
 
 
-## Methoden zur Fehlerrechnung
+## Methoden der Fehlerrechnung
 Das Ziel der Fehlerrechnung ist es, Unsicherheitsintervalle für die gemessene Größe zu ermitteln. Dafür stehen verschiedene Methoden zur Verfügung:
 
-1. Fehlerabschätzung
-2. Fehlerstatistik
-3. Fehlerfortpflanzung
+1. Fehlerabschätzung,
+2. Fehlerstatistik und
+3. Fehlerfortpflanzung.
 
 Bei der Auswahl der Methode besteht ein Ermessensspielraum. (@Hempel-2016, S. 2) Für Gebrauchsmessungen reicht es aus, die Unsicherheit im Prozentbereich anzugeben. Im Eichwesen oder beim Vergleich mit einem [Normal](https://de.wikipedia.org/wiki/Normal) werden genauere Angaben benötigt. [@SchrüferEtAl2022, S. 33]
 
@@ -379,16 +379,17 @@ Die Auswahl der geeigneten Methode hängt auch von den zur Verfügung stehenden 
   1. der Masse $m$, die mit einer Küchenwaage ermittelt wurde, deren Ablesegenauigkeit mit $e_r(m) = 0,5 g = 0,0005 kg$ geschätzt wird.
 
   2. dem Abstand zum Gewicht bzw. nach der Aufbereitung der Daten der Ausdehnung der Feder $\Delta x$, die mit einem elektronischen Abstandssensor und einem Arduino ermittelt wurden (Ultrasonic Ranging Module HC - SR04).
-    - Die Ablesegenauigkeit des Messsystems beträgt eine Einheit der Messauflösung, also $e_{r} = 0,01 cm = 0,0001 m$.
-    - Die Messabweichung des Messsystems beträgt laut Datenblatt bis zu 3 mm, die symmetrisch zu verstehen ist, also $e_{r} = 3 mm = 0,003 m$.
-    - Die zufällige Komponente der Messabweichung beträgt also $e_r(x) = 0,0001 m + 0,003 m = 0,0031m$
+  
+      - Die Ablesegenauigkeit des Messsystems beträgt eine Einheit der Messauflösung, also $e_{r} = 0,01 cm = 0,0001 m$.
+      - Die Messabweichung des Messsystems beträgt laut Datenblatt bis zu 3 mm, die symmetrisch zu verstehen ist, also $e_{r} = 3 mm = 0,003 m$.
+      - Die zufällige Komponente der Messabweichung beträgt also $e_r(x) = 0,0001 m + 0,003 m = 0,0031m$
 
-  3. der statistischen Schätzung der Federkonstante $k = \frac{m \cdot g}{\Delta x} = 33,019 \pm 0.378$ bzw. im festgelegten Vertrauensintervall $k_{95\%} = 32,269 ≤ 33,019 ≤ 33,769$.
+  3. der statistischen Schätzung der Federkonstante $k = \frac{m \cdot g}{\Delta x} = 33,019 \pm 0,378$ bzw. im festgelegten Vertrauensintervall $k_{95\%} = 32,269 ≤ 33,019 ≤ 33,769$.
 
 ::: {#wrn-formelzeichen .callout-warning appearance="simple"}
 ## Formelzeichen und Einheiten
 
-Im folgenden werden identische Zeichen für Sekunde und Strecke $s$, Masse und Meter $m$, Gramm und die Konstante $g$ sowie $\Delta$ für die Veränderung einer Größe und den Größtfehler verwendet. Die Formeln sollten also mit großer Aufmerksamkeit gelesen werden.
+Im Folgenden werden identische Zeichen für Sekunde und Strecke $s$, Masse und Meter $m$, Gramm und die Konstante $g$ sowie $\Delta$ für die Veränderung einer Größe und den Größtfehler verwendet. Die Formeln sollten also mit großer Aufmerksamkeit gelesen werden.
 :::
 
 ### 1. Fehlerabschätzung
@@ -399,9 +400,9 @@ Die Fehlerabschätzung wird verwendet, wenn
 
 gemessen wird. 
 
-Da der wahre Wert eine Messgröße unbekannt ist, bezweckt die Fehlerabschätzung, die maximal mögliche Abweichung des Messwerts vom tatsächlichen Wert, also den **Größtfehler**, zu bestimmen. Bei einer einmaligen Messung gibt es keine statistische Komponente. In die Fehlerabschätzung eines einzelnen Messwerts gehen deshalb ein:
+Da der wahre Wert einer Messgröße unbekannt ist, bezweckt die Fehlerabschätzung, die maximal mögliche Abweichung des Messwerts vom tatsächlichen Wert, also den **Größtfehler**, zu bestimmen. Bei einer einmaligen Messung gibt es keine statistische Komponente. In die Fehlerabschätzung eines einzelnen Messwerts gehen deshalb ein:
 
-  - die Garantiefehlergrenze des Messgerätes (das vom Hersteller auf dem Gerät oder in der Bedienungsanleitung angegeben ist - siehe Beispiel), also die bekannte systematische Messabweichung $e_{s,b}$, und 
+  - die Garantiefehlergrenze des Messgerätes, die vom Hersteller auf dem Gerät oder in der Bedienungsanleitung angegeben ist (siehe Beispiel), also die bekannte systematische Messabweichung $e_{s,b}$, und 
   - ein abgeschätzter Anteil, der sich nach den konkreten Bedingungen des Experiments, etwa der Skalenteilung des Messgerätes oder den Ablesebedingungen richtet. Dieser Anteil kann also aus einem systematischen Anteil (bspw. eine analoge Skala konnte nur aus einem Winkel abgelesen werden) und einem zufälligen Anteil (bspw. Ablesegenauigkeit des Messgeräts) bestehen.
 
 Der Größtfehler $\Delta x$ ergibt sich aus der Addition der Beträge der bekannten systematischen Messabweichung und der geschätzten zufälligen Messabweichung: $\Delta x = |e(x)_{s,b}| + |e(x)_{r}|$.
@@ -421,12 +422,13 @@ Mit einem digitalen Thermometer und einem thermoelektrischen Element vom Typ K w
 ::: {#tip-skalengenauigkeit .callout-tip}
 ## Halber oder ganzer Skalenstrich?
 
+:::: {.border}
 Messgeräte mit digitaler Anzeige machen es leicht: Die Ablesegenauigkeit beträgt eine Skaleneinheit. Bei Messgeräten mit analoger Anzeige ist es Ermessenssache, welche Messgenauigkeit Sie angeben können bzw. möchten. 
 
 Sind Sie sich absolut sicher, dass Sie zwischen "genau auf dem Strich" und "zwischen zwei Strichen" unterscheiden können, beträgt Ihr Ablesefehler einen halben Skalenstrich. Sind Sie sich nicht sicher, beträgt Ihr Ablesefehler einen ganzen Skalenstrich.
 
-(Siehe: [Fehlerrechnung leicht gemacht, FSU Jena](https://www.physik.uni-jena.de/pafmedia/9072/fehlerrechnungleichtgemachtpdf.pdf))
-
+([Fehlerrechnung leicht gemacht, FSU Jena](https://www.physik.uni-jena.de/pafmedia/9072/fehlerrechnungleichtgemachtpdf.pdf))
+::::
 :::
 
 ::: {#tip-thermometer .callout-tip collapse="true"}
@@ -483,14 +485,14 @@ Im ersten Messvorgang soll der Durchmesser der 1-Euro-Münze bestimmt werden.
 ::: {#nte-münze .callout-note collapse="true"}
 ## Erster Messvorgang Münze
 
-Die Messung wird mit einem [Messschieber mit Nonius](https://de.wikipedia.org/wiki/Nonius) 0,05 mm nach DIN 862 durchgeführt. (DIN 862 wurde 2011 durch DIN EN ISO 13385-1 ersetzt, in der der Begriff der Abweichung verwendet wird. Die DIN 862 ist aber auf dem Messschieber aufgedruckt.) Die DIN 862 normiert symmetrische Fehlergrenzen von Messschiebern. Die Fehlergrenze ist abhängig von der Skalengenauigkeit des Messschiebers sowie von der gemessenen Länge und ist aus einer Tabelle abzulesen. 
+Die Messung wird mit einem [Messschieber mit Nonius](https://de.wikipedia.org/wiki/Nonius) 0,05 mm nach DIN 862 durchgeführt. Die DIN 862 normiert symmetrische Fehlergrenzen von Messschiebern. Die Fehlergrenze ist abhängig von der Skalengenauigkeit des Messschiebers sowie von der gemessenen Länge und ist aus einer Tabelle abzulesen. (DIN 862 wurde 2011 durch DIN EN ISO 13385-1 ersetzt, in der der Begriff der Abweichung verwendet wird. Die DIN 862 ist aber auf dem Messschieber aufgedruckt.) 
 
 Messwert: $x = 23,25 mm$
 
   - Die Skaleneinteilung ist 0,05 mm, die zufällige Ableseabweichung $e_r$ beträgt also $\pm 0,025 mm$.
   - Die DIN 862 normiert Fehlergrenzen, die abhängig von der gemessenen Länge zunehmen, mindestens aber 50 $\mu m$ oder 0,05 mm betragen. Für den Messwert 23,25 mm gilt somit als bekannte systematische Messabweichung $e_{s,b} = \pm 0,05 mm$.
 
-Aus der Summe der Beträge ergibt sich aufgerundet der Größtfehler: $\Delta x = |0,05| mm + |0,025| mm = 0,075 mm$.
+Aus der Summe der Beträge ergibt sich der Größtfehler: $\Delta x = |0,05| mm + |0,025| mm = 0,075 mm$.
 
 Das vollständige Messergebnis, bestehend aus dem Messwert und der Messunsicherheit lautet also: $23,25 ± 0,075 mm$. Der relative Größtfehler beträgt: $23,25 mm ± 0,32\%$.
 
@@ -503,7 +505,7 @@ Im zweiten Messvorgang soll die Länge des Daumens bestimmt werden. ([Der Daumen
 
 Die Messung wird erneut mit dem Messschieber durchgeführt.
 
-Messwert: $x = 64,7 mm$
+Messwert: $x = 64,70 mm$
 
   - Die Skaleneinteilung ist 0,05 mm, die zufällige Ableseabweichung beträgt also $\pm 0,025 mm$.
   - Die von der DIN 862 für gemessene Längen zwischen 50 und 300 mm normierte Fehlergrenze beträgt 50 $\mu m$ oder 0,05 mm. Für den Messwert 64,7 mm gilt somit die Fehlergrenze $\pm  0,05 mm$.
@@ -512,9 +514,9 @@ Messwert: $x = 64,7 mm$
     - die Daumenwurzel nicht exakt lokalisiert und 
     - die elastische Fingerkuppe nicht fixiert werden konnte.
 
-Aus der Summe der Beträge ergibt sich der Größtfehler $\Delta x = |0,025| mm + |0,05| mm + |3| mm = 3,075 mm \approx 3,1 mm$.
+Aus der Summe der Beträge ergibt sich der Größtfehler $\Delta x = |0,025| mm + |0,05| mm + |3| mm = 3,075 mm \approx 3,08 mm$.
 
-Das Messergebnis, bestehend aus dem Messwert und dem Fehlerintervall lautet also: $64,7 ± 3,1 mm$. Der relative Größtfehler beträgt: $64,7 mm ± 4,79 \%$.
+Das Messergebnis, bestehend aus dem Messwert und dem Fehlerintervall lautet also: $64,70 ± 3,08 mm$. Der relative Größtfehler beträgt: $64,70 mm ± 4,76 \%$.
 :::
 
 ### 2. Fehlerstatistik 
@@ -535,8 +537,8 @@ Der Fehlerstatistik haben wir in vorausgehenden Kapiteln mit der statistischen B
 4. Bestimmen Sie die Werte der Normal- bzw. der t-Verteilung für das gewählte Konfidenzniveau - für einen zweiseitigen Hypothesentest $\frac{\alpha}{2}$ und $1 - \frac{\alpha}{2}$
 5. Berechnen Sie das Konfidenzintervall $\bar{x} \pm t_{\alpha / 2} ~ \frac{s_{n-1}}{\sqrt{n}}$.
 
-Dieses Konfidenzintervall sagt für eine gewählte Wahrscheinlichkeit aus, in welchem Bereich der Mittelwert einer erneut durchgeführten Messreihe oder, wenn die systematische Messabweichung Null (oder vernachlässigbar) ist, der *wahre Wert* liegen wird.   
-Dagegen gibt die Standardabweichung $s$ Auskunft darüber, in welchem Bereich ein einzelner Messwert liegen wird. Die Sicherheit dieser Aussage kann durch Ausweitung des Konfidenzintervalls erhöht werden (bspw. $2 \cdot s$). Auch hier ist der t-Wert als Korrekturfaktor für kleine Stichproben zu verwenden.
+Dieses Konfidenzintervall sagt für eine gewählte Wahrscheinlichkeit aus, in welchem Bereich der Mittelwert einer erneut durchgeführten Messreihe oder, wenn die unbekannte systematische Messabweichung Null (oder vernachlässigbar) ist, der *wahre Wert* liegen wird.   
+Dagegen gibt die Standardabweichung $s$ Auskunft darüber, in welchem Bereich ein einzelner Messwert liegen wird. Die Sicherheit dieser Aussage kann durch Ausweitung des Konfidenzintervalls erhöht werden (bspw. $2 \cdot s$).
 
 [@Hempel-2016, S. 3-7]
 
@@ -617,7 +619,7 @@ Um die Messunsicherheit einer Größe $Y$, die durch eine Funktion $y = f(x_1, x
 [@Hempel-2016, S. 8-9]
 
 #### Lineare Fehlerfortpflanzung
-Die lineare Fehlerfortpflanzung betrachtet, wie sich die **Größtfehler** mehrerer gemessener Größen im ungünstigsten Fall auswirken. Es wird also der **Größtfehler** der gesuchten Größe $Y$ berechnet. (@DIN1319-3, S. 9)
+Die lineare Fehlerfortpflanzung betrachtet, wie sich die **Größtfehler** mehrerer gemessener Größen im ungünstigsten Fall auswirken. Es wird also der **Größtfehler** der gesuchten Größe $Y$ berechnet. (vgl. @DIN1319-3, S. 9)
 
 Für eine Funktion mit zwei Eingangsgrößen $f = f(x_1, x_2)$ wird der Größtfehler $\Delta f$ aus den Größtfehlern $\Delta x_1$ und $\Delta x_2$ ermittelt.
 
@@ -625,7 +627,7 @@ $$
 f + \Delta f = f(x_1 + \Delta x_1, x_2 + \Delta x_2)
 $$
 
-Unter der Voraussetzung gegenüber den Messwerten kleinen Fehler (**Wann sind die Fehler klein?**) kann der Fehler $\Delta f$ durch die Beträge der partiellen Ableitung des ersten Glieds der Taylorreihe berechnet werden (siehe Beispiel).
+Unter der Voraussetzung gegenüber den Messwerten kleiner Fehler (**Wann sind die Fehler klein?**) kann der Fehler $\Delta f$ durch die Beträge der partiellen Ableitung des ersten Glieds der Taylorreihe berechnet werden (siehe Beispiel).
 
 $$
 f + \Delta f = f(x_1, x_2) + | \frac{\partial f(x_1, x_2)}{\partial x_1}  | \cdot \Delta x_1 + | \frac{\partial f(x_1, x_2)}{\partial x_2} | \cdot \Delta x_2
@@ -765,7 +767,7 @@ $$
 #### Gauß’sche Fehlerfortpflanzung
 Bei der Gauß’schen Fehlerfortpflanzung wird unterstellt, dass sich die Messunsicherheiten der beteiligten Größen teilweise kompensieren können. Dadurch wird eine realistischere Abschätzung der Messunsicherheit erreicht.
 
-Die Ermittlung der Messunsicherheit ist in DIN 1319-3 geregelt. Für eine Funktion $Y = f(x_1, x_2, ..., x_m)$ ermittelt sich die Messunsicherheit aus der Messunsicherheit der beteiligten Größen. Dazu werden die Varianzen der Mittelwerte verwendet (DIN1319-3, Gleichung (29), S. 11).
+Die Ermittlung der Messunsicherheit ist in DIN 1319-3 geregelt. Für eine Funktion $Y = f(x_1, x_2, ..., x_m)$ ermittelt sich die Messunsicherheit aus der Messunsicherheit der beteiligten Größen. Dazu werden die Varianzen der Mittelwerte verwendet (@DIN1319-3, Gleichung (29), S. 11).
 $$
 u^2(x_i) = s^2(\bar{x_i}) = s_i^2/n_i ~ ; ~ s_i^2 = \frac{1}{n_i - 1} \sum_{j = 1}^{n_i} (x_{ij - \bar{x_i}})^2
 $$
@@ -797,7 +799,7 @@ $$
 Für eine Funktion mit zwei Eingangsgrößen $y = f(x_1, x_2)$ berechnet sich die Unsicherheit der Ergebnisgröße beispielsweise wie folgt:
 
 $$
-u(y) = \sqrt{ (\frac{\partial f}{\partial x_1} \cdot \bar{s}_{x_1})^2 + (\frac{\partial f}{\partial x_2} \cdot \bar{s}_{x_2})^2 }
+u(y) = \sqrt{ (\frac{\partial f}{\partial x_1} \cdot \sigma_{x_1})^2 + (\frac{\partial f}{\partial x_2} \cdot \sigma_{x_2})^2 }
 $$
 
 *Hinweis: In der Regel wird man die empirische Standardabweichung $s_{n-1} / \sqrt{N}$ verwenden.* 
@@ -872,12 +874,12 @@ print(f"arithmetisches Mittel der Masse: {messreihe_503g.mean()} kg",
 Die Gauß'sche Fehlerfortpflanzung wird ähnlich zur linearen Fehlerfortpflanzung berechnet.  
 
 $$
-u(k(m, s)) = \sqrt{ (\frac{\partial f(m, s)}{\partial m} \cdot \bar{s}_{m})^2 + (\frac{\partial f(m, s)}{\partial s} \cdot \bar{s}_{s})^2 }
+u(k(m, s)) = \sqrt{ (\frac{\partial f(m, s)}{\partial m} \cdot \sigma_{m})^2 + (\frac{\partial f(m, s)}{\partial s} \cdot \sigma_{s})^2 }
 $$
 
 Die partiellen Ableitungen werden eingesetzt.
 $$
-u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \bar{s}_{m})^2 + (- \frac {m \cdot g}{s^{2}} \cdot \bar{s}_{s})^2 }
+u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \sigma_{m})^2 + (- \frac {m \cdot g}{s^{2}} \cdot \sigma_{s})^2 }
 $$
 
 :::: {.panel-tabset}
@@ -916,14 +918,14 @@ $$
 Zusätzlich zum vollständigen Messergebnis kann ein Vertrauensintervall angegeben werden. Entsprechend der vereinbarten Vertrauenswahrscheinlichkeit, sind die entsprechenden t-Werte als Korrekturfaktoren einzusetzen.
 
 $$
-u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot t_{\alpha/2} \cdot \bar{s}_{m})^2 + (- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \bar{s}_{s})^2 }
+u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot t_{\alpha/2} \cdot \sigma_{m})^2 + (- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \sigma_{s})^2 }
 $$
 
 Dies sind für die Masse $t = 2,3646$ und für die Ausdehnung $t = 2,2622$.
 
 Die Messwerte, die Konstante $g$, der Standardfehler des Mittelwerts und der t-Wert werden in den ersten Term eingesetzt.
 $$
-(\frac{g}{s} \cdot t_{\alpha/2} \cdot \bar{s}_{m})^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m}  \cdot 2,3646 \cdot 0,000267 kg)^2
+(\frac{g}{s} \cdot t_{\alpha/2} \cdot \sigma_{m})^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m}  \cdot 2,3646 \cdot 0,000267 kg)^2
 $$
 
 Trennen von Werten und Einheiten, Newton $\frac{kg \cdot m}{s^2}$ einsetzen:
@@ -933,7 +935,7 @@ $$
 
 Die Messwerte, die Konstante $g$, der Standardfehler des Mittelwerts und der t-Wert werden in den zweiten Term eingesetzt.
 $$
-(- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \bar{s}_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
+(- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
 $$
 
 Trennen von Werten und Einheiten, Newton $\frac{kg \cdot m}{s^2}$ einsetzen und $m$ kürzen:
@@ -965,7 +967,7 @@ $$
 :::
 
 #### Übersicht Fehlerfortpflanzung für Grundrechenarten und Potenzprodukte
-Eine Funktionen sind besonders leicht zu berechnen. In der folgenden Tabelle sind Rechenwege zur Ermittlung der Messunsicherheit nach der Gauß'schen Fehlerfortpflanzung (Standardfehler) und nach der linearen Fehlerfortpflanzung (Größtfehler) aufgelistet.
+Einige Funktionen sind besonders leicht zu berechnen. In der folgenden Tabelle sind Rechenwege zur Ermittlung der Messunsicherheit nach der Gauß'schen Fehlerfortpflanzung (Standardfehler) und nach der linearen Fehlerfortpflanzung (Größtfehler) aufgelistet.
 
 ::: {.border}
 
@@ -977,7 +979,7 @@ Eine Funktionen sind besonders leicht zu berechnen. In der folgenden Tabelle sin
 #### Spezialfall: Fehlerfortpflanzung mit Einzelwerten
 Ein Sonderfall ist die Ermittlung der Messunsicherheit, wenn diese sich aus statistischen Vertrauensbereichen und abgeschätzten Fehleranteilen aus einer Einzelmessung zusammensetzt. 
 
-Für die Berechnung eines Gesamtfehlers, muss ein Kompromiss eingegangen werden.
+Für die Berechnung eines Gesamtfehlers muss ein Kompromiss eingegangen werden.
 
 1. Die lineare Fehlerfortpflanzung wird mit dem abgeschätzten Fehler und dem statistischen Vertrauensbereich durchgeführt.
 2. Die Gauß’sche Fehlerfortpflanzung wird mit dem statistischen Vertrauensbereich durchgeführt und ein Fehleranteil addiert, der aus der linearen Fehlerfortpflanzung der abgeschätzten Fehler ermittelt wird.
@@ -1010,7 +1012,7 @@ $$
 $$
 
 - Die Ableseabweichung der Küchenwaage wird auf $e_r (m) = 0,5 g = 0,0005 kg$ geschätzt. Eine systematische Messabweichung ist nicht bekannt.  Der Größtfehler der Masse beträgt also $\Delta m = 0,0005 kg$
-- Der empirische Standardfehler der Ausdehnung beträgt $\bar s_x = 0.00247 m$ bzw. zum vereinbarten Vertrauensniveau von $\bar s_{x 95 \%} = 0.00247 m * 2.2622 = 0,00559 m$
+- Der empirische Standardfehler der Ausdehnung beträgt $\sigma_x = 0.00247 m$ bzw. zum vereinbarten Vertrauensniveau von $\sigma_{x 95 \%} = 0.00247 m * 2.2622 = 0,00559 m$
 
 Die Messwerte, die Konstante $g$ und die Größtfehler werden eingesetzt.
 $$
@@ -1045,7 +1047,7 @@ $$
 ## Gauß'sche Fehlerfortpflanzung
 Die Unsicherheit der Federkonstante berechnet sich durch:
 $$
-u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}} \cdot \bar{s}_{s})^2 }
+u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}} \cdot \sigma_{s})^2 }
 $$
 
 Die Messwerte, die Konstante $g$ und der abgeschätzte Fehleranteil (Größtfehler) der Masse werden in den ersten Term eingesetzt.
@@ -1060,7 +1062,7 @@ $$
 
 Die Masse des Gewichts, die Konstante $g$ und der Standardfehler des Mittelwerts der Ausdehnung werden in den zweiten Term eingesetzt.
 $$
-(- \frac {m \cdot g}{s^{2}} \cdot \bar{s}_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  0,00247 m)^2
+(- \frac {m \cdot g}{s^{2}} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  0,00247 m)^2
 $$
 
 Trennen von Werten und Einheiten, Newton $\frac{kg \cdot m}{s^2}$ einsetzen und $m$ kürzen:
@@ -1085,7 +1087,7 @@ $$
 
 Für das 95-%-Konfidenzintervall wird der t-Wert der Ausdehnung $t = 2,2622$ eingesetzt.
 $$
-u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \bar{s}_{s})^2 }
+u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \sigma_{s})^2 }
 $$
 
 Der erste Term lautet unverändert:
@@ -1096,7 +1098,7 @@ $$
 
 Die Masse, die Konstante $g$, der Standardfehler des Mittelwerts der Ausdehnung und der t-Wert der Ausdehnung $t = 2,2622$ werden in den zweiten Term eingesetzt.
 $$
-(- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \bar{s}_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
+(- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
 $$
 
 Trennen von Werten und Einheiten, Newton $\frac{kg \cdot m}{s^2}$ einsetzen und $m$ kürzen:
