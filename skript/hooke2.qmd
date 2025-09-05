@@ -11,23 +11,11 @@ Im Ordner '01-daten/hooke' liegen mehrere txt-Dateien mit Messdaten zur Federaus
 
 1. Liegen ungültige Messungen vor?
 2. Welche Werte können für die Federkonstanten ermittelt werden?
-3. Wurden die Messungen mit der gleichen Feder durchgeführt, wenn als Vertrauenswahrscheinlichkeit 90 % bzw. 95 % angenommen werden soll?
+3. Wurden die Messungen mit der gleichen Feder (oder mit Federn mit gleicher Federkonstante) durchgeführt, wenn als Vertrauenswahrscheinlichkeit 90 % bzw. 95 % angenommen werden soll?
 
-Im Abschnitt @sec-dateien-einlesen finden Sie Hinweise und im Abschnitt @sec-aufgabe-einlesen eine Musterlösung zum Einlesen der Dateien. Anschließend sollen Sie die Aufgabenstellung eigenständig bearbeiten. Ab dem Abschnitt @sec-beginn-lösung finden Sie eine Musterlösung.
+Im Abschnitt @sec-dateien-einlesen finden Sie Hinweise und im Abschnitt @sec-aufgabe-einlesen eine Musterlösung zum Einlesen der Dateien. Anschließend sollen Sie die Aufgabenstellung eigenständig bearbeiten. In Abschnitt @sec-lösung-datenaufbereitung finden Sie eine Musterlösung für die Aufbereitung der Daten. In @sec-lösung-federkonstanten die Musterlösung zur Bestimmung der Federkonstanten.
 
-*Hinweis: Je nach gewähltem Vorgehen ergeben sich unterschiedliche Ergebnisse.*
-
-**Dafür wäre die Einführung der Fehlerrechnung bzw. des Größtfehlers sinnvoll, weil hier auf das Vorliegen grober Fehler geprüft wird. Eventuell als Kapitel vor diesem. Dazu muss die Messungenauigkeit der Waage und des Abstandssensors genommen werden.**
-Gauß´sche Fehlerfortpflanzung
-
-
-Wir prüfen 'automatisiert', ob mehrere Datensätze Fehlmessungen enthalten. Anschließend bestimmen wir die Federkonstanten und die Konfidenzintervalle.
-
-  - einlesen mit glob - aufgaben/01-daten
-    - man könnte eine Spalte mit dem teamnamen anlegen und dann mit groupby arbeiten. Das macht auch mehr Sinn, falls es tatsächlich sehr viele Datensätze sind. :) 
-  - z-Werte (studentisiert) nach Gewicht bestimmen
-  - Federkonstante im Konfidenzintervall ausgeben
-
+*Hinweis: Je nach gewähltem Vorgehen können sich unterschiedliche Ergebnisse ergeben (etwa bei der Bewertung von und dem Umgang mit Extremwerten / Ausreißern).*
 
 ```{python}
 #| echo: false
@@ -41,9 +29,9 @@ import glob
 ```
 
 ## Dateien einlesen {#sec-dateien-einlesen}
-Für das Einlesen der Dateien können Sie das Modul glob verwenden (siehe **Querverweis auf m-Einlesen strukturierter Datensätze**).
+Für das Einlesen der Dateien können Sie das Modul glob verwenden (siehe [Methodenbaustein Einlesen strukturierter Datensätze](https://bausteine-der-datenanalyse.github.io/m-sensordatenanalyse/output/book/)).
 
-Zunächst kann der Funktion `glob.glob()` im Argument `pathname = *` der Platzhalter `*` für eine beliebige Zeichenfolge (außer Dateipfadelemente wie `/` oder `.`) übergeben werden, sodass die Namen aller im angegebenen Ordner gespeicherten Dateien ausgelesen werden. Auf diese Weise kann die Anzahl der Dateien und die Dateiendung bestimmt werden, falls dies noch unbekannt ist.
+Zunächst kann der Funktion `glob.glob()` das Argument `pathname = *` übergeben werden. Der Platzhalter `*` steht für eine beliebige Zeichenfolge (außer Dateipfadelemente wie `/` oder `.`), sodass die Namen aller im angegebenen Ordner gespeicherten Dateien ausgelesen werden. Auf diese Weise kann die Anzahl der Dateien und die Dateiendung bestimmt werden, falls dies noch unbekannt ist.
 
 ```{python}
 ordnerpfad = '01-daten/hooke'
@@ -56,15 +44,13 @@ print(f"Anzahl Dateien: {len(pfadliste)}")
 Mit den Dateipfaden können die Dateien mit Hilfe einer Schleife in eine Liste eingelesen werden. Zunächst werden nur die jeweils ersten 3 Zeilen eingelesen, um einen Eindruck vom Aufbau der Dateien zu erhalten.
 
 ```{python}
-list_of_files = []
 for pfad in pfadliste:
   zwischenspeicher = pd.read_csv(filepath_or_buffer = ordnerpfad + '/' + pfad, nrows = 3)
-  list_of_files.append(zwischenspeicher)
   print(pfad, "\n", zwischenspeicher, "\n", sep = '')
 
 ```
 
-Die Dateien beinhalten keine Spaltenbeschriftung und verwenden den Tabulator '\t' als Trennzeichen. Die erste Spalte enthält einen Zeitstempel, die zweite die gemessene Federausdehnung und die dritte (vermutlich) das angehängte Gewicht.
+Die Dateien beinhalten keine Spaltenbeschriftung und verwenden den Tabulator '\\t' als Trennzeichen. Die erste Spalte enthält einen Zeitstempel, die zweite die gemessene Federausdehnung und die dritte (vermutlich) das angehängte Gewicht.
 
 ## Aufgabe Dateien einlesen {#sec-aufgabe-einlesen}
 Lesen Sie die Dateien nun ein. Prüfen Sie dabei:
@@ -75,21 +61,20 @@ Lesen Sie die Dateien nun ein. Prüfen Sie dabei:
 Sie können:
 
   a) Jede Datei einzeln einlesen.
-  b) Mit dem Modul glob die Dateien automatisch einlesen und jeweils in einem separaten Objekt speichern (*Hinweis:* Dieses Vorgehen wird im  **Methodenbaustein Einlesen strukturierter Datensätze** gezeigt). 
-  c) Die Dateien mit dem Modul glob automatisch einlesen und zu einer Datei zusammenführen.
+  b) Mit dem Modul glob die Dateien automatisch einlesen und jeweils in einem separaten Objekt speichern (*Hinweis:* Dieses Vorgehen wird im  [Methodenbaustein Einlesen strukturierter Datensätze](https://bausteine-der-datenanalyse.github.io/m-sensordatenanalyse/output/book/) gezeigt). 
+  c) Die Dateien mit dem Modul glob automatisch einlesen und in einer Datei zusammenführen.
 
 Die verschiedenen Möglichkeiten sind mit zunehmend mehr Aufwand beim Programmieren verbunden. Je mehr separate Dateien Sie auswerten möchten, desto mehr Automatisierung ist gefragt. Da bei der Auswertung von Sensordaten häufig zahlreiche Dateien ausgewertet werden müssen, wird in der Musterlösung Variante c) gezeigt.
   
-::: {.callout-tip collapse="false"}
+::: {#tip-schrittweise .callout-tip collapse="false"}
 ## Schrittweises Vorgehen
 Das Einlesen der Dateien wird voraussichtlich der aufwändigste und fehleranfälligste Arbeitsschritt sein. Entwickeln Sie Ihre Lösung Schritt für Schritt. Beginnen Sie mit der Variante a). Wenn Sie die Dateien eingelesen haben, können Sie sich durch die Weiterentwicklung zur Variante b) mit dem Modul glob vertraut machen. Darauf aufbauend können Sie mit der Variante c) die Automatisierung für beliebig viele Dateien umsetzen.
 :::
 
 
-::: {.callout-tip collapse="true"}
+::: {#tip-muster-dateien .callout-tip collapse="true"}
 ## Musterlösung Dateien einlesen
-
-Der erste Versuch, die Dateien einzulesen, scheitert mit einer Fehlermeldung. Die Anweisungen werden deshalb in die Struktur zur Ausnahmebehandlung eingebettet und die verursachende Datei abgefangen. (Sollten mehrere Dateien Fehler aufwerfen, müssten die Dateien in einer Liste gespeichert und später - falls möglich - mit einer Schleife weiter behandelt werden.)
+Der erste Versuch, die Dateien einzulesen, scheitert mit einer Fehlermeldung. Die Anweisungen werden deshalb in die Struktur zur Ausnahmebehandlung eingebettet und die verursachende Datei abgefangen. (Sollten mehrere Dateien Fehler erzeugen, müssten die Dateien in einer Liste gespeichert und später - falls möglich - mit einer Schleife weiter behandelt werden.)
 
 ```{python}
 #| warning: false
@@ -102,7 +87,7 @@ for pfad in pfadliste:
     zwischenspeicher = pd.read_csv(filepath_or_buffer = ordnerpfad + '/' + pfad, sep = '\t', names = ['Zeit', 'Abstand', 'Gewicht'])
 
     # Dateiname als Spalte einfügen
-    zwischenspeicher['Team'] = pfad[5:-4]
+    zwischenspeicher['Team'] = pfad[5:-4] # 'team_' und die Dateiendung abschneiden 
 
     hooke = pd.concat([hooke, zwischenspeicher], ignore_index = True)
   
@@ -222,11 +207,11 @@ Das Ergebnis könnte so aussehen:
 hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].describe()
 ```
 
-## Daten aufbereiten {#sec-beginn-lösung}
-Im nächsten Schritt werden die Daten geprüft und ggf. bereinigt. Dies umfasst folgende Schritte:
+## Musterlösung Daten aufbereiten {#sec-lösung-datenaufbereitung}
+Im nächsten Schritt werden die Daten geprüft und ggf. bereinigt. Dies umfasst die  Schritte:
 
   - auf Ausreißer prüfen (studentisierte z-Werte und grafisch) und ggf. bereinigen,
-  - Normierung der Abstandsmessung auf den Nullpunkt und Umrechnung der verwendeten Einheiten und
+  - Normierung der Abstandsmessung auf den Nullpunkt und Umrechnung der verwendeten Einheiten in SI-Einheiten und
   - grafische Darstellung.
 
 1. **Liegen ungültige Messungen vor?**
@@ -369,7 +354,7 @@ Abstandsmessung auf den Nullpunkt normieren. Die Spalte Abstand wird in Abständ
 ```{python}
 nullpunkte = hooke.loc[hooke['Gewicht'] == 0, : ].groupby(by = 'Team')['Abstand'].mean()
 
-print(nullpunkte)
+print("Nullpunkte", nullpunkte, sep = '\n')
 
 teams = nullpunkte.index
 
@@ -382,7 +367,7 @@ hooke['Abstandsänderung'] = hooke['Abstandsänderung'].div(100)
 ```
 
 #### Gewicht in wirkende Kraft umrechnen
-Gewicht in $g$ in die wirkende Kraft in $N$ umrechnen. Die Spalte wird in den Datensatz eingefügt. umbenannt.
+Gewicht in $g$ in die wirkende Kraft in $N$ umrechnen. Die Spalte wird in den Datensatz eingefügt.
 
 ```{python}
 hooke['Kraft'] = hooke['Gewicht'].div(1000).mul(9.81)
@@ -448,13 +433,15 @@ Die Ausgabe ist aus Platzgründen auf die ersten Zeilen beschränkt.
 distance_means_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].mean()
 distance_means_by_team_and_force.name = 'Federausdehnung'
 
-print(distance_means_by_team_and_force.head())
+print("Mittelwerte der Abstandsänderung nach Team und Kraft:", distance_means_by_team_and_force.head(), sep = '\n')
+
+print() # leere Zeile
 
 # Standardfehler der Teams nach Kraft
 distance_stderrors_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(hooke['Abstandsänderung'].groupby(by = [hooke['Team'], hooke['Kraft']]).size()))
 distance_stderrors_by_team_and_force.name = 'Standardfehler'
 
-print(distance_stderrors_by_team_and_force.head())
+print("Standardfehler der Mittelwerte nach Team und Kraft", distance_stderrors_by_team_and_force.head(), sep = '\n')
 ```
 
 ## Code
@@ -466,13 +453,15 @@ print(distance_stderrors_by_team_and_force.head())
 distance_means_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].mean()
 distance_means_by_team_and_force.name = 'Federausdehnung'
 
-print(distance_means_by_team_and_force.head())
+print("Mittelwerte der Abstandsänderung nach Team und Kraft:", distance_means_by_team_and_force.head(), sep = '\n')
+
+print() # leere Zeile
 
 # Standardfehler der Teams nach Kraft
 distance_stderrors_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(hooke['Abstandsänderung'].groupby(by = [hooke['Team'], hooke['Kraft']]).size()))
 distance_stderrors_by_team_and_force.name = 'Standardfehler'
 
-print(distance_stderrors_by_team_and_force.head())
+print("Standardfehler der Mittelwerte nach Team und Kraft", distance_stderrors_by_team_and_force.head(), sep = '\n')
 
 # grafische Darstellung
 anzahl_teams = hooke['Team'].unique().size
@@ -527,10 +516,10 @@ hooke.drop(index = hooke.loc[(hooke['Team'] == 'fabi') & (hooke['Gewicht'] == 50
 
 ::: {#tip-vieledatensätze .callout-tip}
 ## Vorgehen bei vielen Datensätzen
-Bei einer großen Anzahl an Datensätzen kann auch die grafische Kontrolle an Grenzen stoßen. In diesem Fall empfiehlt es sich, die visuelle und kennzahlenbasierende Methoden zusammen zu nutzen, um Muster zu identifizieren und für eine große Zahl von Messungen zu überprüfen. Beispielsweise könnten nach einer visuellen Inspektion von Messreihen mit Extremwerten bzw. Ausreißern alle Messreihen daraufhin überprüft werden, ob mit zunehmenden Gewicht stets auch die mittlere Federausdehnung größer als für leichtere Gewichte ist. Abweichende Messreihen könnten dann grafisch kontrolliert werden.
+Bei einer großen Anzahl an Datensätzen kann auch die grafische Kontrolle an Grenzen stoßen. In diesem Fall empfiehlt es sich, die visuellen und kennzahlenbasierten Methoden zusammen zu nutzen, um Muster zu identifizieren und für eine große Zahl von Messungen zu überprüfen. Beispielsweise könnten nach einer visuellen Inspektion von Messreihen mit Extremwerten bzw. Ausreißern alle Messreihen daraufhin überprüft werden, ob mit zunehmenden Gewicht stets auch die mittlere Federausdehnung größer als für leichtere Gewichte ist. Abweichende Messreihen könnten dann grafisch kontrolliert werden.
 :::
 
-## Federkonstanten bestimmen
+## Musterlösung Federkonstanten bestimmen {#sec-lösung-federkonstanten}
 Im nächsten Schritt können die Federkonstanten mittels linearer Regression bestimmt werden. 
 
 2. **Welche Werte können für die Federkonstanten ermittelt werden?**  
@@ -637,8 +626,3 @@ Unabhängig vom gewählten Vertrauensniveau liegt die Punktschätzung der Federk
 Abhängig vom gewählten Vorgehen sind andere Ergebnisse möglich, beispielsweise durch das Entfernen von als Ausreißern eingestuften Einzelwerten oder einer anderen Behandlung der Messreihe vom Team fabi für das angehängte Gewicht 50 Gramm.
 ::::
 :::
-
-## Zusammenfassung
-**to do:** (studentisierte) z-Werte sind hilfreich, um einzelne abweichende Werte zu identfizieren. Sind viele oder die ganze Messreihe fehlerhaft, reicht dies jedoch nicht aus. 
-
-Die grafische Darstellung von Messwerten ist sehr viel aussagekräftiger.
