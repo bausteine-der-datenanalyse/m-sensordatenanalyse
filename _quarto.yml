@@ -19,9 +19,10 @@ book:
     - index.qmd
     - skript/einleitung.qmd
     - skript/normalverteilung.qmd
-    - skript/hooke.qmd
+    - skript/lineare-parameterschätzung.qmd
     - skript/fehlerrechnung.qmd
-    - skript/hooke2.qmd
+    - skript/übung-hooke.qmd
+    - skript/kalibrierung.qmd
 
   sidebar:
     title: "Methodenbaustein Sensordatenanalyse"
