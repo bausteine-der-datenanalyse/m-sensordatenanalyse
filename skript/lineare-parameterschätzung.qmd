@@ -247,10 +247,6 @@ $$
 
 Zur Bestimmung der Parameter einer linearen Funktion wird die Methode der [kleinsten Quadrate](https://de.wikipedia.org/wiki/Methode_der_kleinsten_Quadrate) verwendet.
 
-
-**hierhier Die Herleitung der Formeln sind viel LaTeX (Skript MB: 73- 74)**  
-**Quelle: Skript MB S. 71-74**
-
 ::: {#nte-ols .callout-note collapse="true"}
 ## Methode der kleinsten Quadrate
 
@@ -535,7 +531,7 @@ Die Funktion gibt die geschätzten Regressionsparameter als NumPy-Array zurück.
 print(poly.polyfit(x, y, 2).round(2))
 ```
 
-Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funktion berechnet werden. Dafür wird die Funktion `poly.polyeval(x, c)` verwendet. Diese berechnet die Funktionswerte für in `x` übergebene Wert(e) mit den Funktionsparametern `c`. Aus der Differenz der gemessenen Werte und der Vorhersagewerte können die Residuen bestimmt werden.
+Mit den Regressionskoeffizienten können die Vorhersagewerte der linearen Funktion berechnet werden. Dafür wird die Funktion `poly.polyeval(x, c)` verwendet. Diese berechnet die Funktionswerte für in `x` übergebene Werte mit den Funktionsparametern `c`. Aus der Differenz der gemessenen Werte und der Vorhersagewerte können die Residuen bestimmt werden.
 
 ```{python}
 # 'manuelle' Berechnung

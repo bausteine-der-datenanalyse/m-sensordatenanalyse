@@ -200,10 +200,12 @@ print("linear interpolierter Wert:", interpolate_me.interpolate().round(2), sep 
 korrekter_wert = interpolate_me.interpolate().round(2)[position_fehlwert]
 ```
 
+Eine andere Option ist die nicht-lineare Interpolation (die nicht Inhalt dieses Bausteins ist). 
+
 :::: {#nte-nonlinear .callout-note collapse="true"}
 ## Nicht-lineare Interpolation
 
-Die nicht-lineare Interpolation benötigt mehr Datenpunkte:
+Die nicht-lineare Interpolation benötigt mehr Datenpunkte. Wir versuchen die kubische Interpolation:
 ```{python}
 interpolate_me_again = pt100.loc[position_fehlwert - 3 : position_fehlwert + 4, 'Ohm'].copy()
 interpolate_me_again[position_fehlwert] = np.nan
@@ -240,8 +242,10 @@ plt.show()
 ### Nicht-Linearität quantifizieren
 Zwei Methoden zur Quantifizierung der Nicht-Liniearität sind die Festpunkt- und die Toleranzbandmethode.
 
-Festpunktmethode:
+::: {#imp-festpunktmethode .callout-important}
+## Festpunktmethode
 Die Endpunkte der realen Kennlinie werden durch eine Gerade verbunden. Der Linearitätsfehler ist das Maximum der Abweichung der Kennlinie zu dieser Geraden. [@Dubbel2011, S. W2 (S. 1661)]
+:::
 
 Dazu bestimmen wir zunächst die Vorhersagewerte einer Geraden durch die Endpunkte.
 ```{python}
@@ -275,9 +279,12 @@ linearitätsfehler = (pt100['Ohm'] - vorhersagewerte).abs().max()
 print(f"Linearitätsfehler nach Festpunktmethode: {linearitätsfehler:.2f} Ohm.")
 ```
 
-Toleranzbandmethode:
+::: {#imp-toleranzbandmethode .callout-important}
+## Toleranzbandmethode
 Bei der Toleranzbandmethode wird eine Gerade so durch die Messpunkte gelegt, dass die Summe der quadrierten Abweichungen der Messpunkte zu dieser Geraden (Methode der kleinsten Quadrate) oder die größte einzelne Abweichung ([Tschebyscheff-Approximation](https://de.wikipedia.org/wiki/Tschebyschow-Polynom)) minimiert wird. Die Größe des Linearitätsfehlers ist die maximale senkrechte Entfernung der Kennlinie zu dieser Ausgleichsgeraden. [@Dubbel2011, S. W3 (S. 1662)]
+:::
 
+Das Prinzip der Methode der kleinsten Quadrate haben wir bereits kennengelernt.
 ```{python}
 #| fig-alt: "Darstellung der Temperatur in Grad Celsius auf der x-Achse und des elektrischen Widerstands in Ohm auf der y-Achse"
 
