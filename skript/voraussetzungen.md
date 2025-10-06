@@ -13,7 +13,7 @@ In diesem Baustein werden die folgenden Module und Pakete verwendet:
 - pandas
 - matplotlib
 - glob
-- scipy
+- scipy Version 1.14.1
 
 Im Baustein werden folgende Daten verwendet:
 

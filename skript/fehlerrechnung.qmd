@@ -627,11 +627,13 @@ $$
 f + \Delta f = f(x_1 + \Delta x_1, x_2 + \Delta x_2)
 $$
 
-Unter der Voraussetzung gegenüber den Messwerten kleiner Fehler (**Wann sind die Fehler klein?**) kann der Fehler $\Delta f$ durch die Beträge der partiellen Ableitung des ersten Glieds der Taylorreihe berechnet werden (siehe Beispiel).
+Unter der Voraussetzung gegenüber den Messwerten kleiner Fehler kann der Fehler $\Delta f$ durch die Beträge der partiellen Ableitung des ersten Glieds der Taylorreihe berechnet werden (siehe Beispiel).
 
 $$
 f + \Delta f = f(x_1, x_2) + | \frac{\partial f(x_1, x_2)}{\partial x_1}  | \cdot \Delta x_1 + | \frac{\partial f(x_1, x_2)}{\partial x_2} | \cdot \Delta x_2
 $$
+
+Wann sind die Fehler gegenüber den Messwerten klein? Dafür gibt es leider keine absolute Grenze. Es kommt hierbei darauf an, dass bei der Taylor-Entwicklung die Polynome höheren Grades deutlich kleiner als der lineare Term sind und somit vernachlässigt werden können, wenn das $x$ klein ist. Die Entscheidung hängt letztlich von der benötigten Genauigkeit ab.
 
 ::: {#nte-taylorreihe .callout-note collapse="true"}
 ## Taylorreihe
