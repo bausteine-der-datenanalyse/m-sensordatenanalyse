@@ -162,7 +162,7 @@ $$
 
 Da die Varianz das Quadrat der Standardabweichung $s$ ist, wird diese häufig mit $s^{2}$ gekennzeichnet.
 
-:::{#wrn-Grundgesamtheit .callout-warning appearance="simple"}
+::: {#wrn-Grundgesamtheit .callout-warning appearance="simple"}
 ## Standardabweichung und Varianz in der Grundgesamtheit
 
 In der Stochastik werden Formeln häufig auch mit griechischen Buchstaben geschrieben, wenn Sie sich statt auf eine Stichprobe auf die Grundgesamtheit beziehen. 
@@ -436,16 +436,16 @@ plt.show()
 ### Aufgabe Verteilungskenngrößen
 Im Datensatz ToothGrowth.csv ist eine Messreihe zur Länge zahnbildender Zellen bei Meerschweinchen gespeichert. Die Tiere erhielten Vitamin C direkt (VC) oder in Form von Orangensaft (OJ) in unterschiedlichen Dosen.
 
-:::: {.border}
+::: {.border}
 
-::::: {#lst-readfile}
+:::: {#lst-readfile}
 ```{python}
 dateipfad = "01-daten/ToothGrowth.csv"
 meerschweinchen = pd.read_csv(filepath_or_buffer = dateipfad, sep = ',', header = 0, \
   names = ['ID', 'len', 'supp', 'dose'], dtype = {'ID': 'int', 'len': 'float', 'dose': 'float', 'supp': 'category'})
 ```
 
-:::::
+::::
 
 Crampton, E. W. 1947. „THE GROWTH OF THE ODONTOBLASTS OF THE INCISOR TOOTH AS A CRITERION OF THE VITAMIN C INTAKE OF THE GUINEA PIG“. The Journal of Nutrition 33 (5): 491–504. <https://doi.org/10.1093/jn/33.5.491> 
 
@@ -458,7 +458,7 @@ Der Datensatz kann in R mit dem Befehl "ToothGrowth" aufgerufen werden.
 meerschweinchen['len'].plot(x = 'ID', y = 'len', title = 'Länge der zahnbildenden Zellen von Meerschweinchen', xlabel = 'Nummer', ylabel = 'Länge in Micron')
 ```
 
-::::
+:::
 
 &nbsp;
 
@@ -506,7 +506,6 @@ verteilungskennwerte(meerschweinchen['len'])
 
 ```{python}
 #| output: false
-
 
 def verteilungskennwerte(x, output = True):
 

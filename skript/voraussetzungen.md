@@ -19,7 +19,7 @@ Im Baustein werden folgende Daten verwendet:
 
   - Zahnwachstum bei Meerschweinchen [CSV-Datei](https://github.com/vincentarelbundock/Rdatasets/blob/master/csv/datasets/ToothGrowth.csv)
   - Vermessung von Pinguinen an der Palmer Station [GitHub](https://github.com/allisonhorst/palmerpenguins?tab=readme-ov-file#meet-the-palmer-penguins)
-  - Elektrische Widerstandswerte eines Pt100-Thermometers aus der DIN 60751 [@DIN60751] und von [hier (PDF)](https://s8b8d6a7.delivery.rocketcdn.me/wp-content/uploads/2022/08/Pt100-Tabelle-Screen.pdf)
+  - Elektrische Widerstandswerte eines Pt100-Thermometers aus der DIN 60751 und von [hier (PDF)](https://s8b8d6a7.delivery.rocketcdn.me/wp-content/uploads/2022/08/Pt100-Tabelle-Screen.pdf)
   - Abstandsmessungen mit einem Ultraschallsensor (Messungen an der FH Dortmund)
 
   Querverweis auf:
