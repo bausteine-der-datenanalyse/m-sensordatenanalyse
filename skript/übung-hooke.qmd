@@ -226,15 +226,32 @@ Auf Ausreißer kann (unter anderem) mit studentisierten z-Werten und grafisch ge
 #| echo: false
 
 # z-Werte größer gleich abs(3) finden
-z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 3)).apply(sum).sum()
+
 print("Anzahl der studentisierten z-Werte mit Betrag ≥ 3:", z_values_ge3_sum, "\n")
 
 # z-Werte größer gleich abs(2.5) finden
-z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).apply(sum).sum()
 print("Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:", z_values_ge25_sum)
 
 # Die Zeilen mit z-Werten größer abs(2.5) ausgeben
-bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+### Schritt 1: Wahrheitswerte abgreifen
+bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).values
+### Schritt 2: Rückgabe zeilenweise in ein eindimensionales Array überführen: 
+bool_index = np.hstack(bool_index)
+
 z_values_ge_25 = hooke.iloc[bool_index , :]
 print(z_values_ge_25, "\n")
 
@@ -267,10 +284,19 @@ for i in range(len(teams)):
     messreihen = pd.concat([messreihen, hooke.loc[ (hooke['Team'] == teams[i]) & (hooke['Gewicht'] == team_gewichte[i][j]) ]])
 
 # studentisierte z-Werte der Messreihen bilden
-messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+## Rückgabe zeilenweise in ein eindimensionales Array überführen: 
+messreihen_z_scores = np.hstack(messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True))
 
 # gemeinsame Ausgabe der Daten
-messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores)
 print(messreihen)
 ```
 
@@ -279,20 +305,37 @@ print(messreihen)
 #| output: false
 
 # z-Werte größer gleich abs(3) finden
-z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()
-print("Anzahl der studentisierten z-Werte mit Betrag ≥ 3:", z_values_ge3_sum)
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 3)).apply(sum).sum()
+
+print("Anzahl der studentisierten z-Werte mit Betrag ≥ 3:", z_values_ge3_sum, "\n")
 
 # z-Werte größer gleich abs(2.5) finden
-z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).apply(sum).sum()
 print("Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:", z_values_ge25_sum)
 
 # Die Zeilen mit z-Werten größer abs(2.5) ausgeben
-bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+### Schritt 1: Wahrheitswerte abgreifen
+bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).values
+### Schritt 2: Rückgabe zeilenweise in ein eindimensionales Array überführen: 
+bool_index = np.hstack(bool_index)
+
 z_values_ge_25 = hooke.iloc[bool_index , :]
 print(z_values_ge_25, "\n")
 
 # Kombinationen aus Gewicht & Team bestimmen
-
+print("Kombinationen aus Gewicht & Team bestimmen")
 teams = z_values_ge_25['Team'].unique()
 
 ## teams durchlaufen und jeweils die Gewichte speichern
@@ -302,7 +345,8 @@ for i in range(len(teams)):
   print(z_values_ge_25.loc[z_values_ge_25['Team'] == teams[i], 'Gewicht'], "\n")
   team_gewichte.append(z_values_ge_25.loc[z_values_ge_25['Team'] == teams[i], 'Gewicht'].values)
 
-print(team_gewichte, "\n")
+# print("Als Liste von arrays:")
+# print(team_gewichte, "\n")
 
 # Messreihen auswählen
 messreihen = pd.DataFrame()
@@ -314,10 +358,19 @@ for i in range(len(teams)):
     messreihen = pd.concat([messreihen, hooke.loc[ (hooke['Team'] == teams[i]) & (hooke['Gewicht'] == team_gewichte[i][j]) ]])
 
 # studentisierte z-Werte der Messreihen bilden
-messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+## Rückgabe zeilenweise in ein eindimensionales Array überführen: 
+messreihen_z_scores = np.hstack(messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True))
 
 # gemeinsame Ausgabe der Daten
-messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)
+## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
+## messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)
+
+## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
+messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores)
 print(messreihen)
 ```
 

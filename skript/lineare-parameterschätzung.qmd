@@ -81,7 +81,7 @@ $$
 Z = \frac{x - \mu}{\sigma}
 $$
 
-Da in der Regel der Erwartungswert und die Standardabweichung unbekannt sind, werden der Stichprobenmittelwert und die Stichprobenstandardabweichung verwendet. Dies nennt man *Studentisieren*, nach dem Pseudonym bereits im vorherigen Kapitel erwähnten William Sealy Gosset.
+Da in der Regel der Erwartungswert und die Standardabweichung unbekannt sind, werden der Stichprobenmittelwert und die Stichprobenstandardabweichung verwendet. Dies nennt man *studentisieren*, nach dem Pseudonym des bereits im vorherigen Kapitel erwähnten William Sealy Gosset.
 
 $$
 z_{i} = \frac{x_{i} - \bar{x}}{s}
@@ -94,11 +94,13 @@ gewicht = 0
 mittelwert_ausdehnung = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].mean()
 standardabweichung_ausdehnung = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].std(ddof = 1)
 
-z_values = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].apply(lambda x: ( (x - mittelwert_ausdehnung) /standardabweichung_ausdehnung))
+z_values = hooke[hooke['mass'] == gewicht].loc[: , 'distance'].apply(lambda x: ( (x - mittelwert_ausdehnung) / standardabweichung_ausdehnung))
 z_values.name = 'z-values'
 
 # z-Transformation mit scipy
-scipy_z_values = scipy.stats.zscore(hooke[hooke['mass'] == gewicht].loc[: , 'distance'], ddof = 1)
+## scipy gibt ein np.array zurück
+## zur besseren Darstellung wird das np.array in eine pd.Series umgewandelt, die ein name Attribut hat
+scipy_z_values = pd.Series(scipy.stats.zscore(hooke[hooke['mass'] == gewicht].loc[: , 'distance'], ddof = 1))
 scipy_z_values.name = 'scipy z-values'
 
 # gemeinsame Ausgabe der Daten
@@ -133,7 +135,9 @@ Hiernach ist die höchste Standardabweichung für die Messreihe mit 301 Gramm zu
 ```{python}
 gewicht = 301
 
-z_values = scipy_z_values = scipy.stats.zscore(hooke[hooke['mass'] == gewicht].loc[: , 'distance'], ddof = 1)
+## scipy gibt ein np.array zurück
+## zur besseren Darstellung wird das np.array in eine pd.Series umgewandelt, die ein name Attribut hat
+z_values = pd.Series(scipy.stats.zscore(hooke[hooke['mass'] == gewicht].loc[: , 'distance'], ddof = 1))
 z_values.name = 'z-values'
 
 print(pd.concat([hooke[hooke['mass'] == gewicht], z_values], axis = 1))
