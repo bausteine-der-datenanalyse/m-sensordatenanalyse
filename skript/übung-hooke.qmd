@@ -257,10 +257,23 @@ print(bool_index[175:180], "\n")
 print(np.nonzero(bool_index))
 print('mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)')
 print('177 passt nicht zur 178 weiter unten. 178 ist aber der korrekte Index')
+print('Online gibt er beim folgenden Befehl dann die Zeilen 79, 84, 99 und 180 aus.')
 print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
 
-z_values_ge_25 = hooke.iloc[bool_index , :]
+# HIER PASST DER INDEX DANN NICHT MEHR
+## Versuch: iloc in loc geändert
+z_values_ge_25 = hooke.loc[bool_index , :]
 print(z_values_ge_25, "\n")
+
+# Alternative Variante
+positionsliste = np.nonzero(bool_index)
+z_values_ge_25 = hooke.iloc[positionsliste]
+print(z_values_ge_25, "\n")
+
+
+print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
+print(hooke.iloc[[ 76,  91,  96, 177]], "\n")
+print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
 
 # Kombinationen aus Gewicht & Team bestimmen
 print("Kombinationen aus Gewicht & Team bestimmen")
