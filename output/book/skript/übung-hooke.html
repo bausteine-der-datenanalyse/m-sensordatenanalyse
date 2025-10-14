@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e4aa0397115c41deec761c50bad4326d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-41b50336b84d19d21e4f3e93c35ff765.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -104,10 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
-
-
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-
 <link rel="shortcut icon" href="skript/00-bilder/favicon_bcd_new.svg">
 <link rel="icon" type="image/x-icon" href="logo.ico">
 
@@ -286,28 +283,28 @@ window.Quarto = {
 <h2 data-number="5.1" class="anchored" data-anchor-id="sec-dateien-einlesen"><span class="header-section-number">5.1</span> Dateien einlesen</h2>
 <p>Für das Einlesen der Dateien können Sie das Modul glob verwenden (siehe <a href="https://bausteine-der-datenanalyse.github.io/m-sensordatenanalyse/output/book/">Methodenbaustein Einlesen strukturierter Datensätze</a>).</p>
 <p>Zunächst kann der Funktion <code>glob.glob()</code> das Argument <code>pathname = *</code> übergeben werden. Der Platzhalter <code>*</code> steht für eine beliebige Zeichenfolge (außer Dateipfadelemente wie <code>/</code> oder <code>.</code>), sodass die Namen aller im angegebenen Ordner gespeicherten Dateien ausgelesen werden. Auf diese Weise kann die Anzahl der Dateien und die Dateiendung bestimmt werden, falls dies noch unbekannt ist.</p>
-<div id="8008a872" class="cell" data-execution_count="2">
+<div id="b8bce45b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ordnerpfad <span class="op">=</span> <span class="st">'01-daten/hooke'</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pfadliste <span class="op">=</span> glob.glob(pathname <span class="op">=</span> <span class="st">'*'</span>, root_dir <span class="op">=</span> ordnerpfad, recursive <span class="op">=</span> <span class="va">False</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pfadliste)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Anzahl Dateien: </span><span class="sc">{</span><span class="bu">len</span>(pfadliste)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['team_die_ahnungslosen.txt', 'team_fabi.txt', 'team_kreativkoepfe.txt', 'team_ma.txt']
+<pre><code>['team_kreativkoepfe.txt', 'team_fabi.txt', 'team_die_ahnungslosen.txt', 'team_ma.txt']
 Anzahl Dateien: 4</code></pre>
 </div>
 </div>
 <p>Mit den Dateipfaden können die Dateien mit Hilfe einer Schleife in eine Liste eingelesen werden. Zunächst werden nur die jeweils ersten 3 Zeilen eingelesen, um einen Eindruck vom Aufbau der Dateien zu erhalten.</p>
-<div id="2d011fce" class="cell" data-execution_count="3">
+<div id="a645eaf4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pfad <span class="kw">in</span> pfadliste:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  zwischenspeicher <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> ordnerpfad <span class="op">+</span> <span class="st">'/'</span> <span class="op">+</span> pfad, nrows <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(pfad, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, zwischenspeicher, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>team_die_ahnungslosen.txt
-   11:03:23\t109.66 cm\t0
-0  11:03:23\t109.62 cm\t0
-1  11:03:23\t109.73 cm\t0
-2  11:03:23\t109.55 cm\t0
+<pre><code>team_kreativkoepfe.txt
+   10:33:02\t109.64 cm\t0
+0  10:33:05\t109.62 cm\t0
+1  10:33:08\t109.64 cm\t0
+2  10:33:11\t109.62 cm\t0
 
 team_fabi.txt
    09:17:54\t110.31 cm\t0
@@ -315,11 +312,11 @@ team_fabi.txt
 1  09:18:03\t110.74 cm\t0
 2  09:18:06\t109.95 cm\t0
 
-team_kreativkoepfe.txt
-   10:33:02\t109.64 cm\t0
-0  10:33:05\t109.62 cm\t0
-1  10:33:08\t109.64 cm\t0
-2  10:33:11\t109.62 cm\t0
+team_die_ahnungslosen.txt
+   11:03:23\t109.66 cm\t0
+0  11:03:23\t109.62 cm\t0
+1  11:03:23\t109.73 cm\t0
+2  11:03:23\t109.55 cm\t0
 
 team_ma.txt
    10:09:38\t109.26 cm\t0
@@ -374,7 +371,7 @@ Tipp&nbsp;5.2: Musterlösung Dateien einlesen
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Der erste Versuch, die Dateien einzulesen, scheitert mit einer Fehlermeldung. Die Anweisungen werden deshalb in die Struktur zur Ausnahmebehandlung eingebettet und die verursachende Datei abgefangen. (Sollten mehrere Dateien Fehler erzeugen, müssten die Dateien in einer Liste gespeichert und später - falls möglich - mit einer Schleife weiter behandelt werden.)</p>
-<div id="2cf14145" class="cell" data-execution_count="4">
+<div id="adbd8e28" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hooke <span class="op">=</span> pd.DataFrame(columns <span class="op">=</span> [<span class="st">'Zeit'</span>, <span class="st">'Abstand'</span>, <span class="st">'Gewicht'</span>, <span class="st">'Team'</span>]) <span class="co"># ein leerer DataFrame</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pfad <span class="kw">in</span> pfadliste:</span>
@@ -411,11 +408,11 @@ memory usage: 11.3+ KB
 None 
 
 Erfolgreich einglesen:
-['die_ahnungslosen' 'fabi' 'kreativkoepfe']</code></pre>
+['kreativkoepfe' 'fabi' 'die_ahnungslosen']</code></pre>
 </div>
 </div>
 <p>Der Fehlermeldung zufolge besteht Zeile 135 aus 4 statt aus 3 Spalten. Die fehlerverursachende Datei wird deshalb zeilenweise durchlaufen und jede Zeile ausgegeben, die mehr als 3 Einträge hat. Zur Kontrolle werden auch die ersten 5 Zeilen ausgegeben.</p>
-<div id="8745ebb0" class="cell" data-execution_count="5">
+<div id="42265d1b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># einen leeren DataFrame mit 3 Spalten erstellen</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> [], columns <span class="op">=</span> [<span class="st">'Zeit'</span>, <span class="st">'Abstand'</span>, <span class="st">'Gewicht'</span>])</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -452,7 +449,7 @@ Index = 134 : ['10:29:27', '105.49 cm', '300', '\n']</code></pre>
 </div>
 <p>Jede zweite Zeile ist leer. In Zeile 134 wird ein Zeilenumbruch ‘\n’ eingelesen. Die Datei wird deshalb mit einer angepassten Schleife erneut durchlaufen. Aus der betreffenden Zeile wird der zusätzliche Zeilenumbruch ‘\n’ entfernt. Leere Zeilen werden übersprungen. Die korrekten Zeilen werden an den DataFrame hooke angefügt.</p>
 <p><strong>Der Code muss ggf. noch angepasst werden, weil vermutlich so leere zeilen angefügt werden</strong></p>
-<div id="9437b310" class="cell" data-execution_count="6">
+<div id="ad5f9fd5" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dateiobjekt_problem_datei <span class="op">=</span> <span class="bu">open</span>(<span class="bu">file</span> <span class="op">=</span> ordnerpfad <span class="op">+</span> <span class="st">'/'</span> <span class="op">+</span> pfad_problem_datei, mode <span class="op">=</span> <span class="st">'r'</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> zeile <span class="kw">in</span> dateiobjekt_problem_datei:</span>
@@ -477,7 +474,7 @@ Index = 134 : ['10:29:27', '105.49 cm', '300', '\n']</code></pre>
 <span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.info())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Erfolgreich einglesen:
-['die_ahnungslosen' 'fabi' 'kreativkoepfe' 'ma']
+['kreativkoepfe' 'fabi' 'die_ahnungslosen' 'ma']
 
 &lt;class 'pandas.core.frame.DataFrame'&gt;
 Index: 537 entries, 0 to 536
@@ -494,18 +491,18 @@ None</code></pre>
 </div>
 </div>
 <p>Anschließend werden zum einen die Zeilen mit Nullwerten betrachtet …</p>
-<div id="cb267284" class="cell" data-execution_count="7">
+<div id="29b21619" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.loc[hooke.<span class="bu">apply</span>(pd.isna).<span class="bu">any</span>(axis <span class="op">=</span> <span class="dv">1</span>), :])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Zeit Abstand Gewicht              Team
-97   NaN     NaN     NaN  die_ahnungslosen
-247  NaN     NaN     NaN     kreativkoepfe
-267  NaN     NaN     NaN     kreativkoepfe
-272  NaN     NaN     NaN     kreativkoepfe</code></pre>
+3    NaN     NaN     NaN     kreativkoepfe
+23   NaN     NaN     NaN     kreativkoepfe
+28   NaN     NaN     NaN     kreativkoepfe
+322  NaN     NaN     NaN  die_ahnungslosen</code></pre>
 </div>
 </div>
 <p>… und entfernt.</p>
-<div id="7c005db2" class="cell" data-execution_count="8">
+<div id="e254c23f" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(np.where(hooke.<span class="bu">apply</span>(pd.isna).<span class="bu">any</span>(axis <span class="op">=</span> <span class="dv">1</span>))[<span class="dv">0</span>], inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Zum anderen werden die Datentypen kontrolliert.</p>
@@ -516,11 +513,11 @@ None</code></pre>
 <li>Der Spalte Team könnte der <a href="https://pandas.pydata.org/docs/user_guide/categorical.html">Pandas Datentyp category</a> zugewiesen werden, notwendig ist es aber nicht.</li>
 </ul>
 <p>String ’ cm’ entfernen.</p>
-<div id="7a48d8bd" class="cell" data-execution_count="9">
+<div id="a85002d7" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hooke.replace(<span class="st">' cm'</span>, <span class="st">''</span>, regex <span class="op">=</span> <span class="va">True</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ob alle Elemente einer Zelle numerisch sind, kann mit der Pandas-Methode <code>pd.Series.str.isnumeric()</code> überprüft werden. Ein Blick auf die Daten zeigt die Ursache.</p>
-<div id="1ab02273" class="cell" data-execution_count="10">
+<div id="71f42904" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">sum</span>())</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].head())</span>
@@ -530,8 +527,8 @@ None</code></pre>
 0    0.0
 1    0.0
 2    0.0
-3    0.0
 4    0.0
+5    0.0
 Name: Gewicht, dtype: object
 532    850\n
 533    850\n
@@ -542,7 +539,7 @@ Name: Gewicht, dtype: object</code></pre>
 </div>
 </div>
 <p>Die Zeilenumbrüche werden ebenfalls entfernt.</p>
-<div id="8828e957" class="cell" data-execution_count="11">
+<div id="6cdbeab4" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>hooke.replace(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="st">''</span>, regex <span class="op">=</span> <span class="va">True</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">sum</span>())</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].tail())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -556,7 +553,7 @@ Name: Gewicht, dtype: object</code></pre>
 Name: Gewicht, dtype: object</code></pre>
 </div>
 </div>
-<div id="79bba7a0" class="cell" data-execution_count="12">
+<div id="a7441f3e" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.info(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># explizite Zuweisung</span></span>
@@ -596,9 +593,9 @@ None</code></pre>
 </div>
 </div>
 <p>Das Ergebnis könnte so aussehen:</p>
-<div id="8c8b29e9" class="cell" data-execution_count="13">
+<div id="81ccfe1a" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="108">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -1209,7 +1206,7 @@ None</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Ausreißer bestimmen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Gemeinsame Ausgabe der Messreihen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="708632c8" class="cell" data-execution_count="14">
+<div id="4a7b64ab" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-stdout">
 <pre><code>Anzahl der studentisierten z-Werte mit Betrag ≥ 3: 0 
 
@@ -1229,11 +1226,11 @@ mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)
  Ende DEBUGGING
  *************** 
 
-         Zeit  Abstand  Gewicht              Team
-76   11:10:38   102.35    250.0  die_ahnungslosen
-91   11:11:42   104.15    300.0  die_ahnungslosen
-96   11:12:43   101.06    350.0  die_ahnungslosen
-178  09:27:18   102.30    201.0              fabi 
+         Zeit  Abstand  Gewicht           Team
+79   10:45:39    97.45    350.0  kreativkoepfe
+94   10:47:14    95.80    450.0  kreativkoepfe
+99   10:47:29    95.37    500.0  kreativkoepfe
+180  09:30:35   102.49    302.0           fabi 
 
 Kombinationen aus Gewicht &amp; Team bestimmen
 
@@ -1241,92 +1238,78 @@ Kombinationen aus Gewicht &amp; Team bestimmen
  Beginn DEBUGGING
  *************** 
 
-['die_ahnungslosen' 'fabi']
+['kreativkoepfe' 'fabi']
 mein lokales Ergebnis: ['die_ahnungslosen' 'fabi']
 
  *************** 
  Ende DEBUGGING
  *************** 
 
-die_ahnungslosen
-76    250.0
-91    300.0
-96    350.0
+kreativkoepfe
+79    350.0
+94    450.0
+99    500.0
 Name: Gewicht, dtype: float64 
 
 fabi
-178    201.0
+180    302.0
 Name: Gewicht, dtype: float64 
 </code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="a569e468" class="cell" data-execution_count="15">
+<div id="06f7e55d" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-stdout">
-<pre><code>die_ahnungslosen 250.0
-die_ahnungslosen 300.0
-die_ahnungslosen 350.0
-fabi 201.0
-         Zeit  Abstand  z-Werte Abstand  Gewicht              Team
-67   11:10:11   102.99         0.376191    250.0  die_ahnungslosen
-68   11:10:13   102.99         0.376191    250.0  die_ahnungslosen
-69   11:10:17   102.93         0.105333    250.0  die_ahnungslosen
-70   11:10:20   102.83        -0.346095    250.0  die_ahnungslosen
-71   11:10:23   103.16         1.143620    250.0  die_ahnungslosen
-72   11:10:26   102.80        -0.481524    250.0  die_ahnungslosen
-73   11:10:29   102.90        -0.030095    250.0  die_ahnungslosen
-74   11:10:32   103.33         1.911049    250.0  die_ahnungslosen
-75   11:10:35   102.78        -0.571810    250.0  die_ahnungslosen
-76   11:10:38   102.35        -2.512954    250.0  die_ahnungslosen
-77   11:10:41   102.93         0.105333    250.0  die_ahnungslosen
-78   11:10:44   102.88        -0.120381    250.0  die_ahnungslosen
-79   11:10:47   102.90        -0.030095    250.0  die_ahnungslosen
-80   11:10:50   102.88        -0.120381    250.0  die_ahnungslosen
-81   11:10:53   102.73        -0.797524    250.0  die_ahnungslosen
-82   11:10:56   102.81        -0.436381    250.0  die_ahnungslosen
-83   11:10:59   102.80        -0.481524    250.0  die_ahnungslosen
-84   11:11:02   103.33         1.911049    250.0  die_ahnungslosen
-85   11:11:24   101.37        -0.525397    300.0  die_ahnungslosen
-86   11:11:27   101.43        -0.458325    300.0  die_ahnungslosen
-87   11:11:30   102.80         1.073152    300.0  die_ahnungslosen
-88   11:11:33   101.72        -0.134144    300.0  die_ahnungslosen
-89   11:11:36   101.36        -0.536576    300.0  die_ahnungslosen
-90   11:11:39   101.46        -0.424789    300.0  die_ahnungslosen
-91   11:11:42   104.15         2.582271    300.0  die_ahnungslosen
-92   11:11:45   101.36        -0.536576    300.0  die_ahnungslosen
-93   11:11:48   101.00        -0.939008    300.0  die_ahnungslosen
-94   11:11:51   101.91         0.078251    300.0  die_ahnungslosen
-95   11:11:54   101.68        -0.178859    300.0  die_ahnungslosen
-96   11:12:43   101.06         2.992196    350.0  die_ahnungslosen
-98   11:12:46   100.17        -0.354551    350.0  die_ahnungslosen
-99   11:12:49    99.98        -1.069025    350.0  die_ahnungslosen
-100  11:12:52   100.07        -0.730590    350.0  die_ahnungslosen
-101  11:12:55   100.21        -0.204135    350.0  die_ahnungslosen
-102  11:12:58   100.21        -0.204135    350.0  die_ahnungslosen
-103  11:13:01   100.14        -0.467363    350.0  die_ahnungslosen
-104  11:13:04   100.17        -0.354551    350.0  die_ahnungslosen
-105  11:13:07   100.28         0.059092    350.0  die_ahnungslosen
-106  11:13:10   100.55         1.074397    350.0  die_ahnungslosen
-107  11:13:13   100.14        -0.467363    350.0  die_ahnungslosen
-108  11:13:16   100.17        -0.354551    350.0  die_ahnungslosen
-109  11:13:19   100.17        -0.354551    350.0  die_ahnungslosen
-110  11:13:22   100.38         0.435131    350.0  die_ahnungslosen
-175  09:27:09   105.47         0.206192    201.0              fabi
-176  09:27:12   105.90         0.614776    201.0              fabi
-177  09:27:15   105.54         0.272706    201.0              fabi
-178  09:27:18   102.30        -2.805925    201.0              fabi
-179  09:27:21   105.90         0.614776    201.0              fabi
-180  09:27:24   105.47         0.206192    201.0              fabi
-181  09:27:27   105.44         0.177686    201.0              fabi
-182  09:27:30   105.59         0.320216    201.0              fabi
-183  09:27:33   105.46         0.196690    201.0              fabi
-184  09:27:36   105.46         0.196690    201.0              fabi</code></pre>
+<pre><code>kreativkoepfe 350.0
+kreativkoepfe 450.0
+kreativkoepfe 500.0
+fabi 302.0
+         Zeit  Abstand  z-Werte Abstand  Gewicht           Team
+70   10:44:49   100.84        -0.230213    350.0  kreativkoepfe
+71   10:44:52   100.82         0.895271    350.0  kreativkoepfe
+72   10:44:55   100.77         1.176642    350.0  kreativkoepfe
+73   10:45:21    98.25        -0.409267    350.0  kreativkoepfe
+74   10:45:24    97.43        -0.665059    350.0  kreativkoepfe
+75   10:45:27    97.79         1.790543    350.0  kreativkoepfe
+76   10:45:30    99.13        -0.230213    350.0  kreativkoepfe
+77   10:45:33    97.50        -1.432434    350.0  kreativkoepfe
+78   10:45:36    98.06        -0.204633    350.0  kreativkoepfe
+79   10:45:39    97.45         0.997588    350.0  kreativkoepfe
+89   10:46:46    96.71        -0.409267    450.0  kreativkoepfe
+90   10:46:49    95.65        -1.278959    450.0  kreativkoepfe
+91   10:46:52    95.75         1.383500    450.0  kreativkoepfe
+92   10:46:55    95.83         1.369910    450.0  kreativkoepfe
+93   10:47:11    94.63         1.335934    450.0  kreativkoepfe
+94   10:47:14    95.80        -0.376453    450.0  kreativkoepfe
+95   10:47:17    97.24        -0.933659    450.0  kreativkoepfe
+96   10:47:20    94.12        -0.689032    450.0  kreativkoepfe
+97   10:47:23    93.91         0.221523    450.0  kreativkoepfe
+98   10:47:26    94.91        -0.886093    500.0  kreativkoepfe
+99   10:47:29    95.37        -0.505562    500.0  kreativkoepfe
+100  10:47:32    94.81        -0.920069    500.0  kreativkoepfe
+101  10:47:35    96.52         1.070335    500.0  kreativkoepfe
+102  10:47:38    96.69         0.120475    500.0  kreativkoepfe
+103  10:47:41    97.69         0.210084    500.0  kreativkoepfe
+104  10:48:43    93.40         0.281772    500.0  kreativkoepfe
+105  10:48:46    93.30        -0.793541    500.0  kreativkoepfe
+177  09:30:26   102.56         0.254889    302.0           fabi
+178  09:30:29   103.00         1.545265    302.0           fabi
+179  09:30:32   103.11        -1.250550    302.0           fabi
+180  09:30:35   102.49        -1.438729    302.0           fabi
+181  09:30:38   102.39        -0.272487    302.0           fabi
+182  09:30:41   103.35         0.021575    302.0           fabi
+183  09:30:44   102.56        -0.336413    302.0           fabi
+184  09:30:47   102.09         0.756729    302.0           fabi
+185  09:30:50   102.57         0.865404    302.0           fabi
+186  09:30:53   103.04         1.504669    302.0           fabi
+187  09:30:56   102.49        -1.237776    302.0           fabi
+188  09:30:59   102.15        -1.301702    302.0           fabi</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div id="6dafca1b" class="cell" data-execution_count="16">
+<div id="5ffc1c0d" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Werte größer gleich abs(3) finden</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()</span></span>
@@ -1400,7 +1383,7 @@ fabi 201.0
 </div>
 </div>
 <p>Die Werte können mit der Pandas-Methode <code>pd.plot()</code> mit wenig Aufwand dargestellt werden. Die Methode ist jedoch nicht so flexibel, wie das Paket matplotlib. So ist das Punktdiagramm (<code>kind = 'scatter'</code>) nur für DataFrames, nicht aber für groupby-Objekte verfügbar. Dies wird durch das Setzen eines Markers und die Einstellung der Liniendicke auf 0 kompensiert.</p>
-<div id="8c4f347a" class="cell" data-execution_count="17">
+<div id="a0947d02" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>messreihen.reset_index(drop <span class="op">=</span> <span class="va">True</span>).groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].plot(marker <span class="op">=</span> <span class="st">'o'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Messwert'</span>)</span>
@@ -1411,7 +1394,7 @@ fabi 201.0
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="übung-hooke_files/figure-html/cell-18-output-1.png" alt="Grafische Darstellung der Messreihen, die studentisierte z-Werte >= 2,5 enthalten." width="593" height="429" class="figure-img"></p>
+<p><img src="übung-hooke_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img" alt="Grafische Darstellung der Messreihen, die studentisierte z-Werte >= 2,5 enthalten."></p>
 </figure>
 </div>
 </div>
@@ -1437,7 +1420,7 @@ Tipp&nbsp;5.3: Musterlösung
 <section id="abstandsmessung-auf-meter-und-auf-den-nullpunkt-normieren" class="level4">
 <h4 class="anchored" data-anchor-id="abstandsmessung-auf-meter-und-auf-den-nullpunkt-normieren">Abstandsmessung auf Meter und auf den Nullpunkt normieren</h4>
 <p>Abstandsmessung auf den Nullpunkt normieren. Die Spalte Abstand wird in Abständsänderung umbenannt.</p>
-<div id="1255c81f" class="cell" data-execution_count="18">
+<div id="b22117db" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nullpunkte <span class="op">=</span> hooke.loc[hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> <span class="dv">0</span>, : ].groupby(by <span class="op">=</span> <span class="st">'Team'</span>)[<span class="st">'Abstand'</span>].mean()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nullpunkte"</span>, nullpunkte, sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
@@ -1464,7 +1447,7 @@ Name: Abstand, dtype: float64</code></pre>
 <section id="gewicht-in-wirkende-kraft-umrechnen" class="level4">
 <h4 class="anchored" data-anchor-id="gewicht-in-wirkende-kraft-umrechnen">Gewicht in wirkende Kraft umrechnen</h4>
 <p>Gewicht in <span class="math inline">\(g\)</span> in die wirkende Kraft in <span class="math inline">\(N\)</span> umrechnen. Die Spalte wird in den Datensatz eingefügt.</p>
-<div id="f9b1fbf4" class="cell" data-execution_count="19">
+<div id="3fe81554" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'Kraft'</span>] <span class="op">=</span> hooke[<span class="st">'Gewicht'</span>].div(<span class="dv">1000</span>).mul(<span class="fl">9.81</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -1472,9 +1455,9 @@ Name: Abstand, dtype: float64</code></pre>
 </div>
 </div>
 <p>Das Ergebnis könnte so aussehen. Die Spalte Abstand wurde in Abständsänderung umbenannt.</p>
-<div id="9d4e5fee" class="cell" data-execution_count="20">
+<div id="4f29e034" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Kraft'</span>])[<span class="st">'Abstandsänderung'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="115">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 
 
@@ -2074,11 +2057,11 @@ Name: Abstand, dtype: float64</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Grafische Darstellung</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Mittelwerte und Standardfehler berechnen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Auswertung</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="f2bf1c25" class="cell" data-execution_count="21">
+<div id="4bb45f36" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="übung-hooke_files/figure-html/cell-22-output-1.png" alt="Auf der x-Achse ist die Federausdehnung in m, auf der y-Achse die wirkende Kraft in N abgetragen. Zusätzlich zu den Messpunkten sind für jedes Gewicht der Mittelwert mit einem großen X und von dessen Mittelpunkt ausgehend der Bereich des Mittelwerts ± 1 Standardfehler eingezeichnet." width="709" height="1142" class="figure-img"></p>
+<p><img src="übung-hooke_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img" alt="Auf der x-Achse ist die Federausdehnung in m, auf der y-Achse die wirkende Kraft in N abgetragen. Zusätzlich zu den Messpunkten sind für jedes Gewicht der Mittelwert mit einem großen X und von dessen Mittelpunkt ausgehend der Bereich des Mittelwerts ± 1 Standardfehler eingezeichnet."></p>
 </figure>
 </div>
 </div>
@@ -2086,7 +2069,7 @@ Name: Abstand, dtype: float64</code></pre>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Die Ausgabe ist aus Platzgründen auf die ersten Zeilen beschränkt.</p>
-<div id="7e35bc2c" class="cell" data-execution_count="22">
+<div id="91ed6ed0" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-stdout">
 <pre><code>Mittelwerte der Abstandsänderung nach Team und Kraft:
 Team              Kraft 
@@ -2109,7 +2092,7 @@ Name: Standardfehler, dtype: float64</code></pre>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div id="24790002" class="cell" data-execution_count="23">
+<div id="8756d4e1" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwerte der Teams nach Kraft</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>distance_means_by_team_and_force <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [hooke[<span class="st">'Team'</span>], hooke[<span class="st">'Kraft'</span>]])[<span class="st">'Abstandsänderung'</span>].mean()</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>distance_means_by_team_and_force.name <span class="op">=</span> <span class="st">'Federausdehnung'</span></span>
@@ -2164,7 +2147,7 @@ Name: Standardfehler, dtype: float64</code></pre>
 <li>Die Messreihen des Teams ma scheinen wenigstens für die ersten vier angehängten Gewichten durch grobe Messfehler geprägt zu sein.</li>
 </ul>
 <p>Die Messreihe des Teams ma wird wegen grober Messfehler aus dem Datensatz entfernt. Aus der Messreihe des Teams fabi wird die Messung für das Gewicht 50 Gramm entfernt.</p>
-<div id="99bca69b" class="cell" data-execution_count="24">
+<div id="8dc5ab85" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> <span class="st">'ma'</span>, :].index, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> hooke.loc[(hooke[<span class="st">'Team'</span>] <span class="op">==</span> <span class="st">'fabi'</span>) <span class="op">&amp;</span> (hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> <span class="dv">50</span>), :].index, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -2199,14 +2182,14 @@ Tipp&nbsp;5.4: Vorgehen bei vielen Datensätzen
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true"><span class="math inline">\(\alpha = 0.10\)</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false"><span class="math inline">\(\alpha = 0.05\)</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Auswertung</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div id="8029488f" class="cell" data-execution_count="25">
+<div id="fea0cf3c" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-stdout">
 <pre><code>
-die_ahnungslosen Konfidenzniveau: 0.9
-y = 0.1798 + 34.9183 * x
-r = 0.9886 R2 = 0.9773 p = 0.0000
-Standardfehler des Anstiegs: 0.4651
-34.148  ≤ 34.918 ≤ 35.689
+kreativkoepfe Konfidenzniveau: 0.9
+y = 0.3180 + 29.7643 * x
+r = 0.9773 R2 = 0.9552 p = 0.0000
+Standardfehler des Anstiegs: 0.6148
+28.744  ≤ 29.764 ≤ 30.784
 
 fabi Konfidenzniveau: 0.9
 y = 0.2373 + 34.1048 * x
@@ -2214,23 +2197,23 @@ r = 0.9907 R2 = 0.9814 p = 0.0000
 Standardfehler des Anstiegs: 0.4792
 33.309  ≤ 34.105 ≤ 34.901
 
-kreativkoepfe Konfidenzniveau: 0.9
-y = 0.3180 + 29.7643 * x
-r = 0.9773 R2 = 0.9552 p = 0.0000
-Standardfehler des Anstiegs: 0.6148
-28.744  ≤ 29.764 ≤ 30.784</code></pre>
+die_ahnungslosen Konfidenzniveau: 0.9
+y = 0.1798 + 34.9183 * x
+r = 0.9886 R2 = 0.9773 p = 0.0000
+Standardfehler des Anstiegs: 0.4651
+34.148  ≤ 34.918 ≤ 35.689</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div id="3a7904ff" class="cell" data-execution_count="26">
+<div id="72f8ae62" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-stdout">
 <pre><code>
-die_ahnungslosen Konfidenzniveau: 0.95
-y = 0.1798 + 34.9183 * x
-r = 0.9886 R2 = 0.9773 p = 0.0000
-Standardfehler des Anstiegs: 0.4651
-33.998  ≤ 34.918 ≤ 35.838
+kreativkoepfe Konfidenzniveau: 0.95
+y = 0.3180 + 29.7643 * x
+r = 0.9773 R2 = 0.9552 p = 0.0000
+Standardfehler des Anstiegs: 0.6148
+28.546  ≤ 29.764 ≤ 30.983
 
 fabi Konfidenzniveau: 0.95
 y = 0.2373 + 34.1048 * x
@@ -2238,16 +2221,16 @@ r = 0.9907 R2 = 0.9814 p = 0.0000
 Standardfehler des Anstiegs: 0.4792
 33.154  ≤ 34.105 ≤ 35.056
 
-kreativkoepfe Konfidenzniveau: 0.95
-y = 0.3180 + 29.7643 * x
-r = 0.9773 R2 = 0.9552 p = 0.0000
-Standardfehler des Anstiegs: 0.6148
-28.546  ≤ 29.764 ≤ 30.983</code></pre>
+die_ahnungslosen Konfidenzniveau: 0.95
+y = 0.1798 + 34.9183 * x
+r = 0.9886 R2 = 0.9773 p = 0.0000
+Standardfehler des Anstiegs: 0.4651
+33.998  ≤ 34.918 ≤ 35.838</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div id="a3eec645" class="cell" data-execution_count="27">
+<div id="8331c050" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>anzahl_teams <span class="op">=</span> hooke[<span class="st">'Team'</span>].unique().size</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.10</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
