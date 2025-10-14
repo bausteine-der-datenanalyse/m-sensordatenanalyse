@@ -252,12 +252,24 @@ bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stat
 ### Schritt 2: Rückgabe zeilenweise in ein eindimensionales Array überführen: 
 bool_index = np.hstack(bool_index)
 
+print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
+print(bool_index[175:180], "\n")
+print(np.nonzero(bool_index))
+print('mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)')
+print('177 passt nicht zur 178 weiter unten. 178 ist aber der korrekte Index')
+print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
+
 z_values_ge_25 = hooke.iloc[bool_index , :]
 print(z_values_ge_25, "\n")
 
 # Kombinationen aus Gewicht & Team bestimmen
 print("Kombinationen aus Gewicht & Team bestimmen")
 teams = z_values_ge_25['Team'].unique()
+
+print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
+print(teams)
+print("mein lokales Ergebnis: ['die_ahnungslosen' 'fabi']")
+print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
 
 ## teams durchlaufen und jeweils die Gewichte speichern
 team_gewichte = [] # leere liste
