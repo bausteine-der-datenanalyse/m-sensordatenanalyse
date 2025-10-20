@@ -283,7 +283,7 @@ window.Quarto = {
 <h2 data-number="5.1" class="anchored" data-anchor-id="sec-dateien-einlesen"><span class="header-section-number">5.1</span> Dateien einlesen</h2>
 <p>Für das Einlesen der Dateien können Sie das Modul glob verwenden (siehe <a href="https://bausteine-der-datenanalyse.github.io/m-sensordatenanalyse/output/book/">Methodenbaustein Einlesen strukturierter Datensätze</a>).</p>
 <p>Zunächst kann der Funktion <code>glob.glob()</code> das Argument <code>pathname = *</code> übergeben werden. Der Platzhalter <code>*</code> steht für eine beliebige Zeichenfolge (außer Dateipfadelemente wie <code>/</code> oder <code>.</code>), sodass die Namen aller im angegebenen Ordner gespeicherten Dateien ausgelesen werden. Auf diese Weise kann die Anzahl der Dateien und die Dateiendung bestimmt werden, falls dies noch unbekannt ist.</p>
-<div id="d15bd31d" class="cell" data-execution_count="2">
+<div id="a07bb1f5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ordnerpfad <span class="op">=</span> <span class="st">'01-daten/hooke'</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pfadliste <span class="op">=</span> glob.glob(pathname <span class="op">=</span> <span class="st">'*'</span>, root_dir <span class="op">=</span> ordnerpfad, recursive <span class="op">=</span> <span class="va">False</span>)</span>
@@ -295,7 +295,7 @@ Anzahl Dateien: 4</code></pre>
 </div>
 </div>
 <p>Mit den Dateipfaden können die Dateien mit Hilfe einer Schleife in eine Liste eingelesen werden. Zunächst werden nur die jeweils ersten 3 Zeilen eingelesen, um einen Eindruck vom Aufbau der Dateien zu erhalten.</p>
-<div id="da33af0f" class="cell" data-execution_count="3">
+<div id="53bdf51e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pfad <span class="kw">in</span> pfadliste:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  zwischenspeicher <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> ordnerpfad <span class="op">+</span> <span class="st">'/'</span> <span class="op">+</span> pfad, nrows <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(pfad, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, zwischenspeicher, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -371,7 +371,7 @@ Tipp&nbsp;5.2: Musterlösung Dateien einlesen
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Der erste Versuch, die Dateien einzulesen, scheitert mit einer Fehlermeldung. Die Anweisungen werden deshalb in die Struktur zur Ausnahmebehandlung eingebettet und die verursachende Datei abgefangen. (Sollten mehrere Dateien Fehler erzeugen, müssten die Dateien in einer Liste gespeichert und später - falls möglich - mit einer Schleife weiter behandelt werden.)</p>
-<div id="d3316b01" class="cell" data-execution_count="4">
+<div id="0b480feb" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hooke <span class="op">=</span> pd.DataFrame(columns <span class="op">=</span> [<span class="st">'Zeit'</span>, <span class="st">'Abstand'</span>, <span class="st">'Gewicht'</span>, <span class="st">'Team'</span>]) <span class="co"># ein leerer DataFrame</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pfad <span class="kw">in</span> pfadliste:</span>
@@ -413,7 +413,7 @@ Erfolgreich einglesen:
 </div>
 </div>
 <p>Der Fehlermeldung zufolge besteht Zeile 135 aus 4 statt aus 3 Spalten. Die fehlerverursachende Datei wird deshalb zeilenweise durchlaufen und jede Zeile ausgegeben, die mehr als 3 Einträge hat. Zur Kontrolle werden auch die ersten 5 Zeilen ausgegeben.</p>
-<div id="fa3a202f" class="cell" data-execution_count="5">
+<div id="d78c3608" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># einen leeren DataFrame mit 3 Spalten erstellen</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> [], columns <span class="op">=</span> [<span class="st">'Zeit'</span>, <span class="st">'Abstand'</span>, <span class="st">'Gewicht'</span>])</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -449,56 +449,31 @@ Index = 134 : ['10:29:27', '105.49 cm', '300', '\n']</code></pre>
 </div>
 </div>
 <p>Jede zweite Zeile ist leer. In Zeile 134 wird ein Zeilenumbruch ‘\n’ eingelesen. Die Datei wird deshalb mit einer angepassten Schleife erneut durchlaufen. Aus der betreffenden Zeile wird der zusätzliche Zeilenumbruch ‘\n’ entfernt. Leere Zeilen werden übersprungen. Die korrekten Zeilen werden an den DataFrame hooke angefügt.</p>
-<p><strong>Debugging: hier wird das Team ma überschrungen, dafür die Zeilen den kreativköpfen zugewiesen</strong></p>
-<div id="06c56046" class="cell" data-execution_count="6">
+<div id="aa7285fa" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dateiobjekt_problem_datei <span class="op">=</span> <span class="bu">open</span>(<span class="bu">file</span> <span class="op">=</span> ordnerpfad <span class="op">+</span> <span class="st">'/'</span> <span class="op">+</span> pfad_problem_datei, mode <span class="op">=</span> <span class="st">'r'</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Beginn DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dateipfad: </span><span class="sc">{</span>dateiobjekt_problem_datei<span class="sc">.</span>name<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Dateiname: </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>basename(dateiobjekt_problem_datei.name)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Datei ist geschlossen: </span><span class="sc">{</span>dateiobjekt_problem_datei<span class="sc">.</span>closed<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Zugriffsmodus: </span><span class="sc">{</span>dateiobjekt_problem_datei<span class="sc">.</span>mode<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Enkodierung: </span><span class="sc">{</span>dateiobjekt_problem_datei<span class="sc">.</span>encoding<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Ende DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> zeile <span class="kw">in</span> dateiobjekt_problem_datei:</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>:</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    zwischenspeicher <span class="op">=</span> zeile.split(sep <span class="op">=</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(zwischenspeicher) <span class="op">&gt;</span> <span class="dv">3</span>:</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>      zwischenspeicher <span class="op">=</span> zwischenspeicher[:<span class="dv">3</span>]</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">len</span>(zwischenspeicher) <span class="op">&lt;</span> <span class="dv">3</span>: <span class="co"># leere Zeilen überspringen</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>      <span class="cf">continue</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Teamnamen als 4. Spalte anfügen</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    zwischenspeicher.append(pfad_problem_datei[<span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]) <span class="co"># 'team_' und die Dateiendung abschneiden </span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    hooke.loc[<span class="bu">len</span>(hooke)] <span class="op">=</span> pd.Series(zwischenspeicher).values</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> error:</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(error)</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(pd.Series(zwischenspeicher).values)</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>dateiobjekt_problem_datei.close()</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Erfolgreich einglesen:</span><span class="ch">\n</span><span class="st">"</span>, hooke[<span class="st">'Team'</span>].unique(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.info())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> zeile <span class="kw">in</span> dateiobjekt_problem_datei:</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    zwischenspeicher <span class="op">=</span> zeile.split(sep <span class="op">=</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(zwischenspeicher) <span class="op">&gt;</span> <span class="dv">3</span>:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      zwischenspeicher <span class="op">=</span> zwischenspeicher[:<span class="dv">3</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">len</span>(zwischenspeicher) <span class="op">&lt;</span> <span class="dv">3</span>: <span class="co"># leere Zeilen überspringen</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">continue</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Teamnamen als 4. Spalte anfügen</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    zwischenspeicher.append(pfad_problem_datei[<span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]) <span class="co"># 'team_' und die Dateiendung abschneiden </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    hooke.loc[<span class="bu">len</span>(hooke)] <span class="op">=</span> pd.Series(zwischenspeicher).values</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> error:</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(error)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(pd.Series(zwischenspeicher).values)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>dateiobjekt_problem_datei.close()</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Erfolgreich einglesen:</span><span class="ch">\n</span><span class="st">"</span>, hooke[<span class="st">'Team'</span>].unique(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.info())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Dateipfad: 01-daten/hooke/team_ma.txt
-Dateiname: team_ma.txt
-Datei ist geschlossen: False
-Zugriffsmodus: r
-Enkodierung: UTF-8
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-Erfolgreich einglesen:
+<pre><code>Erfolgreich einglesen:
 ['fabi' 'die_ahnungslosen' 'kreativkoepfe' 'ma']
 
 &lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -516,7 +491,7 @@ None</code></pre>
 </div>
 </div>
 <p>Anschließend werden zum einen die Zeilen mit Nullwerten betrachtet …</p>
-<div id="0523d466" class="cell" data-execution_count="7">
+<div id="8d96f949" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.loc[hooke.<span class="bu">apply</span>(pd.isna).<span class="bu">any</span>(axis <span class="op">=</span> <span class="dv">1</span>), :])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Zeit Abstand Gewicht              Team
@@ -527,7 +502,7 @@ None</code></pre>
 </div>
 </div>
 <p>… und entfernt.</p>
-<div id="1fbb996d" class="cell" data-execution_count="8">
+<div id="8cf9b42f" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(np.where(hooke.<span class="bu">apply</span>(pd.isna).<span class="bu">any</span>(axis <span class="op">=</span> <span class="dv">1</span>))[<span class="dv">0</span>], inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Zum anderen werden die Datentypen kontrolliert.</p>
@@ -538,11 +513,11 @@ None</code></pre>
 <li>Der Spalte Team könnte der <a href="https://pandas.pydata.org/docs/user_guide/categorical.html">Pandas Datentyp category</a> zugewiesen werden, notwendig ist es aber nicht.</li>
 </ul>
 <p>String ’ cm’ entfernen.</p>
-<div id="c9bfa8ee" class="cell" data-execution_count="9">
+<div id="e0deac7d" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hooke.replace(<span class="st">' cm'</span>, <span class="st">''</span>, regex <span class="op">=</span> <span class="va">True</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ob alle Elemente einer Zelle numerisch sind, kann mit der Pandas-Methode <code>pd.Series.str.isnumeric()</code> überprüft werden. Ein Blick auf die Daten zeigt die Ursache.</p>
-<div id="794ac1fe" class="cell" data-execution_count="10">
+<div id="a38e7ccf" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">sum</span>())</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].head())</span>
@@ -564,7 +539,7 @@ Name: Gewicht, dtype: object</code></pre>
 </div>
 </div>
 <p>Die Zeilenumbrüche werden ebenfalls entfernt.</p>
-<div id="ae99daa3" class="cell" data-execution_count="11">
+<div id="d9c71662" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>hooke.replace(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="st">''</span>, regex <span class="op">=</span> <span class="va">True</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">sum</span>())</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].tail())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -578,7 +553,7 @@ Name: Gewicht, dtype: object</code></pre>
 Name: Gewicht, dtype: object</code></pre>
 </div>
 </div>
-<div id="3b00245d" class="cell" data-execution_count="12">
+<div id="9284b37d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.info(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># explizite Zuweisung</span></span>
@@ -618,8 +593,8 @@ None</code></pre>
 </div>
 </div>
 <p>Das Ergebnis könnte so aussehen:</p>
-<div id="feecccb7" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="14971fcf" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
@@ -652,117 +627,6 @@ None</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td rowspan="10" data-quarto-table-cell-role="th" data-valign="top">die_ahnungslosen</td>
-<td data-quarto-table-cell-role="th">0.0</td>
-<td>10.0</td>
-<td>109.759000</td>
-<td>0.180705</td>
-<td>109.55</td>
-<td>109.6300</td>
-<td>109.730</td>
-<td>109.7925</td>
-<td>110.09</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">50.0</td>
-<td>8.0</td>
-<td>108.912500</td>
-<td>0.180930</td>
-<td>108.53</td>
-<td>108.8800</td>
-<td>108.930</td>
-<td>109.0250</td>
-<td>109.11</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">100.0</td>
-<td>12.0</td>
-<td>107.725833</td>
-<td>0.704446</td>
-<td>106.76</td>
-<td>107.1975</td>
-<td>107.735</td>
-<td>108.0725</td>
-<td>108.92</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">150.0</td>
-<td>19.0</td>
-<td>106.265789</td>
-<td>0.759505</td>
-<td>104.67</td>
-<td>105.7050</td>
-<td>106.120</td>
-<td>106.7100</td>
-<td>107.87</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">200.0</td>
-<td>18.0</td>
-<td>104.616111</td>
-<td>0.392955</td>
-<td>103.96</td>
-<td>104.2650</td>
-<td>104.590</td>
-<td>104.8150</td>
-<td>105.23</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">250.0</td>
-<td>18.0</td>
-<td>102.906667</td>
-<td>0.221519</td>
-<td>102.35</td>
-<td>102.8025</td>
-<td>102.890</td>
-<td>102.9750</td>
-<td>103.33</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">300.0</td>
-<td>11.0</td>
-<td>101.840000</td>
-<td>0.894561</td>
-<td>101.00</td>
-<td>101.3650</td>
-<td>101.460</td>
-<td>101.8150</td>
-<td>104.15</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">350.0</td>
-<td>14.0</td>
-<td>100.264286</td>
-<td>0.265930</td>
-<td>99.98</td>
-<td>100.1475</td>
-<td>100.170</td>
-<td>100.2625</td>
-<td>101.06</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">400.0</td>
-<td>11.0</td>
-<td>99.239091</td>
-<td>0.232786</td>
-<td>98.94</td>
-<td>99.0500</td>
-<td>99.130</td>
-<td>99.4150</td>
-<td>99.57</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">450.0</td>
-<td>12.0</td>
-<td>98.042500</td>
-<td>0.468016</td>
-<td>97.51</td>
-<td>97.6750</td>
-<td>97.970</td>
-<td>98.2850</td>
-<td>99.08</td>
-</tr>
 <tr class="odd">
 <td rowspan="10" data-quarto-table-cell-role="th" data-valign="top">fabi</td>
 <td data-quarto-table-cell-role="th">0.0</td>
@@ -873,6 +737,117 @@ None</code></pre>
 <td>97.880</td>
 <td>98.0350</td>
 <td>98.15</td>
+</tr>
+<tr class="odd">
+<td rowspan="10" data-quarto-table-cell-role="th" data-valign="top">die_ahnungslosen</td>
+<td data-quarto-table-cell-role="th">0.0</td>
+<td>10.0</td>
+<td>109.759000</td>
+<td>0.180705</td>
+<td>109.55</td>
+<td>109.6300</td>
+<td>109.730</td>
+<td>109.7925</td>
+<td>110.09</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50.0</td>
+<td>8.0</td>
+<td>108.912500</td>
+<td>0.180930</td>
+<td>108.53</td>
+<td>108.8800</td>
+<td>108.930</td>
+<td>109.0250</td>
+<td>109.11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">100.0</td>
+<td>12.0</td>
+<td>107.725833</td>
+<td>0.704446</td>
+<td>106.76</td>
+<td>107.1975</td>
+<td>107.735</td>
+<td>108.0725</td>
+<td>108.92</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">150.0</td>
+<td>19.0</td>
+<td>106.265789</td>
+<td>0.759505</td>
+<td>104.67</td>
+<td>105.7050</td>
+<td>106.120</td>
+<td>106.7100</td>
+<td>107.87</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">200.0</td>
+<td>18.0</td>
+<td>104.616111</td>
+<td>0.392955</td>
+<td>103.96</td>
+<td>104.2650</td>
+<td>104.590</td>
+<td>104.8150</td>
+<td>105.23</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">250.0</td>
+<td>18.0</td>
+<td>102.906667</td>
+<td>0.221519</td>
+<td>102.35</td>
+<td>102.8025</td>
+<td>102.890</td>
+<td>102.9750</td>
+<td>103.33</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">300.0</td>
+<td>11.0</td>
+<td>101.840000</td>
+<td>0.894561</td>
+<td>101.00</td>
+<td>101.3650</td>
+<td>101.460</td>
+<td>101.8150</td>
+<td>104.15</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">350.0</td>
+<td>14.0</td>
+<td>100.264286</td>
+<td>0.265930</td>
+<td>99.98</td>
+<td>100.1475</td>
+<td>100.170</td>
+<td>100.2625</td>
+<td>101.06</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">400.0</td>
+<td>11.0</td>
+<td>99.239091</td>
+<td>0.232786</td>
+<td>98.94</td>
+<td>99.0500</td>
+<td>99.130</td>
+<td>99.4150</td>
+<td>99.57</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">450.0</td>
+<td>12.0</td>
+<td>98.042500</td>
+<td>0.468016</td>
+<td>97.51</td>
+<td>97.6750</td>
+<td>97.970</td>
+<td>98.2850</td>
+<td>99.08</td>
 </tr>
 <tr class="odd">
 <td rowspan="12" data-quarto-table-cell-role="th" data-valign="top">kreativkoepfe</td>
@@ -1227,16 +1202,92 @@ None</code></pre>
 <section id="auf-ausreißer-prüfen" class="level3">
 <h3 class="anchored" data-anchor-id="auf-ausreißer-prüfen">Auf Ausreißer prüfen</h3>
 <p>Auf Ausreißer kann (unter anderem) mit studentisierten z-Werten und grafisch geprüft werden.</p>
+<p><strong>Debugging: Der Index der studentisierten z-Werte mit Betrag ≥ 2.5 wird korrekt ermittelt.</strong></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Ausreißer bestimmen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Gemeinsame Ausgabe der Messreihen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="6b730cd2" class="cell" data-execution_count="14">
+<ol type="1">
+<li>Anzahl der Ausreißer bestimmen und Position ausgeben. *Hinweis: SciPy gibt in manchen Versionen <code>pd.Series</code> zurück, in anderen ein <code>np.array</code>. Dementsprechend sind die Methoden aus Pandas oder NumPy zu verwenden.</li>
+</ol>
+<div id="f2ce18fc" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Werte größer gleich abs(3) finden</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>z_values_ge3_sum <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="dv">3</span>)).<span class="bu">apply</span>(<span class="bu">sum</span>).<span class="bu">sum</span>()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Anzahl der studentisierten z-Werte mit Betrag ≥ 3:"</span>, z_values_ge3_sum, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Werte größer gleich abs(2.5) finden</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">## z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>z_values_ge25_sum <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="fl">2.5</span>)).<span class="bu">apply</span>(<span class="bu">sum</span>).<span class="bu">sum</span>()</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:"</span>, z_values_ge25_sum)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Zeilen mit z-Werten größer abs(2.5) ausgeben</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co">## bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="co">### Schritt 1: Wahrheitswerte abgreifen</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>bool_index <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="fl">2.5</span>)).values</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="co">### Schritt 2: Rückgabe in ein eindimensionales Array überführen: </span></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>bool_index <span class="op">=</span> np.hstack(bool_index)</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">An diesen Indexpositionen liegen die Ausreißer:"</span>, np.nonzero(bool_index))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Anzahl der studentisierten z-Werte mit Betrag ≥ 3: 0 
 
 Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5: 4
 
+An diesen Indexpositionen liegen die Ausreißer: (array([ 44, 186, 201, 206]),)</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Ausgabe der Zeilen aus den Messreihen</li>
+</ol>
+<div id="1c1323c0" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Beginn DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy version:"</span>, np.version.version)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pandas version:"</span>, pd.__version__)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"scipy version:"</span>, scipy.version.version)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"python version (glob unterstützt .__version__ nicht):"</span>, sys.version)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'bool_index[175:180]:'</span>, bool_index[<span class="dv">175</span>:<span class="dv">180</span>], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.nonzero(bool_index))</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)'</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Online ohne Versionsangabe gibt GitHub beim folgenden Befehl dann die Zeilen 79, 84, 99 und 180 aus.'</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Online mit Versionsangabe für numpy und pandas gibt GitHub beim folgenden Befehl dann die korrekten Zeilen 76,  91,  96, 177 aus. Das Team wird aber falsch zugeordnet, nämlich 3 mal fabi (76,  91,  96) und 1 mal die_ahnungslosen (177), obwohl es umgekehrt sein müsste.'</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Ende DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Auswahl der Zeilen mit den z-Werten größer gleich 2.5</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>z_values_ge_25 <span class="op">=</span> hooke.iloc[bool_index , :] <span class="co"># --&gt; Hier muss das Problem liegen</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z_values_ge_25, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Kombinationen aus Gewicht &amp; Team bestimmen</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kombinationen aus Gewicht &amp; Team bestimmen"</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> z_values_ge_25[<span class="st">'Team'</span>].unique()</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Beginn DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(teams)</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mein lokales Ergebnis: ['die_ahnungslosen' 'fabi']"</span>)</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Ende DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="co">## teams durchlaufen und jeweils die Gewichte speichern</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>team_gewichte <span class="op">=</span> [] <span class="co"># leere liste</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(teams)):</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(teams[i])</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(z_values_ge_25.loc[z_values_ge_25[<span class="st">'Team'</span>] <span class="op">==</span> teams[i], <span class="st">'Gewicht'</span>], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>  team_gewichte.append(z_values_ge_25.loc[z_values_ge_25[<span class="st">'Team'</span>] <span class="op">==</span> teams[i], <span class="st">'Gewicht'</span>].values)</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Als Liste von arrays:")</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="co"># print(team_gewichte, "\n")</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
  *************** 
  Beginn DEBUGGING
  *************** 
@@ -1245,11 +1296,10 @@ numpy version: 2.2.4
 pandas version: 2.2.3
 scipy version: 1.16.2
 python version (glob unterstützt .__version__ nicht): 3.12.1 (main, Sep 26 2024, 18:13:42) [GCC 13.2.0]
-bool_index[175:180]: [False False  True False False] 
+bool_index[175:180]: [False False False False False] 
 
-(array([ 76,  91,  96, 177]),)
+(array([ 44, 186, 201, 206]),)
 mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)
-177 passt nicht zur 178 weiter unten. 178 ist aber der korrekte Index
 Online ohne Versionsangabe gibt GitHub beim folgenden Befehl dann die Zeilen 79, 84, 99 und 180 aus.
 Online mit Versionsangabe für numpy und pandas gibt GitHub beim folgenden Befehl dann die korrekten Zeilen 76,  91,  96, 177 aus. Das Team wird aber falsch zugeordnet, nämlich 3 mal fabi (76,  91,  96) und 1 mal die_ahnungslosen (177), obwohl es umgekehrt sein müsste.
 
@@ -1258,32 +1308,10 @@ Online mit Versionsangabe für numpy und pandas gibt GitHub beim folgenden Befeh
  *************** 
 
          Zeit  Abstand  Gewicht              Team
-76   09:32:50   100.58    353.0              fabi
-91   09:34:33    99.59    403.0              fabi
-96   09:34:48    99.59    403.0              fabi
-177  11:10:11   102.99    250.0  die_ahnungslosen 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-         Zeit  Abstand  Gewicht              Team
-76   09:32:50   100.58    353.0              fabi
-91   09:34:33    99.59    403.0              fabi
-96   09:34:48    99.59    403.0              fabi
-177  11:10:11   102.99    250.0  die_ahnungslosen 
-
-         Zeit  Abstand  Gewicht              Team
-76   09:32:50   100.58    353.0              fabi
-91   09:34:33    99.59    403.0              fabi
-96   09:34:48    99.59    403.0              fabi
-177  11:10:11   102.99    250.0  die_ahnungslosen 
-
-
- *************** 
- Ende DEBUGGING
- *************** 
+44   09:27:18   102.30    201.0              fabi
+186  11:10:38   102.35    250.0  die_ahnungslosen
+201  11:11:42   104.15    300.0  die_ahnungslosen
+206  11:12:43   101.06    350.0  die_ahnungslosen 
 
 Kombinationen aus Gewicht &amp; Team bestimmen
 
@@ -1299,173 +1327,169 @@ mein lokales Ergebnis: ['die_ahnungslosen' 'fabi']
  *************** 
 
 fabi
-76    353.0
-91    403.0
-96    403.0
+44    201.0
 Name: Gewicht, dtype: float64 
 
 die_ahnungslosen
-177    250.0
+186    250.0
+201    300.0
+206    350.0
 Name: Gewicht, dtype: float64 
 </code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="770bc95a" class="cell" data-execution_count="15">
+<div id="5cdfa1d0" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-stdout">
-<pre><code>fabi 353.0
-fabi 403.0
-fabi 403.0
+<pre><code>fabi 201.0
 die_ahnungslosen 250.0
+die_ahnungslosen 300.0
+die_ahnungslosen 350.0
          Zeit  Abstand  z-Werte Abstand  Gewicht              Team
-74   09:32:44   100.62         0.376191    353.0              fabi
-75   09:32:47   100.96         0.376191    353.0              fabi
-76   09:32:50   100.58         0.105333    353.0              fabi
-77   09:32:53   100.58        -0.346095    353.0              fabi
-78   09:32:56   100.52         1.143620    353.0              fabi
-79   09:32:59   100.94        -0.481524    353.0              fabi
-80   09:33:02   100.50        -0.030095    353.0              fabi
-81   09:33:05   100.50         1.911049    353.0              fabi
-82   09:33:08   101.03        -0.571810    353.0              fabi
-83   09:33:11   100.58        -2.512954    353.0              fabi
-84   09:33:14   100.60         0.105333    353.0              fabi
-85   09:34:15   100.26        -0.120381    403.0              fabi
-86   09:34:18    99.97        -0.030095    403.0              fabi
-87   09:34:21    99.25        -0.120381    403.0              fabi
-88   09:34:24    99.09        -0.797524    403.0              fabi
-89   09:34:27    99.23        -0.436381    403.0              fabi
-90   09:34:30   100.05        -0.481524    403.0              fabi
-91   09:34:33    99.59         1.911049    403.0              fabi
-92   09:34:36    99.14        -0.268701    403.0              fabi
-93   09:34:39    98.97         1.434592    403.0              fabi
-94   09:34:42    99.57        -0.469089    403.0              fabi
-95   09:34:45    99.59        -0.469089    403.0              fabi
-96   09:34:48    99.59        -0.769670    403.0              fabi
-97   09:34:51    98.97         1.334398    403.0              fabi
-98   09:34:54    98.99        -0.869864    403.0              fabi
-85   09:34:15   100.26        -0.869864    403.0              fabi
-86   09:34:18    99.97         1.785270    403.0              fabi
-87   09:34:21    99.25        -0.469089    403.0              fabi
-88   09:34:24    99.09        -0.368895    403.0              fabi
-89   09:34:27    99.23         1.949886    403.0              fabi
-90   09:34:30   100.05         1.254232    403.0              fabi
-91   09:34:33    99.59        -0.472907    403.0              fabi
-92   09:34:36    99.14        -0.856716    403.0              fabi
-93   09:34:39    98.97        -0.520883    403.0              fabi
-94   09:34:42    99.57         1.446137    403.0              fabi
-95   09:34:45    99.59         0.342686    403.0              fabi
-96   09:34:48    99.59        -0.736776    403.0              fabi
-97   09:34:51    98.97        -1.144573    403.0              fabi
-98   09:34:54    98.99         0.294710    403.0              fabi
-177  11:10:11   102.99         0.342686    250.0  die_ahnungslosen
-178  11:10:13   102.99         0.342686    250.0  die_ahnungslosen
-179  11:10:17   102.93        -1.144573    250.0  die_ahnungslosen
-180  11:10:20   102.83        -1.096597    250.0  die_ahnungslosen
-181  11:10:23   103.16         1.949886    250.0  die_ahnungslosen
-182  11:10:26   102.80         1.254232    250.0  die_ahnungslosen
-183  11:10:29   102.90        -0.472907    250.0  die_ahnungslosen
-184  11:10:32   103.33        -0.856716    250.0  die_ahnungslosen
-185  11:10:35   102.78        -0.520883    250.0  die_ahnungslosen
-186  11:10:38   102.35         1.446137    250.0  die_ahnungslosen
-187  11:10:41   102.93         0.342686    250.0  die_ahnungslosen
-188  11:10:44   102.88        -0.736776    250.0  die_ahnungslosen
-189  11:10:47   102.90        -1.144573    250.0  die_ahnungslosen
-190  11:10:50   102.88         0.294710    250.0  die_ahnungslosen
-191  11:10:53   102.73         0.342686    250.0  die_ahnungslosen
-192  11:10:56   102.81         0.342686    250.0  die_ahnungslosen
-193  11:10:59   102.80        -1.144573    250.0  die_ahnungslosen
-194  11:11:02   103.33        -1.096597    250.0  die_ahnungslosen</code></pre>
+41   09:27:09   105.47         0.206192    201.0              fabi
+42   09:27:12   105.90         0.614776    201.0              fabi
+43   09:27:15   105.54         0.272706    201.0              fabi
+44   09:27:18   102.30        -2.805925    201.0              fabi
+45   09:27:21   105.90         0.614776    201.0              fabi
+46   09:27:24   105.47         0.206192    201.0              fabi
+47   09:27:27   105.44         0.177686    201.0              fabi
+48   09:27:30   105.59         0.320216    201.0              fabi
+49   09:27:33   105.46         0.196690    201.0              fabi
+50   09:27:36   105.46         0.196690    201.0              fabi
+177  11:10:11   102.99         0.376191    250.0  die_ahnungslosen
+178  11:10:13   102.99         0.376191    250.0  die_ahnungslosen
+179  11:10:17   102.93         0.105333    250.0  die_ahnungslosen
+180  11:10:20   102.83        -0.346095    250.0  die_ahnungslosen
+181  11:10:23   103.16         1.143620    250.0  die_ahnungslosen
+182  11:10:26   102.80        -0.481524    250.0  die_ahnungslosen
+183  11:10:29   102.90        -0.030095    250.0  die_ahnungslosen
+184  11:10:32   103.33         1.911049    250.0  die_ahnungslosen
+185  11:10:35   102.78        -0.571810    250.0  die_ahnungslosen
+186  11:10:38   102.35        -2.512954    250.0  die_ahnungslosen
+187  11:10:41   102.93         0.105333    250.0  die_ahnungslosen
+188  11:10:44   102.88        -0.120381    250.0  die_ahnungslosen
+189  11:10:47   102.90        -0.030095    250.0  die_ahnungslosen
+190  11:10:50   102.88        -0.120381    250.0  die_ahnungslosen
+191  11:10:53   102.73        -0.797524    250.0  die_ahnungslosen
+192  11:10:56   102.81        -0.436381    250.0  die_ahnungslosen
+193  11:10:59   102.80        -0.481524    250.0  die_ahnungslosen
+194  11:11:02   103.33         1.911049    250.0  die_ahnungslosen
+195  11:11:24   101.37        -0.525397    300.0  die_ahnungslosen
+196  11:11:27   101.43        -0.458325    300.0  die_ahnungslosen
+197  11:11:30   102.80         1.073152    300.0  die_ahnungslosen
+198  11:11:33   101.72        -0.134144    300.0  die_ahnungslosen
+199  11:11:36   101.36        -0.536576    300.0  die_ahnungslosen
+200  11:11:39   101.46        -0.424789    300.0  die_ahnungslosen
+201  11:11:42   104.15         2.582271    300.0  die_ahnungslosen
+202  11:11:45   101.36        -0.536576    300.0  die_ahnungslosen
+203  11:11:48   101.00        -0.939008    300.0  die_ahnungslosen
+204  11:11:51   101.91         0.078251    300.0  die_ahnungslosen
+205  11:11:54   101.68        -0.178859    300.0  die_ahnungslosen
+206  11:12:43   101.06         2.992196    350.0  die_ahnungslosen
+208  11:12:46   100.17        -0.354551    350.0  die_ahnungslosen
+209  11:12:49    99.98        -1.069025    350.0  die_ahnungslosen
+210  11:12:52   100.07        -0.730590    350.0  die_ahnungslosen
+211  11:12:55   100.21        -0.204135    350.0  die_ahnungslosen
+212  11:12:58   100.21        -0.204135    350.0  die_ahnungslosen
+213  11:13:01   100.14        -0.467363    350.0  die_ahnungslosen
+214  11:13:04   100.17        -0.354551    350.0  die_ahnungslosen
+215  11:13:07   100.28         0.059092    350.0  die_ahnungslosen
+216  11:13:10   100.55         1.074397    350.0  die_ahnungslosen
+217  11:13:13   100.14        -0.467363    350.0  die_ahnungslosen
+218  11:13:16   100.17        -0.354551    350.0  die_ahnungslosen
+219  11:13:19   100.17        -0.354551    350.0  die_ahnungslosen
+220  11:13:22   100.38         0.435131    350.0  die_ahnungslosen</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div id="b3ba9ecf" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Werte größer gleich abs(3) finden</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>z_values_ge3_sum <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="dv">3</span>)).<span class="bu">apply</span>(<span class="bu">sum</span>).<span class="bu">sum</span>()</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Anzahl der studentisierten z-Werte mit Betrag ≥ 3:"</span>, z_values_ge3_sum, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Werte größer gleich abs(2.5) finden</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">## z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>z_values_ge25_sum <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="fl">2.5</span>)).<span class="bu">apply</span>(<span class="bu">sum</span>).<span class="bu">sum</span>()</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:"</span>, z_values_ge25_sum)</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Zeilen mit z-Werten größer abs(2.5) ausgeben</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co">## bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="co">### Schritt 1: Wahrheitswerte abgreifen</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>bool_index <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="fl">2.5</span>)).values</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="co">### Schritt 2: Rückgabe zeilenweise in ein eindimensionales Array überführen: </span></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>bool_index <span class="op">=</span> np.hstack(bool_index)</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>z_values_ge_25 <span class="op">=</span> hooke.iloc[bool_index , :]</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z_values_ge_25, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Kombinationen aus Gewicht &amp; Team bestimmen</span></span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kombinationen aus Gewicht &amp; Team bestimmen"</span>)</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> z_values_ge_25[<span class="st">'Team'</span>].unique()</span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="co">## teams durchlaufen und jeweils die Gewichte speichern</span></span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>team_gewichte <span class="op">=</span> [] <span class="co"># leere liste</span></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(teams)):</span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(teams[i])</span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(z_values_ge_25.loc[z_values_ge_25[<span class="st">'Team'</span>] <span class="op">==</span> teams[i], <span class="st">'Gewicht'</span>], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>  team_gewichte.append(z_values_ge_25.loc[z_values_ge_25[<span class="st">'Team'</span>] <span class="op">==</span> teams[i], <span class="st">'Gewicht'</span>].values)</span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Als Liste von arrays:")</span></span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="co"># print(team_gewichte, "\n")</span></span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Messreihen auswählen</span></span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>messreihen <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(teams)):</span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(team_gewichte[i])):</span>
-<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(teams[i], team_gewichte[i][j])</span>
-<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>    messreihen <span class="op">=</span> pd.concat([messreihen, hooke.loc[ (hooke[<span class="st">'Team'</span>] <span class="op">==</span> teams[i]) <span class="op">&amp;</span> (hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> team_gewichte[i][j]) ]])</span>
-<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a><span class="co"># studentisierte z-Werte der Messreihen bilden</span></span>
-<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
-<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a><span class="co">## messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)</span></span>
-<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
-<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a><span class="co">## Rückgabe zeilenweise in ein eindimensionales Array überführen: </span></span>
-<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>messreihen_z_scores <span class="op">=</span> np.hstack(messreihen.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: scipy.stats.zscore(x, ddof <span class="op">=</span> <span class="dv">1</span>)).reset_index(drop <span class="op">=</span> <span class="va">True</span>))</span>
-<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a><span class="co"># gemeinsame Ausgabe der Daten</span></span>
-<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
-<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a><span class="co">## messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)</span></span>
-<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
-<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a>messreihen.insert(loc <span class="op">=</span> <span class="dv">2</span>, column <span class="op">=</span> <span class="st">'z-Werte Abstand'</span>, value <span class="op">=</span> messreihen_z_scores)</span>
-<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messreihen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="37fd00c3" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Werte größer gleich abs(3) finden</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>z_values_ge3_sum <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="dv">3</span>)).<span class="bu">apply</span>(<span class="bu">sum</span>).<span class="bu">sum</span>()</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Anzahl der studentisierten z-Werte mit Betrag ≥ 3:"</span>, z_values_ge3_sum, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Werte größer gleich abs(2.5) finden</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">## z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>z_values_ge25_sum <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="fl">2.5</span>)).<span class="bu">apply</span>(<span class="bu">sum</span>).<span class="bu">sum</span>()</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:"</span>, z_values_ge25_sum)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Die Zeilen mit z-Werten größer abs(2.5) ausgeben</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co">## bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="co">### Schritt 1: Wahrheitswerte abgreifen</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>bool_index <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(scipy.stats.zscore, ddof <span class="op">=</span> <span class="dv">1</span>).<span class="bu">apply</span>(np.<span class="bu">abs</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.greater_equal(x, <span class="fl">2.5</span>)).values</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="co">### Schritt 2: Rückgabe zeilenweise in ein eindimensionales Array überführen: </span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>bool_index <span class="op">=</span> np.hstack(bool_index)</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>z_values_ge_25 <span class="op">=</span> hooke.iloc[bool_index , :]</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(z_values_ge_25, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Kombinationen aus Gewicht &amp; Team bestimmen</span></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kombinationen aus Gewicht &amp; Team bestimmen"</span>)</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> z_values_ge_25[<span class="st">'Team'</span>].unique()</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a><span class="co">## teams durchlaufen und jeweils die Gewichte speichern</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>team_gewichte <span class="op">=</span> [] <span class="co"># leere liste</span></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(teams)):</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(teams[i])</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(z_values_ge_25.loc[z_values_ge_25[<span class="st">'Team'</span>] <span class="op">==</span> teams[i], <span class="st">'Gewicht'</span>], <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>  team_gewichte.append(z_values_ge_25.loc[z_values_ge_25[<span class="st">'Team'</span>] <span class="op">==</span> teams[i], <span class="st">'Gewicht'</span>].values)</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="co"># print("Als Liste von arrays:")</span></span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="co"># print(team_gewichte, "\n")</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Messreihen auswählen</span></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>messreihen <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(teams)):</span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(team_gewichte[i])):</span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(teams[i], team_gewichte[i][j])</span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>    messreihen <span class="op">=</span> pd.concat([messreihen, hooke.loc[ (hooke[<span class="st">'Team'</span>] <span class="op">==</span> teams[i]) <span class="op">&amp;</span> (hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> team_gewichte[i][j]) ]])</span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a><span class="co"># studentisierte z-Werte der Messreihen bilden</span></span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="co">## messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)</span></span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a><span class="co">## Rückgabe zeilenweise in ein eindimensionales Array überführen: </span></span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>messreihen_z_scores <span class="op">=</span> np.hstack(messreihen.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: scipy.stats.zscore(x, ddof <span class="op">=</span> <span class="dv">1</span>)).reset_index(drop <span class="op">=</span> <span class="va">True</span>))</span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a><span class="co"># gemeinsame Ausgabe der Daten</span></span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a><span class="co">## messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)</span></span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)</span></span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a>messreihen.insert(loc <span class="op">=</span> <span class="dv">2</span>, column <span class="op">=</span> <span class="st">'z-Werte Abstand'</span>, value <span class="op">=</span> messreihen_z_scores)</span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(messreihen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 <p>Die Werte können mit der Pandas-Methode <code>pd.plot()</code> mit wenig Aufwand dargestellt werden. Die Methode ist jedoch nicht so flexibel, wie das Paket matplotlib. So ist das Punktdiagramm (<code>kind = 'scatter'</code>) nur für DataFrames, nicht aber für groupby-Objekte verfügbar. Dies wird durch das Setzen eines Markers und die Einstellung der Liniendicke auf 0 kompensiert.</p>
-<div id="43b5607e" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>messreihen.reset_index(drop <span class="op">=</span> <span class="va">True</span>).groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].plot(marker <span class="op">=</span> <span class="st">'o'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Messwert'</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Abstand'</span>)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="766604bd" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>messreihen.reset_index(drop <span class="op">=</span> <span class="va">True</span>).groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].plot(marker <span class="op">=</span> <span class="st">'o'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Messwert'</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Abstand'</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="übung-hooke_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img" alt="Grafische Darstellung der Messreihen, die studentisierte z-Werte >= 2,5 enthalten."></p>
+<p><img src="übung-hooke_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img" alt="Grafische Darstellung der Messreihen, die studentisierte z-Werte >= 2,5 enthalten."></p>
 </figure>
 </div>
 </div>
@@ -1491,24 +1515,24 @@ Tipp&nbsp;5.3: Musterlösung
 <section id="abstandsmessung-auf-meter-und-auf-den-nullpunkt-normieren" class="level4">
 <h4 class="anchored" data-anchor-id="abstandsmessung-auf-meter-und-auf-den-nullpunkt-normieren">Abstandsmessung auf Meter und auf den Nullpunkt normieren</h4>
 <p>Abstandsmessung auf den Nullpunkt normieren. Die Spalte Abstand wird in Abständsänderung umbenannt.</p>
-<div id="f8b9ff2d" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nullpunkte <span class="op">=</span> hooke.loc[hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> <span class="dv">0</span>, : ].groupby(by <span class="op">=</span> <span class="st">'Team'</span>)[<span class="st">'Abstand'</span>].mean()</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nullpunkte"</span>, nullpunkte, sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> nullpunkte.index</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(teams)):</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> teams[i] , <span class="st">'Abstand'</span>] <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> teams[i] , <span class="st">'Abstand'</span>].sub(nullpunkte.values[i]).mul(<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>hooke.rename(columns <span class="op">=</span> {<span class="st">'Abstand'</span>: <span class="st">'Abstandsänderung'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'Abstandsänderung'</span>] <span class="op">=</span> hooke[<span class="st">'Abstandsänderung'</span>].div(<span class="dv">100</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ff92d2bb" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>nullpunkte <span class="op">=</span> hooke.loc[hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> <span class="dv">0</span>, : ].groupby(by <span class="op">=</span> <span class="st">'Team'</span>, sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstand'</span>].mean()</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nullpunkte"</span>, nullpunkte, sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> nullpunkte.index</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(teams)):</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> teams[i] , <span class="st">'Abstand'</span>] <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> teams[i] , <span class="st">'Abstand'</span>].sub(nullpunkte.values[i]).mul(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>hooke.rename(columns <span class="op">=</span> {<span class="st">'Abstand'</span>: <span class="st">'Abstandsänderung'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'Abstandsänderung'</span>] <span class="op">=</span> hooke[<span class="st">'Abstandsänderung'</span>].div(<span class="dv">100</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Nullpunkte
 Team
-die_ahnungslosen    109.759000
 fabi                110.366000
+die_ahnungslosen    109.759000
 kreativkoepfe       109.676667
 ma                  109.258000
 Name: Abstand, dtype: float64</code></pre>
@@ -1518,17 +1542,17 @@ Name: Abstand, dtype: float64</code></pre>
 <section id="gewicht-in-wirkende-kraft-umrechnen" class="level4">
 <h4 class="anchored" data-anchor-id="gewicht-in-wirkende-kraft-umrechnen">Gewicht in wirkende Kraft umrechnen</h4>
 <p>Gewicht in <span class="math inline">\(g\)</span> in die wirkende Kraft in <span class="math inline">\(N\)</span> umrechnen. Die Spalte wird in den Datensatz eingefügt.</p>
-<div id="60e73334" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'Kraft'</span>] <span class="op">=</span> hooke[<span class="st">'Gewicht'</span>].div(<span class="dv">1000</span>).mul(<span class="fl">9.81</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c2bd568f" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'Kraft'</span>] <span class="op">=</span> hooke[<span class="st">'Gewicht'</span>].div(<span class="dv">1000</span>).mul(<span class="fl">9.81</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </div>
 </div>
 </div>
 <p>Das Ergebnis könnte so aussehen. Die Spalte Abstand wurde in Abständsänderung umbenannt.</p>
-<div id="e4ce92e7" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Kraft'</span>])[<span class="st">'Abstandsänderung'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div id="08d014a5" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Kraft'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstandsänderung'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
 
@@ -1560,117 +1584,6 @@ Name: Abstand, dtype: float64</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td rowspan="10" data-quarto-table-cell-role="th" data-valign="top">die_ahnungslosen</td>
-<td data-quarto-table-cell-role="th">0.00000</td>
-<td>10.0</td>
-<td>-1.420088e-16</td>
-<td>0.001807</td>
-<td>-0.003310</td>
-<td>-0.000335</td>
-<td>0.000290</td>
-<td>0.001290</td>
-<td>0.002090</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0.49050</td>
-<td>8.0</td>
-<td>8.465000e-03</td>
-<td>0.001809</td>
-<td>0.006490</td>
-<td>0.007340</td>
-<td>0.008290</td>
-<td>0.008790</td>
-<td>0.012290</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0.98100</td>
-<td>12.0</td>
-<td>2.033167e-02</td>
-<td>0.007044</td>
-<td>0.008390</td>
-<td>0.016865</td>
-<td>0.020240</td>
-<td>0.025615</td>
-<td>0.029990</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1.47150</td>
-<td>19.0</td>
-<td>3.493211e-02</td>
-<td>0.007595</td>
-<td>0.018890</td>
-<td>0.030490</td>
-<td>0.036390</td>
-<td>0.040540</td>
-<td>0.050890</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1.96200</td>
-<td>18.0</td>
-<td>5.142889e-02</td>
-<td>0.003930</td>
-<td>0.045290</td>
-<td>0.049440</td>
-<td>0.051690</td>
-<td>0.054940</td>
-<td>0.057990</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2.45250</td>
-<td>18.0</td>
-<td>6.852333e-02</td>
-<td>0.002215</td>
-<td>0.064290</td>
-<td>0.067840</td>
-<td>0.068690</td>
-<td>0.069565</td>
-<td>0.074090</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2.94300</td>
-<td>11.0</td>
-<td>7.919000e-02</td>
-<td>0.008946</td>
-<td>0.056090</td>
-<td>0.079440</td>
-<td>0.082990</td>
-<td>0.083940</td>
-<td>0.087590</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3.43350</td>
-<td>14.0</td>
-<td>9.494714e-02</td>
-<td>0.002659</td>
-<td>0.086990</td>
-<td>0.094965</td>
-<td>0.095890</td>
-<td>0.096115</td>
-<td>0.097790</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">3.92400</td>
-<td>11.0</td>
-<td>1.051991e-01</td>
-<td>0.002328</td>
-<td>0.101890</td>
-<td>0.103440</td>
-<td>0.106290</td>
-<td>0.107090</td>
-<td>0.108190</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">4.41450</td>
-<td>12.0</td>
-<td>1.171650e-01</td>
-<td>0.004680</td>
-<td>0.106790</td>
-<td>0.114740</td>
-<td>0.117890</td>
-<td>0.120840</td>
-<td>0.122490</td>
-</tr>
 <tr class="odd">
 <td rowspan="10" data-quarto-table-cell-role="th" data-valign="top">fabi</td>
 <td data-quarto-table-cell-role="th">0.00000</td>
@@ -1781,6 +1694,117 @@ Name: Abstand, dtype: float64</code></pre>
 <td>0.124860</td>
 <td>0.127460</td>
 <td>0.128560</td>
+</tr>
+<tr class="odd">
+<td rowspan="10" data-quarto-table-cell-role="th" data-valign="top">die_ahnungslosen</td>
+<td data-quarto-table-cell-role="th">0.00000</td>
+<td>10.0</td>
+<td>-1.420088e-16</td>
+<td>0.001807</td>
+<td>-0.003310</td>
+<td>-0.000335</td>
+<td>0.000290</td>
+<td>0.001290</td>
+<td>0.002090</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.49050</td>
+<td>8.0</td>
+<td>8.465000e-03</td>
+<td>0.001809</td>
+<td>0.006490</td>
+<td>0.007340</td>
+<td>0.008290</td>
+<td>0.008790</td>
+<td>0.012290</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.98100</td>
+<td>12.0</td>
+<td>2.033167e-02</td>
+<td>0.007044</td>
+<td>0.008390</td>
+<td>0.016865</td>
+<td>0.020240</td>
+<td>0.025615</td>
+<td>0.029990</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1.47150</td>
+<td>19.0</td>
+<td>3.493211e-02</td>
+<td>0.007595</td>
+<td>0.018890</td>
+<td>0.030490</td>
+<td>0.036390</td>
+<td>0.040540</td>
+<td>0.050890</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1.96200</td>
+<td>18.0</td>
+<td>5.142889e-02</td>
+<td>0.003930</td>
+<td>0.045290</td>
+<td>0.049440</td>
+<td>0.051690</td>
+<td>0.054940</td>
+<td>0.057990</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2.45250</td>
+<td>18.0</td>
+<td>6.852333e-02</td>
+<td>0.002215</td>
+<td>0.064290</td>
+<td>0.067840</td>
+<td>0.068690</td>
+<td>0.069565</td>
+<td>0.074090</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2.94300</td>
+<td>11.0</td>
+<td>7.919000e-02</td>
+<td>0.008946</td>
+<td>0.056090</td>
+<td>0.079440</td>
+<td>0.082990</td>
+<td>0.083940</td>
+<td>0.087590</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3.43350</td>
+<td>14.0</td>
+<td>9.494714e-02</td>
+<td>0.002659</td>
+<td>0.086990</td>
+<td>0.094965</td>
+<td>0.095890</td>
+<td>0.096115</td>
+<td>0.097790</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3.92400</td>
+<td>11.0</td>
+<td>1.051991e-01</td>
+<td>0.002328</td>
+<td>0.101890</td>
+<td>0.103440</td>
+<td>0.106290</td>
+<td>0.107090</td>
+<td>0.108190</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4.41450</td>
+<td>12.0</td>
+<td>1.171650e-01</td>
+<td>0.004680</td>
+<td>0.106790</td>
+<td>0.114740</td>
+<td>0.117890</td>
+<td>0.120840</td>
+<td>0.122490</td>
 </tr>
 <tr class="odd">
 <td rowspan="12" data-quarto-table-cell-role="th" data-valign="top">kreativkoepfe</td>
@@ -2128,11 +2152,11 @@ Name: Abstand, dtype: float64</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Grafische Darstellung</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Mittelwerte und Standardfehler berechnen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Auswertung</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="1a565e39" class="cell" data-execution_count="21">
+<div id="d02984ea" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="übung-hooke_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img" alt="Auf der x-Achse ist die Federausdehnung in m, auf der y-Achse die wirkende Kraft in N abgetragen. Zusätzlich zu den Messpunkten sind für jedes Gewicht der Mittelwert mit einem großen X und von dessen Mittelpunkt ausgehend der Bereich des Mittelwerts ± 1 Standardfehler eingezeichnet."></p>
+<p><img src="übung-hooke_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img" alt="Auf der x-Achse ist die Federausdehnung in m, auf der y-Achse die wirkende Kraft in N abgetragen. Zusätzlich zu den Messpunkten sind für jedes Gewicht der Mittelwert mit einem großen X und von dessen Mittelpunkt ausgehend der Bereich des Mittelwerts ± 1 Standardfehler eingezeichnet."></p>
 </figure>
 </div>
 </div>
@@ -2140,74 +2164,74 @@ Name: Abstand, dtype: float64</code></pre>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Die Ausgabe ist aus Platzgründen auf die ersten Zeilen beschränkt.</p>
-<div id="f7eacc79" class="cell" data-execution_count="22">
+<div id="8b5a7a82" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-stdout">
 <pre><code>Mittelwerte der Abstandsänderung nach Team und Kraft:
-Team              Kraft 
-die_ahnungslosen  0.0000   -1.420739e-16
-                  0.4905    8.465000e-03
-                  0.9810    2.033167e-02
-                  1.4715    3.493211e-02
-                  1.9620    5.142889e-02
+Team  Kraft  
+fabi  0.00000    1.137111e-16
+      0.49050   -5.983333e-04
+      0.99081    2.127111e-02
+      1.49112    3.464000e-02
+      1.97181    5.113000e-02
 Name: Federausdehnung, dtype: float64
 
 Standardfehler der Mittelwerte nach Team und Kraft
-Team              Kraft 
-die_ahnungslosen  0.0000    0.000571
-                  0.4905    0.000640
-                  0.9810    0.002034
-                  1.4715    0.001742
-                  1.9620    0.000926
+Team  Kraft  
+fabi  0.00000    0.000802
+      0.49050    0.000609
+      0.99081    0.000771
+      1.49112    0.001062
+      1.97181    0.003328
 Name: Standardfehler, dtype: float64</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div id="9531d733" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwerte der Teams nach Kraft</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>distance_means_by_team_and_force <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [hooke[<span class="st">'Team'</span>], hooke[<span class="st">'Kraft'</span>]])[<span class="st">'Abstandsänderung'</span>].mean()</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>distance_means_by_team_and_force.name <span class="op">=</span> <span class="st">'Federausdehnung'</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mittelwerte der Abstandsänderung nach Team und Kraft:"</span>, distance_means_by_team_and_force.head(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>() <span class="co"># leere Zeile</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardfehler der Teams nach Kraft</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_team_and_force <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [hooke[<span class="st">'Team'</span>], hooke[<span class="st">'Kraft'</span>]])[<span class="st">'Abstandsänderung'</span>].std(ddof <span class="op">=</span> <span class="dv">1</span>).div(np.sqrt(hooke[<span class="st">'Abstandsänderung'</span>].groupby(by <span class="op">=</span> [hooke[<span class="st">'Team'</span>], hooke[<span class="st">'Kraft'</span>]]).size()))</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_team_and_force.name <span class="op">=</span> <span class="st">'Standardfehler'</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Standardfehler der Mittelwerte nach Team und Kraft"</span>, distance_stderrors_by_team_and_force.head(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># grafische Darstellung</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>anzahl_teams <span class="op">=</span> hooke[<span class="st">'Team'</span>].unique().size</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="fl">7.5</span>, <span class="dv">12</span>))</span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(anzahl_teams):</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  plt.subplot(<span class="dv">4</span>, <span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>) <span class="co"># plt.subplot zählt ab 1</span></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Punktdiagramm</span></span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  plotting_data <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> hooke[<span class="st">'Team'</span>].unique()[i], :]</span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  plt.scatter(x <span class="op">=</span> plotting_data[<span class="st">'Abstandsänderung'</span>], y <span class="op">=</span> plotting_data[<span class="st">'Kraft'</span>], alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  plt.title(label <span class="op">=</span> hooke[<span class="st">'Team'</span>].unique()[i])</span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  plt.xlabel(<span class="st">"Federausdehnung in m"</span>)</span>
-<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>  plt.ylabel(<span class="st">"wirkende Kraft in N"</span>)</span>
-<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># # Fehlerbalken</span></span>
-<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>  distance_means_by_force <span class="op">=</span> plotting_data.groupby(by <span class="op">=</span> plotting_data[<span class="st">'Kraft'</span>])[<span class="st">'Abstandsänderung'</span>].mean()</span>
-<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>  distance_stderrors_by_force <span class="op">=</span> plotting_data.groupby(by <span class="op">=</span> plotting_data[<span class="st">'Kraft'</span>])[<span class="st">'Abstandsänderung'</span>].std(ddof <span class="op">=</span> <span class="dv">1</span>).div(np.sqrt(plotting_data[<span class="st">'Abstandsänderung'</span>].groupby(by <span class="op">=</span> plotting_data[<span class="st">'Kraft'</span>]).size()))</span>
-<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>  errorbar_container <span class="op">=</span> plt.errorbar(x <span class="op">=</span> distance_means_by_force, y <span class="op">=</span> distance_means_by_force.index, xerr <span class="op">=</span> distance_stderrors_by_force,</span>
-<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>  linestyle <span class="op">=</span> <span class="st">'none'</span>, marker <span class="op">=</span> <span class="st">'x'</span>, color <span class="op">=</span> <span class="st">'black'</span>, markersize <span class="op">=</span> <span class="dv">12</span>, elinewidth <span class="op">=</span> <span class="dv">3</span>, ecolor <span class="op">=</span> <span class="st">'red'</span>, capsize <span class="op">=</span> <span class="dv">12</span>)</span>
-<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># siehe: https://matplotlib.org/stable/api/container_api.html#matplotlib.container.ErrorbarContainer</span></span>
-<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>  plt.legend([errorbar_container.lines[<span class="dv">0</span>], errorbar_container.lines[<span class="dv">2</span>][<span class="dv">0</span>]],</span>
-<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>             [<span class="st">'Mittelwert'</span>, <span class="st">'Standardfehler'</span>],</span>
-<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>             loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
-<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0be7c75e" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwerte der Teams nach Kraft</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>distance_means_by_team_and_force <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [hooke[<span class="st">'Team'</span>], hooke[<span class="st">'Kraft'</span>]], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstandsänderung'</span>].mean()</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>distance_means_by_team_and_force.name <span class="op">=</span> <span class="st">'Federausdehnung'</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mittelwerte der Abstandsänderung nach Team und Kraft:"</span>, distance_means_by_team_and_force.head(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>() <span class="co"># leere Zeile</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardfehler der Teams nach Kraft</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_team_and_force <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [hooke[<span class="st">'Team'</span>], hooke[<span class="st">'Kraft'</span>]], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstandsänderung'</span>].std(ddof <span class="op">=</span> <span class="dv">1</span>).div(np.sqrt(hooke[<span class="st">'Abstandsänderung'</span>].groupby(by <span class="op">=</span> [hooke[<span class="st">'Team'</span>], hooke[<span class="st">'Kraft'</span>]], sort <span class="op">=</span> <span class="va">False</span>).size()))</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>distance_stderrors_by_team_and_force.name <span class="op">=</span> <span class="st">'Standardfehler'</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Standardfehler der Mittelwerte nach Team und Kraft"</span>, distance_stderrors_by_team_and_force.head(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co"># grafische Darstellung</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>anzahl_teams <span class="op">=</span> hooke[<span class="st">'Team'</span>].unique().size</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span> (<span class="fl">7.5</span>, <span class="dv">12</span>))</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(anzahl_teams):</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  plt.subplot(<span class="dv">4</span>, <span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>) <span class="co"># plt.subplot zählt ab 1</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Punktdiagramm</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  plotting_data <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> hooke[<span class="st">'Team'</span>].unique()[i], :]</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  plt.scatter(x <span class="op">=</span> plotting_data[<span class="st">'Abstandsänderung'</span>], y <span class="op">=</span> plotting_data[<span class="st">'Kraft'</span>], alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>  plt.title(label <span class="op">=</span> hooke[<span class="st">'Team'</span>].unique()[i])</span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  plt.xlabel(<span class="st">"Federausdehnung in m"</span>)</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>  plt.ylabel(<span class="st">"wirkende Kraft in N"</span>)</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># # Fehlerbalken</span></span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>  distance_means_by_force <span class="op">=</span> plotting_data.groupby(by <span class="op">=</span> plotting_data[<span class="st">'Kraft'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstandsänderung'</span>].mean()</span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>  distance_stderrors_by_force <span class="op">=</span> plotting_data.groupby(by <span class="op">=</span> plotting_data[<span class="st">'Kraft'</span>], sort <span class="op">=</span> <span class="va">False</span>)[<span class="st">'Abstandsänderung'</span>].std(ddof <span class="op">=</span> <span class="dv">1</span>).div(np.sqrt(plotting_data[<span class="st">'Abstandsänderung'</span>].groupby(by <span class="op">=</span> plotting_data[<span class="st">'Kraft'</span>], sort <span class="op">=</span> <span class="va">False</span>).size()))</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>  errorbar_container <span class="op">=</span> plt.errorbar(x <span class="op">=</span> distance_means_by_force, y <span class="op">=</span> distance_means_by_force.index, xerr <span class="op">=</span> distance_stderrors_by_force,</span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>  linestyle <span class="op">=</span> <span class="st">'none'</span>, marker <span class="op">=</span> <span class="st">'x'</span>, color <span class="op">=</span> <span class="st">'black'</span>, markersize <span class="op">=</span> <span class="dv">12</span>, elinewidth <span class="op">=</span> <span class="dv">3</span>, ecolor <span class="op">=</span> <span class="st">'red'</span>, capsize <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># siehe: https://matplotlib.org/stable/api/container_api.html#matplotlib.container.ErrorbarContainer</span></span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>  plt.legend([errorbar_container.lines[<span class="dv">0</span>], errorbar_container.lines[<span class="dv">2</span>][<span class="dv">0</span>]],</span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>             [<span class="st">'Mittelwert'</span>, <span class="st">'Standardfehler'</span>],</span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>             loc <span class="op">=</span> <span class="st">'upper left'</span>)</span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
@@ -2218,9 +2242,9 @@ Name: Standardfehler, dtype: float64</code></pre>
 <li>Die Messreihen des Teams ma scheinen wenigstens für die ersten vier angehängten Gewichten durch grobe Messfehler geprägt zu sein.</li>
 </ul>
 <p>Die Messreihe des Teams ma wird wegen grober Messfehler aus dem Datensatz entfernt. Aus der Messreihe des Teams fabi wird die Messung für das Gewicht 50 Gramm entfernt.</p>
-<div id="8048c8bf" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> <span class="st">'ma'</span>, :].index, inplace <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> hooke.loc[(hooke[<span class="st">'Team'</span>] <span class="op">==</span> <span class="st">'fabi'</span>) <span class="op">&amp;</span> (hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> <span class="dv">50</span>), :].index, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="272b1efa" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> <span class="st">'ma'</span>, :].index, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> hooke.loc[(hooke[<span class="st">'Team'</span>] <span class="op">==</span> <span class="st">'fabi'</span>) <span class="op">&amp;</span> (hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> <span class="dv">50</span>), :].index, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -2253,7 +2277,7 @@ Tipp&nbsp;5.4: Vorgehen bei vielen Datensätzen
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true"><span class="math inline">\(\alpha = 0.10\)</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false"><span class="math inline">\(\alpha = 0.05\)</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Auswertung</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div id="da52f18e" class="cell" data-execution_count="25">
+<div id="40f9444c" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 fabi Konfidenzniveau: 0.9
@@ -2277,7 +2301,7 @@ Standardfehler des Anstiegs: 0.6148
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div id="8d7d681e" class="cell" data-execution_count="26">
+<div id="ad2650f7" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 fabi Konfidenzniveau: 0.95
@@ -2301,43 +2325,43 @@ Standardfehler des Anstiegs: 0.6148
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div id="264a66c2" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>anzahl_teams <span class="op">=</span> hooke[<span class="st">'Team'</span>].unique().size</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.10</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(anzahl_teams):</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  reg_data <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> hooke[<span class="st">'Team'</span>].unique()[i], :]</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> reg_data[<span class="st">'Abstandsänderung'</span>]</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> reg_data[<span class="st">'Kraft'</span>]</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  n <span class="op">=</span> <span class="bu">len</span>(x)</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, hooke[<span class="st">'Team'</span>].unique()[i], <span class="st">" Konfidenzniveau: "</span>, <span class="dv">1</span> <span class="op">-</span> alpha, sep <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  slope, intercept, rvalue, pvalue, slope_stderr <span class="op">=</span> scipy.stats.linregress(x, y)</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"y = </span><span class="sc">{</span>intercept<span class="sc">:.4f}</span><span class="ss"> + </span><span class="sc">{</span>slope<span class="sc">:.4f}</span><span class="ss"> * x</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"r = </span><span class="sc">{</span>rvalue<span class="sc">:.4f}</span><span class="ss"> R2 = </span><span class="sc">{</span>rvalue <span class="op">**</span> <span class="dv">2</span><span class="sc">:.4f}</span><span class="ss"> p = </span><span class="sc">{</span>pvalue<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Standardfehler des Anstiegs: </span><span class="sc">{</span>slope_stderr<span class="sc">:.4f}</span><span class="ss">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>slope <span class="op">-</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">  ≤ </span><span class="sc">{</span>slope<span class="sc">:.3f}</span><span class="ss"> ≤ </span><span class="sc">{</span>slope <span class="op">+</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(anzahl_teams):</span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>  reg_data <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> hooke[<span class="st">'Team'</span>].unique()[i], :]</span>
-<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> reg_data[<span class="st">'Abstandsänderung'</span>]</span>
-<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> reg_data[<span class="st">'Kraft'</span>]</span>
-<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>  n <span class="op">=</span> <span class="bu">len</span>(x)</span>
-<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, hooke[<span class="st">'Team'</span>].unique()[i], <span class="st">" Konfidenzniveau: "</span>, <span class="dv">1</span> <span class="op">-</span> alpha, sep <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>  slope, intercept, rvalue, pvalue, slope_stderr <span class="op">=</span> scipy.stats.linregress(x, y)</span>
-<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"y = </span><span class="sc">{</span>intercept<span class="sc">:.4f}</span><span class="ss"> + </span><span class="sc">{</span>slope<span class="sc">:.4f}</span><span class="ss"> * x</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"r = </span><span class="sc">{</span>rvalue<span class="sc">:.4f}</span><span class="ss"> R2 = </span><span class="sc">{</span>rvalue <span class="op">**</span> <span class="dv">2</span><span class="sc">:.4f}</span><span class="ss"> p = </span><span class="sc">{</span>pvalue<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Standardfehler des Anstiegs: </span><span class="sc">{</span>slope_stderr<span class="sc">:.4f}</span><span class="ss">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>slope <span class="op">-</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">  ≤ </span><span class="sc">{</span>slope<span class="sc">:.3f}</span><span class="ss"> ≤ </span><span class="sc">{</span>slope <span class="op">+</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="73f7bea6" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>anzahl_teams <span class="op">=</span> hooke[<span class="st">'Team'</span>].unique().size</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.10</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(anzahl_teams):</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  reg_data <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> hooke[<span class="st">'Team'</span>].unique()[i], :]</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> reg_data[<span class="st">'Abstandsänderung'</span>]</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> reg_data[<span class="st">'Kraft'</span>]</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, hooke[<span class="st">'Team'</span>].unique()[i], <span class="st">" Konfidenzniveau: "</span>, <span class="dv">1</span> <span class="op">-</span> alpha, sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  slope, intercept, rvalue, pvalue, slope_stderr <span class="op">=</span> scipy.stats.linregress(x, y)</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"y = </span><span class="sc">{</span>intercept<span class="sc">:.4f}</span><span class="ss"> + </span><span class="sc">{</span>slope<span class="sc">:.4f}</span><span class="ss"> * x</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"r = </span><span class="sc">{</span>rvalue<span class="sc">:.4f}</span><span class="ss"> R2 = </span><span class="sc">{</span>rvalue <span class="op">**</span> <span class="dv">2</span><span class="sc">:.4f}</span><span class="ss"> p = </span><span class="sc">{</span>pvalue<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Standardfehler des Anstiegs: </span><span class="sc">{</span>slope_stderr<span class="sc">:.4f}</span><span class="ss">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>slope <span class="op">-</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">  ≤ </span><span class="sc">{</span>slope<span class="sc">:.3f}</span><span class="ss"> ≤ </span><span class="sc">{</span>slope <span class="op">+</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(anzahl_teams):</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>  reg_data <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> hooke[<span class="st">'Team'</span>].unique()[i], :]</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> reg_data[<span class="st">'Abstandsänderung'</span>]</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> reg_data[<span class="st">'Kraft'</span>]</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>  n <span class="op">=</span> <span class="bu">len</span>(x)</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, hooke[<span class="st">'Team'</span>].unique()[i], <span class="st">" Konfidenzniveau: "</span>, <span class="dv">1</span> <span class="op">-</span> alpha, sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>  slope, intercept, rvalue, pvalue, slope_stderr <span class="op">=</span> scipy.stats.linregress(x, y)</span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"y = </span><span class="sc">{</span>intercept<span class="sc">:.4f}</span><span class="ss"> + </span><span class="sc">{</span>slope<span class="sc">:.4f}</span><span class="ss"> * x</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"r = </span><span class="sc">{</span>rvalue<span class="sc">:.4f}</span><span class="ss"> R2 = </span><span class="sc">{</span>rvalue <span class="op">**</span> <span class="dv">2</span><span class="sc">:.4f}</span><span class="ss"> p = </span><span class="sc">{</span>pvalue<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Standardfehler des Anstiegs: </span><span class="sc">{</span>slope_stderr<span class="sc">:.4f}</span><span class="ss">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>slope <span class="op">-</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">  ≤ </span><span class="sc">{</span>slope<span class="sc">:.3f}</span><span class="ss"> ≤ </span><span class="sc">{</span>slope <span class="op">+</span> scipy<span class="sc">.</span>stats<span class="sc">.</span>t<span class="sc">.</span>ppf(q <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="dv">2</span>, df <span class="op">=</span> n <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> slope_stderr<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
