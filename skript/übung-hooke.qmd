@@ -145,12 +145,7 @@ for zeile in dateiobjekt_problem_datei:
     elif len(zwischenspeicher) < 3: # leere Zeilen überspringen
       continue
     # Teamnamen als 4. Spalte anfügen
-    print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
-    print("Was tut das hier: pfad[5:-4]?", pfad[5:-4]) 
-    print("Müsste es nicht heißen: pfad_problem_datei[5:-4]?", pfad_problem_datei[5:-4]) 
-    ## HIER KÖNNTE DER FEHLER LIEGEN, WEIL WO WIRD PFAD ABGEGRIFFEN?
-    print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
-    zwischenspeicher.append(pfad[5:-4])
+    zwischenspeicher.append(pfad_problem_datei[5:-4]) # 'team_' und die Dateiendung abschneiden 
 
     hooke.loc[len(hooke)] = pd.Series(zwischenspeicher).values
 
