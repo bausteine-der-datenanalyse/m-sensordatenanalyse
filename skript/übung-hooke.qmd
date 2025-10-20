@@ -124,18 +124,8 @@ dateiobjekt_problem_datei.close()
 
 Jede zweite Zeile ist leer. In Zeile 134 wird ein Zeilenumbruch '\\n' eingelesen. Die Datei wird deshalb mit einer angepassten Schleife erneut durchlaufen. Aus der betreffenden Zeile wird der zusätzliche Zeilenumbruch '\\n' entfernt. Leere Zeilen werden übersprungen. Die korrekten Zeilen werden an den DataFrame hooke angefügt.
 
-**Debugging: hier wird das Team ma überschrungen, dafür die Zeilen den kreativköpfen zugewiesen**
 ```{python}
 dateiobjekt_problem_datei = open(file = ordnerpfad + '/' + pfad_problem_datei, mode = 'r')
-
-print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
-import os
-print(f"Dateipfad: {dateiobjekt_problem_datei.name}\n"
-      f"Dateiname: {os.path.basename(dateiobjekt_problem_datei.name)}\n"
-      f"Datei ist geschlossen: {dateiobjekt_problem_datei.closed}\n"
-      f"Zugriffsmodus: {dateiobjekt_problem_datei.mode}\n"
-      f"Enkodierung: {dateiobjekt_problem_datei.encoding}")
-print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
 
 for zeile in dateiobjekt_problem_datei:
   try:
@@ -213,7 +203,7 @@ print(hooke.info())
 
 Das Ergebnis könnte so aussehen:
 ```{python}
-hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].describe()
+hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].describe()
 ```
 
 ## Musterlösung Daten aufbereiten {#sec-lösung-datenaufbereitung}
@@ -228,18 +218,19 @@ Im nächsten Schritt werden die Daten geprüft und ggf. bereinigt. Dies umfasst 
 ### Auf Ausreißer prüfen
 Auf Ausreißer kann (unter anderem) mit studentisierten z-Werten und grafisch geprüft werden.
 
+**Debugging: Der Index der studentisierten z-Werte mit Betrag ≥ 2.5 wird korrekt ermittelt.**
+
 ::: {.panel-tabset}
 
 ## Ausreißer bestimmen
+1. Anzahl der Ausreißer bestimmen und Position ausgeben. *Hinweis: SciPy gibt in manchen Versionen `pd.Series` zurück, in anderen ein `np.array`. Dementsprechend sind die Methoden aus Pandas oder NumPy zu verwenden.
 ```{python}
-#| echo: false
-
 # z-Werte größer gleich abs(3) finden
 ## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
 ## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()
 
 ## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 3)).apply(sum).sum()
+z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 3)).apply(sum).sum()
 
 print("Anzahl der studentisierten z-Werte mit Betrag ≥ 3:", z_values_ge3_sum, "\n")
 
@@ -248,7 +239,7 @@ print("Anzahl der studentisierten z-Werte mit Betrag ≥ 3:", z_values_ge3_sum, 
 ## z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()
 
 ## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).apply(sum).sum()
+z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).apply(sum).sum()
 print("Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:", z_values_ge25_sum)
 
 # Die Zeilen mit z-Werten größer abs(2.5) ausgeben
@@ -257,9 +248,16 @@ print("Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:", z_values_ge25_su
 
 ## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
 ### Schritt 1: Wahrheitswerte abgreifen
-bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).values
-### Schritt 2: Rückgabe zeilenweise in ein eindimensionales Array überführen: 
+bool_index = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).values
+### Schritt 2: Rückgabe in ein eindimensionales Array überführen: 
 bool_index = np.hstack(bool_index)
+
+print("\nAn diesen Indexpositionen liegen die Ausreißer:", np.nonzero(bool_index))
+```
+
+2. Ausgabe der Zeilen aus den Messreihen
+```{python}
+
 
 print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
 print("numpy version:", np.version.version)
@@ -270,23 +268,13 @@ print("python version (glob unterstützt .__version__ nicht):", sys.version)
 print('bool_index[175:180]:', bool_index[175:180], "\n")
 print(np.nonzero(bool_index))
 print('mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)')
-print('177 passt nicht zur 178 weiter unten. 178 ist aber der korrekte Index')
 print('Online ohne Versionsangabe gibt GitHub beim folgenden Befehl dann die Zeilen 79, 84, 99 und 180 aus.')
 print('Online mit Versionsangabe für numpy und pandas gibt GitHub beim folgenden Befehl dann die korrekten Zeilen 76,  91,  96, 177 aus. Das Team wird aber falsch zugeordnet, nämlich 3 mal fabi (76,  91,  96) und 1 mal die_ahnungslosen (177), obwohl es umgekehrt sein müsste.')
 print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
 
-# HIER PASST DER INDEX DANN NICHT MEHR
-z_values_ge_25 = hooke.iloc[bool_index , :]
+# Auswahl der Zeilen mit den z-Werten größer gleich 2.5
+z_values_ge_25 = hooke.iloc[bool_index , :] # --> Hier muss das Problem liegen
 print(z_values_ge_25, "\n")
-
-print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
-# Alternative Variante
-positionsliste = np.nonzero(bool_index)
-z_values_ge_25 = hooke.iloc[positionsliste]
-print(z_values_ge_25, "\n")
-
-print(hooke.iloc[[ 76,  91,  96, 177]], "\n")
-print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
 
 # Kombinationen aus Gewicht & Team bestimmen
 print("Kombinationen aus Gewicht & Team bestimmen")
@@ -327,7 +315,7 @@ for i in range(len(teams)):
 
 ## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
 ## Rückgabe zeilenweise in ein eindimensionales Array überführen: 
-messreihen_z_scores = np.hstack(messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True))
+messreihen_z_scores = np.hstack(messreihen.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True))
 
 # gemeinsame Ausgabe der Daten
 ## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
@@ -347,7 +335,7 @@ print(messreihen)
 ## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()
 
 ## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 3)).apply(sum).sum()
+z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 3)).apply(sum).sum()
 
 print("Anzahl der studentisierten z-Werte mit Betrag ≥ 3:", z_values_ge3_sum, "\n")
 
@@ -356,7 +344,7 @@ print("Anzahl der studentisierten z-Werte mit Betrag ≥ 3:", z_values_ge3_sum, 
 ## z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()
 
 ## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).apply(sum).sum()
+z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).apply(sum).sum()
 print("Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:", z_values_ge25_sum)
 
 # Die Zeilen mit z-Werten größer abs(2.5) ausgeben
@@ -365,7 +353,7 @@ print("Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:", z_values_ge25_su
 
 ## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
 ### Schritt 1: Wahrheitswerte abgreifen
-bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).values
+bool_index = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).values
 ### Schritt 2: Rückgabe zeilenweise in ein eindimensionales Array überführen: 
 bool_index = np.hstack(bool_index)
 
@@ -401,7 +389,7 @@ for i in range(len(teams)):
 
 ## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
 ## Rückgabe zeilenweise in ein eindimensionales Array überführen: 
-messreihen_z_scores = np.hstack(messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True))
+messreihen_z_scores = np.hstack(messreihen.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True))
 
 # gemeinsame Ausgabe der Daten
 ## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
@@ -419,7 +407,7 @@ Die Werte können mit der Pandas-Methode `pd.plot()` mit wenig Aufwand dargestel
 ```{python}
 #| fig-alt: "Grafische Darstellung der Messreihen, die studentisierte z-Werte >= 2,5 enthalten."
 
-messreihen.reset_index(drop = True).groupby(by = ['Team', 'Gewicht'])['Abstand'].plot(marker = 'o', lw = 0)
+messreihen.reset_index(drop = True).groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].plot(marker = 'o', lw = 0)
 
 plt.xlabel('Messwert')
 plt.ylabel('Abstand')
@@ -443,7 +431,7 @@ $N$ umgerechnet.
 Abstandsmessung auf den Nullpunkt normieren. Die Spalte Abstand wird in Abständsänderung umbenannt.
 
 ```{python}
-nullpunkte = hooke.loc[hooke['Gewicht'] == 0, : ].groupby(by = 'Team')['Abstand'].mean()
+nullpunkte = hooke.loc[hooke['Gewicht'] == 0, : ].groupby(by = 'Team', sort = False)['Abstand'].mean()
 
 print("Nullpunkte", nullpunkte, sep = '\n')
 
@@ -469,7 +457,7 @@ hooke['Kraft'] = hooke['Gewicht'].div(1000).mul(9.81)
 Das Ergebnis könnte so aussehen. Die Spalte Abstand wurde in Abständsänderung umbenannt.
 
 ```{python}
-hooke.groupby(by = ['Team', 'Kraft'])['Abstandsänderung'].describe()
+hooke.groupby(by = ['Team', 'Kraft'], sort = False)['Abstandsänderung'].describe()
 ```
 
 ### Grafische Darstellung
@@ -499,8 +487,8 @@ for i in range(anzahl_teams):
   plt.ylabel("wirkende Kraft in N")
 
   # # Fehlerbalken
-  distance_means_by_force = plotting_data.groupby(by = plotting_data['Kraft'])['Abstandsänderung'].mean()
-  distance_stderrors_by_force = plotting_data.groupby(by = plotting_data['Kraft'])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(plotting_data['Abstandsänderung'].groupby(by = plotting_data['Kraft']).size()))
+  distance_means_by_force = plotting_data.groupby(by = plotting_data['Kraft'], sort = False)['Abstandsänderung'].mean()
+  distance_stderrors_by_force = plotting_data.groupby(by = plotting_data['Kraft'], sort = False)['Abstandsänderung'].std(ddof = 1).div(np.sqrt(plotting_data['Abstandsänderung'].groupby(by = plotting_data['Kraft'], sort = False).size()))
 
   errorbar_container = plt.errorbar(x = distance_means_by_force, y = distance_means_by_force.index, xerr = distance_stderrors_by_force,
   linestyle = 'none', marker = 'x', color = 'black', markersize = 12, elinewidth = 3, ecolor = 'red', capsize = 12)
@@ -521,7 +509,7 @@ Die Ausgabe ist aus Platzgründen auf die ersten Zeilen beschränkt.
 #| echo: false
 
 # Mittelwerte der Teams nach Kraft
-distance_means_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].mean()
+distance_means_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']], sort = False)['Abstandsänderung'].mean()
 distance_means_by_team_and_force.name = 'Federausdehnung'
 
 print("Mittelwerte der Abstandsänderung nach Team und Kraft:", distance_means_by_team_and_force.head(), sep = '\n')
@@ -529,7 +517,7 @@ print("Mittelwerte der Abstandsänderung nach Team und Kraft:", distance_means_b
 print() # leere Zeile
 
 # Standardfehler der Teams nach Kraft
-distance_stderrors_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(hooke['Abstandsänderung'].groupby(by = [hooke['Team'], hooke['Kraft']]).size()))
+distance_stderrors_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']], sort = False)['Abstandsänderung'].std(ddof = 1).div(np.sqrt(hooke['Abstandsänderung'].groupby(by = [hooke['Team'], hooke['Kraft']], sort = False).size()))
 distance_stderrors_by_team_and_force.name = 'Standardfehler'
 
 print("Standardfehler der Mittelwerte nach Team und Kraft", distance_stderrors_by_team_and_force.head(), sep = '\n')
@@ -541,7 +529,7 @@ print("Standardfehler der Mittelwerte nach Team und Kraft", distance_stderrors_b
 #| output: false
 
 # Mittelwerte der Teams nach Kraft
-distance_means_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].mean()
+distance_means_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']], sort = False)['Abstandsänderung'].mean()
 distance_means_by_team_and_force.name = 'Federausdehnung'
 
 print("Mittelwerte der Abstandsänderung nach Team und Kraft:", distance_means_by_team_and_force.head(), sep = '\n')
@@ -549,7 +537,7 @@ print("Mittelwerte der Abstandsänderung nach Team und Kraft:", distance_means_b
 print() # leere Zeile
 
 # Standardfehler der Teams nach Kraft
-distance_stderrors_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(hooke['Abstandsänderung'].groupby(by = [hooke['Team'], hooke['Kraft']]).size()))
+distance_stderrors_by_team_and_force = hooke.groupby(by = [hooke['Team'], hooke['Kraft']], sort = False)['Abstandsänderung'].std(ddof = 1).div(np.sqrt(hooke['Abstandsänderung'].groupby(by = [hooke['Team'], hooke['Kraft']], sort = False).size()))
 distance_stderrors_by_team_and_force.name = 'Standardfehler'
 
 print("Standardfehler der Mittelwerte nach Team und Kraft", distance_stderrors_by_team_and_force.head(), sep = '\n')
@@ -571,8 +559,8 @@ for i in range(anzahl_teams):
   plt.ylabel("wirkende Kraft in N")
 
   # # Fehlerbalken
-  distance_means_by_force = plotting_data.groupby(by = plotting_data['Kraft'])['Abstandsänderung'].mean()
-  distance_stderrors_by_force = plotting_data.groupby(by = plotting_data['Kraft'])['Abstandsänderung'].std(ddof = 1).div(np.sqrt(plotting_data['Abstandsänderung'].groupby(by = plotting_data['Kraft']).size()))
+  distance_means_by_force = plotting_data.groupby(by = plotting_data['Kraft'], sort = False)['Abstandsänderung'].mean()
+  distance_stderrors_by_force = plotting_data.groupby(by = plotting_data['Kraft'], sort = False)['Abstandsänderung'].std(ddof = 1).div(np.sqrt(plotting_data['Abstandsänderung'].groupby(by = plotting_data['Kraft'], sort = False).size()))
 
   errorbar_container = plt.errorbar(x = distance_means_by_force, y = distance_means_by_force.index, xerr = distance_stderrors_by_force,
   linestyle = 'none', marker = 'x', color = 'black', markersize = 12, elinewidth = 3, ecolor = 'red', capsize = 12)
