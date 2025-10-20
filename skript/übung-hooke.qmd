@@ -71,7 +71,6 @@ Die verschiedenen Möglichkeiten sind mit zunehmend mehr Aufwand beim Programmie
 Das Einlesen der Dateien wird voraussichtlich der aufwändigste und fehleranfälligste Arbeitsschritt sein. Entwickeln Sie Ihre Lösung Schritt für Schritt. Beginnen Sie mit der Variante a). Wenn Sie die Dateien eingelesen haben, können Sie sich durch die Weiterentwicklung zur Variante b) mit dem Modul glob vertraut machen. Darauf aufbauend können Sie mit der Variante c) die Automatisierung für beliebig viele Dateien umsetzen.
 :::
 
-
 ::: {#tip-muster-dateien .callout-tip collapse="true"}
 ## Musterlösung Dateien einlesen
 Der erste Versuch, die Dateien einzulesen, scheitert mit einer Fehlermeldung. Die Anweisungen werden deshalb in die Struktur zur Ausnahmebehandlung eingebettet und die verursachende Datei abgefangen. (Sollten mehrere Dateien Fehler erzeugen, müssten die Dateien in einer Liste gespeichert und später - falls möglich - mit einer Schleife weiter behandelt werden.)
@@ -213,17 +212,25 @@ Im nächsten Schritt werden die Daten geprüft und ggf. bereinigt. Dies umfasst 
   - Normierung der Abstandsmessung auf den Nullpunkt und Umrechnung der verwendeten Einheiten in SI-Einheiten und
   - grafische Darstellung.
 
+::: {#wrn-globgroupby .callout-warning appearance="simple"}
+## glob, pd.groupby und SciPy
+Die Ausführung des folgenden Codes kann lokal unterschiedlich ausfallen, je nach dem, in welcher Reihenfolge die Dateien mit dem Modul glob eingelesen wurden. Im Folgenden werden aus einem groupby-Objekt Indexpositionen bestimmt, an denen eine Bedingung wahr ist. Mit diesen Indexpositionen wird dann auf den ursprünglichen DataFrame zugegriffen. Pandas sortiert die Gruppen im groupby-Objekt standardmäßig alphabetisch (`sort = True`). Wenn die mit glob eingelesenen Dateien nicht in alphabetischer Reihenfolge vorliegen, wird mit falschen Indexpositionen auf den DataFrame zugegriffen.
+
+Dem kann durch Sortieren des DataFrames nach den groupby-Kriterien begegnet werden oder, wie im Folgenden, durch das Argument `pd.groupby(by = Bedingung, sort = False)`. Letztere Variante ist flexibler.
+
+Auch gibt `scipy.stats.zscore()` je nach Version eine `pd.Series` oder ein `np.array` zurück. Dementsprechend sind die Methoden aus Pandas oder NumPy zu verwenden.
+
+:::
+
 1. **Liegen ungültige Messungen vor?**
 
 ### Auf Ausreißer prüfen
 Auf Ausreißer kann (unter anderem) mit studentisierten z-Werten und grafisch geprüft werden.
 
-**Debugging: Der Index der studentisierten z-Werte mit Betrag ≥ 2.5 wird korrekt ermittelt.**
-
 ::: {.panel-tabset}
 
 ## Ausreißer bestimmen
-1. Anzahl der Ausreißer bestimmen und Position ausgeben. *Hinweis: SciPy gibt in manchen Versionen `pd.Series` zurück, in anderen ein `np.array`. Dementsprechend sind die Methoden aus Pandas oder NumPy zu verwenden.
+1. Anzahl der Ausreißer bestimmen und Position ausgeben.
 ```{python}
 # z-Werte größer gleich abs(3) finden
 ## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
@@ -257,21 +264,6 @@ print("\nAn diesen Indexpositionen liegen die Ausreißer:", np.nonzero(bool_inde
 
 2. Ausgabe der Zeilen aus den Messreihen
 ```{python}
-
-
-print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
-print("numpy version:", np.version.version)
-print("pandas version:", pd.__version__)
-print("scipy version:", scipy.version.version)
-import sys
-print("python version (glob unterstützt .__version__ nicht):", sys.version)
-print('bool_index[175:180]:', bool_index[175:180], "\n")
-print(np.nonzero(bool_index))
-print('mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)')
-print('Online ohne Versionsangabe gibt GitHub beim folgenden Befehl dann die Zeilen 79, 84, 99 und 180 aus.')
-print('Online mit Versionsangabe für numpy und pandas gibt GitHub beim folgenden Befehl dann die korrekten Zeilen 76,  91,  96, 177 aus. Das Team wird aber falsch zugeordnet, nämlich 3 mal fabi (76,  91,  96) und 1 mal die_ahnungslosen (177), obwohl es umgekehrt sein müsste.')
-print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
-
 # Auswahl der Zeilen mit den z-Werten größer gleich 2.5
 z_values_ge_25 = hooke.iloc[bool_index , :] # --> Hier muss das Problem liegen
 print(z_values_ge_25, "\n")
@@ -279,11 +271,6 @@ print(z_values_ge_25, "\n")
 # Kombinationen aus Gewicht & Team bestimmen
 print("Kombinationen aus Gewicht & Team bestimmen")
 teams = z_values_ge_25['Team'].unique()
-
-print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
-print(teams)
-print("mein lokales Ergebnis: ['die_ahnungslosen' 'fabi']")
-print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
 
 ## teams durchlaufen und jeweils die Gewichte speichern
 team_gewichte = [] # leere liste
@@ -297,83 +284,8 @@ for i in range(len(teams)):
 ```
 
 ## Gemeinsame Ausgabe der Messreihen
+Diese Ausgabe dient der Veranschaulichung und Kontrolle.
 ```{python}
-#| echo: false
-
-# Messreihen auswählen
-messreihen = pd.DataFrame()
-for i in range(len(teams)):
-  for j in range(len(team_gewichte[i])):
-
-    print(teams[i], team_gewichte[i][j])
-
-    messreihen = pd.concat([messreihen, hooke.loc[ (hooke['Team'] == teams[i]) & (hooke['Gewicht'] == team_gewichte[i][j]) ]])
-
-# studentisierte z-Werte der Messreihen bilden
-## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
-## messreihen_z_scores = messreihen.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True)
-
-## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-## Rückgabe zeilenweise in ein eindimensionales Array überführen: 
-messreihen_z_scores = np.hstack(messreihen.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).reset_index(drop = True))
-
-# gemeinsame Ausgabe der Daten
-## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
-## messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores.values)
-
-## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-messreihen.insert(loc = 2, column = 'z-Werte Abstand', value = messreihen_z_scores)
-print(messreihen)
-```
-
-## Code
-```{python}
-#| output: false
-
-# z-Werte größer gleich abs(3) finden
-## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
-## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()
-
-## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 3)).apply(sum).sum()
-
-print("Anzahl der studentisierten z-Werte mit Betrag ≥ 3:", z_values_ge3_sum, "\n")
-
-# z-Werte größer gleich abs(2.5) finden
-## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
-## z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).sum()
-
-## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-z_values_ge25_sum = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).apply(sum).sum()
-print("Anzahl der studentisierten z-Werte mit Betrag ≥ 2.5:", z_values_ge25_sum)
-
-# Die Zeilen mit z-Werten größer abs(2.5) ausgeben
-## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)
-## bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(2.5).values
-
-## Lösung für SciPy 1.15 und neuer (gibt np.array zurück)
-### Schritt 1: Wahrheitswerte abgreifen
-bool_index = hooke.groupby(by = ['Team', 'Gewicht'], sort = False)['Abstand'].apply(scipy.stats.zscore, ddof = 1).apply(np.abs).apply(lambda x: np.greater_equal(x, 2.5)).values
-### Schritt 2: Rückgabe zeilenweise in ein eindimensionales Array überführen: 
-bool_index = np.hstack(bool_index)
-
-z_values_ge_25 = hooke.iloc[bool_index , :]
-print(z_values_ge_25, "\n")
-
-# Kombinationen aus Gewicht & Team bestimmen
-print("Kombinationen aus Gewicht & Team bestimmen")
-teams = z_values_ge_25['Team'].unique()
-
-## teams durchlaufen und jeweils die Gewichte speichern
-team_gewichte = [] # leere liste
-for i in range(len(teams)):
-  print(teams[i])
-  print(z_values_ge_25.loc[z_values_ge_25['Team'] == teams[i], 'Gewicht'], "\n")
-  team_gewichte.append(z_values_ge_25.loc[z_values_ge_25['Team'] == teams[i], 'Gewicht'].values)
-
-# print("Als Liste von arrays:")
-# print(team_gewichte, "\n")
-
 # Messreihen auswählen
 messreihen = pd.DataFrame()
 for i in range(len(teams)):
