@@ -256,6 +256,8 @@ print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
 print("numpy version:", np.version.version)
 print("pandas version:", pd.__version__)
 print("scipy version:", scipy.version.version)
+import sys
+print("python version (glob unterstützt .__version__ nicht):", sys.version)
 print('bool_index[175:180]:', bool_index[175:180], "\n")
 print(np.nonzero(bool_index))
 print('mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)')
