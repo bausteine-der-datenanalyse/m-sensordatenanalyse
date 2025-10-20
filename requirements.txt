@@ -2,4 +2,4 @@ jupyter
 numpy==2.2.4
 pandas==2.2.3
 matplotlib
-scipy
+scipy==1.16.2

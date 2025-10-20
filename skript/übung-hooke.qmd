@@ -253,11 +253,15 @@ bool_index = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(scipy.stat
 bool_index = np.hstack(bool_index)
 
 print('\n', 15 * '*', '\n Beginn DEBUGGING\n', 15 * '*', '\n')
+print("numpy version:", np.version.version)
+print("pandas version:", pd.__version__)
+print("scipy version:", scipy.version.version)
 print('bool_index[175:180]:', bool_index[175:180], "\n")
 print(np.nonzero(bool_index))
 print('mein lokales Ergebnis: (array([ 76,  91,  96, 177]),)')
 print('177 passt nicht zur 178 weiter unten. 178 ist aber der korrekte Index')
-print('Online gibt er beim folgenden Befehl dann die Zeilen 79, 84, 99 und 180 aus.')
+print('Online ohne Versionsangabe gibt GitHub beim folgenden Befehl dann die Zeilen 79, 84, 99 und 180 aus.')
+print('Online mit Versionsangabe für numpy und pandas gibt GitHub beim folgenden Befehl dann die korrekten Zeilen 76,  91,  96, 177 aus. Das Team wird aber falsch zugeordnet, nämlich 3 mal fabi (76,  91,  96) und 1 mal die_ahnungslosen (177), obwohl es umgekehrt sein müsste.')
 print('\n', 15 * '*', '\n Ende DEBUGGING\n', 15 * '*', '\n')
 
 # HIER PASST DER INDEX DANN NICHT MEHR
