@@ -93,7 +93,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-41b50336b84d19d21e4f3e93c35ff765.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-9045c895c01285b236c5d84ecfc503a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -340,12 +340,12 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="e334deb6" class="cell" data-execution_count="2">
+<div id="592eae2b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dateipfad_belowzero <span class="op">=</span> <span class="st">'01-daten/pt100-table-below-zero.csv'</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dateipfad_abovezero <span class="op">=</span> <span class="st">'01-daten/pt100-table-above-zero.csv'</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dateien einlesen und betrachten. Zunächst die Datei mit Temperaturen unter 0 Grad Celsius.</p>
-<div id="df71cf74" class="cell" data-execution_count="3">
+<div id="f2b56065" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belowzero</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>belowzero <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad_belowzero, sep <span class="op">=</span> <span class="st">','</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -383,7 +383,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 <p>Es gibt 201 Werte (von -200 bis 0). Die Daten beginnen in der Zeile mit dem Index 1 (wenn die erste Zeile als header eingelesen wird). Diese enthält nur einen Eintrag in der Spalte ‘0’. Die folgenden Zeilen sind von rechts nach links einzulesen. Das Dezimaltrennzeichen ist das <code>,</code>.</p>
 <p>Das Einlesen der Daten von rechts nach links kann auf viele Arten bewerkstelligt werden. Eine einzeilige Lösung beginnt damit, der Methode <code>pd.iloc[::-1]</code> eine negative Schrittweite zu übergeben.</p>
-<div id="52dfa9b6" class="cell" data-execution_count="4">
+<div id="7e8ad4ef" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(np.array([[<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>], [<span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>]]))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.iloc[::<span class="op">-</span><span class="dv">1</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -398,7 +398,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 </div>
 <p>Das führt dazu, dass die <em>Zeilen</em> des DataFrame in umgekehrter Reihenfolge ausgegeben werden. Um die <em>Spalten</em> in umgekehrter Reihenfolge auszugeben, wird der DataFrame mit der Methode <code>pd.T</code> zwei mal transponiert.</p>
-<div id="08a4cff2" class="cell" data-execution_count="5">
+<div id="04e8f953" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.T.iloc[::<span class="op">-</span><span class="dv">1</span>].T)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2  1  0
@@ -407,7 +407,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 </div>
 <p>Mit der NumPy-Methode <code>np.flatten()</code> kann ein Array in eine eindimensionale Struktur reduziert werden. Dafür wird mit der Methode <code>pd.to_numpy()</code> der DataFrame als NumPy-Array ausgegeben.</p>
-<div id="59423b78" class="cell" data-execution_count="6">
+<div id="29e7b1cf" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.T.iloc[::<span class="op">-</span><span class="dv">1</span>].T.to_numpy())</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>() <span class="co"># leere Zeile</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.T.iloc[::<span class="op">-</span><span class="dv">1</span>].T.to_numpy().flatten())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -419,7 +419,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 </div>
 <p>Versuchen wir es mit dem Kopf der Pt100-Daten.</p>
-<div id="c849a7d1" class="cell" data-execution_count="7">
+<div id="b40fc40c" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>belowzero <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad_belowzero, sep <span class="op">=</span> <span class="st">','</span>, decimal <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, skiprows <span class="op">=</span> <span class="dv">1</span>, index_col <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(belowzero.head())</span>
@@ -441,7 +441,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 </div>
 <p>Um die fehlenden Werte zu überspringen, wandeln wir das bisherige Ergebnis wieder in eine <code>pd.Series()</code> und verwenden die Methode <code>pd.Series.dropna()</code>.</p>
-<div id="6b06e99b" class="cell" data-execution_count="8">
+<div id="20dec391" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pd.Series(belowzero.head().T.iloc[::<span class="op">-</span><span class="dv">1</span>].T.to_numpy().flatten()).dropna()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>9     18.52
@@ -489,7 +489,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Und jetzt für die gesamte Datei:</p>
-<div id="5a7d3f45" class="cell" data-execution_count="9">
+<div id="f933d251" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>belowzero_ohm <span class="op">=</span> pd.Series(belowzero.T.iloc[::<span class="op">-</span><span class="dv">1</span>].T.to_numpy().flatten()).dropna()</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(belowzero_ohm.head(), belowzero_ohm.tail(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -508,7 +508,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Die Temperatur können wir einfach durch ein range-Objekt erzeugen:</p>
-<div id="069a1e41" class="cell" data-execution_count="10">
+<div id="ae11cf0a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>belowzero_temperatur <span class="op">=</span> pd.Series(<span class="bu">range</span>(<span class="op">-</span><span class="dv">200</span>, <span class="dv">1</span>)) <span class="co"># range stop ist exlusiv</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(belowzero_temperatur.head(), belowzero_temperatur.tail(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -527,7 +527,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Für die Temperaturen oberhalb von 0 Grad kann das Vorgehen vereinfacht werden, da die Datei gleich aufgebaut ist und die Werte aufsteigend sortiert sind.</p>
-<div id="fb99d2cd" class="cell" data-execution_count="11">
+<div id="a2eb89fb" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>abovezero <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad_abovezero, sep <span class="op">=</span> <span class="st">','</span>, decimal <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, skiprows <span class="op">=</span> <span class="dv">1</span>, index_col <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>abovezero_ohm <span class="op">=</span> pd.Series(abovezero.to_numpy().flatten()).dropna()</span>
@@ -548,7 +548,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Beide Datensätze enthalten einen Eintrag für die Temperatur 0 Grad, sodass dieser in der zweiten Datei entfernt werden kann.</p>
-<div id="18df4198" class="cell" data-execution_count="12">
+<div id="71985059" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>abovezero_ohm <span class="op">=</span> abovezero_ohm[<span class="dv">1</span>:]</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(abovezero_ohm.head(), abovezero_ohm.tail(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -567,11 +567,11 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Die Temperatur wird wieder durch ein range-Objekt erzeugt.</p>
-<div id="ab1a9281" class="cell" data-execution_count="13">
+<div id="19c3d478" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>abovezero_temperatur <span class="op">=</span> pd.Series(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">851</span>)) <span class="co"># range stop ist exlusiv</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Die aus beiden Datensätzen erzeugten Series können zusammengefasst werden:</p>
-<div id="46beae44" class="cell" data-execution_count="14">
+<div id="6abf6c08" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pt100 <span class="op">=</span> pd.DataFrame({<span class="st">'Temperatur'</span>: pd.concat([belowzero_temperatur, abovezero_temperatur], ignore_index <span class="op">=</span> <span class="va">True</span>), <span class="st">'Ohm'</span>: pd.concat([belowzero_ohm, abovezero_ohm], ignore_index <span class="op">=</span> <span class="va">True</span>)})</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pt100.head(), pt100.tail(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -608,7 +608,7 @@ None</code></pre>
 <section id="nicht-linearität-darstellen" class="level3">
 <h3 class="anchored" data-anchor-id="nicht-linearität-darstellen">Nicht-Linearität darstellen</h3>
 <p>Mit den Daten aus <a href="#tip-pt100" class="quarto-xref">Tipp&nbsp;<span>6.1</span></a> kann die Nicht-Linearität des Sensors dargestellt werden.</p>
-<div id="f25d4519" class="cell" data-execution_count="15">
+<div id="4e918475" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.plot(pt100[<span class="st">'Temperatur'</span>], pt100[<span class="st">'Ohm'</span>], marker <span class="op">=</span> <span class="st">'o'</span>, linestyle <span class="op">=</span> <span class="st">''</span>, label <span class="op">=</span> <span class="st">'elektrischer Widerstand'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.plot([pt100[<span class="st">'Temperatur'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Temperatur'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]], [pt100[<span class="st">'Ohm'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Ohm'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]], linewidth <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">'Referenzlinie'</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.yticks(pt100[<span class="st">'Ohm'</span>][::<span class="dv">50</span>])<span class="op">;</span></span>
@@ -629,7 +629,7 @@ None</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Es fällt auf, dass die Daten einen Fehlwert enthalten. Die Position des Fehlwerts wird mit zwei Pandas-Methoden bestimmt. <code>pd.diff()</code> gibt die Differenz jedes Werts zu seinem Vorgänger zurück. <code>pd.idxmin()</code> gibt den Zeilenindex (genauer das label) des kleinsten Werts zurück. (Läge der Fehlwert oberhalb der Linie, würde <code>pd.idxmax()</code> verwendet werden.)</p>
-<div id="8ac2dfc1" class="cell" data-execution_count="16">
+<div id="475f5911" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(( position_fehlwert <span class="op">:=</span> pt100[<span class="st">'Ohm'</span>].diff().idxmin() )) <span class="co"># := ist der sog. Walross-Operator</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pt100.iloc[<span class="bu">list</span>(<span class="bu">range</span>(position_fehlwert <span class="op">-</span> <span class="dv">2</span>, position_fehlwert <span class="op">+</span> <span class="dv">3</span>))])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -656,7 +656,7 @@ Beispiel&nbsp;6.2: Interpolation
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die einfachste Form der Interpolation ist die lineare Interpolation.</p>
-<div id="2659512f" class="cell" data-execution_count="17">
+<div id="5f4fe13e" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>interpolate_me <span class="op">=</span> pt100.loc[position_fehlwert <span class="op">-</span> <span class="dv">1</span> : position_fehlwert <span class="op">+</span> <span class="dv">1</span>, <span class="st">'Ohm'</span>].copy()</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>interpolate_me[position_fehlwert] <span class="op">=</span> np.nan</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(interpolate_me)</span>
@@ -675,7 +675,7 @@ Name: Ohm, dtype: float64</code></pre>
 </div>
 </div>
 <p>Durch Runden wird das korrekte Ergebnis erreicht (darauf verlassen sollte man sich aber nicht).</p>
-<div id="027e05f0" class="cell" data-execution_count="18">
+<div id="92e8ad39" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"linear interpolierter Wert:"</span>, interpolate_me.interpolate().<span class="bu">round</span>(<span class="dv">2</span>), sep <span class="op">=</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>korrekter_wert <span class="op">=</span> interpolate_me.interpolate().<span class="bu">round</span>(<span class="dv">2</span>)[position_fehlwert]</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -700,7 +700,7 @@ Beispiel&nbsp;6.1: Nicht-lineare Interpolation
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die nicht-lineare Interpolation benötigt mehr Datenpunkte. Wir versuchen die kubische Interpolation:</p>
-<div id="370d6162" class="cell" data-execution_count="19">
+<div id="56cc357f" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>interpolate_me_again <span class="op">=</span> pt100.loc[position_fehlwert <span class="op">-</span> <span class="dv">3</span> : position_fehlwert <span class="op">+</span> <span class="dv">4</span>, <span class="st">'Ohm'</span>].copy()</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>interpolate_me_again[position_fehlwert] <span class="op">=</span> np.nan</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"polynomial interpolierter Wert:"</span>, interpolate_me_again.interpolate(method <span class="op">=</span> <span class="st">'polynomial'</span>, order <span class="op">=</span> <span class="dv">3</span>), sep <span class="op">=</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -725,7 +725,7 @@ Name: Ohm, dtype: float64</code></pre>
 </div>
 </div>
 <p>Der Fehlwert (dessen Position in obigem Beispiel bestimmt wird) wird korrigiert:</p>
-<div id="f21ffe7e" class="cell" data-execution_count="20">
+<div id="413bace0" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>pt100.loc[position_fehlwert, <span class="st">'Ohm'</span>] <span class="op">=</span> korrekter_wert</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pt100.loc[position_fehlwert <span class="op">-</span> <span class="dv">1</span> : position_fehlwert <span class="op">+</span> <span class="dv">1</span>, <span class="st">'Ohm'</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -736,7 +736,7 @@ Name: Ohm, dtype: float64</code></pre>
 </div>
 </div>
 <p>Sodann kann die Nichtlinearität erneut dargestellt werden:</p>
-<div id="9b48cbeb" class="cell" data-execution_count="21">
+<div id="d6f78156" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>plt.plot(pt100[<span class="st">'Temperatur'</span>], pt100[<span class="st">'Ohm'</span>], marker <span class="op">=</span> <span class="st">'o'</span>, linestyle <span class="op">=</span> <span class="st">''</span>, label <span class="op">=</span> <span class="st">'elektrischer Widerstand'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>plt.plot([pt100[<span class="st">'Temperatur'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Temperatur'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]], [pt100[<span class="st">'Ohm'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Ohm'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]], linewidth <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">'Referenzlinie'</span>)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>plt.yticks(pt100[<span class="st">'Ohm'</span>][::<span class="dv">50</span>])<span class="op">;</span></span>
@@ -773,7 +773,7 @@ Definition&nbsp;6.1: Festpunktmethode
 </div>
 </div>
 <p>Dazu bestimmen wir zunächst die Vorhersagewerte einer Geraden durch die Endpunkte.</p>
-<div id="88e6298d" class="cell" data-execution_count="22">
+<div id="8e9f99b3" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> [pt100[<span class="st">'Temperatur'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Temperatur'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]],</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> [pt100[<span class="st">'Ohm'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Ohm'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]],</span>
@@ -805,7 +805,7 @@ Definition&nbsp;6.1: Festpunktmethode
 </div>
 <p>&nbsp;</p>
 <p>Aus der Differenz des gemessenen elektrischen Widerstands und der linearen Vorhersagewerte kann der maximale Linearitätsfehler bestimmt werden.</p>
-<div id="63228194" class="cell" data-execution_count="23">
+<div id="85d0acf6" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>linearitätsfehler <span class="op">=</span> (pt100[<span class="st">'Ohm'</span>] <span class="op">-</span> vorhersagewerte).<span class="bu">abs</span>().<span class="bu">max</span>()</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Linearitätsfehler nach Festpunktmethode: </span><span class="sc">{</span>linearit<span class="sc">ä</span>tsfehler<span class="sc">:.2f}</span><span class="ss"> Ohm."</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -826,7 +826,7 @@ Definition&nbsp;6.2: Toleranzbandmethode
 </div>
 </div>
 <p>Das Prinzip der Methode der kleinsten Quadrate haben wir bereits kennengelernt.</p>
-<div id="be0bc0a4" class="cell" data-execution_count="24">
+<div id="4fe889ce" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> pt100[<span class="st">'Temperatur'</span>],</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> pt100[<span class="st">'Ohm'</span>],</span>
@@ -858,7 +858,7 @@ Definition&nbsp;6.2: Toleranzbandmethode
 </div>
 <p>&nbsp;</p>
 <p>Aus der Differenz des gemessenen elektrischen Widerstands und der linearen Vorhersagewerte kann der maximale Linearitätsfehler (= das größte Residuum) bestimmt werden.</p>
-<div id="b83986d5" class="cell" data-execution_count="25">
+<div id="236997e7" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>linearitätsfehler <span class="op">=</span> (pt100[<span class="st">'Ohm'</span>] <span class="op">-</span> vorhersagewerte).<span class="bu">abs</span>().<span class="bu">max</span>()</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Linearitätsfehler nach Toleranzbandmethode: </span><span class="sc">{</span>linearit<span class="sc">ä</span>tsfehler<span class="sc">:.2f}</span><span class="ss"> Ohm."</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
