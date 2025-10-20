@@ -283,7 +283,7 @@ window.Quarto = {
 <h2 data-number="5.1" class="anchored" data-anchor-id="sec-dateien-einlesen"><span class="header-section-number">5.1</span> Dateien einlesen</h2>
 <p>Für das Einlesen der Dateien können Sie das Modul glob verwenden (siehe <a href="https://bausteine-der-datenanalyse.github.io/m-sensordatenanalyse/output/book/">Methodenbaustein Einlesen strukturierter Datensätze</a>).</p>
 <p>Zunächst kann der Funktion <code>glob.glob()</code> das Argument <code>pathname = *</code> übergeben werden. Der Platzhalter <code>*</code> steht für eine beliebige Zeichenfolge (außer Dateipfadelemente wie <code>/</code> oder <code>.</code>), sodass die Namen aller im angegebenen Ordner gespeicherten Dateien ausgelesen werden. Auf diese Weise kann die Anzahl der Dateien und die Dateiendung bestimmt werden, falls dies noch unbekannt ist.</p>
-<div id="92d8cb8f" class="cell" data-execution_count="2">
+<div id="238f4d94" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ordnerpfad <span class="op">=</span> <span class="st">'01-daten/hooke'</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pfadliste <span class="op">=</span> glob.glob(pathname <span class="op">=</span> <span class="st">'*'</span>, root_dir <span class="op">=</span> ordnerpfad, recursive <span class="op">=</span> <span class="va">False</span>)</span>
@@ -295,7 +295,7 @@ Anzahl Dateien: 4</code></pre>
 </div>
 </div>
 <p>Mit den Dateipfaden können die Dateien mit Hilfe einer Schleife in eine Liste eingelesen werden. Zunächst werden nur die jeweils ersten 3 Zeilen eingelesen, um einen Eindruck vom Aufbau der Dateien zu erhalten.</p>
-<div id="dbb6021f" class="cell" data-execution_count="3">
+<div id="9003e4a3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pfad <span class="kw">in</span> pfadliste:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  zwischenspeicher <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> ordnerpfad <span class="op">+</span> <span class="st">'/'</span> <span class="op">+</span> pfad, nrows <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(pfad, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, zwischenspeicher, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -371,7 +371,7 @@ Tipp&nbsp;5.2: Musterlösung Dateien einlesen
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Der erste Versuch, die Dateien einzulesen, scheitert mit einer Fehlermeldung. Die Anweisungen werden deshalb in die Struktur zur Ausnahmebehandlung eingebettet und die verursachende Datei abgefangen. (Sollten mehrere Dateien Fehler erzeugen, müssten die Dateien in einer Liste gespeichert und später - falls möglich - mit einer Schleife weiter behandelt werden.)</p>
-<div id="317c71c1" class="cell" data-execution_count="4">
+<div id="cb7bf103" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hooke <span class="op">=</span> pd.DataFrame(columns <span class="op">=</span> [<span class="st">'Zeit'</span>, <span class="st">'Abstand'</span>, <span class="st">'Gewicht'</span>, <span class="st">'Team'</span>]) <span class="co"># ein leerer DataFrame</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pfad <span class="kw">in</span> pfadliste:</span>
@@ -413,7 +413,7 @@ Erfolgreich einglesen:
 </div>
 </div>
 <p>Der Fehlermeldung zufolge besteht Zeile 135 aus 4 statt aus 3 Spalten. Die fehlerverursachende Datei wird deshalb zeilenweise durchlaufen und jede Zeile ausgegeben, die mehr als 3 Einträge hat. Zur Kontrolle werden auch die ersten 5 Zeilen ausgegeben.</p>
-<div id="e58f2291" class="cell" data-execution_count="5">
+<div id="a03407df" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># einen leeren DataFrame mit 3 Spalten erstellen</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> [], columns <span class="op">=</span> [<span class="st">'Zeit'</span>, <span class="st">'Abstand'</span>, <span class="st">'Gewicht'</span>])</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -450,7 +450,7 @@ Index = 134 : ['10:29:27', '105.49 cm', '300', '\n']</code></pre>
 </div>
 <p>Jede zweite Zeile ist leer. In Zeile 134 wird ein Zeilenumbruch ‘\n’ eingelesen. Die Datei wird deshalb mit einer angepassten Schleife erneut durchlaufen. Aus der betreffenden Zeile wird der zusätzliche Zeilenumbruch ‘\n’ entfernt. Leere Zeilen werden übersprungen. Die korrekten Zeilen werden an den DataFrame hooke angefügt.</p>
 <p><strong>Debugging: hier wird das Team ma überschrungen, dafür die Zeilen den kreativköpfen zugewiesen</strong></p>
-<div id="854d9bdf" class="cell" data-execution_count="6">
+<div id="28f74e10" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dateiobjekt_problem_datei <span class="op">=</span> <span class="bu">open</span>(<span class="bu">file</span> <span class="op">=</span> ordnerpfad <span class="op">+</span> <span class="st">'/'</span> <span class="op">+</span> pfad_problem_datei, mode <span class="op">=</span> <span class="st">'r'</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Beginn DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
@@ -470,23 +470,18 @@ Index = 134 : ['10:29:27', '105.49 cm', '300', '\n']</code></pre>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="bu">len</span>(zwischenspeicher) <span class="op">&lt;</span> <span class="dv">3</span>: <span class="co"># leere Zeilen überspringen</span></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>      <span class="cf">continue</span></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Teamnamen als 4. Spalte anfügen</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Beginn DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Was tut das hier: pfad[5:-4]?"</span>, pfad[<span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]) </span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Müsste es nicht heißen: pfad_problem_datei[5:-4]?"</span>, pfad_problem_datei[<span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]) </span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">## HIER KÖNNTE DER FEHLER LIEGEN, WEIL WO WIRD PFAD ABGEGRIFFEN?</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st"> Ende DEBUGGING</span><span class="ch">\n</span><span class="st">'</span>, <span class="dv">15</span> <span class="op">*</span> <span class="st">'*'</span>, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    zwischenspeicher.append(pfad[<span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>])</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    hooke.loc[<span class="bu">len</span>(hooke)] <span class="op">=</span> pd.Series(zwischenspeicher).values</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> error:</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(error)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(pd.Series(zwischenspeicher).values)</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>dateiobjekt_problem_datei.close()</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Erfolgreich einglesen:</span><span class="ch">\n</span><span class="st">"</span>, hooke[<span class="st">'Team'</span>].unique(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.info())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    zwischenspeicher.append(pfad_problem_datei[<span class="dv">5</span>:<span class="op">-</span><span class="dv">4</span>]) <span class="co"># 'team_' und die Dateiendung abschneiden </span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    hooke.loc[<span class="bu">len</span>(hooke)] <span class="op">=</span> pd.Series(zwischenspeicher).values</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> error:</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(error)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(pd.Series(zwischenspeicher).values)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>dateiobjekt_problem_datei.close()</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Erfolgreich einglesen:</span><span class="ch">\n</span><span class="st">"</span>, hooke[<span class="st">'Team'</span>].unique(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, sep <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.info())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  *************** 
@@ -503,2144 +498,8 @@ Enkodierung: UTF-8
  Ende DEBUGGING
  *************** 
 
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
-
- *************** 
- Beginn DEBUGGING
- *************** 
-
-Was tut das hier: pfad[5:-4]? kreativkoepfe
-Müsste es nicht heißen: pfad_problem_datei[5:-4]? ma
-
- *************** 
- Ende DEBUGGING
- *************** 
-
 Erfolgreich einglesen:
-['fabi' 'die_ahnungslosen' 'kreativkoepfe']
+['fabi' 'die_ahnungslosen' 'kreativkoepfe' 'ma']
 
 &lt;class 'pandas.core.frame.DataFrame'&gt;
 Index: 537 entries, 0 to 536
@@ -2657,7 +516,7 @@ None</code></pre>
 </div>
 </div>
 <p>Anschließend werden zum einen die Zeilen mit Nullwerten betrachtet …</p>
-<div id="a6011f8e" class="cell" data-execution_count="7">
+<div id="304937e8" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.loc[hooke.<span class="bu">apply</span>(pd.isna).<span class="bu">any</span>(axis <span class="op">=</span> <span class="dv">1</span>), :])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Zeit Abstand Gewicht              Team
@@ -2668,7 +527,7 @@ None</code></pre>
 </div>
 </div>
 <p>… und entfernt.</p>
-<div id="ca805598" class="cell" data-execution_count="8">
+<div id="b8cb46de" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(np.where(hooke.<span class="bu">apply</span>(pd.isna).<span class="bu">any</span>(axis <span class="op">=</span> <span class="dv">1</span>))[<span class="dv">0</span>], inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Zum anderen werden die Datentypen kontrolliert.</p>
@@ -2679,11 +538,11 @@ None</code></pre>
 <li>Der Spalte Team könnte der <a href="https://pandas.pydata.org/docs/user_guide/categorical.html">Pandas Datentyp category</a> zugewiesen werden, notwendig ist es aber nicht.</li>
 </ul>
 <p>String ’ cm’ entfernen.</p>
-<div id="65b80af9" class="cell" data-execution_count="9">
+<div id="297cd4b3" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hooke.replace(<span class="st">' cm'</span>, <span class="st">''</span>, regex <span class="op">=</span> <span class="va">True</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ob alle Elemente einer Zelle numerisch sind, kann mit der Pandas-Methode <code>pd.Series.str.isnumeric()</code> überprüft werden. Ein Blick auf die Daten zeigt die Ursache.</p>
-<div id="7175f069" class="cell" data-execution_count="10">
+<div id="4d846750" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">sum</span>())</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].head())</span>
@@ -2705,7 +564,7 @@ Name: Gewicht, dtype: object</code></pre>
 </div>
 </div>
 <p>Die Zeilenumbrüche werden ebenfalls entfernt.</p>
-<div id="d2d77331" class="cell" data-execution_count="11">
+<div id="89959fbc" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>hooke.replace(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>, <span class="st">''</span>, regex <span class="op">=</span> <span class="va">True</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">sum</span>())</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke[<span class="st">'Gewicht'</span>].tail())</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2719,7 +578,7 @@ Name: Gewicht, dtype: object</code></pre>
 Name: Gewicht, dtype: object</code></pre>
 </div>
 </div>
-<div id="64a40538" class="cell" data-execution_count="12">
+<div id="ebda4b57" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke.info(), <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># explizite Zuweisung</span></span>
@@ -2759,7 +618,7 @@ None</code></pre>
 </div>
 </div>
 <p>Das Ergebnis könnte so aussehen:</p>
-<div id="8d1e3a61" class="cell" data-execution_count="13">
+<div id="90d4e1de" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
@@ -3016,136 +875,269 @@ None</code></pre>
 <td>98.15</td>
 </tr>
 <tr class="odd">
-<td rowspan="18" data-quarto-table-cell-role="th" data-valign="top">kreativkoepfe</td>
+<td rowspan="12" data-quarto-table-cell-role="th" data-valign="top">kreativkoepfe</td>
 <td data-quarto-table-cell-role="th">0.0</td>
-<td>19.0</td>
-<td>109.456316</td>
-<td>0.219778</td>
-<td>109.18</td>
-<td>109.2600</td>
-<td>109.310</td>
+<td>9.0</td>
+<td>109.676667</td>
+<td>0.053619</td>
+<td>109.62</td>
 <td>109.6400</td>
+<td>109.640</td>
+<td>109.7300</td>
 <td>109.74</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">50.0</td>
-<td>18.0</td>
-<td>107.791667</td>
-<td>1.526192</td>
-<td>105.83</td>
-<td>106.1625</td>
-<td>108.215</td>
-<td>108.7325</td>
-<td>110.81</td>
+<td>8.0</td>
+<td>108.557500</td>
+<td>0.489949</td>
+<td>107.84</td>
+<td>108.2325</td>
+<td>108.495</td>
+<td>108.8675</td>
+<td>109.33</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">100.0</td>
-<td>20.0</td>
-<td>104.597000</td>
-<td>3.332881</td>
-<td>99.37</td>
-<td>101.2750</td>
-<td>106.340</td>
-<td>106.8575</td>
+<td>10.0</td>
+<td>107.093000</td>
+<td>0.922726</td>
+<td>106.30</td>
+<td>106.3800</td>
+<td>106.875</td>
+<td>107.2700</td>
 <td>109.11</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">150.0</td>
-<td>21.0</td>
-<td>106.312381</td>
-<td>3.387561</td>
+<td>10.0</td>
+<td>105.934000</td>
+<td>0.599967</td>
+<td>104.87</td>
+<td>105.6125</td>
+<td>106.020</td>
+<td>106.3075</td>
+<td>106.84</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">200.0</td>
+<td>10.0</td>
+<td>105.453000</td>
+<td>1.618278</td>
+<td>103.52</td>
+<td>104.0750</td>
+<td>105.035</td>
+<td>106.7700</td>
+<td>108.27</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">250.0</td>
+<td>10.0</td>
+<td>102.527000</td>
+<td>0.796228</td>
+<td>101.10</td>
+<td>102.1700</td>
+<td>102.410</td>
+<td>102.7625</td>
+<td>103.89</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">300.0</td>
+<td>10.0</td>
+<td>101.236000</td>
+<td>0.702095</td>
 <td>100.29</td>
-<td>105.2300</td>
-<td>106.300</td>
-<td>109.7300</td>
+<td>100.7625</td>
+<td>101.010</td>
+<td>101.8350</td>
+<td>102.45</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">350.0</td>
+<td>10.0</td>
+<td>98.804000</td>
+<td>1.471629</td>
+<td>97.43</td>
+<td>97.5725</td>
+<td>98.155</td>
+<td>100.3600</td>
+<td>100.84</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">400.0</td>
+<td>9.0</td>
+<td>96.827778</td>
+<td>1.036783</td>
+<td>95.80</td>
+<td>95.8900</td>
+<td>96.900</td>
+<td>97.4100</td>
+<td>98.78</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">450.0</td>
+<td>9.0</td>
+<td>95.515556</td>
+<td>1.115954</td>
+<td>93.91</td>
+<td>94.6300</td>
+<td>95.750</td>
+<td>95.8300</td>
+<td>97.24</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">500.0</td>
+<td>8.0</td>
+<td>95.336250</td>
+<td>1.564298</td>
+<td>93.30</td>
+<td>94.4575</td>
+<td>95.140</td>
+<td>96.5625</td>
+<td>97.69</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">550.0</td>
+<td>9.0</td>
+<td>93.155556</td>
+<td>0.352956</td>
+<td>92.76</td>
+<td>92.8700</td>
+<td>92.950</td>
+<td>93.4000</td>
+<td>93.76</td>
+</tr>
+<tr class="odd">
+<td rowspan="18" data-quarto-table-cell-role="th" data-valign="top">ma</td>
+<td data-quarto-table-cell-role="th">0.0</td>
+<td>10.0</td>
+<td>109.258000</td>
+<td>0.042374</td>
+<td>109.18</td>
+<td>109.2600</td>
+<td>109.260</td>
+<td>109.2800</td>
+<td>109.31</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50.0</td>
+<td>10.0</td>
+<td>107.179000</td>
+<td>1.809588</td>
+<td>105.83</td>
+<td>106.0875</td>
+<td>106.185</td>
+<td>107.9575</td>
+<td>110.81</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">100.0</td>
+<td>10.0</td>
+<td>102.101000</td>
+<td>2.958804</td>
+<td>99.37</td>
+<td>99.6725</td>
+<td>101.120</td>
+<td>104.4825</td>
+<td>106.67</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">150.0</td>
+<td>11.0</td>
+<td>106.656364</td>
+<td>4.727985</td>
+<td>100.29</td>
+<td>100.9900</td>
+<td>109.730</td>
+<td>110.1600</td>
 <td>110.60</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">200.0</td>
-<td>19.0</td>
-<td>106.875789</td>
-<td>2.217750</td>
-<td>103.52</td>
-<td>105.0350</td>
-<td>106.930</td>
-<td>107.7800</td>
+<td>9.0</td>
+<td>108.456667</td>
+<td>1.666816</td>
+<td>106.74</td>
+<td>107.2900</td>
+<td>107.740</td>
+<td>110.1700</td>
 <td>111.06</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">250.0</td>
-<td>20.0</td>
-<td>104.729000</td>
-<td>2.416380</td>
-<td>101.10</td>
-<td>102.4300</td>
-<td>104.775</td>
-<td>107.5000</td>
+<td>10.0</td>
+<td>106.931000</td>
+<td>0.957838</td>
+<td>105.66</td>
+<td>105.9325</td>
+<td>107.540</td>
+<td>107.6975</td>
 <td>107.80</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">300.0</td>
-<td>20.0</td>
-<td>103.466000</td>
-<td>2.342227</td>
-<td>100.29</td>
-<td>101.1050</td>
-<td>103.955</td>
-<td>105.6475</td>
+<td>10.0</td>
+<td>105.696000</td>
+<td>0.194376</td>
+<td>105.46</td>
+<td>105.5075</td>
+<td>105.715</td>
+<td>105.8650</td>
 <td>105.94</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">350.0</td>
-<td>20.0</td>
-<td>101.821000</td>
-<td>3.277308</td>
-<td>97.43</td>
-<td>98.2025</td>
-<td>102.470</td>
-<td>104.6175</td>
+<td>10.0</td>
+<td>104.838000</td>
+<td>0.530949</td>
+<td>104.10</td>
+<td>104.5150</td>
+<td>104.685</td>
+<td>105.1475</td>
 <td>105.94</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">400.0</td>
-<td>19.0</td>
-<td>101.018421</td>
-<td>4.164486</td>
-<td>95.80</td>
-<td>97.0800</td>
-<td>104.310</td>
-<td>104.5500</td>
+<td>10.0</td>
+<td>104.790000</td>
+<td>0.602974</td>
+<td>104.31</td>
+<td>104.4775</td>
+<td>104.550</td>
+<td>104.6925</td>
 <td>106.09</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">450.0</td>
-<td>19.0</td>
-<td>100.253158</td>
-<td>4.689262</td>
-<td>93.91</td>
-<td>95.7750</td>
-<td>103.910</td>
-<td>104.5100</td>
+<td>10.0</td>
+<td>104.517000</td>
+<td>0.475513</td>
+<td>103.91</td>
+<td>104.2225</td>
+<td>104.510</td>
+<td>104.7125</td>
 <td>105.56</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">500.0</td>
-<td>18.0</td>
-<td>100.402778</td>
-<td>4.787777</td>
-<td>93.30</td>
-<td>95.6575</td>
-<td>103.790</td>
-<td>104.4500</td>
+<td>10.0</td>
+<td>104.456000</td>
+<td>0.569097</td>
+<td>103.65</td>
+<td>104.0925</td>
+<td>104.420</td>
+<td>104.6400</td>
 <td>105.71</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">550.0</td>
-<td>19.0</td>
-<td>98.338947</td>
-<td>5.089197</td>
-<td>92.76</td>
-<td>93.1650</td>
-<td>101.550</td>
-<td>103.0650</td>
+<td>10.0</td>
+<td>103.004000</td>
+<td>0.800475</td>
+<td>101.55</td>
+<td>102.7650</td>
+<td>103.065</td>
+<td>103.5000</td>
 <td>104.20</td>
 </tr>
 <tr class="odd">
@@ -3239,7 +1231,7 @@ None</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Ausreißer bestimmen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Gemeinsame Ausgabe der Messreihen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="cfea30dd" class="cell" data-execution_count="14">
+<div id="58101413" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-stdout">
 <pre><code>Anzahl der studentisierten z-Werte mit Betrag ≥ 3: 0 
 
@@ -3320,7 +1312,7 @@ Name: Gewicht, dtype: float64
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="153ce5bb" class="cell" data-execution_count="15">
+<div id="8e214b2f" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-stdout">
 <pre><code>fabi 353.0
 fabi 403.0
@@ -3388,7 +1380,7 @@ die_ahnungslosen 250.0
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div id="feb2ea68" class="cell" data-execution_count="16">
+<div id="601f99fc" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z-Werte größer gleich abs(3) finden</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Lösung für SciPy 1.14.1 (gibt pd.Series zurück)</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">## z_values_ge3_sum = hooke.groupby(by = ['Team', 'Gewicht'])['Abstand'].apply(lambda x: scipy.stats.zscore(x, ddof = 1)).abs().ge(3).sum()</span></span>
@@ -3462,7 +1454,7 @@ die_ahnungslosen 250.0
 </div>
 </div>
 <p>Die Werte können mit der Pandas-Methode <code>pd.plot()</code> mit wenig Aufwand dargestellt werden. Die Methode ist jedoch nicht so flexibel, wie das Paket matplotlib. So ist das Punktdiagramm (<code>kind = 'scatter'</code>) nur für DataFrames, nicht aber für groupby-Objekte verfügbar. Dies wird durch das Setzen eines Markers und die Einstellung der Liniendicke auf 0 kompensiert.</p>
-<div id="6fde26b5" class="cell" data-execution_count="17">
+<div id="9078db15" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>messreihen.reset_index(drop <span class="op">=</span> <span class="va">True</span>).groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Gewicht'</span>])[<span class="st">'Abstand'</span>].plot(marker <span class="op">=</span> <span class="st">'o'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Messwert'</span>)</span>
@@ -3499,7 +1491,7 @@ Tipp&nbsp;5.3: Musterlösung
 <section id="abstandsmessung-auf-meter-und-auf-den-nullpunkt-normieren" class="level4">
 <h4 class="anchored" data-anchor-id="abstandsmessung-auf-meter-und-auf-den-nullpunkt-normieren">Abstandsmessung auf Meter und auf den Nullpunkt normieren</h4>
 <p>Abstandsmessung auf den Nullpunkt normieren. Die Spalte Abstand wird in Abständsänderung umbenannt.</p>
-<div id="ddf371e7" class="cell" data-execution_count="18">
+<div id="f3bfb485" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nullpunkte <span class="op">=</span> hooke.loc[hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> <span class="dv">0</span>, : ].groupby(by <span class="op">=</span> <span class="st">'Team'</span>)[<span class="st">'Abstand'</span>].mean()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nullpunkte"</span>, nullpunkte, sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
@@ -3517,7 +1509,8 @@ Tipp&nbsp;5.3: Musterlösung
 Team
 die_ahnungslosen    109.759000
 fabi                110.366000
-kreativkoepfe       109.456316
+kreativkoepfe       109.676667
+ma                  109.258000
 Name: Abstand, dtype: float64</code></pre>
 </div>
 </div>
@@ -3525,7 +1518,7 @@ Name: Abstand, dtype: float64</code></pre>
 <section id="gewicht-in-wirkende-kraft-umrechnen" class="level4">
 <h4 class="anchored" data-anchor-id="gewicht-in-wirkende-kraft-umrechnen">Gewicht in wirkende Kraft umrechnen</h4>
 <p>Gewicht in <span class="math inline">\(g\)</span> in die wirkende Kraft in <span class="math inline">\(N\)</span> umrechnen. Die Spalte wird in den Datensatz eingefügt.</p>
-<div id="2077be56" class="cell" data-execution_count="19">
+<div id="04c6a83a" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>hooke[<span class="st">'Kraft'</span>] <span class="op">=</span> hooke[<span class="st">'Gewicht'</span>].div(<span class="dv">1000</span>).mul(<span class="fl">9.81</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -3533,7 +1526,7 @@ Name: Abstand, dtype: float64</code></pre>
 </div>
 </div>
 <p>Das Ergebnis könnte so aussehen. Die Spalte Abstand wurde in Abständsänderung umbenannt.</p>
-<div id="16465c6f" class="cell" data-execution_count="20">
+<div id="f0798ddb" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>hooke.groupby(by <span class="op">=</span> [<span class="st">'Team'</span>, <span class="st">'Kraft'</span>])[<span class="st">'Abstandsänderung'</span>].describe()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <div>
@@ -3790,203 +1783,336 @@ Name: Abstand, dtype: float64</code></pre>
 <td>0.128560</td>
 </tr>
 <tr class="odd">
-<td rowspan="18" data-quarto-table-cell-role="th" data-valign="top">kreativkoepfe</td>
+<td rowspan="12" data-quarto-table-cell-role="th" data-valign="top">kreativkoepfe</td>
 <td data-quarto-table-cell-role="th">0.00000</td>
-<td>19.0</td>
-<td>5.231561e-17</td>
-<td>0.002198</td>
-<td>-0.002837</td>
-<td>-0.001837</td>
-<td>0.001463</td>
-<td>0.001963</td>
-<td>0.002763</td>
+<td>9.0</td>
+<td>7.894196e-17</td>
+<td>0.000536</td>
+<td>-0.000633</td>
+<td>-0.000533</td>
+<td>0.000367</td>
+<td>0.000367</td>
+<td>0.000567</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">0.49050</td>
-<td>18.0</td>
-<td>1.664649e-02</td>
-<td>0.015262</td>
-<td>-0.013537</td>
-<td>0.007238</td>
-<td>0.012413</td>
-<td>0.032938</td>
-<td>0.036263</td>
+<td>8.0</td>
+<td>1.119167e-02</td>
+<td>0.004899</td>
+<td>0.003467</td>
+<td>0.008092</td>
+<td>0.011817</td>
+<td>0.014442</td>
+<td>0.018367</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0.98100</td>
-<td>20.0</td>
-<td>4.859316e-02</td>
-<td>0.033329</td>
-<td>0.003463</td>
-<td>0.025988</td>
-<td>0.031163</td>
-<td>0.081813</td>
-<td>0.100863</td>
+<td>10.0</td>
+<td>2.583667e-02</td>
+<td>0.009227</td>
+<td>0.005667</td>
+<td>0.024067</td>
+<td>0.028017</td>
+<td>0.032967</td>
+<td>0.033767</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1.47150</td>
-<td>21.0</td>
-<td>3.143935e-02</td>
-<td>0.033876</td>
-<td>-0.011437</td>
-<td>-0.002737</td>
-<td>0.031563</td>
-<td>0.042263</td>
-<td>0.091663</td>
+<td>10.0</td>
+<td>3.742667e-02</td>
+<td>0.006000</td>
+<td>0.028367</td>
+<td>0.033692</td>
+<td>0.036567</td>
+<td>0.040642</td>
+<td>0.048067</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1.96200</td>
-<td>19.0</td>
-<td>2.580526e-02</td>
-<td>0.022177</td>
-<td>-0.016037</td>
-<td>0.016763</td>
-<td>0.025263</td>
-<td>0.044213</td>
-<td>0.059363</td>
+<td>10.0</td>
+<td>4.223667e-02</td>
+<td>0.016183</td>
+<td>0.014067</td>
+<td>0.029067</td>
+<td>0.046417</td>
+<td>0.056017</td>
+<td>0.061567</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">2.45250</td>
-<td>20.0</td>
-<td>4.727316e-02</td>
-<td>0.024164</td>
-<td>0.016563</td>
-<td>0.019563</td>
-<td>0.046813</td>
-<td>0.070263</td>
-<td>0.083563</td>
+<td>10.0</td>
+<td>7.149667e-02</td>
+<td>0.007962</td>
+<td>0.057867</td>
+<td>0.069142</td>
+<td>0.072667</td>
+<td>0.075067</td>
+<td>0.085767</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2.94300</td>
-<td>20.0</td>
-<td>5.990316e-02</td>
-<td>0.023422</td>
-<td>0.035163</td>
-<td>0.038088</td>
-<td>0.055013</td>
-<td>0.083513</td>
-<td>0.091663</td>
+<td>10.0</td>
+<td>8.440667e-02</td>
+<td>0.007021</td>
+<td>0.072267</td>
+<td>0.078417</td>
+<td>0.086667</td>
+<td>0.089142</td>
+<td>0.093867</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3.43350</td>
-<td>20.0</td>
-<td>7.635316e-02</td>
-<td>0.032773</td>
-<td>0.035163</td>
-<td>0.048388</td>
-<td>0.069863</td>
-<td>0.112538</td>
-<td>0.120263</td>
+<td>10.0</td>
+<td>1.087267e-01</td>
+<td>0.014716</td>
+<td>0.088367</td>
+<td>0.093167</td>
+<td>0.115217</td>
+<td>0.121042</td>
+<td>0.122467</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">3.92400</td>
-<td>19.0</td>
-<td>8.437895e-02</td>
-<td>0.041645</td>
-<td>0.033663</td>
-<td>0.049063</td>
-<td>0.051463</td>
-<td>0.123763</td>
-<td>0.136563</td>
+<td>9.0</td>
+<td>1.284889e-01</td>
+<td>0.010368</td>
+<td>0.108967</td>
+<td>0.122667</td>
+<td>0.127767</td>
+<td>0.137867</td>
+<td>0.138767</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">4.41450</td>
-<td>19.0</td>
-<td>9.203158e-02</td>
-<td>0.046893</td>
-<td>0.038963</td>
-<td>0.049463</td>
-<td>0.055463</td>
-<td>0.136813</td>
-<td>0.155463</td>
+<td>9.0</td>
+<td>1.416111e-01</td>
+<td>0.011160</td>
+<td>0.124367</td>
+<td>0.138467</td>
+<td>0.139267</td>
+<td>0.150467</td>
+<td>0.157667</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4.90500</td>
-<td>18.0</td>
-<td>9.053538e-02</td>
-<td>0.047878</td>
-<td>0.037463</td>
-<td>0.050063</td>
-<td>0.056663</td>
-<td>0.137988</td>
-<td>0.161563</td>
+<td>8.0</td>
+<td>1.434042e-01</td>
+<td>0.015643</td>
+<td>0.119867</td>
+<td>0.131142</td>
+<td>0.145367</td>
+<td>0.152192</td>
+<td>0.163767</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5.39550</td>
-<td>19.0</td>
-<td>1.111737e-01</td>
-<td>0.050892</td>
-<td>0.052563</td>
-<td>0.063913</td>
-<td>0.079063</td>
-<td>0.162913</td>
-<td>0.166963</td>
+<td>9.0</td>
+<td>1.652111e-01</td>
+<td>0.003530</td>
+<td>0.159167</td>
+<td>0.162767</td>
+<td>0.167267</td>
+<td>0.168067</td>
+<td>0.169167</td>
+</tr>
+<tr class="odd">
+<td rowspan="18" data-quarto-table-cell-role="th" data-valign="top">ma</td>
+<td data-quarto-table-cell-role="th">0.00000</td>
+<td>10.0</td>
+<td>-7.105997e-17</td>
+<td>0.000424</td>
+<td>-0.000520</td>
+<td>-0.000220</td>
+<td>-0.000020</td>
+<td>-0.000020</td>
+<td>0.000780</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0.49050</td>
+<td>10.0</td>
+<td>2.079000e-02</td>
+<td>0.018096</td>
+<td>-0.015520</td>
+<td>0.013005</td>
+<td>0.030730</td>
+<td>0.031705</td>
+<td>0.034280</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0.98100</td>
+<td>10.0</td>
+<td>7.157000e-02</td>
+<td>0.029588</td>
+<td>0.025880</td>
+<td>0.047755</td>
+<td>0.081380</td>
+<td>0.095855</td>
+<td>0.098880</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1.47150</td>
+<td>11.0</td>
+<td>2.601636e-02</td>
+<td>0.047280</td>
+<td>-0.013420</td>
+<td>-0.009020</td>
+<td>-0.004720</td>
+<td>0.082680</td>
+<td>0.089680</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1.96200</td>
+<td>9.0</td>
+<td>8.013333e-03</td>
+<td>0.016668</td>
+<td>-0.018020</td>
+<td>-0.009120</td>
+<td>0.015180</td>
+<td>0.019680</td>
+<td>0.025180</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2.45250</td>
+<td>10.0</td>
+<td>2.327000e-02</td>
+<td>0.009578</td>
+<td>0.014580</td>
+<td>0.015605</td>
+<td>0.017180</td>
+<td>0.033255</td>
+<td>0.035980</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2.94300</td>
+<td>10.0</td>
+<td>3.562000e-02</td>
+<td>0.001944</td>
+<td>0.033180</td>
+<td>0.033930</td>
+<td>0.035430</td>
+<td>0.037505</td>
+<td>0.037980</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3.43350</td>
+<td>10.0</td>
+<td>4.420000e-02</td>
+<td>0.005309</td>
+<td>0.033180</td>
+<td>0.041105</td>
+<td>0.045730</td>
+<td>0.047430</td>
+<td>0.051580</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3.92400</td>
+<td>10.0</td>
+<td>4.468000e-02</td>
+<td>0.006030</td>
+<td>0.031680</td>
+<td>0.045655</td>
+<td>0.047080</td>
+<td>0.047805</td>
+<td>0.049480</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4.41450</td>
+<td>10.0</td>
+<td>4.741000e-02</td>
+<td>0.004755</td>
+<td>0.036980</td>
+<td>0.045455</td>
+<td>0.047480</td>
+<td>0.050355</td>
+<td>0.053480</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4.90500</td>
+<td>10.0</td>
+<td>4.802000e-02</td>
+<td>0.005691</td>
+<td>0.035480</td>
+<td>0.046180</td>
+<td>0.048380</td>
+<td>0.051655</td>
+<td>0.056080</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5.39550</td>
+<td>10.0</td>
+<td>6.254000e-02</td>
+<td>0.008005</td>
+<td>0.050580</td>
+<td>0.057580</td>
+<td>0.061930</td>
+<td>0.064930</td>
+<td>0.077080</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">5.88600</td>
 <td>10.0</td>
-<td>8.053316e-02</td>
+<td>7.855000e-02</td>
 <td>0.006212</td>
-<td>0.075163</td>
-<td>0.076763</td>
-<td>0.078763</td>
-<td>0.079563</td>
-<td>0.092363</td>
+<td>0.073180</td>
+<td>0.074780</td>
+<td>0.076780</td>
+<td>0.077580</td>
+<td>0.090380</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">6.37650</td>
 <td>10.0</td>
-<td>9.347316e-02</td>
+<td>9.149000e-02</td>
 <td>0.000825</td>
-<td>0.092463</td>
-<td>0.092688</td>
-<td>0.093463</td>
-<td>0.094088</td>
-<td>0.094863</td>
+<td>0.090480</td>
+<td>0.090705</td>
+<td>0.091480</td>
+<td>0.092105</td>
+<td>0.092880</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6.86700</td>
 <td>10.0</td>
-<td>1.058532e-01</td>
+<td>1.038700e-01</td>
 <td>0.005342</td>
-<td>0.094363</td>
-<td>0.102713</td>
-<td>0.107413</td>
-<td>0.109138</td>
-<td>0.112163</td>
+<td>0.092380</td>
+<td>0.100730</td>
+<td>0.105430</td>
+<td>0.107155</td>
+<td>0.110180</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7.35750</td>
 <td>9.0</td>
-<td>1.148965e-01</td>
+<td>1.129133e-01</td>
 <td>0.007293</td>
-<td>0.106863</td>
-<td>0.107763</td>
-<td>0.114763</td>
-<td>0.119563</td>
-<td>0.125963</td>
+<td>0.104880</td>
+<td>0.105780</td>
+<td>0.112780</td>
+<td>0.117580</td>
+<td>0.123980</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">7.84800</td>
 <td>11.0</td>
-<td>1.234086e-01</td>
+<td>1.214255e-01</td>
 <td>0.005402</td>
-<td>0.117363</td>
-<td>0.119513</td>
-<td>0.121263</td>
-<td>0.127563</td>
-<td>0.132663</td>
+<td>0.115380</td>
+<td>0.117530</td>
+<td>0.119280</td>
+<td>0.125580</td>
+<td>0.130680</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">8.33850</td>
 <td>8.0</td>
-<td>1.374132e-01</td>
+<td>1.354300e-01</td>
 <td>0.002458</td>
-<td>0.133863</td>
-<td>0.135788</td>
-<td>0.137063</td>
-<td>0.138938</td>
-<td>0.141063</td>
+<td>0.131880</td>
+<td>0.133805</td>
+<td>0.135080</td>
+<td>0.136955</td>
+<td>0.139080</td>
 </tr>
 </tbody>
 </table>
@@ -4002,7 +2128,7 @@ Name: Abstand, dtype: float64</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Grafische Darstellung</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Mittelwerte und Standardfehler berechnen</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Auswertung</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="9f36ecb1" class="cell" data-execution_count="21">
+<div id="f08dd5fb" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -4014,7 +2140,7 @@ Name: Abstand, dtype: float64</code></pre>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Die Ausgabe ist aus Platzgründen auf die ersten Zeilen beschränkt.</p>
-<div id="bc0607c5" class="cell" data-execution_count="22">
+<div id="5bbfd12d" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-stdout">
 <pre><code>Mittelwerte der Abstandsänderung nach Team und Kraft:
 Team              Kraft 
@@ -4037,7 +2163,7 @@ Name: Standardfehler, dtype: float64</code></pre>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div id="79946e30" class="cell" data-execution_count="23">
+<div id="3bf4bed3" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mittelwerte der Teams nach Kraft</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>distance_means_by_team_and_force <span class="op">=</span> hooke.groupby(by <span class="op">=</span> [hooke[<span class="st">'Team'</span>], hooke[<span class="st">'Kraft'</span>]])[<span class="st">'Abstandsänderung'</span>].mean()</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>distance_means_by_team_and_force.name <span class="op">=</span> <span class="st">'Federausdehnung'</span></span>
@@ -4092,7 +2218,7 @@ Name: Standardfehler, dtype: float64</code></pre>
 <li>Die Messreihen des Teams ma scheinen wenigstens für die ersten vier angehängten Gewichten durch grobe Messfehler geprägt zu sein.</li>
 </ul>
 <p>Die Messreihe des Teams ma wird wegen grober Messfehler aus dem Datensatz entfernt. Aus der Messreihe des Teams fabi wird die Messung für das Gewicht 50 Gramm entfernt.</p>
-<div id="ffba26f7" class="cell" data-execution_count="24">
+<div id="1ce0ed89" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> hooke.loc[hooke[<span class="st">'Team'</span>] <span class="op">==</span> <span class="st">'ma'</span>, :].index, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> hooke.loc[(hooke[<span class="st">'Team'</span>] <span class="op">==</span> <span class="st">'fabi'</span>) <span class="op">&amp;</span> (hooke[<span class="st">'Gewicht'</span>] <span class="op">==</span> <span class="dv">50</span>), :].index, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -4127,7 +2253,7 @@ Tipp&nbsp;5.4: Vorgehen bei vielen Datensätzen
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true"><span class="math inline">\(\alpha = 0.10\)</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false"><span class="math inline">\(\alpha = 0.05\)</span></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Auswertung</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div id="006c3089" class="cell" data-execution_count="25">
+<div id="6b419fcd" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 fabi Konfidenzniveau: 0.9
@@ -4143,15 +2269,15 @@ Standardfehler des Anstiegs: 0.4651
 34.148  ≤ 34.918 ≤ 35.689
 
 kreativkoepfe Konfidenzniveau: 0.9
-y = 1.1203 + 36.3585 * x
-r = 0.7346 R2 = 0.5396 p = 0.0000
-Standardfehler des Anstiegs: 1.9789
-33.093  ≤ 36.358 ≤ 39.624</code></pre>
+y = 0.3180 + 29.7643 * x
+r = 0.9773 R2 = 0.9552 p = 0.0000
+Standardfehler des Anstiegs: 0.6148
+28.744  ≤ 29.764 ≤ 30.784</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div id="ad934b61" class="cell" data-execution_count="26">
+<div id="9b81776f" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 fabi Konfidenzniveau: 0.95
@@ -4167,15 +2293,15 @@ Standardfehler des Anstiegs: 0.4651
 33.998  ≤ 34.918 ≤ 35.838
 
 kreativkoepfe Konfidenzniveau: 0.95
-y = 1.1203 + 36.3585 * x
-r = 0.7346 R2 = 0.5396 p = 0.0000
-Standardfehler des Anstiegs: 1.9789
-32.464  ≤ 36.358 ≤ 40.253</code></pre>
+y = 0.3180 + 29.7643 * x
+r = 0.9773 R2 = 0.9552 p = 0.0000
+Standardfehler des Anstiegs: 0.6148
+28.546  ≤ 29.764 ≤ 30.983</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div id="99551199" class="cell" data-execution_count="27">
+<div id="8da4a9c8" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>anzahl_teams <span class="op">=</span> hooke[<span class="st">'Team'</span>].unique().size</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.10</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
