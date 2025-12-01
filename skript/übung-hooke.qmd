@@ -62,7 +62,7 @@ Sie können:
 
   a) Jede Datei einzeln einlesen.
   b) Mit dem Modul glob die Dateien automatisch einlesen und jeweils in einem separaten Objekt speichern (*Hinweis:* Dieses Vorgehen wird im  [Methodenbaustein Einlesen strukturierter Datensätze](https://bausteine-der-datenanalyse.github.io/m-sensordatenanalyse/output/book/) gezeigt). 
-  c) Die Dateien mit dem Modul glob automatisch einlesen und in einer Datei zusammenführen.
+  c) Die Dateien mit dem Modul glob automatisch einlesen und in einem Objekt zusammenführen.
 
 Die verschiedenen Möglichkeiten sind mit zunehmend mehr Aufwand beim Programmieren verbunden. Je mehr separate Dateien Sie auswerten möchten, desto mehr Automatisierung ist gefragt. Da bei der Auswertung von Sensordaten häufig zahlreiche Dateien ausgewertet werden müssen, wird in der Musterlösung Variante c) gezeigt.
   
@@ -216,7 +216,7 @@ Im nächsten Schritt werden die Daten geprüft und ggf. bereinigt. Dies umfasst 
 ## glob, pd.groupby und SciPy
 Die Ausführung des folgenden Codes kann lokal unterschiedlich ausfallen, je nach dem, in welcher Reihenfolge die Dateien mit dem Modul glob eingelesen wurden. Im Folgenden werden aus einem groupby-Objekt Indexpositionen bestimmt, an denen eine Bedingung wahr ist. Mit diesen Indexpositionen wird dann auf den ursprünglichen DataFrame zugegriffen. Pandas sortiert die Gruppen im groupby-Objekt standardmäßig alphabetisch (`sort = True`). Wenn die mit glob eingelesenen Dateien nicht in alphabetischer Reihenfolge vorliegen, wird mit falschen Indexpositionen auf den DataFrame zugegriffen.
 
-Dem kann durch Sortieren des DataFrames nach den groupby-Kriterien begegnet werden oder, wie im Folgenden, durch das Argument `pd.groupby(by = Bedingung, sort = False)`. Letztere Variante ist flexibler.
+Dem kann durch alphabetisches Sortieren der mit glob eingelesenen Dateien bzw. des DataFrames nach den groupby-Kriterien begegnet werden oder, wie im Folgenden, durch das Argument `pd.groupby(by = Bedingung, sort = False)`. Letztere Variante ist flexibler.
 
 Auch gibt `scipy.stats.zscore()` je nach Version eine `pd.Series` oder ein `np.array` zurück. Dementsprechend sind die Methoden aus Pandas oder NumPy zu verwenden.
 

@@ -1,7 +1,7 @@
 # Kalibrierung
 Bei einer idealen Messung hängt der gesuchte Wert linear vom gemessenen Wert ab. Viele analoge Sensoren reagieren aufgrund von Materialeigenschaften oder abhängig von der Temperatur nicht linear auf die gemessene Größe. Das heißt, die Messwerte sind nicht direkt proportional zur Messgröße. Dieser sogenannte **Linearitätsfehler** muss korrigiert werden, um genau zu messen. 
 
-Dafür gibt es zwei Möglichkeiten. Zum einen können nicht lineare Verfahren zur Parameterschätzung verwendet werden, was im **Querverweis auf den Baustein** Methodenbaustein Datenfitting und Datenoptimierung behandelt wird. Zum anderen kann der Liniearitätsfehler korrigiert werden, um mit den leichter zu handhabenden linearen Verfahren der Parameterschätzung arbeiten zu können. Die Korrektion von Linearitätsfehlern wird in diesem Kapitel behandelt.
+Dafür gibt es zwei Möglichkeiten. Zum einen können nicht lineare Verfahren zur Parameterschätzung verwendet werden, was im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) behandelt wird. Zum anderen kann der Liniearitätsfehler korrigiert werden, um mit den leichter zu handhabenden linearen Verfahren der Parameterschätzung arbeiten zu können. Die Korrektion von Linearitätsfehlern wird in diesem Kapitel behandelt.
 
 **Daten von einer anderen Messung: Andres Fahrradsensor misst immer 3 Grad zu viel, weil das Display Abwärme macht (Offset-Fehler).**
 ``` {python}
@@ -212,7 +212,7 @@ interpolate_me_again[position_fehlwert] = np.nan
 print("polynomial interpolierter Wert:", interpolate_me_again.interpolate(method = 'polynomial', order = 3), sep = "\n")
 ```
 
-Das Ergebnis ist nicht unbedingt besser.
+Das Ergebnis ist nicht unbedingt besser. Warum das so ist, erfahren Sie im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/).
 
 ::::
 :::
@@ -380,7 +380,7 @@ Methoden zur Korrektur: Wo ist die Variablentransformation, um eine lineare Para
 
 2. Anwendung mathematischer Korrekturen:
 
-  - Nichtlineare Regression: Eine Funktion (z. B. Polynom) wird durch die Kalibrierdaten angepasst. Die Differenz zwischen Messwerten und der Funktion wird minimiert, um die bestmögliche Anpassung zu erzielen. --> **m-datenfitting-und-optimierung**
+  - Nichtlineare Regression: Eine Funktion (z. B. Polynom) wird durch die Kalibrierdaten angepasst. Die Differenz zwischen Messwerten und der Funktion wird minimiert, um die bestmögliche Anpassung zu erzielen. Diese Methode wird im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) gezeigt.
 
   -Spezifische Koeffizienten: Für bestimmte Sensortypen gibt es Standardmodelle, die mit speziellen Koeffizienten verwendet werden. 
 
