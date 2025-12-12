@@ -109,7 +109,7 @@ Einige systematische und zufällige Messabweichungen können nur mit hohem Aufwa
 Die DIN 1319 normt Grundbegriffe und Verfahren der Messtechnik.
 
   - Teil 1 DIN 1319-1 und Teil 2 DIN 1319-2 definieren Grundbegriffe der Messtechnik und für Messmittel.
-  - Teil 3 DIN 1319-3 befasst sich mit der Auswertung von Messungen einer *einzelnen* Messgröße und deren Messunsicherheit. DIN 1319-3 wird auch angewendet, wenn die Meßgröße mittels einer gegebenen Funktion aus anderen Größen berechnet wird (beispielsweise die Geschwindigkeit $v$ als Quotient der Strecke $s$ und der Zeit $t$).
+  - Teil 3 DIN 1319-3 befasst sich mit der Auswertung von Messungen einer *einzelnen* Messgröße und deren Messunsicherheit. DIN 1319-3 wird auch angewendet, wenn die Messgröße mittels einer gegebenen Funktion aus anderen Größen berechnet wird (beispielsweise die Geschwindigkeit $v$ als Quotient der Strecke $s$ und der Zeit $t$).
   - Teil 4 DIN 1319-4 befasst sich mit der Angabe von Messergebnissen und deren Messunsicherheit, wenn die Messgrößen aus anderen Größen berechnet werden, z. B. durch eine Ausgleichsrechung.
 
 DIN 1319-4 befasst sich mit der Berechnung einer Ergebnisgröße $Y$ durch eine Funktion wie z. B. die lineare Ausgleichsrechnung. Der Anwendungsfall des vorherigen Kapitels, die Federkonstante über den Regressionskoeffizienten $\beta_1$ zu bestimmen, wird in der Norm nicht behandelt. Dieser Teil der Norm wird hier deshalb nicht vorgestellt.

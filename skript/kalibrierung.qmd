@@ -1,9 +1,12 @@
 # Kalibrierung
-Bei einer idealen Messung hängt der gesuchte Wert linear vom gemessenen Wert ab. Viele analoge Sensoren reagieren aufgrund von Materialeigenschaften oder abhängig von der Temperatur nicht linear auf die gemessene Größe. Das heißt, die Messwerte sind nicht direkt proportional zur Messgröße. Dieser sogenannte **Linearitätsfehler** muss korrigiert werden, um genau zu messen. 
+Die Genauigkeit von Messungen wird durch die Korrektion systemtischer Messabweichungen verbessert. In diesem Kapitel werden typische *Fehlerarten* bei Messungen und praktische Methoden der Kalibrierung vorgestellt:
 
-Dafür gibt es zwei Möglichkeiten. Zum einen können nicht lineare Verfahren zur Parameterschätzung verwendet werden, was im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) behandelt wird. Zum anderen kann der Liniearitätsfehler korrigiert werden, um mit den leichter zu handhabenden linearen Verfahren der Parameterschätzung arbeiten zu können. Die Korrektion von Linearitätsfehlern wird in diesem Kapitel behandelt.
+  - additive Fehler,
+  - multiplikative Fehler und
+  - Nichtlinearität.
 
-**Daten von einer anderen Messung: Andres Fahrradsensor misst immer 3 Grad zu viel, weil das Display Abwärme macht (Offset-Fehler).**
+In diesem Abschnitt greifen wir die etablierten Begriffe auf, auch wenn die Fehler besser als systematische Messabweichungen bezeichnet werden sollten.
+
 ``` {python}
 #| echo: false
 
@@ -14,7 +17,421 @@ import pandas as pd
 import matplotlib.pyplot as plt
 ```
 
-## Beispiel Pt100
+**Als Übung das gekochte Eis verwenden. (man muss den Nullpunkt und 100 Grad als Referenzwerte nehmen). Das Problem ist, dass das Eiskochen auch nichtlinear ist (ab 50 °C). Beachten, man hat keinen Referenzwert für den Nullpunkt (der liegt bei -273 °C), man muss also mit linearer Regression schätzen. Vermutlich muss man dafür nicht in Kelvin umrechnen, wegen der absoluten Verschiebung. --> Dass man nicht verschieben braucht, haben wir ja für die Berechnung ohne Messwerte für den Nullpunkt gezeigt. Das Problem ist, dass die Daten bereinigt werden müssen, ohne sie zu interpolieren oder zu glätten --> mit linearem Trend und sd arbeiten.**
+
+## Kalibrieren und Justieren
+Die Korrektion systemtischer Messabweichungen kann auf zwei Arten geschehen: durch Kalibrierung oder Justierung des Messgeräts.
+
+Mit dem Begriff Kalibrierung wird im engeren Sinn die Ermittlung des Zusammenhangs zwischen Messwerten bzw. ihres arithmetischen Mittelwerts und dem vereinbarten richtigen Wert der Messgröße bezeichnet. 
+
+::: {#imp-kalibrierung1 .callout-important}
+## Kalibrierung nach DIN 1319
+
+"Ermitteln des Zusammenhangs zwischen Meßwert [...] oder Erwartungswert [...] der Ausgangsgröße [...] und dem zugehörigen wahren [...] oder richtigen Wert [...] der als Eingangsgröße vorliegenden Meßgröße für eine betrachtete Meßeinrichtung [...]." [@DIN1319-1, S. 22]
+:::
+
+Im weiteren Sinn ist mit Kalibrierung auch "die  Erstellung einer Korrektionstabelle [...], die Ermittlung von Kalibrierfaktoren oder einer (empirischen) Kalibrierfunktion" [@DIN1319-1, S. 22] gemeint. Dabei handelt es sich um Methoden, um mit systematischen Messabweichungen behaftete Messwerte zu korrigieren, ohne das Messgerät zu verändern.
+
+Im Unterschied dazu verändert die Justierung das Messgerät dauerhaft.
+
+::: {#imp-justierung .callout-important}
+## Justierung nach DIN 1319
+
+"Einstellen oder Abgleichen eines Meßgeräts [...], um systematische Meßabweichungen [...] soweit zu beseitigen, wie es für die vorgesehene Anwendung erforderlich ist." [@DIN1319-1, S. 22] 
+:::
+
+## Kalibriermethoden nach DIN 1319
+In der DIN 1319 werden drei Kalibriermethoden genannt, die hier nur kurz behandelt werden:
+
+1. Korrektionstabelle,
+2. Ermittlung von Kalibrierfaktoren und 
+3. Ermittlung einer (empirischen) Kalibrierfunktion.
+
+Welche Methode verwendet wird, hängt von dem Anwendungsbereich, der Datenverfügbarkeit sowie von der gewünschten Genauigkeit ab. 
+
+| Methode                | Anwendung bei …                  | Vorteile                         | Nachteile                         |
+| ---------------------- | -------------------------------- | -------------------------------- | --------------------------------- |
+| **Korrektionstabelle** | nichtlinear, schwer modellierbar | einfach zu nutzen                | viele Daten erforderlich, sonst Interpolation ungenau |
+| **Kalibrierfaktoren**  | lineare Abweichung               | leicht umsetzbar                 | unzureichend bei Nichtlinearität  |
+| **Kalibrierfunktion**  | nichtlinear, modellierbar        | sehr genau                       | höherer Aufwand                   |
+
+### Korrektionstabelle
+Mit der Korrektionstabelle können beliebige Korrektionen dargestellt werden, sofern ausreichend Datenpunkte verfügbar sind. In @sec-pt100 werden wir ein Beispiel für eine Korrektionstabelle kennenlernen.
+
+### Ermittlung von Kalibrierfaktoren
+Ein Kalibrierfaktor kann angegeben werden, wenn eine konstante relative Abweichung vorliegt. Ein Beispiel aus der Praxis ist [hier auf Seite 1](https://www.lanuk.nrw.de/fileadmin/lanuv/luft/immissionen/ber_trend/Aequivalenznachweis/AEquivalenztest_und_Faktorenbestimmung_2023.pdf) zu finden.
+
+### Ermittlung einer (empirischen) Kalibrierfunktion
+Eine Kalibrierfunktion erlaubt die Modellierung komplexer Zusammenhänge. Die Methoden dafür werden im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) vorgestellt.
+
+## Additive Fehler: Der Nullpunktfehler
+Der Nullpunktfehler beschreibt die Abweichung der Messgröße von Null, wenn der gesuchte Wert tatsächlich Null ist. Der Nullpunktfehler wird auch als Nullabgleich, Nullpunktverschiebung oder Offsetfehler bezeichnet. Der Nullpunktfehler ist konstant und wirkt additiv auf jeden Messwert. ([ics Schneider Messtechnik](https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/))
+
+``` {python}
+#| fig-alt: "Schematische Darstellung des Nullpunktfehlers. Zwei parallele Geraden der wahren und der gemessenen Werte ist am Punkt x = 0 durch eine gestrichelte vertikale Linie verbunden, die den Unterschied zwischen dem wahren Wert y = 2 und dem gemessenen Wert y = 6 verdeutlicht. Die gestrichelte Linie erneut bei x = 4 und x = 8 eingezeichnet."
+
+# Daten erzeugen
+messgröße = np.arange(0, 11)
+messwerte = messgröße + 4
+
+# plotten
+plt.plot(messgröße, marker = 'o', label = 'wahrer Wert')
+plt.plot(messwerte, marker = '^', label = 'gemessener Wert')
+plt.plot([0, 0], [messgröße[0], messwerte[0]], linestyle = 'dashed', label = 'Nullpunktfehler', color = 'red')
+plt.plot([4, 4], [messgröße[4], messwerte[4]], linestyle = 'dashed', color = 'red')
+plt.plot([8, 8], [messgröße[8], messwerte[8]], linestyle = 'dashed', color = 'red')
+
+# Achsenbeschriftung
+plt.xlabel('Index') 
+plt.ylabel('Merkmalsausprägung')
+
+plt.legend()
+plt.show()
+```
+
+&nbsp;
+
+### Nullpunktfehler quantifizieren
+**Hier sind die Berechnungen noch nicht korrekt. Mit einfachen Werten scheint es zufällig zu passen, mit verschobenen Werten nicht mehr. Das korrekte Vorgehen steht beim Test mit Kelvin.**
+
+Der Nullpunktfehler kann leicht bestimmt werden, wenn Messwerte für den Nullpunkt vorliegen und der wahre Wert bekannt ist. (Wenn außerdem bekannt ist, dass keine weiteren systematischen Messabweichungen vorliegen, kann der Nullpunktfehler über einen beliebigen wahren Referenzwert bestimmt werden.) Für die zur grafischen Darstellung angelegten Daten ist dies der Fall.
+
+```{python}
+print(f"Der Nullpunktfehler beträgt: {messwerte[0] - messgröße[0]}")
+```
+
+Wenn keine Daten für den Nullpunkt vorliegen, kann der Nullpunktfehler mit linearer Regression aus mindestens zwei bekannten Referenzpunkten geschätzt werden. Dazu wird eine ideale Kennlinie geschätzt und ihr Schnittpunkt mit der y-Achse bestimmt. Ebenso wird für die Messwerte eine lineare Funktion geschätzt. Aus der Differenz der y-Achsen-Schnittpunkte kann der Nullpunktfehler geschätzt werden.
+```{python}
+# bekannte Referenzpunkte 
+x1 = 4
+x2 = 8
+y1 = messgröße[x1]
+y2 = messgröße[x2]
+
+# ideale Kennlinie schätzen
+# print(lineares_modell) gibt intercept + slope zurück
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+print("Der erste Wert ist der Schnittpunkt der idealen Kennlinie mit der y-Achse:", lm_kennlinie.round(2), sep = "\n")
+
+# lineare Funktion der Messwerte schätzen
+## man benötigt mindestens 2 Punkte 
+lm_messwerte = poly.polyfit(x = [x1, x2], y = [messwerte[x1], messwerte[x2]], deg = 1)
+print("Die aus 2 Messwerten geschätzte lineare Funktion:", lm_messwerte.round(2), sep = "\n")
+
+## die Schätzung über alle Messwerte ist zuverlässiger
+lm_messwerte2 = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
+print("Die aus allen Messwerten geschätzte lineare Funktion:", lm_messwerte2.round(2), sep = "\n")
+
+print("\nDie Differenz zwischen dem geschätzten Nullpunkt der Messwerte und dem\ngeschätzten Nullpunkt der idealen Kennlinie ist der Nullpunktfehler:", (lm_messwerte[0] - lm_kennlinie[0]).round(2), sep = "\n")
+```
+
+Grafisch wird das Vorgehen deutlich.
+```{python}
+#| fig-alt: Eine gestrichelte Linie verläuft ausgehend vom Schnittpunkt der Achsen durch zwei Referenzpunkte. Diese gestrichelte Linie enstpricht der idealen Kennlinie. Eine parallele Linie geht durch die gemessenen Werte. Der Abstand zwischen beiden Linien ist über den Wertebereich konstant und entspricht dem Nullpunktfehler.
+
+# lineare Funktionen berechnen
+geschätzte_ideale_kennlinie = poly.polyval(x = np.arange(messwerte.size), c = lm_kennlinie)
+lineare_funktion_messwerte = poly.polyval(x = np.arange(messwerte.size), c = lm_messwerte)
+
+# plotten
+## Punkte
+plt.plot([x1, x2], [y1, y2], marker = 'o', linestyle = 'none', color = 'C0', label = 'bekannte Referenzwerte')
+plt.plot([x1, x2], [messwerte[x1], messwerte[x2]], marker = '^', linestyle = 'none', color = 'C1', label = 'Messwerte an Referenzpunkten')
+
+## Linien
+plt.plot(np.arange(messwerte.size), geschätzte_ideale_kennlinie, marker = 'none', linestyle = 'dashed', color = 'C0', label = 'ideale Kennlinie')
+plt.plot(np.arange(messwerte.size), lineare_funktion_messwerte , marker = 'none', linestyle = 'dashed', color = 'C1', label = 'lineare Funktion Messwerte')
+
+plt.plot([0, 0], [messgröße[0], messwerte[0]], linestyle = 'dashed', label = 'Nullpunktfehler', color = 'red')
+plt.plot([4, 4], [messgröße[4], messwerte[4]], linestyle = 'dashed', color = 'red')
+plt.plot([8, 8], [messgröße[8], messwerte[8]], linestyle = 'dashed', color = 'red')
+
+plt.legend()
+plt.show()
+```
+
+**gibt es weitere Methoden?**
+
+### Nullpunktfehler korrigieren
+Der Nullpunktfehler wird durch Subtraktion von den Messwerten korrigiert. Das Vorgehen zur Ermittlung des Nullpunktfehlers wird zur Illustration im folgenden Beispiel mit anderen Werten wiederholt.
+
+```{python}
+# Daten erzeugen
+messgröße = np.arange(0, 11) + 5
+messwerte = messgröße + 2.5
+
+# bekannte Referenzpunkte 
+x1 = 2
+x2 = 5
+y1 = messgröße[x1]
+y2 = messgröße[x2]
+
+# ideale Kennlinie schätzen
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+
+# lineare Funktion der Messwerte schätzen
+## die Schätzung über alle Messwerte ist zuverlässiger
+lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
+
+# Nullpunktfehler bestimmen
+nullpunktfehler = lm_messwerte[0] - lm_kennlinie[0]
+print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
+
+# Nullpunktfehler korrigieren
+korrigierte_messwerte = messwerte - nullpunktfehler
+```
+
+### Übung Nullpunktfehler
+**Daten von Andres Fahrradsensor misst immer 3 Grad zu viel, weil das Display Abwärme macht (Offset-Fehler). Hier sind die Werte mit Display aus die bekannten Referenzwerte.**
+
+## Multiplikative Fehler: Der Spannfehler
+**Spannfehler scheint eine absolut ungebräuchliche Bezeichnung zu sein**
+
+Als Spannfehler wird ein über den Wertebereich (die Spanne) der gesuchten Größe zu- oder abnehmender Fehler bezeichnet. Die relative Messabweichung $\delta$ ist dabei konstant, die absolute Messabweichung $\Delta$ abhängig vom Messwert. ([ics Schneider Messtechnik](https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/))
+
+``` {python}
+#| fig-alt: "Schematische Darstellung des Spannfehlers. Zwei Geraden der wahren und der gemessenen Werte verlaufen ausgehend von einem gemeinsamen Nullpunkt von links nach rechts mit zunehmend Abstand und sind am Punkt x = 0. Die Fläche zwischen den Geraden ist ausgefüllt - dies kennzeichnet den Spannfehler."
+
+# Daten erzeugen
+messgröße = np.arange(0, 11)
+messwerte = messgröße - messgröße / 3
+
+# plotten
+plt.plot(messgröße, marker = 'o', label = 'wahrer Wert')
+plt.plot(messwerte, marker = '^', label = 'gemessener Wert')
+
+# füllen
+plt.fill_between(x = np.arange(messwerte.size), y1 = messgröße, y2 = messwerte, alpha = 0.2, label = 'Spannfehler')
+
+# Achsenbeschriftung
+plt.xlabel('Index') 
+plt.ylabel('Merkmalsausprägung')
+
+plt.legend()
+plt.show()
+```
+
+### Spannfehler quantifizieren
+Der Spannfehler kann geschätzt werden, wenn Referenzwerte bekannt sind. Mit den vollständigen Beispieldaten geht es leicht (in dem Beispiel wird eine Warnung wegen Division durch 0 unterdrückt):
+
+```{python}
+#| warning: false
+
+print(f"Der Spannfehler beträgt: {round((np.nanmean((messwerte / messgröße)) - 1 ) * 100, 2)} %")
+```
+
+Bei nur punktuellen Daten wird eine ideale Kennlinie geschätzt, mit der der Spannfehler geschätzt werden kann.
+```{python}
+# bekannte Referenzwerte
+x1 = 4
+x2 = 8
+y1 = messgröße[x1]
+y2 = messgröße[x2]
+
+# ideale Kennlinie schätzen
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+geschätzte_ideale_kennlinie = poly.polyval(x = np.arange(messwerte.size), c = lm_kennlinie)
+
+# lineare Regression der Messwerte
+lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
+
+# Ausgabe
+print(f"Der Anstieg der Messwerte: {round(lm_messwerte[1], 2)}")
+print(f"Der Anstieg der idealen Kennlinie: {round(lm_kennlinie[1], 2)}")
+
+
+```
+
+Grafisch wird das Vorgehen deutlich.
+```{python}
+#| fig-alt: Eine gestrichelte Linie verläuft ausgehend vom Schnittpunkt der Achsen durch zwei Referenzpunkte. Diese gestrichelte Linie enstpricht der idealen Kennlinie. Eine weitere Linie verbindet die gemessenen Werte. Der Abstand zwischen beiden Linien nimmt über den Wertebereich zu. Der Bereich zwischen den Linien ist farbig gefüllt und kennzeichnet den Spannfehler
+
+# Punkte und Linien
+plt.plot([0, 10], [messgröße[0], messgröße[-1]], marker = 'none', linestyle = 'dashed', color = 'C0', label = 'ideale Kennlinie')
+plt.plot([x1, x2], [y1, y2], marker = 'o', linestyle = 'none', color = 'C0', label = 'bekannte Referenzwerte')
+plt.plot(messwerte, marker = '^', color = 'C1', label = 'gemessene Werte')
+
+# füllen
+plt.fill_between(x = np.arange(messwerte.size), y1 = messgröße, y2 = messwerte, alpha = 0.2, label = 'Spannfehler')
+
+plt.legend()
+plt.show()
+```
+
+### Spannfehler korrigieren
+Der Spannfehler wird durch die Division der Messwerte durch 1 + Spannfehler korrigiert. Das Vorgehen zur Ermittlung des Spannfehlers wird zur Illustration im folgenden Beispiel mit anderen Werten wiederholt.
+
+```{python}
+# Daten erzeugen
+messgröße = np.arange(0, 11) + 5
+messwerte = messgröße - messgröße / 5
+
+# bekannte Referenzpunkte 
+x1 = 2
+x2 = 5
+y1 = messgröße[x1]
+y2 = messgröße[x2]
+
+# ideale Kennlinie schätzen
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+
+# lineare Funktion der Messwerte schätzen
+lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
+
+# Spannfehler bestimmen
+spannfehler = lm_messwerte[1] - lm_kennlinie[1]
+print(f"Der Spannfehler beträgt: {((lm_messwerte[1] - lm_kennlinie[1]) * 100).round(2)} %")
+
+# Spannfehler korrigieren
+korrigierte_messwerte = messwerte / (1 + spannfehler)
+
+print(f"Wahre Werte:\n{messgröße}")
+print(f"Messwerte:\n{messwerte}")
+print(f"Korrigierte Messwerte:\n{korrigierte_messwerte}")
+```
+
+### Übung Spannfehler
+**to do**
+
+## Nullpunkt- und Spannfehler
+Absolute und multiplikative Abweichungen können gemeinsam auftreten. In diesem Beispiel wird die absolute Messabweichung über den dargestellten Wertebereich kleiner, da der Nullpunktfehler mit positivem Vorzeichen und der Spannfehler mit negativen Vorzeichen auftreten.
+
+``` {python}
+#| fig-alt: "Schematische Darstellung einer Messreihe mit Nullpunkt- und Spannfehler. Zwei Geraden der wahren und der gemessenen Werte verlaufen von links nach rechts mit abnehmenden Abstand und sind am Punkt x = 0 durch eine gestrichelte Linie verbunden (Nullpunktfehler). Die Fläche zwischen den Geraden ist ausgefüllt - dies kennzeichnet den Spannfehler."
+
+# Daten erzeugen
+messgröße = np.arange(0, 11)
+messwerte = messgröße + 4 - messgröße / 3
+
+# plotten
+plt.plot(messgröße, marker = 'o', label = 'wahrer Wert')
+plt.plot(messwerte, marker = '^', label = 'gemessener Wert')
+plt.plot([0, 0], [messgröße[0], messwerte[0]], linestyle = 'dashed', label = 'Nullpunktfehler')
+
+# füllen
+hilfslinie_spannfehler = messwerte - 4
+plt.fill_between(x = np.arange(messwerte.size), y1 = messgröße, y2 = hilfslinie_spannfehler, alpha = 0.2, label = 'Spannfehler')
+
+# Nullpunktfehler abtragen
+plt.plot([4, 4], [hilfslinie_spannfehler[4] , messwerte[4]], linestyle = 'dashed', color = 'red')
+plt.plot([8, 8], [hilfslinie_spannfehler[8], messwerte[8]], linestyle = 'dashed', color = 'red')
+
+# Achsenbeschriftung
+plt.xlabel('Index') 
+plt.ylabel('Merkmalsausprägung')
+
+plt.legend()
+plt.show()
+```
+
+&nbsp;
+
+### Nullpunkt- und Spannfehler quantifizieren
+Aus mindestens zwei bekannten Referenzpunkten können mit linearer Regression der Nullpunkt- und der Spannfehler geschätzt werden. In der linearen Regression wird ein bei 0 beginnender Index für die x-Werte verwendet. Um den Nullpunktfehler korrekt ermitteln zu können, wird dieser Index um den geschätzten wahren Nullpunkt verschoben.
+
+Das liegt daran, dass wenn die Messgröße keinen Wert für 0 enthält, auch der Spannfehler auf den Wert mit dem Index 0 angewendet wird. Deshalb muss erst der Spannfehler korrigiert werden.
+(**Wenn die Werte 0 beinhalten, dann merkt man nicht, dass dieser Schritt nötig ist.**)
+
+```{python}
+# Daten erzeugen
+messgröße = np.arange(0, 11) + 7
+messwerte = messgröße + 4 - messgröße / 3
+
+# bekannte Referenzpunkte
+x1 = 4
+x2 = 8
+y1 = messgröße[x1]
+y2 = messgröße[x2]
+
+# ideale Kennlinie schätzen
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+print(f"lm_kennlinie: {lm_kennlinie}")
+
+# lineare Regression der Messwerte
+lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
+
+# lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
+lm_messwerte_plus_intercept_kennlinie = poly.polyfit(np.arange(messwerte.size) + lm_kennlinie[0], messwerte, 1)
+
+# Nullpunktfehler bestimmen
+nullpunktfehler = lm_messwerte_plus_intercept_kennlinie[0]
+print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
+
+# Spannfehler bestimmen
+spannfehler = lm_messwerte[1] - lm_kennlinie[1]
+print(f"Der Spannfehler beträgt: {((lm_messwerte[1] - lm_kennlinie[1]) * 100).round(2)} %")
+```
+
+Grafische Darstellung
+**to-do**
+```
+# ggf. grafische Darstellung
+# geschätzte_ideale_kennlinie = poly.polyval(x = np.arange(messwerte.size), c = lm_kennlinie)
+```
+
+### Nullpunkt- und Spannfehler korrigieren
+Auf die Reihenfolge der Korrektur kommt es an.
+
+1. Zuerst wird der Nullpunktfehler korrigiert.
+2. Danach wird der Spannfehler korrigiert.
+
+```{python}
+# Daten erzeugen
+messgröße = np.arange(0, 11) + 7
+messwerte = messgröße + 4 - messgröße / 3
+
+# bekannte Referenzpunkte
+x1 = 4
+x2 = 8
+y1 = messgröße[x1]
+y2 = messgröße[x2]
+
+# Ausgabe
+print(f"Wahre Werte:\n{messgröße}")
+print(f"Messwerte:\n{messwerte}")
+print()
+
+# erst Nullpunktfehler, dann Spannfehler korrigieren
+## Nullpunktfehler korrigieren
+korrigierte_messwerte = messwerte - nullpunktfehler
+
+## Spannfehler korrigieren
+korrigierte_messwerte = korrigierte_messwerte / (1 + spannfehler)
+
+print(f"erst Nullpunktfehler, dann Spannfehler korrigiert\n{korrigierte_messwerte}")
+
+# erst Spannfehler, dann Nullpunkt korrigieren
+## Spannfehler korrigieren
+korrigierte_messwerte = messwerte / (1 + spannfehler)
+
+## Nullpunktfehler korrigieren
+korrigierte_messwerte = korrigierte_messwerte - nullpunktfehler
+
+print(f"erst Spannfehler, dann Nullpunktfehler korrigiert\n{korrigierte_messwerte}")
+print()
+
+# Vorgehen Arnold
+wahres_minimum = messgröße.min()
+wahres_maximum = messgröße.max()
+
+a = (wahres_maximum - wahres_minimum) / (messwerte.max() - messwerte.min())
+b = wahres_minimum - a * messwerte.min()
+
+korrigierte_messwerte = a * messwerte + b
+
+print(f"Vorgehen Arnold\n",
+      f"a = {a:.1f}",
+      f"b = {b:.1f}",
+      f"\n{korrigierte_messwerte}")
+```
+
+Simones Vorgehen führt zu korrekt kalibrierten Messwerten. Die Variable a ist der Korrekturfaktor für den Spannfehler. Aber die Variable b hat keine inhaltliche Bedeutung.
+
+Mein Vorgehen ist flexibler, weil aus beliebigen Punkten, statt Minimum und Maximum geschätzt werden kann.
+
+## 3. Nichtlinearität: Linearitätsfehler
+
+### Beispiel Pt100 {#sec-pt100}
 Das Pt100 ist ein Platin-Widerstandsthermometer (Pt = Platin) mit einem definierten Widerstandswert von  $100 \Omega$ bei einer Temperatur von 0°C (daher der Name Pt**100**). Der Widerstand eines Pt100 steigt mit der Temperatur. Bei 100 °C beträgt der Widerstand beispielsweise $138,51 \Omega$. Der Zusammenhang zwischen der Eingangsgröße, dem elektrischen Widerstand, und der so gemessenen Temperatur ist jedoch nur näherungsweise linear.
 
 Die Eigenschaften eines Pt100 Widerstandes sind in der Norm DIN EN IEC 60751 [@DIN60751] festgelegt. Dort wird der Zusammenhang durch zwei Polynome für den Temperaturbereich von -200 °C bis 0 °C und für den Temperaturbereich von 0 °C bis 850 °C  beschrieben.
@@ -41,20 +458,20 @@ Dabei gilt:
 
 [@DIN60751, S. 13]
 
-Im Anhang der Norm befinden sich Tabellen, die die Beziehung zwischen Temperatur und gemessenem Widerstand wiedergeben. Das Format der Tabellen, erlaubt es, aus einem gemessenen Widerstandswert schnell die gemessene Temperatur zu ermitteln. Dazu sind in der ersten Spalte die Temperaturen in Zehnerschritten, in den folgenden zehn Spalten die Einerstelle eingetragen. Für Temperaturen unter Null ist die Einerstelle jeweils zu subtrahieren (erkennbar am Vorzeichen $-$), für Temperaturen über Null dagegen zu addieren (erkennbar am Vorzeichen $+$). Eine zusammengefasste Darstellung finden Sie zum Beispiel [hier](https://s8b8d6a7.delivery.rocketcdn.me/wp-content/uploads/2022/08/Pt100-Tabelle-Screen.pdf).
+Im Anhang der Norm befinden sich Tabellen, die die Beziehung zwischen Temperatur und gemessenem Widerstand wiedergeben. Das Format der Tabellen erlaubt es, aus einem gemessenen Widerstandswert schnell die gemessene Temperatur zu ermitteln. Dazu sind in der ersten Spalte die Temperaturen in Zehnerschritten, in den folgenden zehn Spalten die Einerstelle eingetragen. Für Temperaturen unter Null ist die Einerstelle jeweils zu subtrahieren (erkennbar am Vorzeichen $-$), für Temperaturen über Null dagegen zu addieren (erkennbar am Vorzeichen $+$). Eine zusammengefasste Darstellung finden Sie zum Beispiel [hier](https://s8b8d6a7.delivery.rocketcdn.me/wp-content/uploads/2022/08/Pt100-Tabelle-Screen.pdf).
 
 ![Ausschnitt der Tabelle A.1](00-bilder/pt100-table-din60751.png){#fig-pt100 fig-alt="Ausschnitt der Tabelle A.1. Für die Temperaturen von -200 bis -170 Grad Celsius sind in 1-Grad-Schritten die von einem Pt100 gemessenen Widerstandswerte eingetragen."}
 
 [@DIN60751, S. 25]
 
-Die Notation $t_{90} / °C$ beruht auf der Internationalen Temperaturskala ITS-90 von 1990, die Temperaturen $T_{90}$ in Kelvin und $t_{90}$ in Grad Celsius definiert. Die Notation zeigt also an, dass in der Tabelle Angaben in Grad Celsius stehen.(@DIN60751, S. 10)
+Die Notation $t_{90} / °C$ beruht auf der Internationalen Temperaturskala ITS-90 von 1990, die Temperaturen $T_{90}$ in Kelvin und $t_{90}$ in Grad Celsius definiert. Die Notation zeigt also an, dass in der Tabelle Angaben in Grad Celsius stehen. (@DIN60751, S. 10)
 
 ### Aufgabe Pt100-Tabelle einlesen
 Für die Datenanalyse ist das tabellarische Format weniger geeignet. Die [hier](https://s8b8d6a7.delivery.rocketcdn.me/wp-content/uploads/2022/08/Pt100-Tabelle-Screen.pdf) zusammengefasste Darstellung wurde in zwei CSV-Dateien kopiert. Lesen Sie die Dateien so ein, dass der elektrische Widerstand und die Temperatur jeweils eine aufsteigende Datenreihe bilden (z. B. als Liste, NumPy-Array oder eine Pandas-Datenstruktur). Die Dateipfade lauten:
 
 ``` {raw}
 'skript/01-daten/pt100-table-below-zero.csv'
-'skript/01-daten/pt100-table-below-zero.csv'
+'skript/01-daten/pt100-table-above-zero.csv'
 ```
 
 **Marc kann eine weitere Musterlösung versuchen**
@@ -107,7 +524,7 @@ print() # leere Zeile
 print(belowzero.head().T.iloc[::-1].T.to_numpy().flatten())
 ```
 
-Um die fehlenden Werte zu überspringen, wandeln wir das bisherige Ergebnis wieder in eine `pd.Series()` und verwenden die Methode `pd.Series.dropna()`.
+Um die fehlenden Werte zu überspringen, wandeln wir das bisherige Ergebnis wieder in eine `pd.Series()` um und verwenden die Methode `pd.Series.dropna()`.
 ```{python}
 pd.Series(belowzero.head().T.iloc[::-1].T.to_numpy().flatten()).dropna()
 ```
@@ -120,7 +537,7 @@ print(belowzero_ohm.head(), belowzero_ohm.tail(), sep = '\n')
 
 Die Temperatur können wir einfach durch ein range-Objekt erzeugen:
 ```{python}
-belowzero_temperatur = pd.Series(range(-200, 1)) # range stop ist exlusiv
+belowzero_temperatur = pd.Series(range(-200, 1)) # range stop ist exklusiv
 print(belowzero_temperatur.head(), belowzero_temperatur.tail(), sep = '\n')
 ```
 
@@ -140,7 +557,7 @@ print(abovezero_ohm.head(), abovezero_ohm.tail(), sep = '\n')
 
 Die Temperatur wird wieder durch ein range-Objekt erzeugt.
 ``` {python}
-abovezero_temperatur = pd.Series(range(1, 851)) # range stop ist exlusiv
+abovezero_temperatur = pd.Series(range(1, 851)) # range stop ist exklusiv
 ```
 
 Die aus beiden Datensätzen erzeugten Series können zusammengefasst werden:
@@ -153,8 +570,8 @@ print(pt100.info())
 
 :::
 
-### Nicht-Linearität darstellen
-Mit den Daten aus @tip-pt100 kann die Nicht-Linearität des Sensors dargestellt werden.
+### Nichtlinearität darstellen
+Mit den Daten aus @tip-pt100 kann die Nichtlinearität des Sensors dargestellt werden.
 
 ```{python}
 #| fig-alt: "Darstellung der Temperatur in Grad Celsius auf der x-Achse und des elektrischen Widerstands in Ohm auf der y-Achse"
@@ -176,7 +593,8 @@ plt.show()
 
 Es fällt auf, dass die Daten einen Fehlwert enthalten. Die Position des Fehlwerts wird mit zwei Pandas-Methoden bestimmt. `pd.diff()` gibt die Differenz jedes Werts zu seinem Vorgänger zurück. `pd.idxmin()` gibt den Zeilenindex (genauer das label) des kleinsten Werts zurück. (Läge der Fehlwert oberhalb der Linie, würde `pd.idxmax()` verwendet werden.)
 ```{python}
-print(( position_fehlwert := pt100['Ohm'].diff().idxmin() )) # := ist der sog. Walross-Operator
+ # := ist der sog. Walross-Operator
+print(( position_fehlwert := pt100['Ohm'].diff().idxmin() ))
 print(pt100.iloc[list(range(position_fehlwert - 2, position_fehlwert + 3))])
 ```
 
@@ -189,7 +607,7 @@ Die einfachste Form der Interpolation ist die lineare Interpolation.
 ```{python}
 interpolate_me = pt100.loc[position_fehlwert - 1 : position_fehlwert + 1, 'Ohm'].copy()
 interpolate_me[position_fehlwert] = np.nan
-print(interpolate_me)
+print(interpolate_me, "\n")
 
 print("linear interpolierter Wert:", interpolate_me.interpolate(), sep = "\n")
 ```
@@ -200,19 +618,19 @@ print("linear interpolierter Wert:", interpolate_me.interpolate().round(2), sep 
 korrekter_wert = interpolate_me.interpolate().round(2)[position_fehlwert]
 ```
 
-Eine andere Option ist die nicht-lineare Interpolation (die nicht Inhalt dieses Bausteins ist). 
+Eine andere Option ist die nichtlineare Interpolation (die nicht Inhalt dieses Bausteins ist). 
 
 :::: {#nte-nonlinear .callout-note collapse="true"}
-## Nicht-lineare Interpolation
+## Nichtlineare Interpolation
 
-Die nicht-lineare Interpolation benötigt mehr Datenpunkte. Wir versuchen die kubische Interpolation:
+Die nichtlineare Interpolation benötigt mehr Datenpunkte. Wir versuchen die kubische Interpolation:
 ```{python}
 interpolate_me_again = pt100.loc[position_fehlwert - 3 : position_fehlwert + 4, 'Ohm'].copy()
 interpolate_me_again[position_fehlwert] = np.nan
 print("polynomial interpolierter Wert:", interpolate_me_again.interpolate(method = 'polynomial', order = 3), sep = "\n")
 ```
 
-Das Ergebnis ist nicht unbedingt besser. Warum das so ist, erfahren Sie im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/).
+Das Ergebnis ist ungenauer. Warum das so ist, erfahren Sie im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/).
 
 ::::
 :::
@@ -239,12 +657,14 @@ plt.legend()
 plt.show()
 ```
 
-### Nicht-Linearität quantifizieren
-Zwei Methoden zur Quantifizierung der Nicht-Liniearität sind die Festpunkt- und die Toleranzbandmethode.
+### Nichtlinearität quantifizieren
+Zwei Methoden zur Quantifizierung der Nichtliniearität sind die Festpunkt- und die Toleranzbandmethode.
+
+#### Festpunktmethode
 
 ::: {#imp-festpunktmethode .callout-important}
 ## Festpunktmethode
-Die Endpunkte der realen Kennlinie werden durch eine Gerade verbunden. Der Linearitätsfehler ist das Maximum der Abweichung der Kennlinie zu dieser Geraden. [@Dubbel2011, S. W2 (S. 1661)]
+Die Endpunkte der realen Kennlinie werden durch eine Gerade verbunden. Der Linearitätsfehler ist das Maximum der Abweichung der Kennlinie zu dieser Geraden. [@Dubbel2011, S. W2-W3 (S. 1661-1662)]
 :::
 
 Dazu bestimmen wir zunächst die Vorhersagewerte einer Geraden durch die Endpunkte.
@@ -278,6 +698,8 @@ Aus der Differenz des gemessenen elektrischen Widerstands und der linearen Vorhe
 linearitätsfehler = (pt100['Ohm'] - vorhersagewerte).abs().max()
 print(f"Linearitätsfehler nach Festpunktmethode: {linearitätsfehler:.2f} Ohm.")
 ```
+
+#### Toleranzbandmethode
 
 ::: {#imp-toleranzbandmethode .callout-important}
 ## Toleranzbandmethode
@@ -316,58 +738,22 @@ linearitätsfehler = (pt100['Ohm'] - vorhersagewerte).abs().max()
 print(f"Linearitätsfehler nach Toleranzbandmethode: {linearitätsfehler:.2f} Ohm.")
 ```
 
-## Kalibrieren und Justieren
-Die Korrektion von Linearitätsfehlern kann auf zwei Arten geschehen: durch Kalibrierung oder Justierung des Messgeräts.
+**Problem: Die Toleranzbandmethode produziert einen Nullpunktfehler.**
 
-Mit dem Begriff Kalibrierung wird im engeren Sinn die Ermittlung des Zusammenhangs zwischen Messwerten bzw. ihres arithmetischen Mittelswerts und dem vereinbarten richtigen Wert der Meßgröße bezeichnet. 
+## Fehlerarten und praktische Kalibriermethoden
 
-::: {#imp-kalibrierung1 .callout-important}
-## Kalibrierung nach DIN 1319
+### Nichtlinearität
+Bei einer idealen Messung hängt der gesuchte Wert linear vom gemessenen Wert ab. Viele analoge Sensoren reagieren aufgrund von Materialeigenschaften oder abhängig von der Temperatur nicht linear auf die gemessene Größe. Das heißt, die Messwerte sind nicht direkt proportional zur Messgröße. Dieser sogenannte **Linearitätsfehler** muss korrigiert werden, um genau zu messen. 
 
-"Ermitteln des Zusammenhangs zwischen Meßwert [...] oder Erwartungswert [...] der Ausgangsgröße [...] und dem zugehörigen wahren [...] oder richtigen Wert [...] der als Eingangsgröße vorliegenden Meßgröße für eine betrachtete Meßeinrichtung [...]." [@DIN1319-1, S. 22]
-:::
-
-Im weiteren Sinn ist mit Kalibrierung auch "die  Erstellung einer Korrektionstabelle [...], die Ermittlung von Kalibrierfaktoren oder einer (empirischen) Kalibrierfunktion" [@DIN1319-1, S. 22] gemeint. Dabei handelt es sich um Methoden, um nicht lineare Messwerte zu korrigieren, ohne das Messgerät zu verändern.
-
-Im Unterschied dazu verändert die Justierung das Messgerät dauerhaft.
-
-::: {#imp-justierung .callout-important}
-## Justierung nach DIN 1319
-
-"Einstellen oder Abgleichen eines Meßgeräts [...], um systematische Meßabweichungen [...] soweit zu beseitigen, wie es für die vorgesehene Anwendung erforderlich ist." [@DIN1319-1, S. 22] 
-:::
-
-## Kalibriermethoden
-In der DIN 1319 werden drei Kalibriermethoden genannt:
-
-1. Korrektionstabelle,
-2. Ermittlung von Kalibrierfaktoren und 
-3. Ermittlung einer (empirischen) Kalibrierfunktion.
-
-Welche Methode verwendet wird, hängt von dem Anwendungsbereich, der Datenverfügbarkeit sowie von der gewünschten Genauigkeit ab. 
-
-... die könnten wir einfach entwickeln. Kalibrierfaktoren kriegen wir nicht hin?!
-
-Wann nutzt man welche Methode? Siehe Dokument Anwendung der Korrektionsmethoden.docx
-
-| Methode                | Anwendung bei …                  | Vorteile                         | Nachteile                         |
-| ---------------------- | -------------------------------- | -------------------------------- | --------------------------------- |
-| **Korrektionstabelle** | nichtlinear, schwer modellierbar | einfach zu nutzen                | viele Daten erforderlich, Interpolation andernfalls ungenau |
-| **Kalibrierfaktoren**  | lineare Abweichung               | leicht umsetzbar                 | unzureichend bei Nichtlinearität  |
-| **Kalibrierfunktion**  | nichtlinear, modellierbar        | sehr genau                       | höherer Aufwand                   |
+Dafür gibt es zwei Möglichkeiten. Zum einen können nicht lineare Verfahren zur Parameterschätzung verwendet werden, was im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) behandelt wird. Zum anderen kann der Liniearitätsfehler korrigiert werden, um mit den leichter zu handhabenden linearen Verfahren der Parameterschätzung arbeiten zu können. Die Korrektion von Linearitätsfehlern wird in diesem Kapitel behandelt.
 
 
+## Weitere
+Hysterese: Verzögerung zwischen Änderung des Wertes und Änderungsgeschwindigkeit des Messwerts
+Drift:
+Rauschen:
 
-### Korrektionstabelle
-Mit der Korrektionstabelle können beliebige Korrektionen dargestellt werden, sofern ausreichend Datenpunkte verfügbar sind.
-
-### Ermittlung von Kalibrierfaktoren
-Ein Kalibrierfaktor kann angegeben werden, wenn eine konstante relative Abweichung vorliegt (z. B. Kalibrierfaktor 1,05 - siehe https://www.lanuk.nrw.de/fileadmin/lanuv/luft/immissionen/ber_trend/Aequivalenznachweis/AEquivalenztest_und_Faktorenbestimmung_2023.pdf S. 1)
-
-### Ermittlung einer (empirischen) Kalibrierfunktion
-Eine Kalibrierfunktion erlaubt die Modellierung funktionaler Zusammenhänge (Funktion - funktional: ach wirklich)
-
-keine empirische Kalibrierfunktion **Beispiel und Darstellung Pt100**
+## Gemeinsames Auftreten in Verbindung mit Nichtlinearität
 
 ## Resterampe
 
