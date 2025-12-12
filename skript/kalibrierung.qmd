@@ -17,7 +17,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 ```
 
-**Als Übung das gekochte Eis verwenden. (man muss den Nullpunkt und 100 Grad als Referenzwerte nehmen). Das Problem ist, dass das Eiskochen auch nichtlinear ist (ab 50 °C). Beachten, man hat keinen Referenzwert für den Nullpunkt (der liegt bei -273 °C), man muss also mit linearer Regression schätzen. Vermutlich muss man dafür nicht in Kelvin umrechnen, wegen der absoluten Verschiebung. --> Dass man nicht verschieben braucht, haben wir ja für die Berechnung ohne Messwerte für den Nullpunkt gezeigt. Das Problem ist, dass die Daten bereinigt werden müssen, ohne sie zu interpolieren oder zu glätten --> mit linearem Trend und sd arbeiten.**
+**Als Übung das gekochte Eis verwenden. (man muss den Nullpunkt und 100 Grad als Referenzwerte nehmen). Das Problem ist, dass das Eiskochen auch nichtlinear ist (ab 50 °C). Beachten, man hat keinen Referenzwert für den Nullpunkt (der liegt bei -273 °C), man muss also mit linearer Regression schätzen. Vermutlich muss man dafür nicht in Kelvin umrechnen, wegen der absoluten Verschiebung. --> Dass man nicht verschieben braucht, haben wir ja für die Berechnung ohne Messwerte für den Nullpunkt gezeigt.**
+
+  - Aber stimmt das auch für Temperatursensoren, die gar nicht bis zum absoluten Nullpunkt messen können? Vielleicht indem man die untere Grenze des Messbereichs als Nullpunkt konzipiert.
+  - Die Nichtlinearität ist kein Fehler des Sensorsystems, sondern ein physikalischer Effekt. Wie gehen wir damit um? --> man könnte sagen, dass der Effekt über den linear geschätzten Spannfehler approximiert wird. Zwischen nichtlinearer Messwertekurve und dem linear geschätzten Spannfehler entsteht dann ein Linearitätsfehler
+
+**Das Problem ist, dass die Daten bereinigt werden müssen, ohne sie zu interpolieren oder zu glätten --> mit linearem Trend und sd arbeiten oder auf den Baustein datenfitting und datenoptimierung verweisen.**
 
 ## Kalibrieren und Justieren
 Die Korrektion systemtischer Messabweichungen kann auf zwei Arten geschehen: durch Kalibrierung oder Justierung des Messgeräts.
@@ -420,16 +425,19 @@ b = wahres_minimum - a * messwerte.min()
 korrigierte_messwerte = a * messwerte + b
 
 print(f"Vorgehen Arnold\n",
-      f"a = {a:.1f}",
-      f"b = {b:.1f}",
-      f"\n{korrigierte_messwerte}")
+      f"a = {a:.1f}\n",
+      f"b = {b:.1f}\n",
+      f"\na * messwerte + b\n{korrigierte_messwerte}",
+      sep = '')
 ```
 
-Simones Vorgehen führt zu korrekt kalibrierten Messwerten. Die Variable a ist der Korrekturfaktor für den Spannfehler. Aber die Variable b hat keine inhaltliche Bedeutung.
+Simones Vorgehen führt zu korrekt kalibrierten Messwerten. Die Variable a ist der Korrekturfaktor für den Spannfehler. Aber die Variable b hat keine inhaltliche Bedeutung. Aber warum funktioniert es dann?! Weil b die Nullpunktkorrektur ist, wenn erst der Spannfehler korrigiert wird.
+
+Das hat etwas mit der Konstruktion der Daten bzw. der Korrektur zu tun. b ist die Korrektur des Nullpunktfehlers * Spannfehler. Das heißt aus der Arnoldformel kann der Spannfehler als $-1 * {b \over a}$ ermittelt werden.
 
 Mein Vorgehen ist flexibler, weil aus beliebigen Punkten, statt Minimum und Maximum geschätzt werden kann.
 
-## 3. Nichtlinearität: Linearitätsfehler
+## Nichtlinearität: Linearitätsfehler
 
 ### Beispiel Pt100 {#sec-pt100}
 Das Pt100 ist ein Platin-Widerstandsthermometer (Pt = Platin) mit einem definierten Widerstandswert von  $100 \Omega$ bei einer Temperatur von 0°C (daher der Name Pt**100**). Der Widerstand eines Pt100 steigt mit der Temperatur. Bei 100 °C beträgt der Widerstand beispielsweise $138,51 \Omega$. Der Zusammenhang zwischen der Eingangsgröße, dem elektrischen Widerstand, und der so gemessenen Temperatur ist jedoch nur näherungsweise linear.
