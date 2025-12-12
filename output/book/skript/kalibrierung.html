@@ -273,7 +273,7 @@ window.Quarto = {
   <li><a href="#nullpunkt--und-spannfehler-quantifizieren" id="toc-nullpunkt--und-spannfehler-quantifizieren" class="nav-link" data-scroll-target="#nullpunkt--und-spannfehler-quantifizieren">Nullpunkt- und Spannfehler quantifizieren</a></li>
   <li><a href="#nullpunkt--und-spannfehler-korrigieren" id="toc-nullpunkt--und-spannfehler-korrigieren" class="nav-link" data-scroll-target="#nullpunkt--und-spannfehler-korrigieren">Nullpunkt- und Spannfehler korrigieren</a></li>
   </ul></li>
-  <li><a href="#nichtlinearität-linearitätsfehler" id="toc-nichtlinearität-linearitätsfehler" class="nav-link" data-scroll-target="#nichtlinearität-linearitätsfehler"><span class="header-section-number">6.6</span> 3. Nichtlinearität: Linearitätsfehler</a>
+  <li><a href="#nichtlinearität-linearitätsfehler" id="toc-nichtlinearität-linearitätsfehler" class="nav-link" data-scroll-target="#nichtlinearität-linearitätsfehler"><span class="header-section-number">6.6</span> Nichtlinearität: Linearitätsfehler</a>
   <ul class="collapse">
   <li><a href="#sec-pt100" id="toc-sec-pt100" class="nav-link" data-scroll-target="#sec-pt100">Beispiel Pt100</a></li>
   <li><a href="#aufgabe-pt100-tabelle-einlesen" id="toc-aufgabe-pt100-tabelle-einlesen" class="nav-link" data-scroll-target="#aufgabe-pt100-tabelle-einlesen">Aufgabe Pt100-Tabelle einlesen</a></li>
@@ -319,7 +319,12 @@ window.Quarto = {
 <li>Nichtlinearität.</li>
 </ul>
 <p>In diesem Abschnitt greifen wir die etablierten Begriffe auf, auch wenn die Fehler besser als systematische Messabweichungen bezeichnet werden sollten.</p>
-<p><strong>Als Übung das gekochte Eis verwenden. (man muss den Nullpunkt und 100 Grad als Referenzwerte nehmen). Das Problem ist, dass das Eiskochen auch nichtlinear ist (ab 50 °C). Beachten, man hat keinen Referenzwert für den Nullpunkt (der liegt bei -273 °C), man muss also mit linearer Regression schätzen. Vermutlich muss man dafür nicht in Kelvin umrechnen, wegen der absoluten Verschiebung. –&gt; Dass man nicht verschieben braucht, haben wir ja für die Berechnung ohne Messwerte für den Nullpunkt gezeigt. Das Problem ist, dass die Daten bereinigt werden müssen, ohne sie zu interpolieren oder zu glätten –&gt; mit linearem Trend und sd arbeiten.</strong></p>
+<p><strong>Als Übung das gekochte Eis verwenden. (man muss den Nullpunkt und 100 Grad als Referenzwerte nehmen). Das Problem ist, dass das Eiskochen auch nichtlinear ist (ab 50 °C). Beachten, man hat keinen Referenzwert für den Nullpunkt (der liegt bei -273 °C), man muss also mit linearer Regression schätzen. Vermutlich muss man dafür nicht in Kelvin umrechnen, wegen der absoluten Verschiebung. –&gt; Dass man nicht verschieben braucht, haben wir ja für die Berechnung ohne Messwerte für den Nullpunkt gezeigt.</strong></p>
+<ul>
+<li>Aber stimmt das auch für Temperatursensoren, die gar nicht bis zum absoluten Nullpunkt messen können? Vielleicht indem man die untere Grenze des Messbereichs als Nullpunkt konzipiert.</li>
+<li>Die Nichtlinearität ist kein Fehler des Sensorsystems, sondern ein physikalischer Effekt. Wie gehen wir damit um? –&gt; man könnte sagen, dass der Effekt über den linear geschätzten Spannfehler approximiert wird. Zwischen nichtlinearer Messwertekurve und dem linear geschätzten Spannfehler entsteht dann ein Linearitätsfehler</li>
+</ul>
+<p><strong>Das Problem ist, dass die Daten bereinigt werden müssen, ohne sie zu interpolieren oder zu glätten –&gt; mit linearem Trend und sd arbeiten oder auf den Baustein datenfitting und datenoptimierung verweisen.</strong></p>
 <section id="kalibrieren-und-justieren" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="kalibrieren-und-justieren"><span class="header-section-number">6.1</span> Kalibrieren und Justieren</h2>
 <p>Die Korrektion systemtischer Messabweichungen kann auf zwei Arten geschehen: durch Kalibrierung oder Justierung des Messgeräts.</p>
@@ -414,7 +419,7 @@ Definition&nbsp;6.2: Justierung nach DIN 1319
 <section id="additive-fehler-der-nullpunktfehler" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="additive-fehler-der-nullpunktfehler"><span class="header-section-number">6.3</span> Additive Fehler: Der Nullpunktfehler</h2>
 <p>Der Nullpunktfehler beschreibt die Abweichung der Messgröße von Null, wenn der gesuchte Wert tatsächlich Null ist. Der Nullpunktfehler wird auch als Nullabgleich, Nullpunktverschiebung oder Offsetfehler bezeichnet. Der Nullpunktfehler ist konstant und wirkt additiv auf jeden Messwert. (<a href="https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/">ics Schneider Messtechnik</a>)</p>
-<div id="77b561b8" class="cell" data-execution_count="2">
+<div id="b8849fe4" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erzeugen</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>messgröße <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>messwerte <span class="op">=</span> messgröße <span class="op">+</span> <span class="dv">4</span></span>
@@ -445,14 +450,14 @@ Definition&nbsp;6.2: Justierung nach DIN 1319
 <h3 class="anchored" data-anchor-id="nullpunktfehler-quantifizieren">Nullpunktfehler quantifizieren</h3>
 <p><strong>Hier sind die Berechnungen noch nicht korrekt. Mit einfachen Werten scheint es zufällig zu passen, mit verschobenen Werten nicht mehr. Das korrekte Vorgehen steht beim Test mit Kelvin.</strong></p>
 <p>Der Nullpunktfehler kann leicht bestimmt werden, wenn Messwerte für den Nullpunkt vorliegen und der wahre Wert bekannt ist. (Wenn außerdem bekannt ist, dass keine weiteren systematischen Messabweichungen vorliegen, kann der Nullpunktfehler über einen beliebigen wahren Referenzwert bestimmt werden.) Für die zur grafischen Darstellung angelegten Daten ist dies der Fall.</p>
-<div id="741ac224" class="cell" data-execution_count="3">
+<div id="9bf44a61" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Der Nullpunktfehler beträgt: </span><span class="sc">{</span>messwerte[<span class="dv">0</span>] <span class="op">-</span> messgr<span class="sc">öß</span>e[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Der Nullpunktfehler beträgt: 4</code></pre>
 </div>
 </div>
 <p>Wenn keine Daten für den Nullpunkt vorliegen, kann der Nullpunktfehler mit linearer Regression aus mindestens zwei bekannten Referenzpunkten geschätzt werden. Dazu wird eine ideale Kennlinie geschätzt und ihr Schnittpunkt mit der y-Achse bestimmt. Ebenso wird für die Messwerte eine lineare Funktion geschätzt. Aus der Differenz der y-Achsen-Schnittpunkte kann der Nullpunktfehler geschätzt werden.</p>
-<div id="712c90f0" class="cell" data-execution_count="4">
+<div id="2b56636f" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bekannte Referenzpunkte </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> <span class="dv">8</span></span>
@@ -488,7 +493,7 @@ geschätzten Nullpunkt der idealen Kennlinie ist der Nullpunktfehler:
 </div>
 </div>
 <p>Grafisch wird das Vorgehen deutlich.</p>
-<div id="cf26670a" class="cell" data-execution_count="5">
+<div id="3e2be0e9" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lineare Funktionen berechnen</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>geschätzte_ideale_kennlinie <span class="op">=</span> poly.polyval(x <span class="op">=</span> np.arange(messwerte.size), c <span class="op">=</span> lm_kennlinie)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>lineare_funktion_messwerte <span class="op">=</span> poly.polyval(x <span class="op">=</span> np.arange(messwerte.size), c <span class="op">=</span> lm_messwerte)</span>
@@ -521,7 +526,7 @@ geschätzten Nullpunkt der idealen Kennlinie ist der Nullpunktfehler:
 <section id="nullpunktfehler-korrigieren" class="level3">
 <h3 class="anchored" data-anchor-id="nullpunktfehler-korrigieren">Nullpunktfehler korrigieren</h3>
 <p>Der Nullpunktfehler wird durch Subtraktion von den Messwerten korrigiert. Das Vorgehen zur Ermittlung des Nullpunktfehlers wird zur Illustration im folgenden Beispiel mit anderen Werten wiederholt.</p>
-<div id="e0924805" class="cell" data-execution_count="6">
+<div id="424e5d71" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erzeugen</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>messgröße <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>) <span class="op">+</span> <span class="dv">5</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>messwerte <span class="op">=</span> messgröße <span class="op">+</span> <span class="fl">2.5</span></span>
@@ -559,7 +564,7 @@ geschätzten Nullpunkt der idealen Kennlinie ist der Nullpunktfehler:
 <h2 data-number="6.4" class="anchored" data-anchor-id="multiplikative-fehler-der-spannfehler"><span class="header-section-number">6.4</span> Multiplikative Fehler: Der Spannfehler</h2>
 <p><strong>Spannfehler scheint eine absolut ungebräuchliche Bezeichnung zu sein</strong></p>
 <p>Als Spannfehler wird ein über den Wertebereich (die Spanne) der gesuchten Größe zu- oder abnehmender Fehler bezeichnet. Die relative Messabweichung <span class="math inline">\(\delta\)</span> ist dabei konstant, die absolute Messabweichung <span class="math inline">\(\Delta\)</span> abhängig vom Messwert. (<a href="https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/">ics Schneider Messtechnik</a>)</p>
-<div id="d78992aa" class="cell" data-execution_count="7">
+<div id="37974d6d" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erzeugen</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>messgröße <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>messwerte <span class="op">=</span> messgröße <span class="op">-</span> messgröße <span class="op">/</span> <span class="dv">3</span></span>
@@ -588,14 +593,14 @@ geschätzten Nullpunkt der idealen Kennlinie ist der Nullpunktfehler:
 <section id="spannfehler-quantifizieren" class="level3">
 <h3 class="anchored" data-anchor-id="spannfehler-quantifizieren">Spannfehler quantifizieren</h3>
 <p>Der Spannfehler kann geschätzt werden, wenn Referenzwerte bekannt sind. Mit den vollständigen Beispieldaten geht es leicht (in dem Beispiel wird eine Warnung wegen Division durch 0 unterdrückt):</p>
-<div id="d758a485" class="cell" data-execution_count="8">
+<div id="d2c34cdc" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Der Spannfehler beträgt: </span><span class="sc">{</span><span class="bu">round</span>((np.nanmean((messwerte <span class="op">/</span> messgröße)) <span class="op">-</span> <span class="dv">1</span> ) <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>)<span class="sc">}</span><span class="ss"> %"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Der Spannfehler beträgt: -33.33 %</code></pre>
 </div>
 </div>
 <p>Bei nur punktuellen Daten wird eine ideale Kennlinie geschätzt, mit der der Spannfehler geschätzt werden kann.</p>
-<div id="2957d37c" class="cell" data-execution_count="9">
+<div id="e8fb7366" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bekannte Referenzwerte</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> <span class="dv">8</span></span>
@@ -618,7 +623,7 @@ Der Anstieg der idealen Kennlinie: 1.0</code></pre>
 </div>
 </div>
 <p>Grafisch wird das Vorgehen deutlich.</p>
-<div id="69ae662e" class="cell" data-execution_count="10">
+<div id="b809699e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Punkte und Linien</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">10</span>], [messgröße[<span class="dv">0</span>], messgröße[<span class="op">-</span><span class="dv">1</span>]], marker <span class="op">=</span> <span class="st">'none'</span>, linestyle <span class="op">=</span> <span class="st">'dashed'</span>, color <span class="op">=</span> <span class="st">'C0'</span>, label <span class="op">=</span> <span class="st">'ideale Kennlinie'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.plot([x1, x2], [y1, y2], marker <span class="op">=</span> <span class="st">'o'</span>, linestyle <span class="op">=</span> <span class="st">'none'</span>, color <span class="op">=</span> <span class="st">'C0'</span>, label <span class="op">=</span> <span class="st">'bekannte Referenzwerte'</span>)</span>
@@ -641,7 +646,7 @@ Der Anstieg der idealen Kennlinie: 1.0</code></pre>
 <section id="spannfehler-korrigieren" class="level3">
 <h3 class="anchored" data-anchor-id="spannfehler-korrigieren">Spannfehler korrigieren</h3>
 <p>Der Spannfehler wird durch die Division der Messwerte durch 1 + Spannfehler korrigiert. Das Vorgehen zur Ermittlung des Spannfehlers wird zur Illustration im folgenden Beispiel mit anderen Werten wiederholt.</p>
-<div id="ec322f92" class="cell" data-execution_count="11">
+<div id="c87ff87c" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erzeugen</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>messgröße <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>) <span class="op">+</span> <span class="dv">5</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>messwerte <span class="op">=</span> messgröße <span class="op">-</span> messgröße <span class="op">/</span> <span class="dv">5</span></span>
@@ -687,7 +692,7 @@ Korrigierte Messwerte:
 <section id="nullpunkt--und-spannfehler" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="nullpunkt--und-spannfehler"><span class="header-section-number">6.5</span> Nullpunkt- und Spannfehler</h2>
 <p>Absolute und multiplikative Abweichungen können gemeinsam auftreten. In diesem Beispiel wird die absolute Messabweichung über den dargestellten Wertebereich kleiner, da der Nullpunktfehler mit positivem Vorzeichen und der Spannfehler mit negativen Vorzeichen auftreten.</p>
-<div id="467f2809" class="cell" data-execution_count="12">
+<div id="a8770525" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erzeugen</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>messgröße <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>messwerte <span class="op">=</span> messgröße <span class="op">+</span> <span class="dv">4</span> <span class="op">-</span> messgröße <span class="op">/</span> <span class="dv">3</span></span>
@@ -724,7 +729,7 @@ Korrigierte Messwerte:
 <h3 class="anchored" data-anchor-id="nullpunkt--und-spannfehler-quantifizieren">Nullpunkt- und Spannfehler quantifizieren</h3>
 <p>Aus mindestens zwei bekannten Referenzpunkten können mit linearer Regression der Nullpunkt- und der Spannfehler geschätzt werden. In der linearen Regression wird ein bei 0 beginnender Index für die x-Werte verwendet. Um den Nullpunktfehler korrekt ermitteln zu können, wird dieser Index um den geschätzten wahren Nullpunkt verschoben.</p>
 <p>Das liegt daran, dass wenn die Messgröße keinen Wert für 0 enthält, auch der Spannfehler auf den Wert mit dem Index 0 angewendet wird. Deshalb muss erst der Spannfehler korrigiert werden. (<strong>Wenn die Werte 0 beinhalten, dann merkt man nicht, dass dieser Schritt nötig ist.</strong>)</p>
-<div id="39b05795" class="cell" data-execution_count="13">
+<div id="1d625ab1" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erzeugen</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>messgröße <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>) <span class="op">+</span> <span class="dv">7</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>messwerte <span class="op">=</span> messgröße <span class="op">+</span> <span class="dv">4</span> <span class="op">-</span> messgröße <span class="op">/</span> <span class="dv">3</span></span>
@@ -769,7 +774,7 @@ Der Spannfehler beträgt: -33.33 %</code></pre>
 <li>Zuerst wird der Nullpunktfehler korrigiert.</li>
 <li>Danach wird der Spannfehler korrigiert.</li>
 </ol>
-<div id="6cb6c8ec" class="cell" data-execution_count="14">
+<div id="984d419a" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten erzeugen</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>messgröße <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">11</span>) <span class="op">+</span> <span class="dv">7</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>messwerte <span class="op">=</span> messgröße <span class="op">+</span> <span class="dv">4</span> <span class="op">-</span> messgröße <span class="op">/</span> <span class="dv">3</span></span>
@@ -814,9 +819,10 @@ Der Spannfehler beträgt: -33.33 %</code></pre>
 <span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>korrigierte_messwerte <span class="op">=</span> a <span class="op">*</span> messwerte <span class="op">+</span> b</span>
 <span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Vorgehen Arnold</span><span class="ch">\n</span><span class="ss">"</span>,</span>
-<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"a = </span><span class="sc">{</span>a<span class="sc">:.1f}</span><span class="ss">"</span>,</span>
-<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"b = </span><span class="sc">{</span>b<span class="sc">:.1f}</span><span class="ss">"</span>,</span>
-<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span>korrigierte_messwerte<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"a = </span><span class="sc">{</span>a<span class="sc">:.1f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"b = </span><span class="sc">{</span>b<span class="sc">:.1f}</span><span class="ch">\n</span><span class="ss">"</span>,</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="ch">\n</span><span class="ss">a * messwerte + b</span><span class="ch">\n</span><span class="sc">{</span>korrigierte_messwerte<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>      sep <span class="op">=</span> <span class="st">''</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Wahre Werte:
 [ 7  8  9 10 11 12 13 14 15 16 17]
@@ -830,16 +836,20 @@ erst Spannfehler, dann Nullpunktfehler korrigiert
 [ 9. 10. 11. 12. 13. 14. 15. 16. 17. 18. 19.]
 
 Vorgehen Arnold
- a = 1.5 b = -6.0 
+a = 1.5
+b = -6.0
+
+a * messwerte + b
 [ 7.  8.  9. 10. 11. 12. 13. 14. 15. 16. 17.]</code></pre>
 </div>
 </div>
-<p>Simones Vorgehen führt zu korrekt kalibrierten Messwerten. Die Variable a ist der Korrekturfaktor für den Spannfehler. Aber die Variable b hat keine inhaltliche Bedeutung.</p>
+<p>Simones Vorgehen führt zu korrekt kalibrierten Messwerten. Die Variable a ist der Korrekturfaktor für den Spannfehler. Aber die Variable b hat keine inhaltliche Bedeutung. Aber warum funktioniert es dann?! Weil b die Nullpunktkorrektur ist, wenn erst der Spannfehler korrigiert wird.</p>
+<p>Das hat etwas mit der Konstruktion der Daten bzw. der Korrektur zu tun. b ist die Korrektur des Nullpunktfehlers * Spannfehler. Das heißt aus der Arnoldformel kann der Spannfehler als <span class="math inline">\(-1 * {b \over a}\)</span> ermittelt werden.</p>
 <p>Mein Vorgehen ist flexibler, weil aus beliebigen Punkten, statt Minimum und Maximum geschätzt werden kann.</p>
 </section>
 </section>
 <section id="nichtlinearität-linearitätsfehler" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="nichtlinearität-linearitätsfehler"><span class="header-section-number">6.6</span> 3. Nichtlinearität: Linearitätsfehler</h2>
+<h2 data-number="6.6" class="anchored" data-anchor-id="nichtlinearität-linearitätsfehler"><span class="header-section-number">6.6</span> Nichtlinearität: Linearitätsfehler</h2>
 <section id="sec-pt100" class="level3">
 <h3 class="anchored" data-anchor-id="sec-pt100">Beispiel Pt100</h3>
 <p>Das Pt100 ist ein Platin-Widerstandsthermometer (Pt = Platin) mit einem definierten Widerstandswert von <span class="math inline">\(100 \Omega\)</span> bei einer Temperatur von 0°C (daher der Name Pt<strong>100</strong>). Der Widerstand eines Pt100 steigt mit der Temperatur. Bei 100 °C beträgt der Widerstand beispielsweise <span class="math inline">\(138,51 \Omega\)</span>. Der Zusammenhang zwischen der Eingangsgröße, dem elektrischen Widerstand, und der so gemessenen Temperatur ist jedoch nur näherungsweise linear.</p>
@@ -894,12 +904,12 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="21f5f4cc" class="cell" data-execution_count="15">
+<div id="75938d25" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dateipfad_belowzero <span class="op">=</span> <span class="st">'01-daten/pt100-table-below-zero.csv'</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dateipfad_abovezero <span class="op">=</span> <span class="st">'01-daten/pt100-table-above-zero.csv'</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Dateien einlesen und betrachten. Zunächst die Datei mit Temperaturen unter 0 Grad Celsius.</p>
-<div id="9b112e97" class="cell" data-execution_count="16">
+<div id="17375f76" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># belowzero</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>belowzero <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad_belowzero, sep <span class="op">=</span> <span class="st">','</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -937,7 +947,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 <p>Es gibt 201 Werte (von -200 bis 0). Die Daten beginnen in der Zeile mit dem Index 1 (wenn die erste Zeile als header eingelesen wird). Diese enthält nur einen Eintrag in der Spalte ‘0’. Die folgenden Zeilen sind von rechts nach links einzulesen. Das Dezimaltrennzeichen ist das <code>,</code>.</p>
 <p>Das Einlesen der Daten von rechts nach links kann auf viele Arten bewerkstelligt werden. Eine einzeilige Lösung beginnt damit, der Methode <code>pd.iloc[::-1]</code> eine negative Schrittweite zu übergeben.</p>
-<div id="91bbb2c6" class="cell" data-execution_count="17">
+<div id="6da2de06" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(np.array([[<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>], [<span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>]]))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.iloc[::<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
@@ -952,7 +962,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 </div>
 <p>Das führt dazu, dass die <em>Zeilen</em> des DataFrame in umgekehrter Reihenfolge ausgegeben werden. Um die <em>Spalten</em> in umgekehrter Reihenfolge auszugeben, wird der DataFrame mit der Methode <code>pd.T</code> zwei mal transponiert.</p>
-<div id="2d9d12a3" class="cell" data-execution_count="18">
+<div id="55640607" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.T.iloc[::<span class="op">-</span><span class="dv">1</span>].T)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   2  1  0
@@ -961,7 +971,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 </div>
 <p>Mit der NumPy-Methode <code>np.flatten()</code> kann ein Array in eine eindimensionale Struktur reduziert werden. Dafür wird mit der Methode <code>pd.to_numpy()</code> der DataFrame als NumPy-Array ausgegeben.</p>
-<div id="e8d75713" class="cell" data-execution_count="19">
+<div id="96958604" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.T.iloc[::<span class="op">-</span><span class="dv">1</span>].T.to_numpy())</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>() <span class="co"># leere Zeile</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.T.iloc[::<span class="op">-</span><span class="dv">1</span>].T.to_numpy().flatten())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
@@ -973,7 +983,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 </div>
 <p>Versuchen wir es mit dem Kopf der Pt100-Daten.</p>
-<div id="4d120ab7" class="cell" data-execution_count="20">
+<div id="80689e25" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>belowzero <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad_belowzero, sep <span class="op">=</span> <span class="st">','</span>, decimal <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, skiprows <span class="op">=</span> <span class="dv">1</span>, index_col <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(belowzero.head())</span>
@@ -995,7 +1005,7 @@ Tipp&nbsp;6.1: Musterlösung Pt100-Tabelle einlesen
 </div>
 </div>
 <p>Um die fehlenden Werte zu überspringen, wandeln wir das bisherige Ergebnis wieder in eine <code>pd.Series()</code> um und verwenden die Methode <code>pd.Series.dropna()</code>.</p>
-<div id="b19275fe" class="cell" data-execution_count="21">
+<div id="bcf4532c" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>pd.Series(belowzero.head().T.iloc[::<span class="op">-</span><span class="dv">1</span>].T.to_numpy().flatten()).dropna()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>9     18.52
@@ -1043,7 +1053,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Und jetzt für die gesamte Datei:</p>
-<div id="f8250eca" class="cell" data-execution_count="22">
+<div id="d9d2d666" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>belowzero_ohm <span class="op">=</span> pd.Series(belowzero.T.iloc[::<span class="op">-</span><span class="dv">1</span>].T.to_numpy().flatten()).dropna()</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(belowzero_ohm.head(), belowzero_ohm.tail(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1062,7 +1072,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Die Temperatur können wir einfach durch ein range-Objekt erzeugen:</p>
-<div id="be012a9a" class="cell" data-execution_count="23">
+<div id="1499cf9a" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>belowzero_temperatur <span class="op">=</span> pd.Series(<span class="bu">range</span>(<span class="op">-</span><span class="dv">200</span>, <span class="dv">1</span>)) <span class="co"># range stop ist exklusiv</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(belowzero_temperatur.head(), belowzero_temperatur.tail(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1081,7 +1091,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Für die Temperaturen oberhalb von 0 Grad kann das Vorgehen vereinfacht werden, da die Datei gleich aufgebaut ist und die Werte aufsteigend sortiert sind.</p>
-<div id="6970ea61" class="cell" data-execution_count="24">
+<div id="7918ab0b" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>abovezero <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad_abovezero, sep <span class="op">=</span> <span class="st">','</span>, decimal <span class="op">=</span> <span class="st">','</span>, header <span class="op">=</span> <span class="dv">0</span>, skiprows <span class="op">=</span> <span class="dv">1</span>, index_col <span class="op">=</span> <span class="dv">0</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>abovezero_ohm <span class="op">=</span> pd.Series(abovezero.to_numpy().flatten()).dropna()</span>
@@ -1102,7 +1112,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Beide Datensätze enthalten einen Eintrag für die Temperatur 0 Grad, sodass dieser in der zweiten Datei entfernt werden kann.</p>
-<div id="080b49b0" class="cell" data-execution_count="25">
+<div id="e8924d5d" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>abovezero_ohm <span class="op">=</span> abovezero_ohm[<span class="dv">1</span>:]</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(abovezero_ohm.head(), abovezero_ohm.tail(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1121,11 +1131,11 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Die Temperatur wird wieder durch ein range-Objekt erzeugt.</p>
-<div id="fe4b7df4" class="cell" data-execution_count="26">
+<div id="e5f1018e" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>abovezero_temperatur <span class="op">=</span> pd.Series(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">851</span>)) <span class="co"># range stop ist exklusiv</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Die aus beiden Datensätzen erzeugten Series können zusammengefasst werden:</p>
-<div id="3122fc37" class="cell" data-execution_count="27">
+<div id="48c6a375" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>pt100 <span class="op">=</span> pd.DataFrame({<span class="st">'Temperatur'</span>: pd.concat([belowzero_temperatur, abovezero_temperatur], ignore_index <span class="op">=</span> <span class="va">True</span>), <span class="st">'Ohm'</span>: pd.concat([belowzero_ohm, abovezero_ohm], ignore_index <span class="op">=</span> <span class="va">True</span>)})</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pt100.head(), pt100.tail(), sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1162,7 +1172,7 @@ None</code></pre>
 <section id="nichtlinearität-darstellen" class="level3">
 <h3 class="anchored" data-anchor-id="nichtlinearität-darstellen">Nichtlinearität darstellen</h3>
 <p>Mit den Daten aus <a href="#tip-pt100" class="quarto-xref">Tipp&nbsp;<span>6.1</span></a> kann die Nichtlinearität des Sensors dargestellt werden.</p>
-<div id="285942a7" class="cell" data-execution_count="28">
+<div id="ab2dc386" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>plt.plot(pt100[<span class="st">'Temperatur'</span>], pt100[<span class="st">'Ohm'</span>], marker <span class="op">=</span> <span class="st">'o'</span>, linestyle <span class="op">=</span> <span class="st">''</span>, label <span class="op">=</span> <span class="st">'elektrischer Widerstand'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>plt.plot([pt100[<span class="st">'Temperatur'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Temperatur'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]], [pt100[<span class="st">'Ohm'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Ohm'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]], linewidth <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">'Referenzlinie'</span>)</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>plt.yticks(pt100[<span class="st">'Ohm'</span>][::<span class="dv">50</span>])<span class="op">;</span></span>
@@ -1183,7 +1193,7 @@ None</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Es fällt auf, dass die Daten einen Fehlwert enthalten. Die Position des Fehlwerts wird mit zwei Pandas-Methoden bestimmt. <code>pd.diff()</code> gibt die Differenz jedes Werts zu seinem Vorgänger zurück. <code>pd.idxmin()</code> gibt den Zeilenindex (genauer das label) des kleinsten Werts zurück. (Läge der Fehlwert oberhalb der Linie, würde <code>pd.idxmax()</code> verwendet werden.)</p>
-<div id="5269882a" class="cell" data-execution_count="29">
+<div id="c8dfcf06" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># := ist der sog. Walross-Operator</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(( position_fehlwert <span class="op">:=</span> pt100[<span class="st">'Ohm'</span>].diff().idxmin() ))</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pt100.iloc[<span class="bu">list</span>(<span class="bu">range</span>(position_fehlwert <span class="op">-</span> <span class="dv">2</span>, position_fehlwert <span class="op">+</span> <span class="dv">3</span>))])</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1211,7 +1221,7 @@ Beispiel&nbsp;6.2: Interpolation
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die einfachste Form der Interpolation ist die lineare Interpolation.</p>
-<div id="e0133c45" class="cell" data-execution_count="30">
+<div id="dbe12b7f" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>interpolate_me <span class="op">=</span> pt100.loc[position_fehlwert <span class="op">-</span> <span class="dv">1</span> : position_fehlwert <span class="op">+</span> <span class="dv">1</span>, <span class="st">'Ohm'</span>].copy()</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>interpolate_me[position_fehlwert] <span class="op">=</span> np.nan</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(interpolate_me, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
@@ -1231,7 +1241,7 @@ Name: Ohm, dtype: float64</code></pre>
 </div>
 </div>
 <p>Durch Runden wird das korrekte Ergebnis erreicht (darauf verlassen sollte man sich aber nicht).</p>
-<div id="e26a38d5" class="cell" data-execution_count="31">
+<div id="d6d2932c" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"linear interpolierter Wert:"</span>, interpolate_me.interpolate().<span class="bu">round</span>(<span class="dv">2</span>), sep <span class="op">=</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>korrekter_wert <span class="op">=</span> interpolate_me.interpolate().<span class="bu">round</span>(<span class="dv">2</span>)[position_fehlwert]</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1256,7 +1266,7 @@ Beispiel&nbsp;6.1: Nichtlineare Interpolation
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die nichtlineare Interpolation benötigt mehr Datenpunkte. Wir versuchen die kubische Interpolation:</p>
-<div id="5e602cd4" class="cell" data-execution_count="32">
+<div id="e163909e" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>interpolate_me_again <span class="op">=</span> pt100.loc[position_fehlwert <span class="op">-</span> <span class="dv">3</span> : position_fehlwert <span class="op">+</span> <span class="dv">4</span>, <span class="st">'Ohm'</span>].copy()</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>interpolate_me_again[position_fehlwert] <span class="op">=</span> np.nan</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"polynomial interpolierter Wert:"</span>, interpolate_me_again.interpolate(method <span class="op">=</span> <span class="st">'polynomial'</span>, order <span class="op">=</span> <span class="dv">3</span>), sep <span class="op">=</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1281,7 +1291,7 @@ Name: Ohm, dtype: float64</code></pre>
 </div>
 </div>
 <p>Der Fehlwert (dessen Position in obigem Beispiel bestimmt wird) wird korrigiert:</p>
-<div id="45c354f4" class="cell" data-execution_count="33">
+<div id="30411c52" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>pt100.loc[position_fehlwert, <span class="st">'Ohm'</span>] <span class="op">=</span> korrekter_wert</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pt100.loc[position_fehlwert <span class="op">-</span> <span class="dv">1</span> : position_fehlwert <span class="op">+</span> <span class="dv">1</span>, <span class="st">'Ohm'</span>])</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1292,7 +1302,7 @@ Name: Ohm, dtype: float64</code></pre>
 </div>
 </div>
 <p>Sodann kann die Nichtlinearität erneut dargestellt werden:</p>
-<div id="d05a79a6" class="cell" data-execution_count="34">
+<div id="eb9070ee" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>plt.plot(pt100[<span class="st">'Temperatur'</span>], pt100[<span class="st">'Ohm'</span>], marker <span class="op">=</span> <span class="st">'o'</span>, linestyle <span class="op">=</span> <span class="st">''</span>, label <span class="op">=</span> <span class="st">'elektrischer Widerstand'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>plt.plot([pt100[<span class="st">'Temperatur'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Temperatur'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]], [pt100[<span class="st">'Ohm'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Ohm'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]], linewidth <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">'Referenzlinie'</span>)</span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>plt.yticks(pt100[<span class="st">'Ohm'</span>][::<span class="dv">50</span>])<span class="op">;</span></span>
@@ -1331,7 +1341,7 @@ Definition&nbsp;6.3: Festpunktmethode
 </div>
 </div>
 <p>Dazu bestimmen wir zunächst die Vorhersagewerte einer Geraden durch die Endpunkte.</p>
-<div id="5c08f33c" class="cell" data-execution_count="35">
+<div id="34e55e01" class="cell" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> [pt100[<span class="st">'Temperatur'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Temperatur'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]],</span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> [pt100[<span class="st">'Ohm'</span>].iloc[<span class="dv">0</span>], pt100[<span class="st">'Ohm'</span>].iloc[<span class="op">-</span><span class="dv">1</span>]],</span>
@@ -1363,7 +1373,7 @@ Definition&nbsp;6.3: Festpunktmethode
 </div>
 <p>&nbsp;</p>
 <p>Aus der Differenz des gemessenen elektrischen Widerstands und der linearen Vorhersagewerte kann der maximale Linearitätsfehler bestimmt werden.</p>
-<div id="65f2ff03" class="cell" data-execution_count="36">
+<div id="dfb9440e" class="cell" data-execution_count="36">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>linearitätsfehler <span class="op">=</span> (pt100[<span class="st">'Ohm'</span>] <span class="op">-</span> vorhersagewerte).<span class="bu">abs</span>().<span class="bu">max</span>()</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Linearitätsfehler nach Festpunktmethode: </span><span class="sc">{</span>linearit<span class="sc">ä</span>tsfehler<span class="sc">:.2f}</span><span class="ss"> Ohm."</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1387,7 +1397,7 @@ Definition&nbsp;6.4: Toleranzbandmethode
 </div>
 </div>
 <p>Das Prinzip der Methode der kleinsten Quadrate haben wir bereits kennengelernt.</p>
-<div id="afa9f68e" class="cell" data-execution_count="37">
+<div id="137fbd9c" class="cell" data-execution_count="37">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> poly.polyfit(</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> pt100[<span class="st">'Temperatur'</span>],</span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  y <span class="op">=</span> pt100[<span class="st">'Ohm'</span>],</span>
@@ -1419,7 +1429,7 @@ Definition&nbsp;6.4: Toleranzbandmethode
 </div>
 <p>&nbsp;</p>
 <p>Aus der Differenz des gemessenen elektrischen Widerstands und der linearen Vorhersagewerte kann der maximale Linearitätsfehler (= das größte Residuum) bestimmt werden.</p>
-<div id="84e1bc9e" class="cell" data-execution_count="38">
+<div id="c8d5a60a" class="cell" data-execution_count="38">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>linearitätsfehler <span class="op">=</span> (pt100[<span class="st">'Ohm'</span>] <span class="op">-</span> vorhersagewerte).<span class="bu">abs</span>().<span class="bu">max</span>()</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Linearitätsfehler nach Toleranzbandmethode: </span><span class="sc">{</span>linearit<span class="sc">ä</span>tsfehler<span class="sc">:.2f}</span><span class="ss"> Ohm."</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
