@@ -1,11 +1,4 @@
 # Kalibrierung
-**Daten Eiskochen nur als 2-Punkt-Kalibrierung behandeln**
-
-- Referenzpunkte für 0 und 100 festlegen (mitteln) und Daten entsprechend kalibrieren
-- Daten dazwischen verwerfen, weil man nicht weiß, ob der Herd überhaupt linear heizt
-- praktische Kalibriermethode als Unterpunkt von Nullpunkt- und Spannfehler
-
-
 Die Genauigkeit von Messungen wird durch die Korrektion systemtischer Messabweichungen verbessert. In diesem Kapitel werden typische *Fehlerarten* bei Messungen behandelt:
 
   - additive Fehler,
@@ -71,7 +64,7 @@ Ein Kalibrierfaktor kann angegeben werden, wenn eine konstante relative Abweichu
 Eine Kalibrierfunktion erlaubt die Modellierung komplexer Zusammenhänge. Die Methoden dafür werden im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) vorgestellt.
 
 ## Additive Fehler: Der Nullpunktfehler
-Der Nullpunktfehler beschreibt die Abweichung der Messgröße von Null, wenn der gesuchte Wert tatsächlich Null ist. Der Nullpunktfehler wird auch als Nullabgleich, Nullpunktverschiebung oder Offset-Fehler bezeichnet. Der Nullpunktfehler ist konstant und wirkt additiv auf jeden Messwert. ([ics Schneider Messtechnik](https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/))
+Der Nullpunktfehler beschreibt die Abweichung der Messgröße von Null, wenn der gesuchte Wert tatsächlich Null ist. Der Nullpunktfehler wird auch als Nullabgleich, Nullpunktverschiebung oder Offsetfehler bezeichnet. Der Nullpunktfehler ist konstant und wirkt additiv auf jeden Messwert. ([ics Schneider Messtechnik](https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/))
 
 ``` {python}
 #| fig-alt: "Schematische Darstellung des Nullpunktfehlers. Zwei parallele Geraden der wahren und der gemessenen Werte ist am Punkt x = 0 durch eine gestrichelte vertikale Linie verbunden, die den Unterschied zwischen dem wahren Wert y = 2 und dem gemessenen Wert y = 6 verdeutlicht. Die gestrichelte Linie erneut bei x = 4 und x = 8 eingezeichnet."
@@ -98,6 +91,8 @@ plt.show()
 &nbsp;
 
 ### Nullpunktfehler quantifizieren
+**Hier sind die Berechnungen noch nicht korrekt. Mit einfachen Werten scheint es zufällig zu passen, mit verschobenen Werten nicht mehr. Das korrekte Vorgehen steht beim Test mit Kelvin.**
+
 Der Nullpunktfehler kann leicht bestimmt werden, wenn Messwerte für den Nullpunkt vorliegen und der wahre Wert bekannt ist. (Wenn außerdem bekannt ist, dass keine weiteren systematischen Messabweichungen vorliegen, kann der Nullpunktfehler über einen beliebigen wahren Referenzwert bestimmt werden.) Für die zur grafischen Darstellung angelegten Daten ist dies der Fall.
 
 ```{python}
@@ -159,7 +154,7 @@ plt.show()
 **to do: gibt es weitere Methoden?**
 
 ### Nullpunktfehler korrigieren
-Der Nullpunktfehler wird durch Subtraktion von den Messwerten korrigiert.
+Der Nullpunktfehler wird durch Subtraktion von den Messwerten korrigiert. Das Vorgehen zur Ermittlung des Nullpunktfehlers wird zur Illustration im folgenden Beispiel mit anderen Werten wiederholt.
 
 ```{python}
 # Daten erzeugen
@@ -188,191 +183,7 @@ korrigierte_messwerte = messwerte - nullpunktfehler
 ```
 
 ### Übung Nullpunktfehler
-Die Quantifizierung des Nullpunktfehlers ist manchmal schwierig, beispielsweise weil der wahre Nullpunkt einer Größe nur schwer vermessen werden kann oder die Messdaten nicht durch eine einfache Funktion approximiert werden können. In diesem Fall muss eine möglichst gute Schätzung gefunden werden. 
-
-In einem Klimaschrank wurden 16 Thermoelemente Temperaturen von -10 °C bis 140 °C in Schritten von 10 °C ausgesetzt. Die Messgenauigkeit des verwendeten Datenloggers TCTempX16 liegt bei 0,01 °C, die Auflösung bei 0,1 °C. Für die Thermoelemente soll der Nullpunktfehler bestimmt werden.
-
-:::{#wrn-celsius .callout-warning appearance="simple"}
-0 ° C auf der Celsius-Skala ist kein sinnvoller Referenzpunkt zur Bestimmung des Nullpunktfehlers, weil die Abwesenheit von Wärme erst bei -273,15 °C gegeben ist. Da der Nullpunktfehler über alle Messwerte konstant ist, kann der Nullpunktfehler geschätzt werden, indem für jede Temperaturstufe der Nullpunktfehler separat geschätzt und die Ergebnisse anschließend gemittelt werden.
-:::
-
-Die Messdaten liegen in der Datei '01-daten/kalibration_tc.xlsx'. Die Daten können mit dem folgenden Befehl eingelesen werden.
-
-```{python}
-klimaschrank = pd.read_excel(io = '01-daten/kalibration_tc.xlsx', sheet_name = 'T15949 MultiChannel - Daten', skiprows = 6)
-print(klimaschrank.info())
-```
-
-Mit `klimaschrank.describe()` kann ein Überblick über die Daten gewonnen werden (hier aus Platzgründen für die ersten 4 Spalten).
-```{python}
-print(klimaschrank.iloc[: , 0:4].describe())
-```
-
-Die Spalten Datum und Zeit enthalten die selben Informationen. Eine der beiden Spalten kann deshalb entfernt werden.
-```{python}
-klimaschrank.drop(labels = 'Datum', axis = 1, inplace = True)
-```
-
-Betrachten wir den Verlauf der Daten für die ersten beiden Thermoelemente. (In der Darstellung mit `pd.plot()` ist die automatisch gewählte x-Achsenbeschriftung unansehnlich. Deshalb wird ein Datenobjekt für die Darstellung angelegt und die Spalte 'Zeit' auf die Uhrzeit reduziert.)
-```{python}
-#| fig-alt: "Darstellung der gemessenen Temperaturen der ersten beiden Thermoelemente über die Zeit."
-
-# einfache Darstellung mit automatischer Achsenbeschriftung
-# klimaschrank.iloc[: , 0:3].plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'])
-
-plotting_data = klimaschrank.copy()
-plotting_data['Zeit'] = plotting_data['Zeit'].dt.time
-
-plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
-plt.ylabel(ylabel = '° C')
-plt.show()
-```
-
-&nbsp;
-
-Wie man sieht, überschießt der Klimaschrank beim Aufheizen auf die nächste Temperaturstufe zunächst immer etwas, bevor die eingestellte Temperatur konstant gehalten wird. Die Temperatur von 140 °C wird nur kurz erreicht, es liegen aber kaum Messwerte vor. 
-
-**Bestimmen Sie nun den Nullpunktfehler für die Thermoelemente 2 bis 16.**
-
-  1. Wählen Sie für jedes Thermoelement die Bereiche der Datenreihe für die Temperaturstufen -10 bis 130 °C aus und bestimmen Sie für jede Temperaturstufe einen sinnvollen Ausschnitt der Datenreihe, in der die Referenztemperatur konstant gehalten wird.
-  2. Berechnen Sie den Nullpunktfehler für jeden Ausschnitt der Datenreihe und mitteln Sie die Ergebnisse für jedes Thermoelement. 
-
-Tipp 1: Der Median kann eine einfacher zu bestimmende Schätzgröße für den Nullpunktfehler sein. Eine Musterlösung für Thermoelement 1 finden Sie im folgenden Aufklapper.
-
-Tipp 2: Schreiben Sie eine Funktion, um Programmcode zu wiederholen.
-
-**so genau trifft man den konstanten Bereich nicht. Man könnte noch die mittlere Hälfte rausschneiden oder noch mal die .diff() filtern, um die Rampen rauszukriegen.**
-
-:::{#tip-te1 .callout-tip collapse="true"}
-## Musterlösung Thermoelement 1
-
-**Entwicklung einer Lösung für eine Temperaturstufe. Die Bestimmung ist gar nicht so leicht: Mit pd.diff() liegt man z. B. bei 80 Grad knapp daneben. Über den Modus geht es besser, aber für 0 Grad liegt man eher zwischen zwei Werten.**
-
-1. Bereich der Datenreihe für eine Temperatur auswählen, z. B. 0 °C. Dazu grenzen wir die Messwerte grob um den gesuchten Wert $0 \pm 2 °C$ ein.
-```{python}
-#| fig-alt: "Ausschnitt der Datenreihe von Thermoelement 1"
-
-# Thermoelement 1
-## Messwerte grob um den gesuchten Wert 0 °C eingrenzen
-gesuchter_wert = 0
-
-maske1 = klimaschrank['Thermoelement 1 (°C)'].le(gesuchter_wert + 2) # le = kleiner gleich
-maske2 = klimaschrank['Thermoelement 1 (°C)'].ge(gesuchter_wert - 2) # ge = größer gleich
-
-klimaschrank.loc[maske1 * maske2, 'Thermoelement 1 (°C)'].plot()
-plt.xlabel(xlabel = 'Index')
-plt.ylabel(ylabel = '°C')
-
-plt.show()
-```
-
-&nbsp;
-
-In diesem Ausschnitt kann das Überschießen der Messwerte beobachtet werden, bevor sich die Messwerte etwa bei + 1 °C einpendeln. Auch ist der Anstieg zur folgenden Temperaturstufe zu erkennen.
-
-**Die Rampen müssen hier raus. Der häufigste Wert könnte klappen. Damit trifft man den Wert exakt, aber die Mitte eines zwischen zwei Werten fluktuierenden Werts wird nicht getroffen --> Messfehler**
-
-2. Im zweiten Schritt sollen die Daten im konstanten Temperaturbereich ausgewählt werden. Dazu soll ein möglichst einfaches Kriterium verwendet werden: der häufigste im Ausschnitt vorkommende Wert, also der Modus. Dazu wird die Methode `pd.value_counts()` verwendet, die eine absteigend sortierte Series der Häufigkeiten zurückgibt, wobei im Index die Werte gespeichert sind (siehe Beispiel). Der im Index gespeicherte häufigste Wert wird mit der Methode `pd.idxmax()` ausgelesen.
-
-:::: {#nte-valuecounts .callout-note collapse="true"}
-## pd.value_counts()
-
-Die Ausgabe von `pd.value_counts()`:
-```{python}
-daten = pd.Series([1, 2, 3, 3, 3, 3, 3, 4, 4, 5])
-daten.value_counts()
-```
-
-::::
-
-
-```{python}
-#| figalt: "Ausschnitt der Datenreihe von Thermoelement 1. Als horizontale Linie ist der Nullpunktfehler eingezeichnet."
-
-# Thermoelement 1
-
-## Messwerte grob um den gesuchten Wert 0 °C eingrenzen
-maske1 = klimaschrank['Thermoelement 1 (°C)'].le(gesuchter_wert + 2) # le = kleiner gleich
-maske2 = klimaschrank['Thermoelement 1 (°C)'].ge(gesuchter_wert - 2) # ge = größer gleich
-
-## häufigster Wert im eingegrenzten Temperaturbereich
-modus_bereich = klimaschrank.loc[maske1 * maske2, 'Thermoelement 1 (°C)'].value_counts().idxmax()
-
-## Nullpunktfehler bestimmen
-nullpunktfehler = modus_bereich - gesuchter_wert
-print(f"Nullpunktfehler: {nullpunktfehler}")
-
-## plotten
-klimaschrank.loc[maske1 * maske2, 'Thermoelement 1 (°C)'].plot()
-plt.axhline(y = modus_bereich, color = 'r', linestyle = '--', label = 'Modus')
-plt.xlabel(xlabel = 'Index')
-plt.ylabel(ylabel = '°C')
-
-plt.legend()
-plt.show()
-```
-
-&nbsp;
-
-Der Nullpunktfehler für Thermoelement 1 wird somit mit 0,9 °C bestimmt.
-
-Um die Berechnung für die verschiedenen Temperaturstufen zu automatisieren, schreiben wir eine Funktion.
-
-```{python}
-# Eingabe: data = pd.Series, gesuchter_wert = array like, schwellwert, puffer = Skalar
-# Verarbeitung: Elementweise werden die Werte in gesuchter_Wert ± puffer in data gesucht
-# Verarbeitung: Die Differenz aus dem Modus jedes Datenausschnitts und dem gesuchten Wert wird als Nullpunktfehler interpretiert 
-# Ausgabe: Wenn output = True wird DataFrame der gesuchten Werte und Nullpunktfehler ausgegeben, wenn output = False wird der mittlere Nullpunktefehler ausgegeben
-
-def nullpunktfehler(data, gesuchte_werte, puffer = 2, output = False):
-
-  # Zielobjekt und Zähler anlegen
-  ausgabe = pd.DataFrame({'Gesuchter Wert': pd.Series(), 'Nullpunktfehler': pd.Series()})
-  i = 0
-
-  for gesuchter_wert in gesuchte_werte:
-    
-    ## Messwerte grob um den gesuchten Wert eingrenzen
-    maske1 = data.le(gesuchter_wert + puffer) # le = kleiner gleich
-    maske2 = data.ge(gesuchter_wert - puffer) # ge = größer gleich
-
-    ## Kriterium häufigster Wert im eingegrenzten Temperaturbereich
-    modus_bereich = data.loc[maske1 * maske2].value_counts().idxmax()
-    
-    # Nullpunktfehler bestimmen
-    nullpunktfehler = modus_bereich - gesuchter_wert
-
-    # Werte eintragen
-    ausgabe.loc[i] = pd.Series([gesuchter_wert, nullpunktfehler]).values
-
-    # Zähler erhöhen
-    i += 1
-
-  # Optional Ausgabe
-  if output: # output is True
-    print(ausgabe)
-
-  # Rückgabe der gemittelten Nullpunktfehler
-  return ausgabe['Nullpunktfehler'].mean()
-```
-
-Angewendet auf Thermoelement 1 (°C):
-```{python}
-nullpunktfehler(data = klimaschrank['Thermoelement 1 (°C)'],
-                gesuchte_werte = np.arange(-10, 140, 10),
-                output = True)
-```
-
-Im letzten Schritt wenden wir die Funktion spaltenweise auf den DataFrame an.
-```{python}
-# gibt pd.Series zurück
-nullpunktfehler_klimaschrank = klimaschrank.iloc[: , 1:].apply(nullpunktfehler, axis = 0, gesuchte_werte = np.arange(-10, 140, 10)).round(3)
-
-print(nullpunktfehler_klimaschrank)
-```
-
-:::
-
+**Daten von Andres Fahrradsensor misst immer 3 Grad zu viel, weil das Display Abwärme macht (Offset-Fehler). Hier sind die Werte mit Display aus die bekannten Referenzwerte.**
 
 ## Multiplikative Fehler: Der Empfindlichkeitsfehler
 **Spannfehler scheint eine absolut ungebräuchliche Bezeichnung zu sein**
@@ -695,7 +506,7 @@ Die Daten wurden korrekt eingelesen. Mit der Methode `pd.describe()` wird der We
 print(eis.describe())
 ```
 
-Die Spalten Datum und Zeit enthalten die selben Informationen. Eine der beiden Spalten kann deshalb entfernt werden. Die Temperaturmessungen sollten näher betrachtet werden. Eishaltiges Wasser, das zum Kochen gebracht wird, sollte sich in einem Temperaturbereich von 0 bis 100 °C bewegen.
+Die Spalten Datum und Zeit enthalten die selben Informationen, eine der beiden Spalten kann deshalb entfernt werden. Die Temperaturmessungen sollten näher betrachtet werden. Eishaltiges Wasser, das zum Kochen gebracht wird, sollte sich in einem Temperaturbereich von 0 bis 100 °C bewegen.
 
 ```{python}
 eis.drop(labels = 'Datum', axis = 1, inplace = True)
