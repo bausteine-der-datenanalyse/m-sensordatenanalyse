@@ -129,6 +129,11 @@ print("Die aus allen Messwerten geschätzte lineare Funktion:", lm_messwerte2.ro
 print("\nDie Differenz zwischen dem geschätzten Nullpunkt der Messwerte und dem\ngeschätzten Nullpunkt der idealen Kennlinie ist der Nullpunktfehler:", (lm_messwerte[0] - lm_kennlinie[0]).round(2), sep = "\n")
 ```
 
+:::{#wrn-regression .callout-warning appearance="simple"}
+## Regression
+Eine Schätzung der Regressionsgeraden aus 2 Punkten ist im Allgemeinen weniger zuverlässig als eine Schätzung aus mehreren Messpunkten. Die Beispieldaten sind perfekt linear.
+:::
+
 Grafisch wird das Vorgehen deutlich.
 ```{python}
 #| fig-alt: Eine gestrichelte Linie verläuft ausgehend vom Schnittpunkt der Achsen durch zwei Referenzpunkte. Diese gestrichelte Linie enstpricht der idealen Kennlinie. Eine parallele Linie geht durch die gemessenen Werte. Der Abstand zwischen beiden Linien ist über den Wertebereich konstant und entspricht dem Nullpunktfehler.
@@ -193,6 +198,7 @@ Die Quantifizierung des Nullpunktfehlers ist manchmal schwierig, beispielsweise 
 In einem Klimaschrank wurden 16 Thermoelemente Temperaturen von -10 °C bis 140 °C in Schritten von 10 °C ausgesetzt. Die Messgenauigkeit des verwendeten Datenloggers TCTempX16 liegt bei 0,01 °C, die Auflösung bei 0,1 °C. Für die Thermoelemente soll der Nullpunktfehler bestimmt werden.
 
 :::{#wrn-celsius .callout-warning appearance="simple"}
+## Nullpunkt
 0 ° C auf der Celsius-Skala ist kein sinnvoller Referenzpunkt zur Bestimmung des Nullpunktfehlers, weil die Abwesenheit von Wärme erst bei -273,15 °C gegeben ist. Da der Nullpunktfehler über alle Messwerte konstant ist, kann der Nullpunktfehler geschätzt werden, indem für jede Temperaturstufe der Nullpunktfehler separat geschätzt und die Ergebnisse anschließend gemittelt werden.
 :::
 
@@ -217,7 +223,7 @@ Betrachten wir den Verlauf der Daten für die ersten beiden Thermoelemente. (In 
 ```{python}
 #| fig-alt: "Darstellung der gemessenen Temperaturen der ersten beiden Thermoelemente über die Zeit."
 
-# einfache Darstellung mit automatischer Achsenbeschriftung
+# Darstellung mit automatischer Achsenbeschriftung
 # klimaschrank.iloc[: , 0:3].plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'])
 
 plotting_data = klimaschrank.copy()
@@ -230,23 +236,28 @@ plt.show()
 
 &nbsp;
 
-Wie man sieht, überschießt der Klimaschrank beim Aufheizen auf die nächste Temperaturstufe zunächst immer etwas, bevor die eingestellte Temperatur konstant gehalten wird. Die Temperatur von 140 °C wird nur kurz erreicht, es liegen aber kaum Messwerte vor. 
+Es ist zu erkennen, dass der Klimaschrank beim Aufheizen auf die nächste Zieltemperatur zunächst zu stark aufheizt, bevor die eingestellte Temperatur für einige Zeit konstant gehalten wird. Die Temperatur von 140 °C wird nur kurz erreicht, es liegen aber kaum Messwerte vor. 
 
-**Bestimmen Sie nun den Nullpunktfehler für die Thermoelemente 2 bis 16.**
+**Bestimmen Sie nun den Nullpunktfehler für alle Thermoelemente.**
 
-  1. Wählen Sie für jedes Thermoelement die Bereiche der Datenreihe für die Temperaturstufen -10 bis 130 °C aus und bestimmen Sie für jede Temperaturstufe einen sinnvollen Ausschnitt der Datenreihe, in der die Referenztemperatur konstant gehalten wird.
-  2. Berechnen Sie den Nullpunktfehler für jeden Ausschnitt der Datenreihe und mitteln Sie die Ergebnisse für jedes Thermoelement. 
+  1. Wählen Sie für jedes Thermoelement die Bereiche der Datenreihe für die Temperaturstufen -10 bis 130 °C aus.
+  2. Bestimmen Sie für jede Temperaturstufe die gemessene Temperatur im Bereich der Datenreihe, in der die Referenztemperatur konstant gehalten wird.
+  3. Berechnen Sie den Nullpunktfehler für jeden Ausschnitt der Datenreihe und mitteln Sie die Ergebnisse für jedes Thermoelement. 
 
-Tipp 1: Der Median kann eine einfacher zu bestimmende Schätzgröße für den Nullpunktfehler sein. Eine Musterlösung für Thermoelement 1 finden Sie im folgenden Aufklapper.
+:::{#tip-tipps .callout-tip collapse="true"}
+## Lösungshinweise
 
-Tipp 2: Schreiben Sie eine Funktion, um Programmcode zu wiederholen.
+Tipp 1: Lagemaße wie der Median, Mittelwert oder der Modus können eine einfacher zu bestimmende Schätzgröße für den Nullpunktfehler sein.
 
-**so genau trifft man den konstanten Bereich nicht. Man könnte noch die mittlere Hälfte rausschneiden oder noch mal die .diff() filtern, um die Rampen rauszukriegen.**
+Tipp 2: Gehen Sie schrittweise vor: Versuchen Sie zunächst, eine Temperaturstufe eines Thermoelements zu isolieren und die gemessene Temperatur im konstanten Bereich der Datenreihe zu bestimmen. Schreiben Sie anschließend eine Funktion, um den Programmcode für mehrere Thermoelemente und Temperaturstufen zu wiederholen.
 
-:::{#tip-te1 .callout-tip collapse="true"}
-## Musterlösung Thermoelement 1
+Tipp 3: Eine gleichermaßen für 13 Temperaturstufen und 16 Thermoelemente geeignete Lösung dürfte kaum zu finden sein. Manchmal wird ein Wert gesucht, manchmal liegt der gesuchte Wert zwischen zwei Messwerten. Eine geringfügige Unsicherheit kann durch die Automatisierung in Kauf genommen werden.
+:::
 
-**Entwicklung einer Lösung für eine Temperaturstufe. Die Bestimmung ist gar nicht so leicht: Mit pd.diff() liegt man z. B. bei 80 Grad knapp daneben. Über den Modus geht es besser, aber für 0 Grad liegt man eher zwischen zwei Werten.**
+:::{#tip-te .callout-tip collapse="true"}
+## Musterlösung Thermoelemente
+
+**Lösung für ein Thermoelement.**
 
 1. Bereich der Datenreihe für eine Temperatur auswählen, z. B. 0 °C. Dazu grenzen wir die Messwerte grob um den gesuchten Wert $0 \pm 2 °C$ ein.
 ```{python}
@@ -270,8 +281,6 @@ plt.show()
 
 In diesem Ausschnitt kann das Überschießen der Messwerte beobachtet werden, bevor sich die Messwerte etwa bei + 1 °C einpendeln. Auch ist der Anstieg zur folgenden Temperaturstufe zu erkennen.
 
-**Die Rampen müssen hier raus. Der häufigste Wert könnte klappen. Damit trifft man den Wert exakt, aber die Mitte eines zwischen zwei Werten fluktuierenden Werts wird nicht getroffen --> Messfehler**
-
 2. Im zweiten Schritt sollen die Daten im konstanten Temperaturbereich ausgewählt werden. Dazu soll ein möglichst einfaches Kriterium verwendet werden: der häufigste im Ausschnitt vorkommende Wert, also der Modus. Dazu wird die Methode `pd.value_counts()` verwendet, die eine absteigend sortierte Series der Häufigkeiten zurückgibt, wobei im Index die Werte gespeichert sind (siehe Beispiel). Der im Index gespeicherte häufigste Wert wird mit der Methode `pd.idxmax()` ausgelesen.
 
 :::: {#nte-valuecounts .callout-note collapse="true"}
@@ -284,7 +293,6 @@ daten.value_counts()
 ```
 
 ::::
-
 
 ```{python}
 #| figalt: "Ausschnitt der Datenreihe von Thermoelement 1. Als horizontale Linie ist der Nullpunktfehler eingezeichnet."
@@ -316,7 +324,7 @@ plt.show()
 
 Der Nullpunktfehler für Thermoelement 1 wird somit mit 0,9 °C bestimmt.
 
-Um die Berechnung für die verschiedenen Temperaturstufen zu automatisieren, schreiben wir eine Funktion.
+3. Um die Berechnung für die verschiedenen Temperaturstufen zu automatisieren, schreiben wir eine Funktion.
 
 ```{python}
 # Eingabe: data = pd.Series, gesuchter_wert = array like, schwellwert, puffer = Skalar
@@ -363,24 +371,29 @@ nullpunktfehler(data = klimaschrank['Thermoelement 1 (°C)'],
                 output = True)
 ```
 
+**Anwendung auf den Datensatz**
+
 Im letzten Schritt wenden wir die Funktion spaltenweise auf den DataFrame an.
 ```{python}
 # gibt pd.Series zurück
-nullpunktfehler_klimaschrank = klimaschrank.iloc[: , 1:].apply(nullpunktfehler, axis = 0, gesuchte_werte = np.arange(-10, 140, 10)).round(3)
+nullpunktfehler_klimaschrank = klimaschrank.iloc[: , 1:].apply(nullpunktfehler, axis = 0, gesuchte_werte = np.arange(-10, 140, 10))
 
 print(nullpunktfehler_klimaschrank)
 ```
 
 :::
 
-
 ## Multiplikative Fehler: Der Empfindlichkeitsfehler
 **Spannfehler scheint eine absolut ungebräuchliche Bezeichnung zu sein**
 
-Als Empfindlichkeits- oder Spannfehler wird ein über den Wertebereich (die Spanne) der gesuchten Größe zu- oder abnehmender Fehler bezeichnet. Die relative Messabweichung $\delta$ ist dabei konstant, die absolute Messabweichung $\Delta$ abhängig vom Messwert. ([ics Schneider Messtechnik](https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/))
+Als Empfindlichkeits- oder Spannfehler wird ein über den Wertebereich (die Spanne) der gesuchten Größe zu- oder abnehmender Fehler bezeichnet. Die relative Messabweichung $\delta$ ist dabei konstant, die absolute Messabweichung abhängig vom Messwert. ([ics Schneider Messtechnik](https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/))
+
+$$
+\text{gemessene Werte} = \text{wahre Werte} \cdot Empfindlichkeitsfehler
+$$
 
 ``` {python}
-#| fig-alt: "Schematische Darstellung des Spannfehlers. Zwei Geraden der wahren und der gemessenen Werte verlaufen ausgehend von einem gemeinsamen Nullpunkt von links nach rechts mit zunehmend Abstand und sind am Punkt x = 0. Die Fläche zwischen den Geraden ist ausgefüllt - dies kennzeichnet den Spannfehler."
+#| fig-alt: "Schematische Darstellung des Empfindlichkeitsfehlers. Zwei Geraden der wahren und der gemessenen Werte verlaufen ausgehend von einem gemeinsamen Nullpunkt von links nach rechts mit zunehmend Abstand und sind am Punkt x = 0. Die Fläche zwischen den Geraden ist ausgefüllt - dies kennzeichnet den Spannfehler."
 
 # Daten erzeugen
 messgröße = np.arange(0, 11)
@@ -391,7 +404,7 @@ plt.plot(messgröße, marker = 'o', label = 'wahrer Wert')
 plt.plot(messwerte, marker = '^', label = 'gemessener Wert')
 
 # füllen
-plt.fill_between(x = np.arange(messwerte.size), y1 = messgröße, y2 = messwerte, alpha = 0.2, label = 'Spannfehler')
+plt.fill_between(x = np.arange(messwerte.size), y1 = messgröße, y2 = messwerte, alpha = 0.2, label = 'Empfindlichkeitsfehler')
 
 # Achsenbeschriftung
 plt.xlabel('Index') 
@@ -401,16 +414,22 @@ plt.legend()
 plt.show()
 ```
 
-### Spannfehler quantifizieren
-Der Spannfehler kann geschätzt werden, wenn Referenzwerte bekannt sind. Mit den vollständigen Beispieldaten geht es leicht (in dem Beispiel wird eine Warnung wegen Division durch 0 unterdrückt):
+### Empfindlichkeitsfehler quantifizieren
+Der Empfindlichkeitsfehler kann geschätzt werden, wenn Referenzwerte bekannt sind. Dazu wird das Verhältnis der Größenänderung (des Anstiegs) der gemessenen und der wahren Werte gebildet.
+
+$$
+\text{Empfindlichkeitsfehler} = \frac{\Delta \text{gemessene Werte}}{\Delta\text{wahre Werte}}
+$$
+
+Mit den vollständigen Beispieldaten geht es leicht (in dem Beispiel wird eine Warnung wegen Division durch 0 unterdrückt):
 
 ```{python}
 #| warning: false
 
-print(f"Der Spannfehler beträgt: {round((np.nanmean((messwerte / messgröße)) - 1 ) * 100, 2)} %")
+print(f"Der Empfindlichkeitsfehler beträgt: {round((np.nanmean((messwerte / messgröße)) - 1 ) * 100, 2)} %")
 ```
 
-Bei nur punktuellen Daten wird eine ideale Kennlinie geschätzt, mit der der Spannfehler geschätzt werden kann.
+Bei nur punktuellen Daten wird eine ideale Kennlinie geschätzt, mit der der Empfindlichkeitsfehler geschätzt werden kann (Varianten zur Berechnung siehe Code).
 ```{python}
 # bekannte Referenzwerte
 x1 = 4
@@ -428,12 +447,18 @@ lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 
 # Ausgabe
 print(f"Der Anstieg der Messwerte: {round(lm_messwerte[1], 2)}")
 print(f"Der Anstieg der idealen Kennlinie: {round(lm_kennlinie[1], 2)}")
-print(f"Spannfehler beträgt: {round((lm_messwerte[1] - lm_kennlinie[1]) * 100, 2)} %")
+
+## Variante 1
+print(f"Der Empfindlichkeitsfehler beträgt: {round(((lm_messwerte[1] / lm_kennlinie[1]) - 1) * 100, 2)} %")
+
+## Variante 2:
+print(f"Der Empfindlichkeitsfehler beträgt: {round((lm_messwerte[1] - lm_kennlinie[1]) * 100, 2)} %")
+
 ```
 
 Grafisch wird das Vorgehen deutlich.
 ```{python}
-#| fig-alt: Eine gestrichelte Linie verläuft ausgehend vom Schnittpunkt der Achsen durch zwei Referenzpunkte. Diese gestrichelte Linie enstpricht der idealen Kennlinie. Eine weitere Linie verbindet die gemessenen Werte. Der Abstand zwischen beiden Linien nimmt über den Wertebereich zu. Der Bereich zwischen den Linien ist farbig gefüllt und kennzeichnet den Spannfehler
+#| fig-alt: Eine gestrichelte Linie verläuft ausgehend vom Schnittpunkt der Achsen durch zwei Referenzpunkte. Diese gestrichelte Linie enstpricht der idealen Kennlinie. Eine weitere Linie verbindet die gemessenen Werte. Der Abstand zwischen beiden Linien nimmt über den Wertebereich zu. Der Bereich zwischen den Linien ist farbig gefüllt und kennzeichnet den Empfindlichkeitsfehler
 
 # Punkte und Linien
 plt.plot([0, 10], [messgröße[0], messgröße[-1]], marker = 'none', linestyle = 'dashed', color = 'C0', label = 'ideale Kennlinie')
@@ -441,19 +466,23 @@ plt.plot([x1, x2], [y1, y2], marker = 'o', linestyle = 'none', color = 'C0', lab
 plt.plot(messwerte, marker = '^', color = 'C1', label = 'gemessene Werte')
 
 # füllen
-plt.fill_between(x = np.arange(messwerte.size), y1 = messgröße, y2 = messwerte, alpha = 0.2, label = 'Spannfehler')
+plt.fill_between(x = np.arange(messwerte.size), y1 = messgröße, y2 = messwerte, alpha = 0.2, label = 'Empfindlichkeitsfehler')
 
 plt.legend()
 plt.show()
 ```
 
-### Spannfehler korrigieren
-Der Spannfehler wird durch die Division der Messwerte durch 1 + Spannfehler korrigiert. Das Vorgehen zur Ermittlung des Spannfehlers wird zur Illustration im folgenden Beispiel mit anderen Werten wiederholt.
+### Empfindlichkeitsfehler korrigieren
+Der Empfindlichkeitsfehler wird durch die Division der Messwerte durch den Empfindlichkeitsfehler korrigiert.
+
+$$
+\text{wahre Werte} = \frac{\text{gemessene Werte}}{\text{Empfindlichkeitsfehler}}
+$$
 
 ```{python}
 # Daten erzeugen
 messgröße = np.arange(0, 11) + 5
-messwerte = messgröße - messgröße / 5
+messwerte = messgröße * 1.07
 
 # bekannte Referenzpunkte 
 x1 = 2
@@ -467,22 +496,203 @@ lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
 # lineare Funktion der Messwerte schätzen
 lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
 
-# Spannfehler bestimmen
-spannfehler = lm_messwerte[1] - lm_kennlinie[1]
-print(f"Der Spannfehler beträgt: {((lm_messwerte[1] - lm_kennlinie[1]) * 100).round(2)} %")
+# Empfindlichkeitsfehler bestimmen
+spannfehler = lm_messwerte[1] / lm_kennlinie[1]
+print(f"Der Empfindlichkeitsfehler beträgt: {( ((lm_messwerte[1] / lm_kennlinie[1]) - 1) * 100).round(2)} %")
 
-# Spannfehler korrigieren
-korrigierte_messwerte = messwerte / (1 + spannfehler)
+# Empfindlichkeitsfehler korrigieren
+korrigierte_messwerte = messwerte / spannfehler
 
 print(f"Wahre Werte:\n{messgröße}")
 print(f"Messwerte:\n{messwerte}")
 print(f"Korrigierte Messwerte:\n{korrigierte_messwerte}")
 ```
 
-### Übung Spannfehler
-**to do**
+### Übung Empfindlichkeitsfehler
+In einem Klimaschrank wurden 16 Thermoelemente einem Temperaturanstieg von -10 °C bis 140 °C ausgesetzt. Die Messgenauigkeit des verwendeten Datenloggers TCTempX16 liegt bei 0,01 °C, die Auflösung bei 0,1 °C. Für die Thermoelemente soll der Empfindlichkeitsfehler bestimmt werden.
+
+Die Messdaten liegen in der Datei '01-daten/kalibration_tc_lineare_rampe.xlsx'. Die Daten können mit dem folgenden Befehl eingelesen werden.
+```{python}
+klimaschrank = pd.read_excel(io = '01-daten/kalibration_tc_lineare_rampe.xlsx', sheet_name = 'T15949 MultiChannel - Daten', skiprows = 6)
+print(klimaschrank.info())
+```
+
+Mit `klimaschrank.describe()` kann ein Überblick über die Daten gewonnen werden (hier aus Platzgründen für die ersten 4 Spalten).
+```{python}
+print(klimaschrank.iloc[: , 0:4].describe())
+```
+
+Die Spalten Datum und Zeit enthalten die selben Informationen. Eine der beiden Spalten kann deshalb entfernt werden.
+```{python}
+klimaschrank.drop(labels = 'Datum', axis = 1, inplace = True)
+```
+
+Betrachten wir den Verlauf der Daten für die ersten beiden Thermoelemente. (In der Darstellung mit `pd.plot()` ist die automatisch gewählte x-Achsenbeschriftung unansehnlich. Deshalb wird ein Datenobjekt für die Darstellung angelegt und die Spalte 'Zeit' auf die Uhrzeit reduziert.)
+```{python}
+#| fig-alt: "Darstellung der gemessenen Temperaturen der ersten beiden Thermoelemente über die Zeit."
+
+# Darstellung mit automatischer Achsenbeschriftung
+# klimaschrank.iloc[: , 0:3].plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'])
+
+plotting_data = klimaschrank.copy()
+plotting_data['Zeit'] = plotting_data['Zeit'].dt.time
+
+plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
+plt.ylabel(ylabel = '° C')
+plt.show()
+```
+
+&nbsp;
+
+Die Messung startet kurz vor der Aufheizphase. Etwa 16:40 Uhr wurde der Klimaschrank abgeschalten. Die Messung lief danach noch einige Zeit weiter. Es müssen also der Start- und der Endpunkt der Aufheizphase bestimmt werden.
+
+In diesem Beispiel soll angenommen werden, dass bei der Messung kein Nullpunktfehler vorliegt. Dazu suchen wir mit der Funktion aus @tip-te (**die hoffentlich funktioniert :-)**) passende Messreihen. Aus dem anfänglich konstanten Bereich -10 °C wird der Nullpunktfehler bestimmt.
+
+```{python}
+# gibt pd.Series zurück
+nullpunktfehler_klimaschrank = klimaschrank.iloc[: , 1:].apply(nullpunktfehler, axis = 0, gesuchte_werte = [-10])
+
+print(nullpunktfehler_klimaschrank)
+```
+
+
+Die Messreihen für Thermoeelement 4 und Thermoelement 15 scheinen geeignet zu sein. Schauen wir uns die Messreihen einmal an:
+
+::: {.panel-tabset}
+## Thermoelement 4
+```{python}
+# Thermoelement 4
+gesuchter_wert = -10
+
+## Messwerte grob um den gesuchten Wert 0 °C eingrenzen
+maske1 = klimaschrank['Thermoelement 4 (°C)'].le(gesuchter_wert + 2) # le = kleiner gleich
+maske2 = klimaschrank['Thermoelement 4 (°C)'].ge(gesuchter_wert - 2) # ge = größer gleich
+
+## häufigster Wert im eingegrenzten Temperaturbereich
+modus_bereich = klimaschrank.loc[maske1 * maske2, 'Thermoelement 4 (°C)'].value_counts().idxmax()
+
+## Nullpunktfehler bestimmen
+nullpunktfehler = modus_bereich - gesuchter_wert
+print(f"Nullpunktfehler: {nullpunktfehler}")
+
+## plotten
+klimaschrank.loc[maske1 * maske2, 'Thermoelement 4 (°C)'].plot()
+plt.axhline(y = modus_bereich, color = 'r', linestyle = '--', label = 'Modus')
+plt.xlabel(xlabel = 'Index')
+plt.ylabel(ylabel = '°C')
+
+plt.legend()
+plt.show()
+```
+
+## Thermoelement 15
+```{python}
+# Thermoelement 15
+gesuchter_wert = -10
+
+## Messwerte grob um den gesuchten Wert 0 °C eingrenzen
+maske1 = klimaschrank['Thermoelement 15 (°C)'].le(gesuchter_wert + 2) # le = kleiner gleich
+maske2 = klimaschrank['Thermoelement 15 (°C)'].ge(gesuchter_wert - 2) # ge = größer gleich
+
+## häufigster Wert im eingegrenzten Temperaturbereich
+modus_bereich = klimaschrank.loc[maske1 * maske2, 'Thermoelement 15 (°C)'].value_counts().idxmax()
+
+## Nullpunktfehler bestimmen
+nullpunktfehler = modus_bereich - gesuchter_wert
+print(f"Nullpunktfehler: {nullpunktfehler}")
+
+## plotten
+klimaschrank.loc[maske1 * maske2, 'Thermoelement 15 (°C)'].plot()
+plt.axhline(y = modus_bereich, color = 'r', linestyle = '--', label = 'Modus')
+plt.xlabel(xlabel = 'Index')
+plt.ylabel(ylabel = '°C')
+
+plt.legend()
+plt.show()
+```
+
+:::
+
+**Bestimmen Sie den Empfindlichkeitsfehler für Thermoelement 4 und Thermoelement 15. Das wahre Minimum der Temperatur betrage -10 °C und das wahre Maximum betrage 140 °C.**
+
+1. Bestimmen Sie den Startpunkt der Aufheizphase.
+2. Bestimmen Sie den Endpunkt der Aufheizphase.
+3. Schätzen Sie eine ideale Kennlinie von -10 °C bis 140 °C für die Aufheizphase.
+4. Ermitteln und korrigieren Sie den Empfindlichkeitsfehler in den Daten.
+
+**Musterlösung**
+
+1. Startpunkt ermitteln, indem die Position des letzten Werts -10 °C bestimmt wird.
+```{python}
+start4 = klimaschrank.loc[::-1, 'Thermoelement 4 (°C)'].eq(-10).idxmax()
+start15 = klimaschrank.loc[::-1, 'Thermoelement 15 (°C)'].eq(-10).idxmax()
+```
+
+2. Endpunkt ermitteln, indem die Position des Maximums bestimmt wird.
+```{python}
+ende4 = klimaschrank.loc[:, 'Thermoelement 4 (°C)'].idxmax()
+ende15 = klimaschrank.loc[:, 'Thermoelement 15 (°C)'].idxmax()
+```
+
+Ausgabe.
+```{python}
+print(f"Messreihe Thermoeelement 4 von Index {start4} bis Index {ende4}.",
+      f"Messreihe Thermoeelement 15 von Index {start15} bis Index {ende15}.",
+      sep = '\n')
+```
+
+3. ideale Kennlinie schätzen.
+
+:::: {.panel-tabset}
+## Thermoelement 4
+```{python}
+# bekannte Referenzpunkte 
+x1 = start4
+x2 = ende4
+y1 = -10
+y2 = 140
+
+# ideale Kennlinie schätzen
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+
+# lineare Funktion der Messwerte schätzen
+lm_messwerte = poly.polyfit(x = np.arange(x1, x2 + 1), y = klimaschrank.loc[x1 : x2, 'Thermoelement 4 (°C)'], deg = 1)
+
+# Empfindlichkeitsfehler bestimmen
+spannfehler = lm_messwerte[1] / lm_kennlinie[1]
+print(f"Der Empfindlichkeitsfehler beträgt: {( ((lm_messwerte[1] / lm_kennlinie[1]) - 1) * 100).round(2)} %")
+
+# Empfindlichkeitsfehler korrigieren
+klimaschrank.loc[ : , 'Thermoelement 4 (°C)'] = klimaschrank.loc[ : , 'Thermoelement 4 (°C)'].div(spannfehler)
+```
+
+## Thermoelement 15
+```{python}
+# bekannte Referenzpunkte 
+x1 = start15
+x2 = ende15
+y1 = -10
+y2 = 140
+
+# ideale Kennlinie schätzen
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+
+# lineare Funktion der Messwerte schätzen
+lm_messwerte = poly.polyfit(x = np.arange(x1, x2 + 1), y = klimaschrank.loc[x1 : x2, 'Thermoelement 15 (°C)'], deg = 1)
+
+# Empfindlichkeitsfehler bestimmen
+spannfehler = lm_messwerte[1] / lm_kennlinie[1]
+print(f"Der Empfindlichkeitsfehler beträgt: {( ((lm_messwerte[1] / lm_kennlinie[1]) - 1) * 100).round(2)} %")
+
+# Empfindlichkeitsfehler korrigieren
+klimaschrank.loc[ : , 'Thermoelement 15 (°C)'] = klimaschrank.loc[ : , 'Thermoelement 15 (°C)'].div(spannfehler)
+```
+
+::::
 
 ## Nullpunkt- und Spannfehler
+**Bezeichnung und Berechnung / Korrektion Spannfehler ändern**
+
 Absolute und multiplikative Abweichungen können gemeinsam auftreten. In diesem Beispiel wird die absolute Messabweichung über den dargestellten Wertebereich kleiner, da der Nullpunktfehler mit positivem Vorzeichen und der Spannfehler mit negativen Vorzeichen auftreten.
 
 ``` {python}
@@ -845,7 +1055,7 @@ Der Datensatz wird dargestellt. (In der Darstellung mit `pd.plot()` ist die auto
 ```{python}
 #| fig-alt: "Darstellung der gemessenen Temperaturen beider Thermoelemente über die Zeit. Die fehlerhaften Messwerte wurden entfernt."
 
-# einfache Darstellung mit automatischer Achsenbeschriftung
+# Darstellung mit automatischer Achsenbeschriftung
 # eis.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
 
 plotting_data = eis.copy()

@@ -11,6 +11,7 @@ In diesem Baustein werden die folgenden Module und Pakete verwendet:
 - numpy
   - numpy.polynomial
 - pandas
+- openpyxl
 - matplotlib
 - glob
 - scipy Version 1.14.1
