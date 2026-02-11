@@ -104,7 +104,7 @@ Der Nullpunktfehler kann leicht bestimmt werden, wenn Messwerte für den Nullpun
 print(f"Der Nullpunktfehler beträgt: {messwerte[0] - messgröße[0]}")
 ```
 
-Wenn keine Daten für den Nullpunkt vorliegen, kann der Nullpunktfehler mit linearer Regression aus mindestens zwei bekannten Referenzpunkten geschätzt werden. Dazu wird eine ideale Kennlinie geschätzt und ihr Schnittpunkt mit der y-Achse bestimmt. Ebenso wird für die Messwerte eine lineare Funktion geschätzt. Aus der Differenz der y-Achsen-Schnittpunkte kann der Nullpunktfehler geschätzt werden.
+Wenn keine Daten für den Nullpunkt vorliegen, kann der Nullpunktfehler mit linearer Regression aus mindestens zwei bekannten Referenzpunkten geschätzt werden. Dazu wird wird eine lineare Regression mit den bekannten Referenzwerten als unabhängige Größe $x$ und den Messwerten als abhängige Größe $y$ durchgeführt. Der y-Achsenabschnitt der Regressionsgeraden ist der Nullpunktfehler.
 ```{python}
 # bekannte Referenzpunkte 
 x1 = 4
@@ -112,21 +112,9 @@ x2 = 8
 y1 = messgröße[x1]
 y2 = messgröße[x2]
 
-# ideale Kennlinie schätzen
-# print(lineares_modell) gibt intercept + slope zurück
-lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
-print("Der erste Wert ist der Schnittpunkt der idealen Kennlinie mit der y-Achse:", lm_kennlinie.round(2), sep = "\n")
-
-# lineare Funktion der Messwerte schätzen
-## man benötigt mindestens 2 Punkte 
-lm_messwerte = poly.polyfit(x = [x1, x2], y = [messwerte[x1], messwerte[x2]], deg = 1)
-print("Die aus 2 Messwerten geschätzte lineare Funktion:", lm_messwerte.round(2), sep = "\n")
-
-## die Schätzung über alle Messwerte ist zuverlässiger
-lm_messwerte2 = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
-print("Die aus allen Messwerten geschätzte lineare Funktion:", lm_messwerte2.round(2), sep = "\n")
-
-print("\nDie Differenz zwischen dem geschätzten Nullpunkt der Messwerte und dem\ngeschätzten Nullpunkt der idealen Kennlinie ist der Nullpunktfehler:", (lm_messwerte[0] - lm_kennlinie[0]).round(2), sep = "\n")
+# Nullpunktfehler bestimmen
+lm_referenzpunkte = poly.polyfit(x = [messgröße[x1], messgröße[x2]], y = [messwerte[x1], messwerte[x2]], deg = 1)
+print(f"Der Nullpunktfehler beträgt: {round(lm_referenzpunkte[0], 2)}")
 ```
 
 :::{#wrn-regression .callout-warning appearance="simple"}
@@ -139,7 +127,10 @@ Grafisch wird das Vorgehen deutlich.
 #| fig-alt: Eine gestrichelte Linie verläuft ausgehend vom Schnittpunkt der Achsen durch zwei Referenzpunkte. Diese gestrichelte Linie enstpricht der idealen Kennlinie. Eine parallele Linie geht durch die gemessenen Werte. Der Abstand zwischen beiden Linien ist über den Wertebereich konstant und entspricht dem Nullpunktfehler.
 
 # lineare Funktionen berechnen
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
 geschätzte_ideale_kennlinie = poly.polyval(x = np.arange(messwerte.size), c = lm_kennlinie)
+
+lm_messwerte = poly.polyfit(x = [x1, x2], y = [messwerte[x1], messwerte[x2]], deg = 1)
 lineare_funktion_messwerte = poly.polyval(x = np.arange(messwerte.size), c = lm_messwerte)
 
 # plotten
@@ -161,8 +152,6 @@ plt.show()
 
 &nbsp;
 
-**to do: gibt es weitere Methoden?**
-
 ### Nullpunktfehler korrigieren
 Der Nullpunktfehler wird durch Subtraktion von den Messwerten korrigiert.
 
@@ -177,19 +166,15 @@ x2 = 5
 y1 = messgröße[x1]
 y2 = messgröße[x2]
 
-# ideale Kennlinie schätzen
-lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
-
-# lineare Funktion der Messwerte schätzen
-## die Schätzung über alle Messwerte ist zuverlässiger
-lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
-
 # Nullpunktfehler bestimmen
-nullpunktfehler = lm_messwerte[0] - lm_kennlinie[0]
+lm_referenzpunkte = poly.polyfit(x = [messgröße[x1], messgröße[x2]], y = [messwerte[x1], messwerte[x2]], deg = 1)
+nullpunktfehler = lm_referenzpunkte[0]
 print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
 
 # Nullpunktfehler korrigieren
 korrigierte_messwerte = messwerte - nullpunktfehler
+print(f"Wahre Werte:\n{messgröße}")
+print(f"Korrigierte Messwerte:\n{korrigierte_messwerte}")
 ```
 
 ### Übung Nullpunktfehler
@@ -452,6 +437,16 @@ print(f"Der Empfindlichkeitsfehler beträgt: {round((spannfehler - 1) * 100, 2)}
 
 ```
 
+Der Empfindlichkeitsfehler kann auch durch eine lineare Regression mit den bekannten Referenzwerten als unabhängige Größe $x$ und den Messwerten als abhängige Größe $y$ bestimmt werden. Der Anstieg der Regressionsgeraden ist der Empfindlichkeitsfehler.
+```{python}
+# Empfindlichkeitsfehler bestimmen
+lm_referenzpunkte = poly.polyfit(x = [messgröße[x1], messgröße[x2]], y = [messwerte[x1], messwerte[x2]], deg = 1)
+spannfehler = lm_referenzpunkte[1]
+
+print(f"Der Empfindlichkeitsfehler beträgt: {round((spannfehler - 1) * 100, 2)} %")
+
+```
+
 Grafisch wird das Vorgehen deutlich.
 ```{python}
 #| fig-alt: Eine gestrichelte Linie verläuft ausgehend vom Schnittpunkt der Achsen durch zwei Referenzpunkte. Diese gestrichelte Linie enstpricht der idealen Kennlinie. Eine weitere Linie verbindet die gemessenen Werte. Der Abstand zwischen beiden Linien nimmt über den Wertebereich zu. Der Bereich zwischen den Linien ist farbig gefüllt und kennzeichnet den Empfindlichkeitsfehler
@@ -494,7 +489,7 @@ lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 
 
 # Empfindlichkeitsfehler bestimmen
 spannfehler = lm_messwerte[1] / lm_kennlinie[1]
-print(f"Der Empfindlichkeitsfehler beträgt: {( (spannfehler - 1) * 100).round(2)} %")
+print(f"Der Empfindlichkeitsfehler beträgt: {( (spannfehler - 1) * 100).round(2)} %\n")
 
 # Empfindlichkeitsfehler korrigieren
 korrigierte_messwerte = messwerte / spannfehler
@@ -692,6 +687,8 @@ klimaschrank.loc[ : , 'Thermoelement 15 (°C)'] = klimaschrank.loc[ : , 'Thermoe
 ## Nullpunkt- und Empfindlichkeitsfehler
 **Bezeichnung und Berechnung / Korrektion Spannfehler ändern**
 
+**Berechnung des Nullpunktfehlers ändern**
+
 Absolute und multiplikative Abweichungen können gemeinsam auftreten. In diesem Beispiel wird die absolute Messabweichung über den dargestellten Wertebereich kleiner, da der Nullpunktfehler mit positivem Vorzeichen und der Empfindlichkeitsfehler mit negativen Vorzeichen auftreten.
 
 ::: {.panel-tabset}
@@ -760,10 +757,19 @@ plt.show()
 ### Nullpunkt- und Empfindlichkeitsfehler quantifizieren
 Aus mindestens zwei bekannten Referenzpunkten können mit linearer Regression der Nullpunkt- und der Empfindlichkeitsfehler geschätzt werden. In der linearen Regression wird ein bei 0 beginnender Index für die x-Werte verwendet. Um den Nullpunktfehler korrekt ermitteln zu können, wird dieser Index um den geschätzten wahren Nullpunkt verschoben.
 
+**Wenn der Anstieg nicht 1 ist, wird der Nullpunktfehler falsch ermittelt**
+
+**Deshalb anderes Verfahren: lineare Regression mit x der wahre Wert und y der Messwert, siehe oben bei Nullpunktfehler**
+
+Die Steigung gibt die Empfindlichkeit an. Der Achsenabschnitt entspricht dem Nullpunktfehler.
+
 ```{python}
 # Daten erzeugen
-messgröße = np.arange(0, 11) + 7
+messgröße = np.arange(0, 11) * 2 + 7
 messwerte = messgröße + 24 - messgröße / 3
+
+print(messgröße[0])
+print(messwerte[0])
 
 # bekannte Referenzpunkte
 x1 = 4
@@ -790,6 +796,12 @@ print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
 # Empfindlichkeitsfehler bestimmen
 spannfehler = lm_messwerte_plus_intercept_kennlinie[1] / lm_kennlinie[1]
 print(f"Der Empfindlichkeitsfehler beträgt: {((spannfehler - 1) * 100).round(2)} %")
+
+# anderes Verfahren: lineare Regression mit x der wahre Wert und y der Messwert
+lm_verfahren = poly.polyfit(x = [messgröße[x1], messgröße[x2]], y = [messwerte[x1], messwerte[x2]], deg = 1)
+print(50 * '=')
+print(lm_verfahren)
+
 ```
 
 ### Nullpunkt- und Empfindlichkeitsfehler korrigieren
@@ -807,10 +819,10 @@ $$
 korrigierte ~ Messwerte = \frac{Messwerte}{Empfindlichkeitsfehler} - \frac{Nullpunktfehler}{Empfindlichkeitsfehler}
 $$
 
-Ein Beispiel: **hierhier**
+Ein Beispiel: **hierhier: Testweise Anstieg 2 genommen und schon klappt der Nullpunktfehler nicht mehr**
 ```{python}
 # Daten erzeugen
-messgröße = np.arange(0, 11) + 7
+messgröße = np.arange(0, 11) * 2 + 7
 messwerte = messgröße + 4 - messgröße / 3
 
 # bekannte Referenzpunkte
@@ -826,15 +838,12 @@ print()
 
 # ideale Kennlinie schätzen
 lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
-print(f"lm_kennlinie: {lm_kennlinie}")
 
 # lineare Regression der Messwerte
 lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
-print(f"lm_messwerte: {lm_messwerte}")
 
 # lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
 lm_messwerte_plus_intercept_kennlinie = poly.polyfit(np.arange(messwerte.size) + lm_kennlinie[0], messwerte, 1)
-print(f"lm_messwerte_plus_intercept_kennlinie: {lm_messwerte_plus_intercept_kennlinie}")
 
 # Nullpunktfehler bestimmen
 nullpunktfehler = lm_messwerte_plus_intercept_kennlinie[0]
@@ -843,6 +852,7 @@ print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
 # Empfindlichkeitsfehler bestimmen
 spannfehler = lm_messwerte_plus_intercept_kennlinie[1] / lm_kennlinie[1]
 print(f"Der Empfindlichkeitsfehler beträgt: {(((lm_messwerte_plus_intercept_kennlinie[1] / lm_kennlinie[1]) - 1) * 100).round(2)} %")
+print()
 
 # erst Nullpunktfehler, dann Empfindlichkeitsfehler korrigieren
 ## Nullpunktfehler korrigieren
