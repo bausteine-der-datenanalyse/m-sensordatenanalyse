@@ -689,7 +689,13 @@ klimaschrank.loc[ : , 'Thermoelement 15 (°C)'] = klimaschrank.loc[ : , 'Thermoe
 
 **Berechnung des Nullpunktfehlers ändern**
 
-Absolute und multiplikative Abweichungen können gemeinsam auftreten. In diesem Beispiel wird die absolute Messabweichung über den dargestellten Wertebereich kleiner, da der Nullpunktfehler mit positivem Vorzeichen und der Empfindlichkeitsfehler mit negativen Vorzeichen auftreten.
+Absolute und multiplikative Abweichungen können gemeinsam auftreten.
+
+$$
+\text{gemessene Werte} = \text{wahre Werte} \cdot Empfindlichkeitsfehler + \text{Nullpunktfehler}
+$$
+
+In diesem Beispiel wird die absolute Messabweichung über den dargestellten Wertebereich kleiner, da der Nullpunktfehler mit positivem Vorzeichen und der Empfindlichkeitsfehler mit negativen Vorzeichen auftreten.
 
 ::: {.panel-tabset}
 
@@ -755,21 +761,11 @@ plt.show()
 :::
 
 ### Nullpunkt- und Empfindlichkeitsfehler quantifizieren
-Aus mindestens zwei bekannten Referenzpunkten können mit linearer Regression der Nullpunkt- und der Empfindlichkeitsfehler geschätzt werden. In der linearen Regression wird ein bei 0 beginnender Index für die x-Werte verwendet. Um den Nullpunktfehler korrekt ermitteln zu können, wird dieser Index um den geschätzten wahren Nullpunkt verschoben.
-
-**Wenn der Anstieg nicht 1 ist, wird der Nullpunktfehler falsch ermittelt**
-
-**Deshalb anderes Verfahren: lineare Regression mit x der wahre Wert und y der Messwert, siehe oben bei Nullpunktfehler**
-
-Die Steigung gibt die Empfindlichkeit an. Der Achsenabschnitt entspricht dem Nullpunktfehler.
-
+Aus mindestens zwei bekannten Referenzpunkten können mit linearer Regression der Nullpunkt- und der Empfindlichkeitsfehler geschätzt werden.
 ```{python}
 # Daten erzeugen
 messgröße = np.arange(0, 11) * 2 + 7
 messwerte = messgröße + 24 - messgröße / 3
-
-print(messgröße[0])
-print(messwerte[0])
 
 # bekannte Referenzpunkte
 x1 = 4
@@ -777,31 +773,30 @@ x2 = 8
 y1 = messgröße[x1]
 y2 = messgröße[x2]
 
-# ideale Kennlinie schätzen
-lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
-print(f"lm_kennlinie: {lm_kennlinie}")
+# lineare Regression mit x = Referenzwerte und y = Messwerte
+lm_referenzpunkte = poly.polyfit(x = [messgröße[x1], messgröße[x2]], y = [messwerte[x1], messwerte[x2]], deg = 1)
+print(lm_referenzpunkte, "\n")
 
-# lineare Regression der Messwerte
-lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
-print(f"lm_messwerte: {lm_messwerte}")
-
-# lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
-lm_messwerte_plus_intercept_kennlinie = poly.polyfit(np.arange(messwerte.size) + lm_kennlinie[0], messwerte, 1)
-print(f"lm_messwerte_plus_intercept_kennlinie: {lm_messwerte_plus_intercept_kennlinie}")
-
-# Nullpunktfehler bestimmen
-nullpunktfehler = lm_messwerte_plus_intercept_kennlinie[0]
+## Nullpunktfehler bestimmen
+nullpunktfehler = lm_referenzpunkte[0]
 print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
 
-# Empfindlichkeitsfehler bestimmen
-spannfehler = lm_messwerte_plus_intercept_kennlinie[1] / lm_kennlinie[1]
+## Empfindlichkeitsfehler bestimmen
+spannfehler = lm_referenzpunkte[1]
 print(f"Der Empfindlichkeitsfehler beträgt: {((spannfehler - 1) * 100).round(2)} %")
 
-# anderes Verfahren: lineare Regression mit x der wahre Wert und y der Messwert
-lm_verfahren = poly.polyfit(x = [messgröße[x1], messgröße[x2]], y = [messwerte[x1], messwerte[x2]], deg = 1)
-print(50 * '=')
-print(lm_verfahren)
+## Alternativ: Empfindlichkeitsfehler bestimmen
+### ideale Kennlinie schätzen
+lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+# print(f"lm_kennlinie: {lm_kennlinie}")
 
+###lineare Regression der Messwerte
+lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
+# print(f"lm_messwerte: {lm_messwerte}")
+
+### Empfindlichkeitsfehler bestimmen
+spannfehler = lm_messwerte[1] / lm_kennlinie[1]
+print(f"Der Empfindlichkeitsfehler beträgt: {((spannfehler - 1) * 100).round(2)} %")
 ```
 
 ### Nullpunkt- und Empfindlichkeitsfehler korrigieren
@@ -819,7 +814,7 @@ $$
 korrigierte ~ Messwerte = \frac{Messwerte}{Empfindlichkeitsfehler} - \frac{Nullpunktfehler}{Empfindlichkeitsfehler}
 $$
 
-Ein Beispiel: **hierhier: Testweise Anstieg 2 genommen und schon klappt der Nullpunktfehler nicht mehr**
+Ein Beispiel:
 ```{python}
 # Daten erzeugen
 messgröße = np.arange(0, 11) * 2 + 7
@@ -836,55 +831,36 @@ print(f"Wahre Werte:\n{messgröße}")
 print(f"Messwerte:\n{messwerte}")
 print()
 
-# ideale Kennlinie schätzen
-lm_kennlinie = poly.polyfit(x = [x1, x2], y = [y1, y2], deg = 1)
+# ideale Kennlinie schätz# lineare Regression mit x = Referenzwerte und y = Messwerte
+lm_referenzpunkte = poly.polyfit(x = [messgröße[x1], messgröße[x2]], y = [messwerte[x1], messwerte[x2]], deg = 1)
 
-# lineare Regression der Messwerte
-lm_messwerte = poly.polyfit(x = np.arange(messwerte.size), y = messwerte, deg = 1)
-
-# lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
-lm_messwerte_plus_intercept_kennlinie = poly.polyfit(np.arange(messwerte.size) + lm_kennlinie[0], messwerte, 1)
-
-# Nullpunktfehler bestimmen
-nullpunktfehler = lm_messwerte_plus_intercept_kennlinie[0]
+## Nullpunktfehler bestimmen
+nullpunktfehler = lm_referenzpunkte[0]
 print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
 
-# Empfindlichkeitsfehler bestimmen
-spannfehler = lm_messwerte_plus_intercept_kennlinie[1] / lm_kennlinie[1]
-print(f"Der Empfindlichkeitsfehler beträgt: {(((lm_messwerte_plus_intercept_kennlinie[1] / lm_kennlinie[1]) - 1) * 100).round(2)} %")
+## Empfindlichkeitsfehler bestimmen
+spannfehler = lm_referenzpunkte[1]
+print(f"Der Empfindlichkeitsfehler beträgt: {spannfehler.round(2)}")
 print()
 
 # erst Nullpunktfehler, dann Empfindlichkeitsfehler korrigieren
-## Nullpunktfehler korrigieren
 korrigierte_messwerte = messwerte - nullpunktfehler
-
-## Empfindlichkeitsfehler korrigieren
 korrigierte_messwerte = korrigierte_messwerte / spannfehler
-
 print(f"erst Nullpunktfehler, dann Empfindlichkeitsfehler korrigiert:\n{korrigierte_messwerte}")
 
 # erst Empfindlichkeitsfehler, dann Nullpunkt korrigieren
-## Empfindlichkeitsfehler korrigieren
 korrigierte_messwerte = messwerte / spannfehler
-
-## Nullpunktfehler korrigieren
 korrigierte_messwerte = korrigierte_messwerte - (nullpunktfehler / spannfehler)
-
 print(f"erst Empfindlichkeitsfehler, dann Nullpunktfehler korrigiert:\n{korrigierte_messwerte}")
-print()
 ```
-
-Simones Vorgehen führt zu korrekt kalibrierten Messwerten. Die Variable a ist der Korrekturfaktor für den Empfindlichkeitsfehler. Die Variable b ist die Nullpunktkorrektur, wenn erst der Empfindlichkeitsfehler korrigiert wird.
-
-Das hat etwas mit der Konstruktion der Daten bzw. der Korrektur zu tun. b ist die Korrektur des Nullpunktfehlers * Empfindlichkeitsfehler. Das heißt aus der Arnoldformel kann der Nullpunktfehler als $-1 * {b \over a}$ ermittelt werden.
 
 ### Übung Nullpunkt- und Empfindlichkeitsfehler
 **to do: hier könnte man andere Thermoelemente aus der letzten Übung verwenden**
 
 ## Nichtlinearität: Linearitätsfehler
-Bei einer idealen Messung hängt der gesuchte Wert linear vom gemessenen Wert ab. Viele analoge Sensoren reagieren aufgrund von Materialeigenschaften oder abhängig von der Temperatur nicht linear auf die gemessene Größe. Das heißt, die Messwerte sind nicht direkt proportional zur Messgröße. Dieser sogenannte **Linearitätsfehler** muss korrigiert werden, um genau zu messen.
+Bei einer idealen Messung hängt der gesuchte Wert linear vom gemessenen Wert ab. Viele analoge Sensoren reagieren aufgrund von Materialeigenschaften oder abhängig von der Temperatur nicht linear auf die gemessene Größe. Das heißt, die Messwerte sind nicht direkt proportional zur Messgröße. 
 
-Dafür gibt es zwei Möglichkeiten. Zum einen können nicht lineare Verfahren zur Parameterschätzung verwendet werden, was im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) behandelt wird. Zum anderen kann der Liniearitätsfehler korrigiert werden, um mit den leichter zu handhabenden linearen Verfahren der Parameterschätzung arbeiten zu können. Die Korrektion von Linearitätsfehlern wird in diesem Kapitel behandelt.
+Dem kann zum einen durch die Anwendung von Kalibriermethoden wie der Korrektionstabelle oder von nicht linearen Verfahren zur Parameterschätzung, die im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) behandelt werden, begegnet werden. Zum anderen können die Daten linear approximiert werden, um mit den leichter zu handhabenden linearen Verfahren der Parameterschätzung arbeiten zu können. Der dabei auftretende **Linearitätsfehler** muss quantifiziert werden. Dieses Vorgehen wird hier vorgestellt.
 
 ### Beispiel Pt100 {#sec-pt100}
 Das Pt100 ist ein Platin-Widerstandsthermometer (Pt = Platin) mit einem definierten Widerstandswert von  $100 \Omega$ bei einer Temperatur von 0°C (daher der Name Pt**100**). Der Widerstand eines Pt100 steigt mit der Temperatur. Bei 100 °C beträgt der Widerstand beispielsweise $138,51 \Omega$. Der Zusammenhang zwischen der Eingangsgröße, dem elektrischen Widerstand, und der so gemessenen Temperatur ist jedoch nur näherungsweise linear.
@@ -921,22 +897,16 @@ Im Anhang der Norm befinden sich Tabellen, die die Beziehung zwischen Temperatur
 
 Die Notation $t_{90} / °C$ beruht auf der Internationalen Temperaturskala ITS-90 von 1990, die Temperaturen $T_{90}$ in Kelvin und $t_{90}$ in Grad Celsius definiert. Die Notation zeigt also an, dass in der Tabelle Angaben in Grad Celsius stehen. (@DIN60751, S. 10)
 
-### Aufgabe Pt100-Tabelle einlesen
-Für die Datenanalyse ist das tabellarische Format weniger geeignet. Die [hier](https://s8b8d6a7.delivery.rocketcdn.me/wp-content/uploads/2022/08/Pt100-Tabelle-Screen.pdf) zusammengefasste Darstellung wurde in zwei CSV-Dateien kopiert. Lesen Sie die Dateien so ein, dass der elektrische Widerstand und die Temperatur jeweils eine aufsteigende Datenreihe bilden (z. B. als Liste, NumPy-Array oder eine Pandas-Datenstruktur). Die Dateipfade lauten:
+::: {#nte-pt100 .callout-note collapse="true"}
+## Pt100-Tabelle einlesen
+Für die Datenanalyse ist das tabellarische Format weniger geeignet. Die [hier](https://s8b8d6a7.delivery.rocketcdn.me/wp-content/uploads/2022/08/Pt100-Tabelle-Screen.pdf) zusammengefasste Darstellung wurde in zwei CSV-Dateien kopiert.
 
-``` {raw}
-'skript/01-daten/pt100-table-below-zero.csv'
-'skript/01-daten/pt100-table-above-zero.csv'
-```
-
-::: {#tip-pt100 .callout-tip collapse="true"}
-## Musterlösung Pt100-Tabelle einlesen
 ``` {python}
 dateipfad_belowzero = '01-daten/pt100-table-below-zero.csv'
 dateipfad_abovezero = '01-daten/pt100-table-above-zero.csv'
 ```
 
-Dateien einlesen und betrachten. Zunächst die Datei mit Temperaturen unter 0 Grad Celsius.
+Die Dateien soll so eingelesen werden, dass der elektrische Widerstand und die Temperatur jeweils eine aufsteigende Datenreihe bilden. Zunächst betrachten wir die Datei mit mit Temperaturen unter 0 Grad Celsius.
 ```{python}
 # belowzero
 belowzero = pd.read_csv(filepath_or_buffer = dateipfad_belowzero, sep = ',')
@@ -945,9 +915,7 @@ print(belowzero.head(), "\n")
 print(belowzero.tail())
 ```
 
-Es gibt 201 Werte (von -200 bis 0). Die Daten beginnen in der Zeile mit dem Index 1 (wenn die erste Zeile als header eingelesen wird). Diese enthält nur einen Eintrag in der Spalte '0'. Die folgenden Zeilen sind von rechts nach links einzulesen. Das Dezimaltrennzeichen ist das `,`.
-
-Das Einlesen der Daten von rechts nach links kann auf viele  Arten bewerkstelligt werden. Eine einzeilige Lösung beginnt damit, der Methode `pd.iloc[::-1]` eine negative Schrittweite zu übergeben.
+Es gibt 201 Werte (von -200 bis 0). Die Daten beginnen in der Zeile mit dem Index 1 (wenn die erste Zeile als header eingelesen wird). Diese enthält nur einen Eintrag in der Spalte '0'. Die folgenden Zeilen sind von rechts nach links einzulesen. Das Dezimaltrennzeichen ist das `,`. Das Einlesen der Daten von rechts nach links kann auf viele  Arten bewerkstelligt werden. Eine einzeilige Lösung beginnt damit, der Methode `pd.iloc[::-1]` eine negative Schrittweite zu übergeben.
 
 ```{python}
 df = pd.DataFrame(np.array([[3, 2, 1], [6, 5, 4]]))
@@ -968,7 +936,6 @@ print(df.T.iloc[::-1].T.to_numpy().flatten())
 ```
 
 Versuchen wir es mit dem Kopf der Pt100-Daten.
-
 ```{python}
 belowzero = pd.read_csv(filepath_or_buffer = dateipfad_belowzero, sep = ',', decimal = ',', header = 0, skiprows = 1, index_col = 0)
 
@@ -1024,7 +991,7 @@ print(pt100.info())
 :::
 
 ### Nichtlinearität darstellen
-Mit den Daten aus @tip-pt100 kann die Nichtlinearität des Sensors dargestellt werden.
+Mit den Daten aus @nte-pt100 kann die Nichtlinearität des Sensors dargestellt werden.
 
 ```{python}
 #| fig-alt: "Darstellung der Temperatur in Grad Celsius auf der x-Achse und des elektrischen Widerstands in Ohm auf der y-Achse"
@@ -1148,8 +1115,8 @@ plt.show()
 
 Aus der Differenz des gemessenen elektrischen Widerstands und der linearen Vorhersagewerte kann der maximale Linearitätsfehler bestimmt werden.
 ```{python}
-linearitätsfehler = (pt100['Ohm'] - vorhersagewerte).abs().max()
-print(f"Linearitätsfehler nach Festpunktmethode: {linearitätsfehler:.2f} Ohm.")
+linearitätsfehler_festpunkt = (pt100['Ohm'] - vorhersagewerte).abs().max()
+print(f"Linearitätsfehler nach Festpunktmethode: {linearitätsfehler_festpunkt:.2f} Ohm.")
 ```
 
 #### Toleranzbandmethode
@@ -1187,874 +1154,12 @@ plt.show()
 
 Aus der Differenz des gemessenen elektrischen Widerstands und der linearen Vorhersagewerte kann der maximale Linearitätsfehler (= das größte Residuum) bestimmt werden.
 ```{python}
-linearitätsfehler = (pt100['Ohm'] - vorhersagewerte).abs().max()
-print(f"Linearitätsfehler nach Toleranzbandmethode: {linearitätsfehler:.2f} Ohm.")
+linearitätsfehler_toleranzband = (pt100['Ohm'] - vorhersagewerte).abs().max()
+print(f"Linearitätsfehler nach Toleranzbandmethode: {linearitätsfehler_toleranzband:.2f} Ohm.")
 ```
 
-## Die Zweipunktkalibrierung
-Die Parameterschätzung mit linearer Regression nach der Toleranzbandmethode führt zur besten linearen Approximation von Messwerten (da die als Fehler zu interpretierenden Residuen minimiert werden). Nicht-lineares Messverhalten oder Daten mit größeren Messungenauigkeiten behaftete Daten führen aber fast zwangsläufig einen Nullpunktfehler in die geschätzte Gerade ein.
-
-Die Festpunktmethode umgeht dieses Problem, führt aber zu einem größeren Linearitätsfehler. Die Kalibrierung nach der Festpunktmethode kann über zwei bekannte Fixpunkte berechnet werden, **wenn ein linearer Zusammenhang in den Daten besteht**.
-
-```{python}
-# Daten erzeugen
-messgröße = np.arange(0, 11) + 7
-messwerte = messgröße + 4 - messgröße / 3
-
-# bekannte Referenzpunkte
-x1 = 4
-x2 = 8
-y1 = messgröße[x1]
-y2 = messgröße[x2]
-
-# Ausgabe
-print(f"Wahre Werte:\n{messgröße}")
-print(f"Messwerte:\n{messwerte}")
-print()
-
-# Zweipunktkalibrierung
-wahres_minimum = messgröße.min()
-wahres_maximum = messgröße.max()
-
-a = (wahres_maximum - wahres_minimum) / (messwerte.max() - messwerte.min())
-b = wahres_minimum - a * messwerte.min()
-
-korrigierte_messwerte = a * messwerte + b
-
-print(f"Zweipunktkalibrierung\n",
-      f"a = {a:.1f}\n",
-      f"b = {b:.1f}\n",
-      f"\na * messwerte + b\n{korrigierte_messwerte}",
-      sep = '')
-```
-
-Die Variable a ist der Korrekturfaktor für den Empfindlichkeitsfehler. Die Variable b ist die Nullpunktkorrektur, nachdem der Empfindlichkeitsfehler korrigiert wurde. Der Empfindlichkeitsfehler kann als ${1 \over a} - 1$ ermittelt werden. Der Nullpunktfehler kann als $-1 * {b \over a}$ ermittelt werden.
-
-```{python}
-print(f"Empfindlichkeitsfehler: {round( ((1 / a) - 1) * 100, 2)} %")
-print(f"Nullpunktfehler: {round(-1 * b / a, 2)}")
-```
-
-## Eis kochen
-
-![Versuchsaufbau Eis kochen](00-bilder/versuchsaufbau-eis-kochen.png){fig-alt="Auf einem Küchenherd wird ein Topf mit Eiswasser zum Kochen gebracht. Mit einer Wäscheklammer sind zwei Thermoelemente eines Widerstandsthermometers fixiert. Ein angeschlossener Laptop zeichnet die Daten auf."}
-
-In einem thermodynamischen Feldlabor wurde ein induktives Heizelement benutzt, um Eiswasser in einem metallischen Flüssigkeitsbehälter mit hoher Wärmeleitfähigkeit zum Kochen zu bringen. Mit einer nichtleitenden Halterung wurden zwei Thermoelemente eines Widerstandsthermometers fixiert. Ein TCTempX16 und eine automatische Protokolleinheit zeichneten die Daten auf.
-
-**Als Übung das gekochte Eis verwenden. (man muss den Nullpunkt und 100 Grad als Referenzwerte nehmen). Das Problem ist, dass das Eiskochen auch nichtlinear ist (ab 50 °C). Beachten, man hat keinen Referenzwert für den Nullpunkt (der liegt bei -273 °C), man muss also mit linearer Regression schätzen. Vermutlich muss man dafür nicht in Kelvin umrechnen, wegen der absoluten Verschiebung. --> Dass man nicht verschieben braucht, haben wir ja für die Berechnung ohne Messwerte für den Nullpunkt gezeigt.**
-
-  - Die Nichtlinearität ist kein Fehler des Sensorsystems, sondern ein physikalischer Effekt. Wie gehen wir damit um? --> man könnte sagen, dass der Effekt über den linear geschätzten Spannfehler approximiert wird. Zwischen nichtlinearer Messwertekurve und dem linear geschätzten Spannfehler entsteht dann ein Linearitätsfehler
-
-**Das Problem ist, dass die Daten bereinigt werden müssen, ohne sie zu interpolieren oder zu glätten --> mit linearem Trend und sd arbeiten oder auf den Baustein datenfitting und datenoptimierung verweisen.**
-
-#### Datei einlesen und Daten darstellen
-Die Messreihe ist in der Datei '01-daten/Eis_Messung_1.xlsx' im Tabellenblatt 'T15949 MultiChannel - Daten' gespeichert.
-
-Lesen Sie die Datei ein und bereiten Sie die Daten für die weitere Analyse auf.
-
-  - Welches Format haben die Daten?
-  - Gibt es fehlende Werte und falls ja, wie sind diese kodiert?
-  - Gibt es fehlerhafte Werte?
-  - **to do: Messgenauigkeit aus den Metadaten recherchieren lassen (Als Übungsaufgabe unten)**
-
-```{python}
-eis = pd.read_excel(io = '01-daten/Eis_Messung_1.xlsx', sheet_name = 'T15949 MultiChannel - Daten')
-
-print(eis.head(n = 10))
-```
-
-Im Kopf des Tabellenblatts stehen Metadaten der Messung. Es gibt vier Spalten mit Daten: Datum und Zeit sowie die Messreihen der beiden Thermoelemente.
-
-```{python}
-eis = pd.read_excel(io = '01-daten/Eis_Messung_1.xlsx', sheet_name = 'T15949 MultiChannel - Daten', skiprows = 6)
-print(eis.info())
-```
-
-Die Daten wurden korrekt eingelesen. Mit der Methode `pd.describe()` wird der Wertebereich der Spalten überprüft, um numerisch kodierte fehlende oder fehlerhafte Werte zu identifizieren.
-
-```{python}
-print(eis.describe())
-```
-
-Die Spalten Datum und Zeit enthalten die selben Informationen. Eine der beiden Spalten kann deshalb entfernt werden. Die Temperaturmessungen sollten näher betrachtet werden. Eishaltiges Wasser, das zum Kochen gebracht wird, sollte sich in einem Temperaturbereich von 0 bis 100 °C bewegen.
-
-```{python}
-eis.drop(labels = 'Datum', axis = 1, inplace = True)
-```
-
-Wir stellen den Datensatz grafisch dar.
-
-```{python}
-#| fig-alt: "Darstellung der gemessenen Temperaturen beider Thermoelemente über die Zeit."
-
-eis.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'])
-```
-
-&nbsp;
-
-Etwa in der Mitte des Datensatzes verzeichnen beide Sensoren extreme Fehlwerte. Diese sollen entfernt werden.
-
-#### Fehlwerte entfernen
-Zunächst betrachten wir den Bereich genauer.
-
-```{python}
-#| fig-alt: "Darstellung der gemessenen Temperaturen beider Thermoelemente über die Zeit im Bereich von ca. 55 bis 65 Grad Celsius."
-
-n_zeilen = eis.shape[0]
-eis.iloc[int(n_zeilen * 0.45): int(n_zeilen * 0.65)].plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'])
-```
-
-&nbsp;
-
-In einem bestimmten Abschnitt scheinen keine gültigen Werte vorzuliegen und diese sollen als ungültig markiert werden. Dazu betrachten wir zunächst die typische Veränderung der Messwerte, also die Differenz jedes Werts zu seinem Vorgänger mit der Methode `pd.Series.diff()`. Ebenfalls wird die Veränderung in studentisierten z-Werten ausgedrückt.
-
-Die z-Werte werden mit der scipy-Funktion `scipy.stats.zscore(a, ddof = 1, nan_policy = 'omit'))` ermittelt. `a` steht für array-artige Daten, `ddof = 1` spezifiziert die Stichprobenstandardabweichung und das Argument `nan_policy = 'omit'` wird verwendet, um mit dem Wert `np.nan` an der ersten Stelle arbeiten zu können, der aus der Berechnung der Veränderung entsteht, da für den ersten Wert einer Reihe kein gültiger Wert berechnet werden kann.
-
-:::{#wrn-diffinnpandpd .callout-warning appearance="simple" collapse="true"}
-## np.diff() und pd.diff()
-NumPy und Pandas verfügen über eine Funktion diff. Diese verhalten sich standardmäßig unterschiedlich. Um die Länge einer Datenreihe mit `np.diff()` zu erhalten, können die Parameter `prepend` oder `append` verwendet werden, um der Datenreihe vor Ausführung der Operation einen Wert voranzustellen oder einen Wert anzuhängen. So bleiben die Länge der Datenreihe und die Indexpositionen der Werte erhalten.
-
-```{python}
-array = np.array([1, 3, 5, 6])
-print(np.diff(array))
-series = pd.Series(array)
-print(series.diff())
-print("\n", np.diff(array, prepend = np.nan))
-```
-
-:::
-
-```{python}
-#| fig-alt: "Darstellung der Temperaturdifferenz in Grad (links) und der absoluten z-Werte (rechts) für beide Thermoelemente über den Index der gemessenen Werte."
-
-# absolute Differenzen ermitteln
-diff_thermoelement_1 = eis['Thermoelement 1 (°C)'].diff()
-diff_thermoelement_2 = eis['Thermoelement 2 (°C)'].diff()
-
-# absolute z-scores ermitteln
-abs_z_score_thermoelement_1 = np.abs(scipy.stats.zscore(diff_thermoelement_1, ddof = 1, nan_policy = 'omit'))
-abs_z_score_thermoelement_2 = np.abs(scipy.stats.zscore(diff_thermoelement_2, ddof = 1, nan_policy = 'omit'))
-
-# plotten
-fig = plt.figure(figsize = (7.5, 7.5)) # sharex = True
-
-ax = fig.add_subplot(2, 2, 1)
-ax.plot(diff_thermoelement_1, color = 'C0', label = 'Thermoelement 1')
-ax.set_xlabel(xlabel = 'Index')
-ax.set_ylabel(ylabel = 'Temperaturdifferenz in °C')
-ax.grid()
-
-ax = fig.add_subplot(2, 2, 2)
-ax.plot(abs_z_score_thermoelement_1, color = 'C0')
-ax.set_xlabel(xlabel = 'Index')
-ax.set_ylabel(ylabel = 'absolute z-Werte')
-ax.grid()
-
-ax = fig.add_subplot(2, 2, 3)
-ax.plot(diff_thermoelement_2, color = 'C1', label = 'Thermoelement 2')
-ax.set_xlabel(xlabel = 'Index')
-ax.set_ylabel(ylabel = 'Temperaturdifferenz in °C')
-ax.grid()
-
-ax = fig.add_subplot(2, 2, 4)
-ax.plot(abs_z_score_thermoelement_2, color = 'C1')
-ax.set_xlabel(xlabel = 'Index')
-ax.set_ylabel(ylabel = 'absolute z-Werte')
-ax.grid()
-
-fig.legend(loc = 'outside upper center', ncols = 2,  bbox_to_anchor = (0.5, 1.05)) 
-
-plt.tight_layout()
-plt.show()
-```
-
-&nbsp;
-
-Die Position der ungültigen Werte kann sowohl über eine sinnvolle Schwelle der (absoluten) Temperaturveränderung oder der absoluten z-Werte bestimmt werden. In diesem Fall verwenden wir die absolute Temperaturveränderung und wählen den Schwellwert 10. Es wird die Position des ersten und des letzten Werts, der oberhalb dieses Schwellwerts liegt, bestimmt.
-
-```{python}
-# absolute Änderung bestimmen
-diff_thermoelement_1 = eis['Thermoelement 1 (°C)'].diff().abs()
-diff_thermoelement_2 = eis['Thermoelement 2 (°C)'].diff().abs()
-
-# Schwellwert festlegen und prüfen
-schwellwert = 10
-bool_series_thermoelement_1 = diff_thermoelement_1 > schwellwert
-bool_series_thermoelement_2 = diff_thermoelement_2 > schwellwert
-
-# ersten und letzten Wert größer Schwellwert finden
-## Thermoelement 1
-### Wo steht nicht False?
-### np.nonzero() gibt ein Tupel zurück
-### Dieses enthält für jede Dimension ein array der Indexwerte
-positionen_thermoelement_1 = np.nonzero(bool_series_thermoelement_1)
-
-## Thermoelement 2
-### Wo steht nicht False?
-### np.nonzero() gibt ein Tupel zurück
-### Dieses enthält für jede Dimension ein array der Indexwerte
-positionen_thermoelement_2 = np.nonzero(bool_series_thermoelement_2)
-
-# Ausgabe
-## Thermoelement 1
-print("Thermoelement 1")
-print(51 * "=")
-print("Anzahl der Temperaturänderungen mit Betrag > 10:", bool_series_thermoelement_1.sum())
-print(f"Die Position des ersten Werts: {positionen_thermoelement_1[0][0]}")
-print(f"Die Position des letzten Werts: {positionen_thermoelement_1[0][-1]}")
-
-## Thermoelement 2
-print("\nThermoelement 2")
-print(51 * "=")
-print("Anzahl der Temperaturänderungen mit Betrag > 10:", bool_series_thermoelement_2.sum())
-print(f"Die Position des ersten Werts: {positionen_thermoelement_2[0][0]}")
-print(f"Die Position des letzten Werts: {positionen_thermoelement_2[0][-1]}")
-```
-
-Für beide Thermoelemente kann der gleiche Bereich als ungültig markiert werden. Vor der weiteren Bearbeitung wird eine Kopie des aufgeräumten Datensatzes erstellt.
-```{python}
-von = positionen_thermoelement_1[0][0]
-bis = positionen_thermoelement_1[0][-1]
-eis.loc[von : bis, ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)']] = np.nan
-
-# Kopie von eis anlegen
-eis_backup = eis.copy()
-```
-
-Der Datensatz wird dargestellt. (In der Darstellung mit `pd.plot()` ist die automatisch gewählte x-Achsenbeschriftung unansehnlich. Deshalb wird ein Datenobjekt für die Darstellung angelegt und die Spalte 'Zeit' auf die Uhrzeit reduziert.)
-
-```{python}
-#| fig-alt: "Darstellung der gemessenen Temperaturen beider Thermoelemente über die Zeit. Die fehlerhaften Messwerte wurden entfernt."
-
-# Darstellung mit automatischer Achsenbeschriftung
-# eis.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
-
-plotting_data = eis.copy()
-plotting_data['Zeit'] = plotting_data['Zeit'].dt.time
-
-plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
-
-plt.show()
-```
-
-#### Referenzpunkte bestimmen
-Aus diesen Daten können der Nullpunkt- und der Spannfehler quantifiziert werden. Als Referenzpunkte sind die Temperaturen 0 und 100 Grad Celsius bekannt: Solange ohne Energiezufuhr Eis im Wasser schwimmt, hat es 0 °C, und bei 100 °C erreicht das Wasser seinen Siedepunkt.
-
-Für die wahre Temperatur 0 °C sind viele Messpunkte verfügbar. Schauen wir uns die ersten 100 Messwerte an:
-
-```{python}
-#| fig-alt: "Darstellung der gemessenen Temperaturen beider Thermoelemente über die ersten 101 Messwerte."
-
-eis.loc[0 : 100, ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)']].plot(xlabel = 'Index', ylabel = 'gemessene Temperatur in °C')
-```
-
-&nbsp;
-
-Der Zeitpunkt, ab dem die Wärmezufuhr beginnt, kann z. B. mit der Methode `pd.diff()` ermittelt werden:
-
-```{python}
-#| fig-alt: "Darstellung der Temperaturdifferenz für beide Thermoelemente über die ersten 101 Messwerte."
-
-eis.loc[0 : 100, ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)']].diff().plot(xlabel = 'Index', ylabel = 'Temperaturdifferenz in °C')
-```
-
-&nbsp;
-
-Da das Thermoelement 1 leichte Messabweichungen aufweist, wird ein Schwellwert etwas größer als 0 gewählt. Damit wird die Position des ersten Werts bestimmt, der oberhalb des Schwellwerts liegt.
-
-```{python}
-# absolute Änderung bestimmen
-diff_thermoelement_1 = eis.loc[0 : 100, 'Thermoelement 1 (°C)'].diff().abs()
-diff_thermoelement_2 = eis.loc[0 : 100, 'Thermoelement 2 (°C)'].diff().abs()
-
-# Schwellwert festlegen und prüfen
-schwellwert = 0.2
-bool_series_thermoelement_1 = diff_thermoelement_1 > schwellwert
-bool_series_thermoelement_2 = diff_thermoelement_2 > schwellwert
-
-# ersten Wert größer Schwellwert finden
-## Thermoelement 1
-### Wo steht nicht False?
-### np.nonzero() gibt ein Tupel zurück
-### Dieses enthält für jede Dimension ein array der Indexwerte
-positionen_thermoelement_1 = np.nonzero(bool_series_thermoelement_1)
-
-## Thermoelement 2
-### Wo steht nicht False?
-### np.nonzero() gibt ein Tupel zurück
-### Dieses enthält für jede Dimension ein array der Indexwerte
-positionen_thermoelement_2 = np.nonzero(bool_series_thermoelement_2)
-
-# Ausgabe
-## Thermoelement 1
-print("Thermoelement 1")
-print(f"Die Position des ersten Werts: {positionen_thermoelement_1[0][0]}")
-
-## Thermoelement 2
-print("\nThermoelement 2")
-print(f"Die Position des ersten Werts: {positionen_thermoelement_2[0][0]}")
-```
-
-Die Wärmezufuhr beginnt also bei dem Wert an Indexposition 67. Der Nullpunkt der Messreihe liegt somit an der Indexposition 67 - 1.
-
-```{python}
-start_wärmezufuhr = 67
-start = start_wärmezufuhr - 1
-```
-
-Somit kann der Nullpunktfehler nun für beide Thermoelemente aus der Differenz zwischen dem Mittelwert der gemessenen Werte bis *exklusiv* Indexposition 67 und dem wahren Wert 0 direkt berechnet werden. Diese Position haben wir in der Variable start gespeichert, die für beide Thermoelemente gilt.
-
-:::{#wrn-slicingmitloc .callout-warning appearance="simple"}
-## Slicing mit pd.loc[]
-
-Das Slicing mit `pd.loc[]` ist inklusiv.
-
-:::
-
-```{python}
-nullpunktfehler_thermoelement_1 = eis.loc[0 : start, 'Thermoelement 1 (°C)'].mean() - 0
-nullpunktfehler_thermoelement_2 = eis.loc[0 : start, 'Thermoelement 2 (°C)'].mean() - 0
-
-print(f"Der Nullpunktfehler von Thermoelement 1 beträgt: {nullpunktfehler_thermoelement_1}")
-print(f"Der Nullpunktfehler von Thermoelement 2 beträgt: {nullpunktfehler_thermoelement_2:.2f}")
-```
-
-Damit kann der Nullpunktfehler für beide Messreihen korrigiert werden.
-
-```{python}
-eis['Thermoelement 1 (°C)'] -= nullpunktfehler_thermoelement_1
-eis['Thermoelement 2 (°C)'] -= nullpunktfehler_thermoelement_2
-```
-
-Auch für die wahre Temperatur 100 Grad sind viele Messpunkte verfügbar. Schauen wir uns die letzten 120 Messwerte an:
-
-**hier müssen wir mal aus dem m-datenfitting und datenoptimierung entlehnen**
-```{python}
-#| fig-alt: "Darstellung der letzten 100 Messwerte für Thermoelement 1 und Thermoelement 2. Für beide Messreihen ist ein mit dem gleitenden Mittelwert geglättete Kurve eingezeichnet. Zusätzlich ist der Mittelwert der geglätteten Reihen eingezeichnet. Horizontal ist die Temperatur 100 °C durch eine gestrichelte Linie gekennzeichnet."
-
-anzahl = 120
-
-eis.loc[eis.shape[0] - anzahl : , ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)']].plot(alpha = 0.3, xlabel = 'Index', ylabel = 'gemessene Temperatur in °C')
-plt.hlines(y = 100, xmin = eis.shape[0] - anzahl, xmax = eis.shape[0], linestyles = 'dashed', label = '100 °C')
-
-# Daten glätten
-window = 9
-weights = np.ones(window) / window
-thermoelement_1_glatt = np.convolve(eis['Thermoelement 1 (°C)'], weights, mode = 'valid')
-thermoelement_2_glatt = np.convolve(eis['Thermoelement 2 (°C)'], weights, mode = 'valid')
-
-plt.plot(eis.index[eis.shape[0] - anzahl + (window-1)//2 : -(window//2)], thermoelement_1_glatt[eis.shape[0] - anzahl : ], label = 'Thermoel. 1 geglättet', color = 'C0')
-plt.plot(eis.index[eis.shape[0] - anzahl + (window-1)//2 : -(window//2)], thermoelement_2_glatt[eis.shape[0] - anzahl : ], label = 'Thermoel. 2 geglättet', color = 'C1')
-
-mittelwert_der_sensoren = (thermoelement_1_glatt[eis.shape[0] - anzahl : ] + thermoelement_2_glatt[eis.shape[0] - anzahl : ]) / 2
-plt.plot(eis.index[eis.shape[0] - anzahl + (window-1)//2 : -(window//2)], mittelwert_der_sensoren, label = 'geglätteter Mittelwert', linestyle = 'dashed', color = 'red')
-
-plt.legend()
-plt.show()
-```
-
-&nbsp;
-
-Der Punkt, an dem das Wasser siedet, ist nicht so einfach zu bestimmen. Starke Messabweichungen erzeugen ein verrauschtes Bild. Um die grafische Analyse zu erleichtern wurden für beide Messreihen der gleitende Durchschnitt sowie der Mittelwert der geglätten Messreihen eingezeichnet. Die Techniken dafür werden im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) vermittelt.
-
-```{python}
-print(f"Maximum der gemittelten, geglätteten Messreihen: {mittelwert_der_sensoren.max():.2f}")
-print(f"An Indexposition: {np.where(mittelwert_der_sensoren == mittelwert_der_sensoren.max())[0][0] + eis.shape[0] - anzahl}")
-```
-
-**Zu bedenken ist:**
-
-- MF: Die Temperatur, bei der Wasser beim Luftdruck in Deutschland kocht, ist tatsächlich eher 99,4°C. [Dieser Rechner](https://hobbybrennen.ch/Rechner/DruckabhaengigkeitvonSiedepunkten.html) und 1007 hPa: 99.8
-- Wasser kocht nicht sprunghaft als ganzes. Erst siedet es und dabei kocht das Wasser unten im Topf früher als oben, erkennbar an den Luftbläschen. Die Messung kann durch die Luftbläschen verfälscht werden (aber so stark? Die Messung ist im Allgemeinen extrem ungenau). Der Temperaturverlauf bis zum Erreichen der Siedetemperatur muss aber linear sein (siehe Grafik von Marc).
-
-Behelfsweise bestimmen wir den Referenzpunkt für 100 °C, indem die Werte zwischen dem Indexwert 500 und bis zu den letzten 10 Werten des Datensatzes gemittelt werden. Anschließend wird der Index bestimmt, an dem die Messwerte diesen Wert erstmalig erreichen. (*Hinweis: Die Daten wurden bereits um ermittelten Nullpunktfehler korrigiert.*)
-```{python}
-thermoelement_1_max = eis['Thermoelement 1 (°C)'].iloc[500 : -10].mean()
-thermoelement_2_max = eis['Thermoelement 2 (°C)'].iloc[500 : -10].mean()
-
-# ge = greater or equal, idxmax = find first occurrence of maximum value (0 and 1)
-ende_thermoelement_1 = eis['Thermoelement 1 (°C)'].ge(thermoelement_1_max).idxmax()
-ende_thermoelement_2 = eis['Thermoelement 2 (°C)'].ge(thermoelement_2_max).idxmax()
-
-print(f"Gemitteltes Maximum Thermoelement 1: {thermoelement_1_max:.2f} °C",
-      f"Erstmalig erreicht an Position: {ende_thermoelement_1 }", sep = "\n")
-print(f"Gemitteltes Maximum Thermoelement 2: {thermoelement_2_max:.2f} °C",
-      f"Erstmalig erreicht an Position: {ende_thermoelement_2 }", sep = "\n")
-```
-
-#### Spannfehler ermitteln
-Mit den bekannten Start- und Endwerten kann der Spannfehler geschätzt werden. Da die Funktion `numpy.polynomial.polynomial.polyfit()` nicht mit fehlenden Werten wie `np.nan` umgehen kann, müssen diese herausgefiltert werden. Dies geht zum Beispiel so:
-
-`gültige_werte = np.isfinite(eis.loc[start:ende, 'Thermoelement 1 (°C)'])`
-`gültige_werte = ~np.isnan(eis.loc[start:ende, 'Thermoelement 1 (°C)'])`
-
-##### Test: Festpunktmethode
-
-**kaum macht man es richtig, schon geht es... die Korrektur mit spannfehler = anstieg messwerte - anstieg ideal und korrigierte werte = messwerte /(1 + spannfehler) passt irgendwie nicht. Aber: für Thermoelement 2 werden die Ergebnisse eher schlechter**
-
-Thermoelement 1
-```{python}
-ende = ende_thermoelement_1
-
-# ideale Kennlinie schätzen
-# x muss bei Null beginnen
-lm_kennlinie = poly.polyfit(
-  x = [start - start, ende - start],
-  y = [0, 100],
-  deg = 1)
-print(lm_kennlinie.round(2))
-
-## lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
-### gültige Werte bestimmen
-gültige_werte = np.isfinite(eis.loc[start:ende, 'Thermoelement 1 (°C)'])
-
-### Regression
-lm_messwerte_thermoelement_1 = poly.polyfit(
-  x = [start - start, ende - start],
-  y = [eis.loc[start, 'Thermoelement 1 (°C)'], eis.loc[ende, 'Thermoelement 1 (°C)']], deg = 1)
-
-## Spannfehler bestimmen
-spannfehler_thermoelement_1 = lm_messwerte_thermoelement_1[1] / lm_kennlinie[1]
-
-## Ausgabe
-print("\nThermoelement 1")
-print(51 * "=")
-print(f"lineare Schätzung der idealen Kennlinie:\n{lm_kennlinie}")
-print(f"lineare Schätzung für Thermoelement 1:\n{lm_messwerte_thermoelement_1}")
-print(f"Anzahl gültiger Werte: {len(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte])}")
-print(f"Der Anstieg der Messwerte: {round(lm_messwerte_thermoelement_1[1], 2)}")
-print(f"Der Anstieg der idealen Kennlinie: {round(lm_kennlinie[1], 2)}")
-print(f"Der Spannfehler beträgt: {((spannfehler_thermoelement_1 - 1) * 100).round(2)} %")
-
-## mal grafisch angucken
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte],
-         eis.loc[start:ende, 'Thermoelement 1 (°C)'][gültige_werte],
-         label = 'Thermoelement 1')
-linie = poly.polyval(x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0], c = lm_messwerte_thermoelement_1)
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte], linie,
-         label = 'lineare Schätzung')
-
-plt.xlabel(xlabel = 'Index')
-plt.ylabel(ylabel = '° C')
-plt.legend()
-plt.show()
-```
-
-Thermoelement 2
-```{python}
-ende = ende_thermoelement_2
-
-# ideale Kennlinie schätzen
-# x muss bei Null beginnen
-lm_kennlinie = poly.polyfit(
-  x = [start - start, ende - start],
-  y = [0, 100],
-  deg = 1)
-print(lm_kennlinie.round(2))
-
-## lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
-### gültige Werte bestimmen
-gültige_werte = np.isfinite(eis.loc[start:ende, 'Thermoelement 2 (°C)'])
-
-### Regression
-lm_messwerte_thermoelement_2 = poly.polyfit(
-  x = [start - start, ende - start],
-  y = [eis.loc[start, 'Thermoelement 1 (°C)'], eis.loc[ende, 'Thermoelement 2 (°C)']], deg = 1)
-
-## Spannfehler bestimmen
-spannfehler_thermoelement_2 = lm_messwerte_thermoelement_2[1] / lm_kennlinie[1]
-
-## Ausgabe
-print("\nThermoelement 2")
-print(51 * "=")
-print(f"lineare Schätzung der idealen Kennlinie:\n{lm_kennlinie}")
-print(f"lineare Schätzung für Thermoelement 2:\n{lm_messwerte_thermoelement_2}")
-print(f"Anzahl gültiger Werte: {len(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte])}")
-print(f"Der Anstieg der Messwerte: {round(lm_messwerte_thermoelement_2[1], 2)}")
-print(f"Der Anstieg der idealen Kennlinie: {round(lm_kennlinie[1], 2)}")
-print(f"Der Spannfehler beträgt: {((spannfehler_thermoelement_2 - 1) * 100).round(2)} %")
-
-## mal grafisch angucken
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte],
-         eis.loc[start:ende, 'Thermoelement 2 (°C)'][gültige_werte],
-         label = 'Thermoelement 2')
-linie = poly.polyval(x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0], c = lm_messwerte_thermoelement_2)
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte], linie,
-         label = 'lineare Schätzung')
-
-plt.xlabel(xlabel = 'Index')
-plt.ylabel(ylabel = '° C')
-plt.legend()
-plt.show()
-```
-
-&nbsp;
-
-Somit kann der Spannfehler korrigiert werden nach `korrigierte_messwerte = messwerte / spannfehler`.
-```{python}
-# Spannfehler Thermoelement 1 korrigieren
-eis['Thermoelement 1 (°C)'] = eis['Thermoelement 1 (°C)'].div(spannfehler_thermoelement_1)
-eis['Thermoelement 2 (°C)'] = eis['Thermoelement 2 (°C)'].div(spannfehler_thermoelement_2)
-
-print(f"Maximum kalibriertes Thermoelement 1: {eis['Thermoelement 1 (°C)'].max()}",
-      f"Maximum kalibriertes Thermoelement 2: {eis['Thermoelement 2 (°C)'].max()}",
-      sep = '\n')
-```
-
-Schauen wir uns die kalibrierten Daten erneut an:
-```{python}
-plotting_data = eis.copy()
-plotting_data['Zeit'] = plotting_data['Zeit'].dt.time
-
-plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
-
-plt.show()
-```
-
-##### Falsch: Toleranzbandmethode
-**hierhier: bei Thermoelement 1 ist irgendwo ein Fehler drin - der Spannfehler hat das falsche Vorzeichen - die Messwerte sind ja zu klein**
-
-**das müsste man mal grafisch darstellen, weil die geschätzte Gerade der Messwerte wird den tatsächlichen Endwert überschießen**
-
-Daten wiederherstellen.
-```{python}
-eis = eis_backup.copy()
-eis['Thermoelement 1 (°C)'] -= nullpunktfehler_thermoelement_1
-eis['Thermoelement 2 (°C)'] -= nullpunktfehler_thermoelement_2
-```
-
-**hier sieht man leider das Problem der linearen Regression nach Toleranzbandmethode: Es wird ein Offset-Fehler erzeugt und der Anstieg falsch geschätzt**
-
-**Das Vorgehen sollte besser werden, wenn die Festpunktmethode verwendet wird. (Dafür wird der Linearitätsfehler größer)**
-
-Da die lineare Schätzung der Messwerte bei 0 beginnt, ist die Addition des y-Achsenabschnitts der idealen Kennlinie unnötig (erfolgt hier aber trotzdem).
-
-Thermoelement 1:
-```{python}
-# Thermoelement 1
-## bekannte Referenzwerte
-ende = ende_thermoelement_1
-
-x1 = start
-x2 = ende
-
-y1 = 0
-y2 = 100
-
-## ideale Kennlinie schätzen
-## Index muss bei 0 beginnen
-lm_kennlinie = poly.polyfit(x = [x1 - start, x2 - start], y = [y1, y2], deg = 1)
-
-## lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
-### gültige Werte bestimmen
-gültige_werte = np.isfinite(eis.loc[start:ende, 'Thermoelement 1 (°C)'])
-
-### Regression
-lm_messwerte_thermoelement_1_plus_intercept_kennlinie = poly.polyfit(
-  x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0],
-  y = eis.loc[start:ende, 'Thermoelement 1 (°C)'][gültige_werte], deg = 1)
-
-## Spannfehler bestimmen
-spannfehler_thermoelement_1 = lm_messwerte_thermoelement_1_plus_intercept_kennlinie[1] / lm_kennlinie[1]
-
-## Ausgabe
-print("\nThermoelement 1")
-print(51 * "=")
-print(f"lineare Schätzung der idealen Kennlinie:\n{lm_kennlinie}")
-print(f"lineare Schätzung für Thermoelement 1 plus y-Achsenschnittpunkt der idealen Kennlinie:\n{lm_messwerte_thermoelement_1_plus_intercept_kennlinie}")
-print(f"Anzahl gültiger Werte: {len(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte])}")
-print(f"Der Anstieg der Messwerte: {round(lm_messwerte_thermoelement_1_plus_intercept_kennlinie[1], 2)}")
-print(f"Der Anstieg der idealen Kennlinie: {round(lm_kennlinie[1], 2)}")
-print(f"Der Spannfehler beträgt: {((spannfehler_thermoelement_1 - 1) * 100).round(2)} %")
-
-## mal grafisch angucken
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte],
-         eis.loc[start:ende, 'Thermoelement 1 (°C)'][gültige_werte],
-         label = 'Thermoelement 1')
-linie = poly.polyval(x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0], c = lm_messwerte_thermoelement_1_plus_intercept_kennlinie)
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte], linie,
-         label = 'lineare Schätzung')
-
-plt.xlabel(xlabel = 'Index')
-plt.ylabel(ylabel = '° C')
-plt.legend()
-plt.show()
-```
-
-Thermoelement 2:
-```{python}
-
-# Thermoelement 2
-## bekannte Referenzwerte
-ende = ende_thermoelement_2
-
-x1 = start
-x2 = ende
-
-y1 = 0
-y2 = 100
-
-## ideale Kennlinie schätzen
-## Index muss bei 0 beginnen
-lm_kennlinie = poly.polyfit(x = [x1 - start, x2 - start], y = [y1, y2], deg = 1)
-
-## lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
-### gültige Werte bestimmen
-gültige_werte = np.isfinite(eis.loc[start:ende, 'Thermoelement 2 (°C)'])
-
-### Regression
-lm_messwerte_thermoelement_2_plus_intercept_kennlinie = poly.polyfit(
-  x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0],
-  y = eis.loc[start:ende, 'Thermoelement 2 (°C)'][gültige_werte], deg = 1)
-
-## Spannfehler bestimmen
-spannfehler_thermoelement_2 = lm_messwerte_thermoelement_2_plus_intercept_kennlinie[1] / lm_kennlinie[1]
-
-## Ausgabe
-print("\nThermoelement 2")
-print(51 * "=")
-print(f"lineare Schätzung der idealen Kennlinie:\n{lm_kennlinie}")
-print(f"lineare Schätzung für Thermoelement 2 plus y-Achsenschnittpunkt der idealen Kennlinie:\n{lm_messwerte_thermoelement_2_plus_intercept_kennlinie}")
-print(f"Anzahl gültiger Werte: {len(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte])}")
-print(f"Der Anstieg der Messwerte: {round(lm_messwerte_thermoelement_2_plus_intercept_kennlinie[1], 2)}")
-print(f"Der Anstieg der idealen Kennlinie: {round(lm_kennlinie[1], 2)}")
-print(f"Der Spannfehler beträgt: {((spannfehler_thermoelement_2 - 1) * 100).round(2)} %")
-
-## mal grafisch angucken
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte],
-         eis.loc[start:ende, 'Thermoelement 2 (°C)'][gültige_werte],
-         label = 'Thermoelement 2')
-linie = poly.polyval(x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0], c = lm_messwerte_thermoelement_2_plus_intercept_kennlinie)
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte], linie,
-         label = 'lineare Schätzung')
-
-plt.xlabel(xlabel = 'Index')
-plt.ylabel(ylabel = '° C')
-plt.legend()
-plt.show()
-```
-
-Somit kann der Spannfehler korrigiert werden nach `korrigierte_messwerte = messwerte / (1 + spannfehler)`.
-```{python}
-# Spannfehler Thermoelement 1 korrigieren
-eis['Thermoelement 1 (°C)'] = eis['Thermoelement 1 (°C)'].div(spannfehler_thermoelement_1)
-eis['Thermoelement 2 (°C)'] = eis['Thermoelement 2 (°C)'].div(spannfehler_thermoelement_2)
-
-print(f"Maximum kalibriertes Thermoelement 1: {eis['Thermoelement 1 (°C)'].max()}",
-      f"Maximum kalibriertes Thermoelement 2: {eis['Thermoelement 2 (°C)'].max()}",
-      sep = '\n')
-```
-
-Schauen wir uns die kalibrierten Daten erneut an:
-```{python}
-plotting_data = eis.copy()
-plotting_data['Zeit'] = plotting_data['Zeit'].dt.time
-
-plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
-
-plt.show()
-```
-
-#### Vorgehen mit linearer Regression
-**hier sieht man leider das Problem der linearen Regression: Es wird ein Offset-Fehler erzeugt**
-
-**Das Vorgehen sollte besser werden, wenn die Festpunktmethode verwendet wird. (Dafür wird der Linearitätsfehler größer)**
-
-Was hier passiert:
-
-  - hier auch den Nullpunktfehler schätzen, dazu Kopie wieder herstellen
-  - x = [x1 - start, x2 - start] muss gesetzt werden, um den Index auf 0 zu setzen
-  - size durch shape[0] ersetzen, das führt bei dfs zu weniger Fehlern
-  - prüfen: plus y-Achsenschnittpunkt der idealen Kennlinie bei der Regression der Messwerte aus dem Abschnitt Nullpunkt- und Spannfehler quantifizieren
-  - poly.polyfit() kann nicht mit nan umgehen :(
-  - die linien erreichen zu hohe Schätzewerte - am Ende muss ja 100 °C stehen, aber es werden 105 °C für den letzten Wert geschätzt (was so wäre, wenn der Zusammenhang linear wäre)
-
-
-```
-## kann es sein, dass gültige Werte mit Index die falschen Werte filtert?
-## für y = eis.loc passt es
-## bei x = np.arange(eis.loc[start:ende, :].shape[0]) passt es auch, da nicht mit index abgeglichen wird
-## print(gültige_werte[ : 5])
-```
-
-der x-Index ist kürzer für die Messwerte, deshalb ist der Anstieg größer, weil mit weniger x-Werten gerechnet wird. Denn der Anstieg müsste ja kleiner als bei der idealen Kennline und der Spannfehler negativ sein. Die ideale Kennlinie berechnet den Anstieg über 435 x-Werte, das lm der Messreihe wird für nur 411 Werte berechnet - deshalb ist der Anstieg größer. Aber müsste der letzte Wert nicht trotzdem 435 sein?
-
-```{python}
-# TEMPORÄR
-eis = eis_backup.copy()
-
-#############
-# DEBUGGING #
-#############
-
-# Thermoelement 1
-
-## Referenzpunkte
-x1 = start
-x2 = ende_thermoelement_1
-ende = ende_thermoelement_1
-
-y1 = 0
-y2 = 100
-
-print("start:", x1, y1)
-print("ende:", x2, y2)
-
-## ideale Kennlinie schätzen
-## x-Werte müssen bei 0 beginnen
-lm_kennlinie = poly.polyfit(x = [x1 - start, x2 - start], y = [y1, y2], deg = 1)
-print(f"lm_kennlinie: {lm_kennlinie}")
-
-## lineare Regression der Messwerte
-## gültige Werte bestimmen
-gültige_werte = np.isfinite(eis.loc[start:ende, 'Thermoelement 1 (°C)'])
-print(f"Anzahl gültiger Werte: {len(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte])}")
-print(f"So sieht das Ende der Indexreihe aus:\n{np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte][-5 :]}")
-
-## lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
-lm_messwerte_thermoelement_1_plus_intercept_kennlinie = poly.polyfit(
-  x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0],
-  y = eis.loc[start:ende, 'Thermoelement 1 (°C)'][gültige_werte], deg = 1)
-print(f"lm_messwerte Thermoelement 1 plus intercept: {lm_messwerte_thermoelement_1_plus_intercept_kennlinie}")
-
-## mal grafisch angucken
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0],
-         eis.loc[start:ende, 'Thermoelement 1 (°C)'][gültige_werte],
-         label = 'Thermoelement 1')
-linie = poly.polyval(x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0], c = lm_messwerte_thermoelement_1_plus_intercept_kennlinie)
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0], linie,
-         label = 'lineare Schätzung')
-
-plt.xlabel(xlabel = 'Index')
-plt.ylabel(ylabel = '° C')
-plt.legend()
-plt.show()
-
-print(f"letzter Wert von Thermoelement 1 im Bereich: {eis.loc[start:ende, 'Thermoelement 1 (°C)'][gültige_werte].iloc[-1]}")
-print(f"letzter Wert von linie: {linie[-1]}")
-
-## Nullpunktfehler Thermoelement 1 bestimmen
-nullpunktfehler = lm_messwerte_thermoelement_1_plus_intercept_kennlinie[0]
-print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
-
-## Spannfehler Thermoelement 1 bestimmen
-spannfehler_thermoelement_1 = lm_messwerte_thermoelement_1_plus_intercept_kennlinie[1] - lm_kennlinie[1]
-print(f"Der Spannfehler beträgt: {(spannfehler_thermoelement_1 * 100).round(2)} %")
-
-print()
-
-# Thermoelement 2
-#############
-# DEBUGGING #
-#############
-## Referenzpunkte
-x1 = start
-x2 = ende_thermoelement_2
-ende = ende_thermoelement_2
-
-y1 = 0
-y2 = 100
-
-print("start:", x1, y1)
-print("ende:", x2, y2)
-
-## ideale Kennlinie schätzen
-## x-Werte müssen bei 0 beginnen
-lm_kennlinie = poly.polyfit(x = [x1 - start, x2 - start], y = [y1, y2], deg = 1)
-print(f"lm_kennlinie: {lm_kennlinie}")
-
-# gültige Werte bestimmen
-gültige_werte = np.isfinite(eis.loc[start:ende, 'Thermoelement 2 (°C)'])
-
-## lineare Regression der Messwerte plus y-Achsenschnittpunkt der idealen Kennlinie
-lm_messwerte_thermoelement_2_plus_intercept_kennlinie = poly.polyfit(
-  x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0],
-  y = eis.loc[start:ende, 'Thermoelement 2 (°C)'][gültige_werte], deg = 1)
-print(f"lm_messwerte Thermoelement 2 plus intercept: {lm_messwerte_thermoelement_2_plus_intercept_kennlinie}")
-
-## mal grafisch angucken
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0],
-         eis.loc[start:ende, 'Thermoelement 2 (°C)'][gültige_werte],
-         label = 'Thermoelement 2')
-linie = poly.polyval(x = np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0], c = lm_messwerte_thermoelement_2_plus_intercept_kennlinie)
-plt.plot(np.arange(eis.loc[start:ende, :].shape[0])[gültige_werte] + lm_kennlinie[0], linie,
-         label = 'lineare Schätzung')
-
-plt.xlabel(xlabel = 'Index')
-plt.ylabel(ylabel = '° C')
-plt.legend()
-plt.show()
-
-print(f"letzter Wert von Thermoelement 2 im Bereich: {eis.loc[start:ende, 'Thermoelement 2 (°C)'][gültige_werte].iloc[-1]}")
-print(f"letzter Wert von linie: {linie[-1]}")
-
-## Nullpunktfehler Thermoelement 2 bestimmen
-nullpunktfehler = lm_messwerte_thermoelement_2_plus_intercept_kennlinie[0]
-print(f"Der Nullpunktfehler beträgt: {nullpunktfehler.round(2)}")
-
-## Spannfehler Thermoelement 1 bestimmen
-spannfehler_thermoelement_2 = lm_messwerte_thermoelement_2_plus_intercept_kennlinie[1] - lm_kennlinie[1]
-print(f"Der Spannfehler beträgt: {(spannfehler_thermoelement_2 * 100).round(2)} %")
-
-
-```
-
-### Arnoldformel
-a = (wahres_maximum - wahres_minimum) / (messwerte.max() - messwerte.min())
-b = wahres_minimum - a * messwerte.min()
-
-korrigierte_messwerte = a * messwerte + b
-
-```{python}
-eis = eis_backup.copy()
-
-wahres_minimum = 0
-wahres_maximum = 100
-
-# Thermoelement 1
-ende = ende_thermoelement_1
-
-a = (wahres_maximum - wahres_minimum) / (eis.loc[start:ende, 'Thermoelement 1 (°C)'].max() - eis.loc[start:ende, 'Thermoelement 1 (°C)'].min())
-b = wahres_minimum - a * eis.loc[start:ende, 'Thermoelement 1 (°C)'].min()
-
-eis['Thermoelement 1 (°C)'] = a * eis['Thermoelement 1 (°C)'] + b
-
-## Ausgabe
-print(f"Thermoelement 1\n",
-      f"a = {a:.1f}\n",
-      f"b = {b:.1f}\n",
-      sep = '')
-
-# Thermoelement 2
-ende = ende_thermoelement_2
-
-a = (wahres_maximum - wahres_minimum) / (eis.loc[start:ende, 'Thermoelement 2 (°C)'].max() - eis.loc[start:ende, 'Thermoelement 2 (°C)'].min())
-b = wahres_minimum - a * eis.loc[start:ende, 'Thermoelement 2 (°C)'].min()
-
-eis['Thermoelement 2 (°C)'] = a * eis['Thermoelement 2 (°C)'] + b
-
-## Ausgabe
-print(f"Thermoelement 2\n",
-      f"a = {a:.1f}\n",
-      f"b = {b:.1f}\n",
-      sep = '')
-
-# plotten
-plotting_data = eis.copy()
-plotting_data['Zeit'] = plotting_data['Zeit'].dt.time
-
-plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
-
-plt.show()
-```
-
-```{python}
-print(f"Maximum kalibriertes Thermoelement 1: {eis['Thermoelement 1 (°C)'].max()}",
-      f"Maximum kalibriertes Thermoelement 2: {eis['Thermoelement 2 (°C)'].max()}",
-      sep = '\n')
-```
-
+<!-- 
 ## Weitere Fehlerarten
 [Hysterese](https://de.wikipedia.org/wiki/Hysterese): Verzögerung zwischen Änderung des Wertes und Änderungsgeschwindigkeit des Messwerts
-Drift:
-Rauschen:
+Drift
+Rauschen -->
