@@ -24,7 +24,7 @@ book:
     - skript/fehlerrechnung.qmd
     - skript/übung-hooke.qmd
     - skript/kalibrierung.qmd
-    - skript/uebung-eiskochen.qmd
+    - skript/beispiel-eiskochen.qmd
 
   sidebar:
     title: "Methodenbaustein Sensordatenanalyse"
