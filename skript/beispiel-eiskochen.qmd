@@ -1,9 +1,7 @@
 # Beispiel Eis kochen
-Die Parameterschätzung nach der Toleranzbandmethode führt zur besten linearen Approximation von Messwerten (da die als Fehler zu interpretierenden Residuen minimiert werden). Nicht-lineares Messverhalten oder Daten mit größeren Messungenauigkeiten behaftete Daten führen aber fast zwangsläufig einen Nullpunktfehler in die geschätzte Gerade ein. Die Festpunktmethode umgeht dieses Problem, führt aber zu einem größeren Linearitätsfehler. 
+Die Parameterschätzung nach der Toleranzbandmethode führt zur besten linearen Approximation von Messwerten (da die als Fehler zu interpretierenden Residuen minimiert werden). Nicht lineares Messverhalten oder Daten mit größeren Messungenauigkeiten behaftete Daten führen aber fast zwangsläufig einen Nullpunktfehler in die geschätzte Gerade ein. Die Festpunktmethode umgeht dieses Problem, führt aber zu einem größeren Linearitätsfehler. 
 
 In diesem Kapitel werden die praktischen Herausforderungen beider Methoden demonstriert und mit der Zweipunktkalibrierung ein praktisches Verfahren für die Kalibrierung von Messdaten vorgestellt.
-
-**Ziel: Nullpunkt- und Empfindlichkeitsfehler korrigieren nicht-linearität quantifizieren**
 
 ``` {python}
 #| echo: false
@@ -20,7 +18,7 @@ import scipy
 
 ![Versuchsaufbau Eis kochen](00-bilder/versuchsaufbau-eis-kochen.png){fig-alt="Auf einem Küchenherd wird ein Topf mit Eiswasser zum Kochen gebracht. Mit einer Wäscheklammer sind zwei Thermoelemente eines Widerstandsthermometers fixiert. Ein angeschlossener Laptop zeichnet die Daten auf."}
 
-In einem thermodynamischen Feldlabor wurde ein induktives Heizelement benutzt, um Eiswasser in einem metallischen Flüssigkeitsbehälter mit hoher Wärmeleitfähigkeit zum Kochen zu bringen. Mit einer nichtleitenden Halterung wurden zwei Thermoelemente eines Widerstandsthermometers fixiert. Ein TCTempX16 und eine automatische Protokolleinheit zeichneten die Daten auf.
+In einem thermodynamischen Feldlabor wurde ein induktives Heizelement benutzt, um Eiswasser in einem metallischen Flüssigkeitsbehälter mit hoher Wärmeleitfähigkeit zum Sieden zu bringen. Mit einer nichtleitenden Halterung wurden zwei Thermoelemente eines Widerstandsthermometers fixiert. Ein TCTempX16 zeichnete die Daten auf, die mit einem Gerät zur automatisierten Datenverarbeitung ausgelesen wurden.
 
 ## Datei einlesen
 Die Messreihe ist in der Datei '01-daten/Eis_Messung_1.xlsx' im Tabellenblatt 'T15949 MultiChannel - Daten' gespeichert.
@@ -63,6 +61,7 @@ eis.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'])
 Etwa in der Mitte des Datensatzes verzeichnen beide Sensoren extreme Fehlwerte. Diese sollen entfernt werden.
 
 **Fehlwerte entfernen**
+
 Zunächst betrachten wir den Bereich genauer.
 
 ```{python}
@@ -211,6 +210,12 @@ plt.show()
 ## Referenzpunkte bestimmen
 Für die Korrektur des Nullpunkt- und des Empfindlichkeitsfehlers sind als Referenzpunkte die Temperaturen 0 und 100 Grad Celsius bekannt: Solange Eis im Wasser schwimmt, hat es 0 °C, und bei 100 °C erreicht das Wasser seinen Siedepunkt.
 
+::: {#wrn-100C .callout-warning appearance="simple"}
+## Siedetemperatur von Wasser
+
+Die Siedetemperatur von Wasser ist abhängig vom Luftdruck und beträgt 100 °C bei 1013,25 hPa. In Deutschland liegt die tatsächliche Siedetemperatur typischerweise etwas niedriger.
+:::
+
 ### 0 °C
 Für die wahre Temperatur 0 °C sind viele Messpunkte verfügbar. Schauen wir uns die ersten 100 Messwerte an:
 
@@ -299,16 +304,7 @@ eis['Thermoelement 2 (°C)'] -= nullpunktfehler_thermoelement2
 ```
 
 ### 100 °C
-Auch für die wahre Temperatur 100 Grad sind viele Messpunkte verfügbar.
-
-::: {#wrn-100°C .callout-warning appearance="simple"}
-## Siedetemperatur von Wasser
-
-Die Siedetemperatur von Wasser ist abhängig vom Luftdruck und beträgt 100 °C bei 1013,25 hPa. In Deutschland liegt die tatsächliche Siedetemperatur typischerweise etwas niedriger.
-
-:::
-
-Wir wollen die letzten 120 Messwerte betrachten. Der Punkt, an dem das Wasser siedet, ist jedoch nicht so einfach zu bestimmen. Starke Messabweichungen erzeugen ein verrauschtes Bild. Um die grafische Analyse zu erleichtern wurden für beide Messreihen der gleitende Durchschnitt sowie der Mittelwert der geglätten Messreihen eingezeichnet. Diese Methoden werden Methoden im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) vermittelt.
+Auch für die wahre Temperatur 100 Grad sind viele Messpunkte verfügbar. Wir wollen die letzten 120 Messwerte betrachten. Der Punkt, an dem das Wasser siedet, ist jedoch nicht so einfach zu bestimmen. Starke Messabweichungen erzeugen ein verrauschtes Bild. Um die grafische Analyse zu erleichtern wurden für beide Messreihen der gleitende Durchschnitt sowie der Mittelwert der geglätten Messreihen eingezeichnet. Diese Methoden werden Methoden im [Methodenbaustein Datenfitting und Datenoptimierung](https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/) vermittelt.
 
 ```{python}
 #| fig-alt: "Darstellung der letzten 100 Messwerte für Thermoelement 1 und Thermoelement 2. Für beide Messreihen ist ein mit dem gleitenden Mittelwert geglättete Kurve eingezeichnet. Zusätzlich ist der Mittelwert der geglätteten Reihen eingezeichnet. Horizontal ist die Temperatur 100 °C durch eine gestrichelte Linie gekennzeichnet."
@@ -385,8 +381,8 @@ Somit kann der Empfindlichkeitsfehler korrigiert werden.
 eis['Thermoelement 1 (°C)'] = eis['Thermoelement 1 (°C)'].div(spannfehler_thermoelement1)
 eis['Thermoelement 2 (°C)'] = eis['Thermoelement 2 (°C)'].div(spannfehler_thermoelement2)
 
-print(f"Maximum kalibriertes Thermoelement 1: {eis['Thermoelement 1 (°C)'].max()}",
-      f"Maximum kalibriertes Thermoelement 2: {eis['Thermoelement 2 (°C)'].max()}",
+print(f"Maximum kalibriertes Thermoelement 1: {eis['Thermoelement 1 (°C)'].max():.2f}",
+      f"Maximum kalibriertes Thermoelement 2: {eis['Thermoelement 2 (°C)'].max():.2f}",
       sep = '\n')
 ```
 
@@ -503,7 +499,7 @@ plt.show()
 #### Toleranzbandmethode
 Für die Anwendung der Toleranzbandmethode wird die [Funktion linregress](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.linregress.html#scipy.stats.linregress) aus dem Paket SciPy verwendet, da diese mit fehlenden Werten umgehen kann.
 
-`linregress(x, y, alternative='two-sided', *, axis=0, nan_policy='propagate', keepdims=False)`
+`linregress(x, y, alternative='two-sided', *, axis=0, nan_policy='propagate')`
 
 Dafür wird der Parameter `nan_policy = 'omit'` gesetzt, wodurch Fehlwerte verworfen werden. Die Funktion gibt ein LinregressResult-Objekt zurück, dass den Zugriff auf die Regressionsobjekte über Attribute erlaubt. Für uns relevant sind die Attribute `LinregressResult.intercept` und `LinregressResult.slope`.
 
@@ -526,13 +522,13 @@ lm = scipy.stats.linregress(
 vorhersagewerte = poly.polyval(x = np.arange(start - start, ende - start + 1), c = [lm.intercept, lm.slope])
 
 # Linearitätsfehler berechnen
-linearitätsfehler_toleranzband = eis.loc[start:ende, 'Thermoelement 2 (°C)'].sub(vorhersagewerte).abs().max()
+linearitätsfehler_toleranzband = eis.loc[start:ende, 'Thermoelement 1 (°C)'].sub(vorhersagewerte).abs().max()
 print(f"Linearitätsfehler nach Toleranzbandmethode: {linearitätsfehler_toleranzband:.2f} °C.")
 
 # grafische Darstellung
 plt.plot(np.arange(eis.shape[0]),
-         eis['Thermoelement 2 (°C)'],
-         label = 'Thermoelement 2')
+         eis['Thermoelement 1 (°C)'],
+         label = 'Thermoelement 1')
 plt.plot(np.arange(start, ende + 1),
          vorhersagewerte,
          label = 'Toleranzbandmethode')
@@ -595,6 +591,20 @@ plt.show()
 ## Die Zweipunktkalibrierung
 Die Zweipunktkalibrierung erfolgt über das bekannte wahre Minimum und das bekannte wahre Maximum einer Messreihe.
 
+$$
+a = \frac{(\text{wahres Maximum} - \text{wahres Minimum})}{(\text{Maximum Messwerte} - \text{Minimum Messwerte})}
+$$
+
+$$
+b = \text{wahres Minimum} - a \cdot \text{Minimum Messwerte}
+$$
+
+$$
+\text{kalibrierte Messwerte} = a \cdot \text{Messwerte} + b
+$$
+
+Die Variable a ist der Korrekturfaktor für den Empfindlichkeitsfehler. Die Variable b ist die Nullpunktkorrektur, nachdem der Empfindlichkeitsfehler korrigiert wurde. 
+
 ```{python}
 # Daten erzeugen
 messgröße = np.arange(0, 11) + 7
@@ -620,19 +630,14 @@ print(f"Zweipunktkalibrierung\n",
       sep = '')
 ```
 
-Die Variable a ist der Korrekturfaktor für den Empfindlichkeitsfehler. Die Variable b ist die Nullpunktkorrektur, nachdem der Empfindlichkeitsfehler korrigiert wurde. Der Empfindlichkeitsfehler kann als ${1 \over a} - 1$ ermittelt werden. Der Nullpunktfehler kann als $-1 * {b \over a}$ ermittelt werden.
-
+Der Empfindlichkeitsfehler kann als ${1 \over a} - 1$ ermittelt werden. Der Nullpunktfehler kann als $-1 * {b \over a}$ ermittelt werden.
 ```{python}
 print(f"Empfindlichkeitsfehler: {round( ((1 / a) - 1) * 100, 2)} %")
 print(f"Nullpunktfehler: {round(-1 * b / a, 2)}")
 ```
 
 ### Anwendung
-a = (wahres_maximum - wahres_minimum) / (messwerte.max() - messwerte.min())
-b = wahres_minimum - a * messwerte.min()
-
-korrigierte_messwerte = a * messwerte + b
-
+Zur Demonstration stellen wir den in @nte-eis eingelesenen Datensatz wieder her.
 ```{python}
 eis = eis_backup.copy()
 
@@ -682,8 +687,8 @@ plt.show()
 ```
 
 ```{python}
-print(f"Maximum kalibriertes Thermoelement 1: {eis['Thermoelement 1 (°C)'].max()}",
-      f"Maximum kalibriertes Thermoelement 2: {eis['Thermoelement 2 (°C)'].max()}",
+print(f"Maximum kalibriertes Thermoelement 1: {eis['Thermoelement 1 (°C)'].max():.2f}",
+      f"Maximum kalibriertes Thermoelement 2: {eis['Thermoelement 2 (°C)'].max():.2f}",
       sep = '\n')
 ```
 
