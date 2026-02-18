@@ -1,18 +1,11 @@
 # Kalibrierung
-**Daten Eiskochen nur als 2-Punkt-Kalibrierung behandeln**
-
-- Referenzpunkte für 0 und 100 festlegen (mitteln) und Daten entsprechend kalibrieren
-- Daten dazwischen verwerfen, weil man nicht weiß, ob der Herd überhaupt linear heizt
-- praktische Kalibriermethode als Unterpunkt von Nullpunkt- und Spannfehler
-
-
 Die Genauigkeit von Messungen wird durch die Korrektion systemtischer Messabweichungen verbessert. In diesem Kapitel werden typische *Fehlerarten* bei Messungen behandelt:
 
   - additive Fehler,
   - multiplikative Fehler und
   - Nichtlinearität.
 
-Außerdem werden praktische Methoden der Kalibrierung vorgestellt. In diesem Abschnitt greifen wir die etablierten Begriffe auf, auch wenn die Fehler besser als systematische Messabweichungen bezeichnet werden sollten.
+In diesem Abschnitt greifen wir die etablierten Begriffe auf, auch wenn die Fehler besser als systematische Messabweichungen bezeichnet werden sollten.
 
 ``` {python}
 #| echo: false
@@ -72,6 +65,10 @@ Eine Kalibrierfunktion erlaubt die Modellierung komplexer Zusammenhänge. Die Me
 
 ## Additive Fehler: Der Nullpunktfehler
 Der Nullpunktfehler beschreibt die Abweichung der Messgröße von Null, wenn der gesuchte Wert tatsächlich Null ist. Der Nullpunktfehler wird auch als Nullabgleich, Nullpunktverschiebung oder Offset-Fehler bezeichnet. Der Nullpunktfehler ist konstant und wirkt additiv auf jeden Messwert. ([ics Schneider Messtechnik](https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/))
+
+$$
+\text{Messwerte} = \text{wahre Werte} + \text{Nullpunktfehler}
+$$
 
 ``` {python}
 #| fig-alt: "Schematische Darstellung des Nullpunktfehlers. Zwei parallele Geraden der wahren und der gemessenen Werte ist am Punkt x = 0 durch eine gestrichelte vertikale Linie verbunden, die den Unterschied zwischen dem wahren Wert y = 2 und dem gemessenen Wert y = 6 verdeutlicht. Die gestrichelte Linie erneut bei x = 4 und x = 8 eingezeichnet."
@@ -154,6 +151,10 @@ plt.show()
 
 ### Nullpunktfehler korrigieren
 Der Nullpunktfehler wird durch Subtraktion von den Messwerten korrigiert.
+
+$$
+\text{wahre Werte} = \text{Messwerte} - \text{Nullpunktfehler}
+$$
 
 ```{python}
 # Daten erzeugen
@@ -372,7 +373,7 @@ print(nullpunktfehler_klimaschrank.round(3))
 Als Empfindlichkeits- oder Spannfehler wird ein über den Wertebereich (die Spanne) der gesuchten Größe zu- oder abnehmender Fehler bezeichnet. Die relative Messabweichung $\delta$ ist dabei konstant, die absolute Messabweichung abhängig vom Messwert. ([ics Schneider Messtechnik](https://www.ics-schneider.de/wie-wirken-sich-nullpunktfehler-spannfehler-und-nichtlinearitaet-auf-die-genauigkeit-von-drucksensoren-aus/))
 
 $$
-\text{gemessene Werte} = \text{wahre Werte} \cdot Empfindlichkeitsfehler
+\text{Messwerte} = \text{wahre Werte} \cdot \text{Empfindlichkeitsfehler}
 $$
 
 ``` {python}
@@ -467,7 +468,7 @@ plt.show()
 Der Empfindlichkeitsfehler wird durch die Division der Messwerte durch den Empfindlichkeitsfehler korrigiert.
 
 $$
-\text{wahre Werte} = \frac{\text{gemessene Werte}}{\text{Empfindlichkeitsfehler}}
+\text{wahre Werte} = \frac{\text{Messwerte}}{\text{Empfindlichkeitsfehler}}
 $$
 
 ```{python}
@@ -685,14 +686,10 @@ klimaschrank.loc[ : , 'Thermoelement 15 (°C)'] = klimaschrank.loc[ : , 'Thermoe
 :::
 
 ## Nullpunkt- und Empfindlichkeitsfehler
-**Bezeichnung und Berechnung / Korrektion Spannfehler ändern**
-
-**Berechnung des Nullpunktfehlers ändern**
-
 Absolute und multiplikative Abweichungen können gemeinsam auftreten.
 
 $$
-\text{gemessene Werte} = \text{wahre Werte} \cdot Empfindlichkeitsfehler + \text{Nullpunktfehler}
+\text{Messwerte} = \text{wahre Werte} \cdot Empfindlichkeitsfehler + \text{Nullpunktfehler}
 $$
 
 In diesem Beispiel wird die absolute Messabweichung über den dargestellten Wertebereich kleiner, da der Nullpunktfehler mit positivem Vorzeichen und der Empfindlichkeitsfehler mit negativen Vorzeichen auftreten.
@@ -853,9 +850,6 @@ korrigierte_messwerte = messwerte / spannfehler
 korrigierte_messwerte = korrigierte_messwerte - (nullpunktfehler / spannfehler)
 print(f"erst Empfindlichkeitsfehler, dann Nullpunktfehler korrigiert:\n{korrigierte_messwerte}")
 ```
-
-### Übung Nullpunkt- und Empfindlichkeitsfehler
-**to do: hier könnte man andere Thermoelemente aus der letzten Übung verwenden**
 
 ## Nichtlinearität: Linearitätsfehler
 Bei einer idealen Messung hängt der gesuchte Wert linear vom gemessenen Wert ab. Viele analoge Sensoren reagieren aufgrund von Materialeigenschaften oder abhängig von der Temperatur nicht linear auf die gemessene Größe. Das heißt, die Messwerte sind nicht direkt proportional zur Messgröße. 
@@ -1156,6 +1150,54 @@ Aus der Differenz des gemessenen elektrischen Widerstands und der linearen Vorhe
 ```{python}
 linearitätsfehler_toleranzband = (pt100['Ohm'] - vorhersagewerte).abs().max()
 print(f"Linearitätsfehler nach Toleranzbandmethode: {linearitätsfehler_toleranzband:.2f} Ohm.")
+```
+
+## Die Zweipunktkalibrierung
+Die Zweipunktkalibrierung ist ein praktisches Verfahren für die Kalibrierung von Messdaten. Die Zweipunktkalibrierung erfolgt über das bekannte wahre Minimum und das bekannte wahre Maximum einer Messreihe.
+
+$$
+a = \frac{(\text{wahres Maximum} - \text{wahres Minimum})}{(\text{Maximum Messwerte} - \text{Minimum Messwerte})}
+$$
+
+$$
+b = \text{wahres Minimum} - a \cdot \text{Minimum Messwerte}
+$$
+
+$$
+\text{kalibrierte Messwerte} = a \cdot \text{Messwerte} + b
+$$
+
+Die Variable $a$ ist der Korrekturfaktor für den Empfindlichkeitsfehler. Die Variable $b$ ist die Nullpunktkorrektur, nachdem der Empfindlichkeitsfehler korrigiert wurde. 
+
+```{python}
+# Daten erzeugen
+messgröße = np.arange(0, 11) + 7
+messwerte = messgröße + 4 - messgröße / 3
+
+# bekannte Referenzpunkte
+wahres_minimum = messgröße.min()
+wahres_maximum = messgröße.max()
+
+# Zweipunktkalibrierung
+a = (wahres_maximum - wahres_minimum) / (messwerte.max() - messwerte.min())
+b = wahres_minimum - a * messwerte.min()
+korrigierte_messwerte = a * messwerte + b
+
+# Ausgabe
+print(f"Wahre Werte:\n{messgröße}")
+print(f"Messwerte:\n{messwerte}")
+print()
+print(f"Zweipunktkalibrierung\n",
+      f"a = {a:.1f}\n",
+      f"b = {b:.1f}\n",
+      f"\na * messwerte + b\n{korrigierte_messwerte}",
+      sep = '')
+```
+
+Der Empfindlichkeitsfehler kann als ${1 \over a} - 1$ ermittelt werden. Der Nullpunktfehler kann als $-1 * {b \over a}$ ermittelt werden.
+```{python}
+print(f"Empfindlichkeitsfehler: {round( ((1 / a) - 1) * 100, 2)} %")
+print(f"Nullpunktfehler: {round(-1 * b / a, 2)}")
 ```
 
 <!-- 

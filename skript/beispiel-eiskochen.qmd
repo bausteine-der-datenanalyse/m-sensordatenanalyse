@@ -1,7 +1,5 @@
 # Beispiel Eis kochen
-Die Parameterschätzung nach der Toleranzbandmethode führt zur besten linearen Approximation von Messwerten (da die als Fehler zu interpretierenden Residuen minimiert werden). Nicht lineares Messverhalten oder Daten mit größeren Messungenauigkeiten behaftete Daten führen aber fast zwangsläufig einen Nullpunktfehler in die geschätzte Gerade ein. Die Festpunktmethode umgeht dieses Problem, führt aber zu einem größeren Linearitätsfehler. 
-
-In diesem Kapitel werden die praktischen Herausforderungen beider Methoden demonstriert und mit der Zweipunktkalibrierung ein praktisches Verfahren für die Kalibrierung von Messdaten vorgestellt.
+In diesem Kapitel werden die praktischen Herausforderungen bei der Auswertung von Messdaten demonstriert.
 
 ``` {python}
 #| echo: false
@@ -15,7 +13,6 @@ import scipy
 ```
 
 ## Versuchsaufbau
-
 ![Versuchsaufbau Eis kochen](00-bilder/versuchsaufbau-eis-kochen.png){fig-alt="Auf einem Küchenherd wird ein Topf mit Eiswasser zum Kochen gebracht. Mit einer Wäscheklammer sind zwei Thermoelemente eines Widerstandsthermometers fixiert. Ein angeschlossener Laptop zeichnet die Daten auf."}
 
 In einem thermodynamischen Feldlabor wurde ein induktives Heizelement benutzt, um Eiswasser in einem metallischen Flüssigkeitsbehälter mit hoher Wärmeleitfähigkeit zum Sieden zu bringen. Mit einer nichtleitenden Halterung wurden zwei Thermoelemente eines Widerstandsthermometers fixiert. Ein TCTempX16 zeichnete die Daten auf, die mit einem Gerät zur automatisierten Datenverarbeitung ausgelesen wurden.
@@ -588,56 +585,9 @@ plt.show()
 
 ```
 
-## Die Zweipunktkalibrierung
-Die Zweipunktkalibrierung erfolgt über das bekannte wahre Minimum und das bekannte wahre Maximum einer Messreihe.
 
-$$
-a = \frac{(\text{wahres Maximum} - \text{wahres Minimum})}{(\text{Maximum Messwerte} - \text{Minimum Messwerte})}
-$$
-
-$$
-b = \text{wahres Minimum} - a \cdot \text{Minimum Messwerte}
-$$
-
-$$
-\text{kalibrierte Messwerte} = a \cdot \text{Messwerte} + b
-$$
-
-Die Variable a ist der Korrekturfaktor für den Empfindlichkeitsfehler. Die Variable b ist die Nullpunktkorrektur, nachdem der Empfindlichkeitsfehler korrigiert wurde. 
-
-```{python}
-# Daten erzeugen
-messgröße = np.arange(0, 11) + 7
-messwerte = messgröße + 4 - messgröße / 3
-
-# bekannte Referenzpunkte
-wahres_minimum = messgröße.min()
-wahres_maximum = messgröße.max()
-
-# Zweipunktkalibrierung
-a = (wahres_maximum - wahres_minimum) / (messwerte.max() - messwerte.min())
-b = wahres_minimum - a * messwerte.min()
-korrigierte_messwerte = a * messwerte + b
-
-# Ausgabe
-print(f"Wahre Werte:\n{messgröße}")
-print(f"Messwerte:\n{messwerte}")
-print()
-print(f"Zweipunktkalibrierung\n",
-      f"a = {a:.1f}\n",
-      f"b = {b:.1f}\n",
-      f"\na * messwerte + b\n{korrigierte_messwerte}",
-      sep = '')
-```
-
-Der Empfindlichkeitsfehler kann als ${1 \over a} - 1$ ermittelt werden. Der Nullpunktfehler kann als $-1 * {b \over a}$ ermittelt werden.
-```{python}
-print(f"Empfindlichkeitsfehler: {round( ((1 / a) - 1) * 100, 2)} %")
-print(f"Nullpunktfehler: {round(-1 * b / a, 2)}")
-```
-
-### Anwendung
-Zur Demonstration stellen wir den in @nte-eis eingelesenen Datensatz wieder her.
+## Zweipunktkalibrierung
+Für die Zweipunktkalibrierung stellen wir den in @nte-eis eingelesenen Datensatz wieder her.
 ```{python}
 eis = eis_backup.copy()
 
