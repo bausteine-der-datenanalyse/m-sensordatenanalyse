@@ -59,6 +59,8 @@ Für einen Würfel gibt es 6 mögliche Ergebnisse, für 2 Würfel 6 * 6 möglich
 :::: {.panel-tabset}
 ## ein Würfel
 ```{python}
+#| fig-alt: "Häufigkeitsverteilung der Ergebnisse eines Würfels."
+
 ein_würfel = []
 
 for i in range(1, 7):
@@ -78,6 +80,8 @@ plt.show()
 
 ## zwei Würfel
 ```{python}
+#| fig-alt: "Häufigkeitsverteilung der Ergebnisse von zwei Würfeln."
+
 zwei_würfel = []
 
 for i in range(1, 7):
@@ -103,6 +107,8 @@ plt.show()
 
 ## drei Würfel
 ```{python}
+#| fig-alt: "Häufigkeitsverteilung der Ergebnisse von drei Würfeln."
+
 drei_würfel = []
 
 for i in range(1, 7):
@@ -140,7 +146,7 @@ Die für größere Stichproben zu beobachtende Annäherung der Verteilung von Me
 
 **palmerpenguins**
 
-![Pinguine des Palmer-Station-Datensatzes](00-bilder/lter_penguins_allison_horst_CC0.png)
+![Pinguine des Palmer-Station-Datensatzes](00-bilder/lter_penguins_allison_horst_CC0.png){fig-alt="illustrative Darstellung der Pinguine"}
 
 Meet the Palmer penguins von \@allison_horst steht unter der Lizenz [CC0-1.0](https://github.com/allisonhorst/palmerpenguins?tab=CC0-1.0-1-ov-file#creative-commons) und ist auf [GitHub](https://github.com/allisonhorst/palmerpenguins?tab=readme-ov-file#meet-the-palmer-penguins) abrufbar. 2020
 
@@ -431,6 +437,8 @@ Histogramme sind nicht immer gut geeignet, um die Verteilung einer Stichprobe zu
 
 ## 3 Klassen
 ```{python}
+#| fig-alt: "Häufigkeitsverteilung der Zahnlänge mit 3 Klassen"
+
 plt.hist(meerschweinchen['len'], bins = 3, density = True, edgecolor = 'black', alpha = 0.6);
 plt.title('Länge zahnbildender Zellen bei Meerschweinchen')
 
@@ -443,6 +451,8 @@ plt.show()
 
 ## 5 Klassen
 ```{python}
+#| fig-alt: "Häufigkeitsverteilung der Zahnlänge mit 5 Klassen"
+
 plt.hist(meerschweinchen['len'], bins = 5, density = True, edgecolor = 'black', alpha = 0.6);
 plt.title('Länge zahnbildender Zellen bei Meerschweinchen')
 
@@ -456,6 +466,8 @@ plt.show()
 ## 7 Klassen
 
 ```{python}
+#| fig-alt: "Häufigkeitsverteilung der Zahnlänge mit 7 Klassen"
+
 plt.hist(meerschweinchen['len'], bins = 7, density = True, edgecolor = 'black', alpha = 0.6);
 plt.title('Länge zahnbildender Zellen bei Meerschweinchen')
 
@@ -549,6 +561,8 @@ plt.show()
 
 ```
 
+&nbsp;
+
 Die Verteilung der Länge zahnbildender Zellen bei Meerschweinchen, die eine Dosis von 2 Milligramm Vitamin C erhielten, könnte einer Normalverteilung entsprechen. Aufgrund der geringen Stichprobengröße ist dies aber schwer zu beurteilen.
 
 :::
@@ -606,7 +620,7 @@ plt.show()
 ```
 
 **Beschreibung**  
-Die Funktion `scipy.stats.norm.cdf(x)` berechnet den Anteil der Werte links von `x` (cdf = cumulative density function).
+Die Funktion `scipy.stats.norm.cdf(x)` berechnet den Anteil der Werte $q$ links von `x` (cdf = cumulative density function).
 
 ```{python}
 #| echo: false
@@ -637,7 +651,7 @@ Die Funktion `scipy.stats.norm.ppf(q)` ist die Quantilfunktion der Normalverteil
 
 ```{python}
 #| echo: false
-#| fig-alt: ""
+#| fig-alt: "Grafische Darstellung der Quantilfunktion. Für einen Wert q ist die Position unter der Glockenkurve eingezeichnet. Die Bereiche links und rechts davon sind farblich unterschiedlich gefüllt."
 
 size = 4
 values = scipy.stats.norm.rvs(size = size)
@@ -661,7 +675,7 @@ Die Funktion `scipy.stats.norm.rvs(size)` zieht `size` Zufallszahlen aus der Nor
 *Hinweis: Die Zufallszahlen werden im Skript dynamisch gezogen.*
 :::
 
-Mit den Parametern `loc = mittelwert` und `scale = standardabweichung` kann die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit `loc = 0` und `scale = 1` berechnet. Die Parameter der Funktionen können Einzelwerte (Skalare) oder auch Arrays bzw. Listen sein.
+Für die vorgestellten Funktionen kann mit den Parametern `loc = mittelwert` und `scale = standardabweichung` die Form der Normalverteilung angepasst werden. Standardmäßig wird die Standardnormalverteilung mit `loc = 0` und `scale = 1` berechnet. Die Parameter der Funktionen können Einzelwerte (Skalare) oder auch Arrays bzw. Listen sein.
 
 ## Aufgaben Normalverteilung
 Möglicherweise haben Sie schon einmal von Mensa International gehört, einer Vereinigung für Hochbegabte. Wer Mitglied in dieser Vereinigung werden möchte, soll einen höheren Intelligenzquotienten (IQ) haben als 98 % der Bevölkerung seines:ihres Herkunftslandes ([Wikipedia](https://de.wikipedia.org/wiki/Mensa_International)). 
@@ -1098,7 +1112,7 @@ $$
 ::: {#tip-t .callout-tip collapse="false"}
 ## t-Verteilung oder Normalverteilung?
 
-Am Computer ist die t-Verteilung genauso leicht (oder schwer) zu berechnen wie die Normalverteilung. Da sich die t-Verteilung für größere Stichprobengrößen ohnehin der Normalverteilung annähert, empfiehlt es sich, stets die t-Verteilung zu verwenden.
+Am Computer ist die t-Verteilung genauso leicht (oder schwer) zu berechnen wie die Normalverteilung. Da die t-Verteilung bessere Schätzwerte für kleine Stichproben liefert und sich für größere Stichprobengrößen ohnehin der Normalverteilung annähert, empfiehlt es sich, stets die t-Verteilung zu verwenden.
 
 :::
 
@@ -1193,7 +1207,6 @@ plt.show()
 ## Code
 ```{python}
 #| output: false
-
 
 year = 2008
 sex = 'female'

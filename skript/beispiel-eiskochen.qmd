@@ -199,7 +199,7 @@ Der Datensatz wird dargestellt. (In der Darstellung mit `pd.plot()` ist die auto
 plotting_data = eis.copy()
 plotting_data['Zeit'] = plotting_data['Zeit'].dt.time
 
-plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
+plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True, ylabel = '°C')
 
 plt.show()
 ```
@@ -589,6 +589,8 @@ plt.show()
 ## Zweipunktkalibrierung
 Für die Zweipunktkalibrierung stellen wir den in @nte-eis eingelesenen Datensatz wieder her.
 ```{python}
+#| fig-alt: "Darstellung der kalibrierten Temperaturen von Thermoeelement 1 und 2 über die Zeit."
+
 eis = eis_backup.copy()
 
 wahres_minimum = 0
@@ -631,7 +633,7 @@ print(f"Thermoelement 2",
 plotting_data = eis.copy()
 plotting_data['Zeit'] = plotting_data['Zeit'].dt.time
 
-plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)
+plotting_data.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True, ylabel = '°C')
 
 plt.show()
 ```

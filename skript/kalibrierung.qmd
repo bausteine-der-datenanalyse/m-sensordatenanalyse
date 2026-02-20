@@ -181,7 +181,7 @@ print(f"Korrigierte Messwerte:\n{korrigierte_messwerte}")
 ### Übung Nullpunktfehler
 Die Quantifizierung des Nullpunktfehlers ist manchmal schwierig, beispielsweise weil der wahre Nullpunkt einer Größe nur schwer vermessen werden kann oder die Messdaten nicht durch eine einfache Funktion approximiert werden können. In diesem Fall muss eine möglichst gute Schätzung gefunden werden. 
 
-In einem Klimaschrank wurden 16 Thermoelemente Temperaturen von -10 °C bis 140 °C in Schritten von 10 °C ausgesetzt. Die Messgenauigkeit des verwendeten Datenloggers TCTempX16 liegt bei 0,01 °C, die Auflösung bei 0,1 °C. Für die Thermoelemente soll der Nullpunktfehler bestimmt werden.
+In einem Klimaschrank wurden 16 Thermoelemente Temperaturen von -10 °C bis 140 °C in Schritten von 10 °C ausgesetzt. Die Messgenauigkeit des verwendeten Datenloggers TCTempX16 liegt bei 0,01 °C, die Auflösung bei 0,1 °C. **Für die Thermoelemente soll der Nullpunktfehler bestimmt werden**.
 
 :::{#wrn-celsius .callout-warning appearance="simple"}
 ## Nullpunkt
@@ -502,7 +502,7 @@ print(f"Korrigierte Messwerte:\n{korrigierte_messwerte}")
 ```
 
 ### Übung Empfindlichkeitsfehler
-In einem Klimaschrank wurden 16 Thermoelemente einem Temperaturanstieg von -10 °C bis 140 °C ausgesetzt. Die Messgenauigkeit des verwendeten Datenloggers TCTempX16 liegt bei 0,01 °C, die Auflösung bei 0,1 °C. Für die Thermoelemente soll der Empfindlichkeitsfehler bestimmt werden.
+In einem Klimaschrank wurden 16 Thermoelemente einem Temperaturanstieg von -10 °C bis 140 °C ausgesetzt. Die Messgenauigkeit des verwendeten Datenloggers TCTempX16 liegt bei 0,01 °C, die Auflösung bei 0,1 °C. **Für die Thermoelemente soll der Empfindlichkeitsfehler bestimmt werden**.
 
 Die Messdaten liegen in der Datei '01-daten/kalibration_tc_lineare_rampe.xlsx'. Die Daten können mit dem folgenden Befehl eingelesen werden.
 ```{python}
@@ -537,7 +537,7 @@ plt.show()
 
 &nbsp;
 
-Die Messung startet kurz vor der Aufheizphase. Etwa 16:40 Uhr wurde der Klimaschrank abgeschalten. Die Messung lief danach noch einige Zeit weiter. Es müssen also der Start- und der Endpunkt der Aufheizphase bestimmt werden.
+Die Messung startet kurz vor der Aufheizphase. Etwa 16:40 Uhr wurde der Klimaschrank abgeschaltet. Die Messung lief danach noch einige Zeit weiter. Es müssen also der Start- und der Endpunkt der Aufheizphase bestimmt werden.
 
 In diesem Beispiel soll angenommen werden, dass bei der Messung kein Nullpunktfehler vorliegt. Dazu suchen wir mit der Funktion aus @tip-te passende Messreihen. Aus dem anfänglich konstanten Bereich -10 °C wird der Nullpunktfehler bestimmt.
 
@@ -549,7 +549,7 @@ print(nullpunktfehler_klimaschrank)
 ```
 
 
-Die Messreihen für Thermoeelement 4 und Thermoelement 15 scheinen geeignet zu sein. Schauen wir uns die Messreihen einmal an:
+Die Messreihen für Thermoelement 4 und Thermoelement 15 scheinen geeignet zu sein. Schauen wir uns die Messreihen einmal an:
 
 ::: {.panel-tabset}
 ## Thermoelement 4
@@ -630,8 +630,8 @@ ende15 = klimaschrank.loc[:, 'Thermoelement 15 (°C)'].idxmax()
 
 Ausgabe.
 ```{python}
-print(f"Messreihe Thermoeelement 4 von Index {start4} bis Index {ende4}.",
-      f"Messreihe Thermoeelement 15 von Index {start15} bis Index {ende15}.",
+print(f"Messreihe Thermoelement 4 von Index {start4} bis Index {ende4}.",
+      f"Messreihe Thermoelement 15 von Index {start15} bis Index {ende15}.",
       sep = '\n')
 ```
 

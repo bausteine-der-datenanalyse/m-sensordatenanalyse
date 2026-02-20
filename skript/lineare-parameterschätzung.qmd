@@ -1,11 +1,6 @@
 # Lineare Parameterschätzung {#sec-hooke}
 Viele physikalische Größen werden indirekt gemessen. Häufig liegt dabei ein linearer Zusammenhang zwischen der gemessenen und der gesuchten Größe vor. In der Praxis sind die Daten einer Messreihe nie exakt und mit mehr oder weniger großen Abweichungen vom wahren Wert der gesuchten Größe behaftet. Die lineare Parameterschätzung ist ein Verfahren, um aus einer Menge von Daten denjenigen Wert zu bestimmen, der die Abweichungen der einzelnen Messwerte minimiert.
 
-Mögliche Quellen:
-
-  - https://messtechnik-und-sensorik.org/2-kennlinien-und-messgenauigkeit/  
-  - https://www.stssensors.com/de/characteristic-curve-hysteresis-measurement-error-terminology-in-pressure-measurement-technology/ 
-
 ## Messreihe Hooke'sches Gesetz
 Das [Hooke'sche Gesetz](https://de.wikipedia.org/wiki/Hookesches_Gesetz), benannt nach dem englischen Wissenschaftler Robert Hooke, beschreibt die Beziehung zwischen der Kraft $F$ und der Längenänderung $\Delta{x}$ einer Feder durch die Gleichung $F = k \cdot \Delta{x}$, wobei $k$ die Federkonstante ist.
 
@@ -634,7 +629,7 @@ plt.annotate("$R^2$ = {:.2f}".format(np.corrcoef(x, y)[0, 1] ** 2), (max(x) * 0.
 
 plt.title(label = 'Messdaten und geschätzte Linearfunktion')
 plt.xlabel('gemessene Abstandsänderung in m')
-plt.ylabel('wirkende Kraft')
+plt.ylabel('wirkende Kraft in N')
 plt.legend()
 
 plt.grid()
@@ -706,7 +701,7 @@ plt.fill_between(x = x, y1 = y_lower_boundary , y2 = y_upper_boundary, alpha = 0
 
 plt.title(label = 'Messdaten und geschätzte Linearfunktion im 95-%-Intervall')
 plt.xlabel('gemessene Abstandsänderung in m')
-plt.ylabel('wirkende Kraft')
+plt.ylabel('wirkende Kraft in N')
 plt.legend()
 
 plt.grid()

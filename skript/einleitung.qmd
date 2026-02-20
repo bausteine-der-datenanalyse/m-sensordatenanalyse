@@ -462,7 +462,7 @@ meerschweinchen['len'].plot(x = 'ID', y = 'len', title = 'Länge der zahnbildend
 
 &nbsp;
 
-**Berechnen Sie den arithmetischen Mittelwert, die Varianz, die Standardabweichung und den Stichprobenfehler der Messreihe zur Zahnlänge (len). Verwenden Sie dazu die vorgestellten Formeln.**
+**Berechnen Sie den arithmetischen Mittelwert, die Varianz, die Standardabweichung und den Standardfehler des Mittelwerts der Messreihe zur Zahnlänge (len). Verwenden Sie dazu die vorgestellten Formeln.**
 
 Das Ergebnis könnte so aussehen:
 
@@ -542,7 +542,6 @@ verteilungskennwerte(meerschweinchen['len'])
 :::
 
 ### Varianz und  Standardabweichung mit NumPy und Pandas
-
 Die Module NumPy und Pandas verfügen über eigene Funktionen zur Berechnung der Varianz und der Standardabweichung. Die Varianz und Standardabweichung werden mit den Funktion `np.var()` und `np.std()` bzw. den Methoden `pd.var()` und `pd.std()` berechnet. Der Parameter `ddof` (delta degrees of freedom) steuert, welcher Nenner zur Berechnung der Varianz verwendet wird in der Form N - ddof. Während der Standardwert in NumPy `ddof=0` ist, berechnet Pandas mit dem Standardwert `ddof=1` die Stichprobenvarianz.
 ```{python}
 
