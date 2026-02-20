@@ -97,7 +97,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c8cd78f0f7a4102d54b040ada74a3c93.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f67a6f502b8d980179456538afc82e6f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -425,7 +425,7 @@ Tipp&nbsp;4.1: Umgang mit verschiedenen Arten von Messabweichungen
 <div class="border">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="00-bilder/fehlerarten-nach-DIN-1319.png" class="img-fluid figure-img"></p>
+<p><img src="00-bilder/fehlerarten-nach-DIN-1319.png" class="img-fluid figure-img" alt="Erläuternde Skizee aus der DIN 1319 zu den Grundbegriffen von Messungen."></p>
 <figcaption>Messergebnis nach DIN 1319</figcaption>
 </figure>
 </div>
@@ -609,11 +609,11 @@ Definition&nbsp;4.3: Grundbegriffe nach DIN 1319
 <h2 data-number="4.4" class="anchored" data-anchor-id="absolute-und-relative-fehler"><span class="header-section-number">4.4</span> Absolute und relative Fehler</h2>
 <p>In der Fehlerrechnung werden absolute und relative <em>Fehler</em> unterschieden. Hier sollte besser von absoluter und relativer Messunsicherheit gesprochen werden.</p>
 <ul>
-<li><p>Die <strong>absolute Messunsicherheit</strong> <span class="math inline">\(u\)</span> wird in der Einheit der gemessenen Größe angegebenen: <span class="math inline">\(u(m) = 0,2 kg\)</span>. Das vollständige Messergebnis lautet: <span class="math inline">\(m = 5,0 \pm 0,2 kg\)</span> oder <span class="math inline">\(m = 5,0 kg \pm 0,2 kg\)</span>.</p></li>
+<li><p>Die <strong>absolute Messunsicherheit</strong> <span class="math inline">\(u\)</span> wird in der Einheit der gemessenen Größe angegebenen: <span class="math inline">\(u(m) = 0,2 ~ kg\)</span>. Das vollständige Messergebnis lautet: <span class="math inline">\(m = 5,0 \pm 0,2 ~ kg\)</span> oder <span class="math inline">\(m = 5,0 ~ kg \pm 0,2 ~ kg\)</span>.</p></li>
 <li><p>Die <strong>relative Messunsicherheit</strong> <span class="math inline">\(u_{rel}(m) = \frac{u(m)}{ | m | }\)</span> wird entweder als Produkt in der Form <span class="math inline">\(m \cdot (1 \pm \frac{u(x)}{| m |})\)</span> angegeben. Bspw.:</p>
-<p><span class="math inline">\(m = 5,0 kg \cdot (1 \pm \frac{0,2 kg}{5,0 kg}) = 5,0 kg \cdot (1 \pm 0,04)\)</span></p>
+<p><span class="math inline">\(m = 5,0 ~ kg \cdot (1 \pm \frac{0,2 ~ kg}{5,0 ~ kg}) = 5,0 ~ kg \cdot (1 \pm 0,04)\)</span></p>
 <p>Alternativ wird die relative Messunsicherheit in Prozent <span class="math inline">\(u_{rel}(m) = \frac{u(m)}{| m |} \cdot 100 ~ \%\)</span> angegeben. Bspw.:</p>
-<p><span class="math inline">\(m = 5,0 kg \pm 4 ~ \%\)</span>.</p></li>
+<p><span class="math inline">\(m = 5,0 ~ kg \pm 4 ~ \%\)</span>.</p></li>
 </ul>
 <p><span class="citation" data-cites="DIN1319-1 DIN1319-3">(<a href="#ref-DIN1319-1" role="doc-biblioref">Deutsches Institut für Normung 1995, 9–10, 16</a>; <a href="#ref-DIN1319-3" role="doc-biblioref">1996, 10</a>)</span></p>
 <div id="wrn-notation" class="callout callout-style-default callout-warning callout-titled">
@@ -676,7 +676,7 @@ Definition&nbsp;4.4: signifikante Stellen
 </div>
 <div class="callout-body-container callout-body">
 <p>“Jede zuverlässig bekannte Stelle mit Ausnahme der Nullen, die die Position des Dezimalkommas angeben, wird signifikante Stelle genannt.” <span class="citation" data-cites="EdenGebhard-2024">(<a href="#ref-EdenGebhard-2024" role="doc-biblioref">Eden und Gebhard 2024, 24</a>)</span></p>
-<p>“Gerundete numerische Unsicherheitwerte sind <strong>mit zwei (oder bei Bedarf mit drei) signifikanten Ziffern</strong> anzugeben. <strong>Sie sind aufzurunden</strong>. Das Meßergebnis ist an derselben Stelle wie die zugehörige Unsicherheit zu runden, z.B. <span class="math inline">\(y = 245,5716 mm\)</span> auf <span class="math inline">\(y = 245,57 mm\)</span>, wenn <span class="math inline">\(u(y) = 0,4528 mm\)</span> auf <span class="math inline">\(u(y) = 0,46 mm\)</span> aufgerundet wird.” <span class="citation" data-cites="DIN1319-3">(<a href="#ref-DIN1319-3" role="doc-biblioref">Deutsches Institut für Normung 1996, 6</a>, eigene Hervorhebung)</span></p>
+<p>“Gerundete numerische Unsicherheitwerte sind <strong>mit zwei (oder bei Bedarf mit drei) signifikanten Ziffern</strong> anzugeben. <strong>Sie sind aufzurunden</strong>. Das Meßergebnis ist an derselben Stelle wie die zugehörige Unsicherheit zu runden, z.B. <span class="math inline">\(y = 245,5716 ~ mm\)</span> auf <span class="math inline">\(y = 245,57 ~ mm\)</span>, wenn <span class="math inline">\(u(y) = 0,4528 ~ mm\)</span> auf <span class="math inline">\(u(y) = 0,46 ~ mm\)</span> aufgerundet wird.” <span class="citation" data-cites="DIN1319-3">(<a href="#ref-DIN1319-3" role="doc-biblioref">Deutsches Institut für Normung 1996, 6</a>, eigene Hervorhebung)</span></p>
 </div>
 </div>
 <p>Beispielsweise liegen die im vorherigen Kapitel verwendeten Abstandsmessungen im Format <span class="math inline">\(153,29\)</span> vor, die Messwerte weisen also 5 signifikante Stellen auf. Für den arithmetischen Mittelwert einer Messreihe <span class="math inline">\(153,008889\)</span> gelten deshalb ebenfalls 5 signifikante Stellen. Es wird an der ersten nicht mehr signifikanten Stelle gerundet, sodass der arithmetische Mittelwert mit <span class="math inline">\(153,01\)</span> angegeben wird.</p>
@@ -701,7 +701,7 @@ Definition&nbsp;4.4: signifikante Stellen
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/s0gPyypiGOs" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>Runden und signifikante Stellen (Vorkurs Mathematik) von Edmund Weitz ist abrufbar auf <a href="https://www.youtube.com/watch?v=q2iZDtotiM0">YouTube</a>. 2019</p>
 <p>Python rundet wissenschaftlich:</p>
-<div id="fd9db1ec" class="cell" data-execution_count="2">
+<div id="4c7e87dd" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(<span class="fl">2.5</span>), <span class="bu">round</span>(<span class="fl">3.5</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2 4</code></pre>
@@ -721,12 +721,12 @@ Definition&nbsp;4.4: signifikante Stellen
 <p>Bei der Auswahl der Methode besteht ein Ermessensspielraum. (<span class="citation" data-cites="Hempel-2016">Hempel (<a href="#ref-Hempel-2016" role="doc-biblioref">2016</a>)</span>, S. 2) Für Gebrauchsmessungen reicht es aus, die Unsicherheit im Prozentbereich anzugeben. Im Eichwesen oder beim Vergleich mit einem <a href="https://de.wikipedia.org/wiki/Normal">Normal</a> werden genauere Angaben benötigt. <span class="citation" data-cites="SchrüferEtAl2022">(<a href="#ref-SchrüferEtAl2022" role="doc-biblioref">Schrüfer, Reindl, und Zagar 2022, 33</a>)</span></p>
 <p>Die Auswahl der geeigneten Methode hängt auch von den zur Verfügung stehenden Informationen ab. Beispielsweise hängt die im vorherigen Kapitel ermittelte Federkonstante von drei Größen ab:</p>
 <ol type="1">
-<li><p>der Masse <span class="math inline">\(m\)</span>, die mit einer Küchenwaage ermittelt wurde, deren Ablesegenauigkeit mit <span class="math inline">\(e_r(m) = 0,5 g = 0,0005 kg\)</span> geschätzt wird.</p></li>
+<li><p>der Masse <span class="math inline">\(m\)</span>, die mit einer Küchenwaage ermittelt wurde, deren Ablesegenauigkeit mit <span class="math inline">\(e_r(m) = 0,5 g = 0,0005 ~ kg\)</span> geschätzt wird.</p></li>
 <li><p>dem Abstand zum Gewicht bzw. nach der Aufbereitung der Daten der Ausdehnung der Feder <span class="math inline">\(\Delta x\)</span>, die mit einem elektronischen Abstandssensor und einem Arduino ermittelt wurden (Ultrasonic Ranging Module HC - SR04).</p>
 <ul>
-<li>Die Ablesegenauigkeit des Messsystems beträgt eine Einheit der Messauflösung, also <span class="math inline">\(e_{r} = 0,01 cm = 0,0001 m\)</span>.</li>
-<li>Die Messabweichung des Messsystems beträgt laut Datenblatt bis zu 3 mm, die symmetrisch zu verstehen ist, also <span class="math inline">\(e_{r} = 3 mm = 0,003 m\)</span>.</li>
-<li>Die zufällige Komponente der Messabweichung beträgt also <span class="math inline">\(e_r(x) = 0,0001 m + 0,003 m = 0,0031m\)</span></li>
+<li>Die Ablesegenauigkeit des Messsystems beträgt eine Einheit der Messauflösung, also <span class="math inline">\(e_{r} = 0,01 ~ cm = 0,0001 ~ m\)</span>.</li>
+<li>Die Messabweichung des Messsystems beträgt laut Datenblatt bis zu 3 mm, die symmetrisch zu verstehen ist, also <span class="math inline">\(e_{r} = 3 ~ mm = 0,003 ~ m\)</span>.</li>
+<li>Die zufällige Komponente der Messabweichung beträgt also <span class="math inline">\(e_r(x) = 0,0001 ~ m + 0,003 ~ m = 0,0031 ~ m\)</span></li>
 </ul></li>
 <li><p>der statistischen Schätzung der Federkonstante <span class="math inline">\(k = \frac{m \cdot g}{\Delta x} = 33,019 \pm 0,378\)</span> bzw. im festgelegten Vertrauensintervall <span class="math inline">\(k_{95\%} = 32,269 ≤ 33,019 ≤ 33,769\)</span>.</p></li>
 </ol>
@@ -775,13 +775,13 @@ Beispiel&nbsp;4.2: Garantiefehlergrenze Thermometer
 <div class="callout-body-container callout-body">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../skript/00-bilder/thermometer.jpg" class="img-fluid figure-img"></p>
+<p><img src="../skript/00-bilder/thermometer.jpg" class="img-fluid figure-img" alt="Herstellerangaben zum Thermoemeter 53/54 II B"></p>
 <figcaption>Thermometer</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../skript/00-bilder/thermometerspecifications.jpg" class="img-fluid figure-img"></p>
+<p><img src="../skript/00-bilder/thermometerspecifications.jpg" class="img-fluid figure-img" alt="Vergrößerter Ausschnitt aus den Herstellerangaben zum Thermoemeter 53/54 II B - dieser zeigt die Angaben zur Messabweichung."></p>
 <figcaption>Spezifikationen</figcaption>
 </figure>
 </div>
@@ -861,13 +861,13 @@ Beispiel&nbsp;4.3: Erster Messvorgang Münze
 <div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die Messung wird mit einem <a href="https://de.wikipedia.org/wiki/Nonius">Messschieber mit Nonius</a> 0,05 mm nach DIN 862 durchgeführt. Die DIN 862 normiert symmetrische Fehlergrenzen von Messschiebern. Die Fehlergrenze ist abhängig von der Skalengenauigkeit des Messschiebers sowie von der gemessenen Länge und ist aus einer Tabelle abzulesen. (DIN 862 wurde 2011 durch DIN EN ISO 13385-1 ersetzt, in der der Begriff der Abweichung verwendet wird. Die DIN 862 ist aber auf dem Messschieber aufgedruckt.)</p>
-<p>Messwert: <span class="math inline">\(x = 23,25 mm\)</span></p>
+<p>Messwert: <span class="math inline">\(x = 23,25 ~ mm\)</span></p>
 <ul>
-<li>Die Skaleneinteilung ist 0,05 mm, die zufällige Ableseabweichung <span class="math inline">\(e_r\)</span> beträgt also <span class="math inline">\(\pm 0,025 mm\)</span>.</li>
-<li>Die DIN 862 normiert Fehlergrenzen, die abhängig von der gemessenen Länge zunehmen, mindestens aber 50 <span class="math inline">\(\mu m\)</span> oder 0,05 mm betragen. Für den Messwert 23,25 mm gilt somit als bekannte systematische Messabweichung <span class="math inline">\(e_{s,b} = \pm 0,05 mm\)</span>.</li>
+<li>Die Skaleneinteilung ist 0,05 ~ mm, die zufällige Ableseabweichung <span class="math inline">\(e_r\)</span> beträgt also <span class="math inline">\(\pm 0,025 mm\)</span>.</li>
+<li>Die DIN 862 normiert Fehlergrenzen, die abhängig von der gemessenen Länge zunehmen, mindestens aber 50 <span class="math inline">\(\mu m\)</span> oder 0,05 mm betragen. Für den Messwert 23,25 mm gilt somit als bekannte systematische Messabweichung <span class="math inline">\(e_{s,b} = \pm 0,05 ~ mm\)</span>.</li>
 </ul>
-<p>Aus der Summe der Beträge ergibt sich der Größtfehler: <span class="math inline">\(\Delta x = |0,05| mm + |0,025| mm = 0,075 mm\)</span>.</p>
-<p>Das vollständige Messergebnis, bestehend aus dem Messwert und der Messunsicherheit lautet also: <span class="math inline">\(23,25 ± 0,075 mm\)</span>. Der relative Größtfehler beträgt: <span class="math inline">\(23,25 mm ± 0,32\%\)</span>.</p>
+<p>Aus der Summe der Beträge ergibt sich der Größtfehler: <span class="math inline">\(\Delta x = |0,05| ~ mm + |0,025| ~ mm = 0,075 ~ mm\)</span>.</p>
+<p>Das vollständige Messergebnis, bestehend aus dem Messwert und der Messunsicherheit lautet also: <span class="math inline">\(23,25 ± 0,075 ~ mm\)</span>. Der relative Größtfehler beträgt: <span class="math inline">\(23,25 ~ mm ± 0,32\%\)</span>.</p>
 </div>
 </div>
 </div>
@@ -885,10 +885,10 @@ Beispiel&nbsp;4.4: Zweiter Messvorgang Daumen
 <div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Die Messung wird erneut mit dem Messschieber durchgeführt.</p>
-<p>Messwert: <span class="math inline">\(x = 64,70 mm\)</span></p>
+<p>Messwert: <span class="math inline">\(x = 64,70 ~ mm\)</span></p>
 <ul>
-<li>Die Skaleneinteilung ist 0,05 mm, die zufällige Ableseabweichung beträgt also <span class="math inline">\(\pm 0,025 mm\)</span>.</li>
-<li>Die von der DIN 862 für gemessene Längen zwischen 50 und 300 mm normierte Fehlergrenze beträgt 50 <span class="math inline">\(\mu m\)</span> oder 0,05 mm. Für den Messwert 64,7 mm gilt somit die Fehlergrenze <span class="math inline">\(\pm  0,05 mm\)</span>.</li>
+<li>Die Skaleneinteilung ist 0,05 mm, die zufällige Ableseabweichung beträgt also <span class="math inline">\(\pm 0,025 ~ mm\)</span>.</li>
+<li>Die von der DIN 862 für gemessene Längen zwischen 50 und 300 mm normierte Fehlergrenze beträgt 50 <span class="math inline">\(\mu m\)</span> oder 0,05 mm. Für den Messwert 64,7 mm gilt somit die Fehlergrenze <span class="math inline">\(\pm  0,05 ~ mm\)</span>.</li>
 <li>zusätzlich wird eine symmetrische Messabweichung von 3 mm veranschlagt, da
 <ul>
 <li>das Messgerät nicht gerade angesetzt,</li>
@@ -896,8 +896,8 @@ Beispiel&nbsp;4.4: Zweiter Messvorgang Daumen
 <li>die elastische Fingerkuppe nicht fixiert werden konnte.</li>
 </ul></li>
 </ul>
-<p>Aus der Summe der Beträge ergibt sich der Größtfehler <span class="math inline">\(\Delta x = |0,025| mm + |0,05| mm + |3| mm = 3,075 mm \approx 3,08 mm\)</span>.</p>
-<p>Das Messergebnis, bestehend aus dem Messwert und dem Fehlerintervall lautet also: <span class="math inline">\(64,70 ± 3,08 mm\)</span>. Der relative Größtfehler beträgt: <span class="math inline">\(64,70 mm ± 4,76 \%\)</span>.</p>
+<p>Aus der Summe der Beträge ergibt sich der Größtfehler <span class="math inline">\(\Delta x = |0,025| ~ mm + |0,05| ~ mm + |3| ~ mm = 3,075 ~ mm \approx 3,08 ~ mm\)</span>.</p>
+<p>Das Messergebnis, bestehend aus dem Messwert und dem Fehlerintervall lautet also: <span class="math inline">\(64,70 ± 3,08 ~ mm\)</span>. Der relative Größtfehler beträgt: <span class="math inline">\(64,70 ~ mm ± 4,76 \%\)</span>.</p>
 </div>
 </div>
 </div>
@@ -937,7 +937,7 @@ Beispiel&nbsp;4.5: Fehlerstatistik
 <div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Aus dem im vorherigen Kapitel behandelten Experiment wird die Messreihe für das Gewicht 503g ausgewählt.</p>
-<div id="6a6274ce" class="cell" data-execution_count="3">
+<div id="5c89e416" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/hooke_data.csv"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>hooke <span class="op">=</span> pd.read_csv(filepath_or_buffer <span class="op">=</span> dateipfad, sep <span class="op">=</span> <span class="st">';'</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>hooke.drop(index <span class="op">=</span> <span class="dv">113</span>, inplace <span class="op">=</span> <span class="va">True</span>) <span class="co"># Fehlwert, siehe vorheriges Kapitel</span></span>
@@ -965,7 +965,7 @@ max    49.00000  503.0  160.610000</code></pre>
 </div>
 <p>Betrachten wir für diese Messreihe noch einmal das arithmetische Mittel (das unbereinigte Messergebnis) und den Standardfehler des Mittelwerts (das statistische Streuungsmaß des Mittelwerts). Die Methode <code>.sem()</code> berechnet den empirischen Standardfehler des Mittelwerts (standardmäßig ist der Parameter <code>ddof = 1</code> gesetzt.)</p>
 <p>Ausgabe auf 3 Dezimalstellen genau.</p>
-<div id="9643bfb4" class="cell" data-execution_count="4">
+<div id="c3f21d0d" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gewicht in Gramm: </span><span class="sc">{</span>hooke_503g[<span class="st">'mass'</span>]<span class="sc">.</span>unique()<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Mittelwert der Messwerte: </span><span class="sc">{</span>hooke_503g[<span class="st">'distance'</span>]<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss"> cm"</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"empirischer Standardfehler: </span><span class="sc">{</span>hooke_503g[<span class="st">'distance'</span>]<span class="sc">.</span>sem()<span class="sc">:.3f}</span><span class="ss"> cm"</span>,</span>
@@ -977,7 +977,7 @@ empirischer Standardfehler: 0.247 cm</code></pre>
 </div>
 </div>
 <p>Die Messunsicherheit wird auf 2 Dezimalstellen genau aufgerundet. Dafür kann die NumPy-Funktion <code>np.ceil()</code> verwendet werden. Diese rundet allerdings zur nächsten Ganzzahl, ein Parameter, um auf eine bestimmte Dezimalstelle zu runden, ist nicht verfügbar. Deshalb muss die Dezimalstelle um die gewünschte Anzahl Stellen durch Multiplikation mit der entsprechenden Zehnerpotenz verschoben werden. Für 2 Dezimalstellen entsprechend um <span class="math inline">\(10^2\)</span>: <code>np.ceil(wert * 100) / 100</code>.</p>
-<div id="4333e2bf" class="cell" data-execution_count="5">
+<div id="50f25425" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>wert <span class="op">=</span> pd.Series([<span class="fl">0.247</span>])</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.ceil(wert <span class="op">*</span> <span class="dv">100</span>) <span class="op">/</span> <span class="dv">100</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -991,7 +991,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Für die Verkettung mit weiteren Methoden in Pandas muss die Rückgabe der Funktion, ein NumPy-Skalar oder -Array, wieder in eine <code>pd.Series</code> umgewandelt werden.</p>
-<div id="2ce1b636" class="cell" data-execution_count="6">
+<div id="5a0e50bf" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gewicht in Gramm: </span><span class="sc">{</span>hooke_503g[<span class="st">'mass'</span>]<span class="sc">.</span>unique()<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Mittelwert der Messwerte: </span><span class="sc">{</span>hooke_503g[<span class="st">'distance'</span>]<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss"> cm"</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"empirischer Standardfehler: </span><span class="sc">{</span> ( sem_hooke_503g<span class="op">:=</span> pd.Series(hooke_503g[<span class="st">'distance'</span>].sem()).mul(<span class="dv">100</span>).<span class="bu">apply</span>(np.ceil).div(<span class="dv">100</span>) )<span class="sc">.</span>item() <span class="sc">:.3f}</span><span class="ss"> cm"</span>,</span>
@@ -1005,7 +1005,7 @@ vollständiges Messergebnis: 159.31 cm ± 0.25 cm</code></pre>
 </div>
 </div>
 <p>Zusätzliche Angabe des 95-%-Konfidenzintervalls.</p>
-<div id="30600ef3" class="cell" data-execution_count="7">
+<div id="761834d0" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t-Wert bestimmen für Signifikanzniveau (alpha-Niveau) 1 - 95 % wählen</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> hooke_503g.shape[<span class="dv">0</span>] <span class="co"># Anzahl Zeilen</span></span>
@@ -1115,7 +1115,7 @@ Beispiel&nbsp;4.8: Beispiel Federkonstante
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Beispielhaft betrachten wir die erste Messung aus der Messreihe mit dem Gewicht 503 Gramm.</p>
-<div id="b5066ccb" class="cell" data-execution_count="8">
+<div id="9da33c48" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>hooke_503g_einzelwert <span class="op">=</span> hooke_503g.iloc[<span class="dv">0</span>, :].copy()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hooke_503g_einzelwert)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1126,7 +1126,7 @@ Name: 40, dtype: float64</code></pre>
 </div>
 </div>
 <p>Da mehrere Größen betrachtet werden, werden die Messwerte in eine SI-Einheit umgerechnet. Als Nullpunkt wird die erste Messung der Messreihe mit dem Gewicht 0 Gramm aufgefasst.</p>
-<div id="b604b398" class="cell" data-execution_count="9">
+<div id="53a82a07" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>hooke_503g_einzelwert[<span class="st">'mass'</span>] <span class="op">=</span> hooke_503g_einzelwert[<span class="st">'mass'</span>] <span class="op">/</span> <span class="dv">1000</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>hooke_503g_einzelwert[<span class="st">'distance'</span>] <span class="op">=</span> hooke_503g_einzelwert[<span class="st">'distance'</span>] <span class="op">/</span> <span class="dv">100</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1150,7 +1150,7 @@ Name: 40, dtype: float64</code></pre>
 k = \frac{m \cdot g}{\Delta{x}} = \frac{m \cdot g}{s}
 \]</span></p>
 <p>Einsetzen der Werte (<span class="math inline">\(s\)</span> steht nun für Sekunde, <span class="math inline">\(m\)</span> für Meter): <span class="math display">\[
-k = \frac{0,503 kg \cdot 9,81 m}{0,1489 m \cdot s^2} = \frac{0,503 \cdot 9,81}{0,1489} \frac{N}{{m}} = 33.139 \frac{N}{{m}}
+k = \frac{0,503 ~ kg \cdot 9,81 m}{0,1489 ~ m \cdot s^2} = \frac{0,503 \cdot 9,81}{0,1489} \frac{N}{{m}} = 33.139 \frac{N}{{m}}
 \]</span></p>
 <p>So gilt für den Größtfehler der Funktion: <span class="math display">\[
 \Delta k(m, s) = | \frac{\partial f(m, s)}{\partial m} | \cdot \Delta m + | \frac{\partial f(m, s)}{\partial s} | \cdot \Delta s
@@ -1166,15 +1166,15 @@ k = \frac{0,503 kg \cdot 9,81 m}{0,1489 m \cdot s^2} = \frac{0,503 \cdot 9,81}{0
 \]</span></p>
 <p>Im zweiten Schritt wird der Größtfehler der beteiligten Größen ermittelt.</p>
 <ul>
-<li>Die Masse <span class="math inline">\(m\)</span> der verwendeten Gewichte wurde mit einer Küchenwaage ermittelt, deren Ableseabweichung auf <span class="math inline">\(e_r (m) = 0,5 g = 0,0005 kg\)</span> geschätzt wird. Eine systematische Messabweichung ist nicht bekannt.<br>
-Der Größtfehler der Masse beträgt also <span class="math inline">\(\Delta m = 0,0005 kg\)</span>.</li>
+<li>Die Masse <span class="math inline">\(m\)</span> der verwendeten Gewichte wurde mit einer Küchenwaage ermittelt, deren Ableseabweichung auf <span class="math inline">\(e_r (m) = 0,5 g = 0,0005 ~ kg\)</span> geschätzt wird. Eine systematische Messabweichung ist nicht bekannt.<br>
+Der Größtfehler der Masse beträgt also <span class="math inline">\(\Delta m = 0,0005 ~ kg\)</span>.</li>
 <li>Der Größtfehler der Abstandsmessung beträgt <span class="math inline">\(e_{r}(s) = 0,01 cm + 0,3 cm = 0,0031 m\)</span>.</li>
 </ul>
 <p>Die Messwerte, die Konstante <span class="math inline">\(g\)</span> und die Größtfehler werden eingesetzt. <span class="math display">\[
-\Delta k = | \frac{9,81 m}{{s}^2 \cdot 0,1489 m} | \cdot 0,0005 kg ~ + ~ | (-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot (0,1489 m)^2} | \cdot 0,0031 m
+\Delta k = | \frac{9,81 m}{{s}^2 \cdot 0,1489 m} | \cdot 0,0005 ~ kg ~ + ~ | (-) \frac{0,503 ~ kg \cdot 9,81  m}{{s}^2 \cdot (0,1489 m)^2} | \cdot 0,0031 m
 \]</span></p>
 <p>Trennen von Werten und Einheiten: <span class="math display">\[
-\Delta k = | \frac{9,81 \cdot 0,0005}{ 0,1489 } \frac{m \cdot kg}{{s}^2 \cdot m} | ~ + | (-) \frac{0,503 \cdot 9,81 \cdot 0,0031}{0,02217121} \frac{kg \cdot m^2}{{s}^2 \cdot m^2} |
+\Delta k = | \frac{9,81 \cdot 0,0005}{ 0,1489 } \frac{m \cdot }{{s}^2 \cdot m} | ~ + | (-) \frac{0,503 \cdot 9,81 \cdot 0,0031}{0,02217121} \frac{kg \cdot m^2}{{s}^2 \cdot m^2} |
 \]</span></p>
 <p>Berechnen und Newton <span class="math inline">\(\frac{kg \cdot m}{s^2}\)</span> einsetzen: <span class="math display">\[
 \Delta k = | 0,0329 \frac{N}{{m}} | ~ + | (-) 0,6899 \frac{N \cdot m}{{m^2}} |
@@ -1231,7 +1231,7 @@ Beispiel&nbsp;4.9: Beispiel Messreihe 503 Gramm
 <div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Betrachten wir noch einmal die Messreihe für das Gewicht 503 Gramm. Es soll das vereinbarte Konfidenzniveau <span class="math inline">\(95 ~ \%\)</span> gelten.</p>
-<div id="c189c750" class="cell" data-execution_count="10">
+<div id="75949b79" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Messdaten aus dem Kapitel hooke.qmd wiederherstellen</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Datei einlesen und Fehler entfernen</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>dateipfad <span class="op">=</span> <span class="st">"01-daten/hooke_data.csv"</span></span>
@@ -1275,11 +1275,11 @@ t-Wert der Ausdehnung: 2.2622
 k = \frac{m \cdot g}{\Delta{x}} = \frac{m \cdot g}{s}
 \]</span></p>
 <p><span class="math display">\[
-k = \frac{0,503 kg \cdot 9,81 m}{0,1432 m \cdot s^2} = \frac{0,503 \cdot 9,81}{0,1432} \frac{N}{{m}} = 34,458\frac{N}{{m}}
+k = \frac{0,503 ~ kg \cdot 9,81 m}{0,1432 ~ m \cdot s^2} = \frac{0,503 \cdot 9,81}{0,1432} \frac{N}{{m}} = 34,458\frac{N}{{m}}
 \]</span></p>
 <p>&nbsp;</p>
 <p>Um die Unsicherheit der Ergebnisgröße <span class="math inline">\(k\)</span> nach der Gauß`schen Fehlerfortpflanzung zu bestimmen, müsste die Masse des verwendeten Gewichts ebenfalls durch eine Messreihe bestimmt worden sein. (Wie Messreihen und Einzelmessungen kombiniert werden können, wird im nächsten Abschnitt gezeigt.) Deshalb wird angenommen, dass mehrere Messungen zur Ermittlung des Gewichts durchgeführt wurden. Die Messreihe sowie ihr Mittelwert und Standardfehler könnten wie folgt aussehen:</p>
-<div id="b21ef9b4" class="cell" data-execution_count="11">
+<div id="7b4346b9" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>messreihe_503g <span class="op">=</span> pd.Series([<span class="dv">503</span> , <span class="dv">503</span>, <span class="dv">504</span>, <span class="dv">502</span>, <span class="dv">503</span>, <span class="dv">502</span>, <span class="dv">503</span>, <span class="dv">504</span>])</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>messreihe_503g <span class="op">/=</span> <span class="dv">1000</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1313,7 +1313,7 @@ u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \sigma_{m})^2 + (- \frac {m \cdot g}{s^{
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Die Messwerte, die Konstante <span class="math inline">\(g\)</span> und die Standardfehler der Mittelwerte werden eingesetzt. <span class="math display">\[
-u(k(m, s)) = \sqrt{ ( \frac{9,81 m}{{s}^2 \cdot  0,1432 m}  \cdot 0,000267 kg)^2 + ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  0,00247 m)^2 }
+u(k(m, s)) = \sqrt{ ( \frac{9,81 m}{{s}^2 \cdot  0,1432 m}  \cdot 0,000267 ~ kg)^2 + ((-) \frac{0,503 ~ kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  0,00247 m)^2 }
 \]</span></p>
 <p>Trennen von Werten und Einheiten: <span class="math display">\[
 u(k(m, s)) = \sqrt{ ( \frac{9,81 \cdot 0,000267}{  0,1432 } \frac{m \cdot kg}{{s}^2 \cdot m})^2 + ((-) \frac{0,503 \cdot 9,81 \cdot 0,00247}{0,02051} \frac{kg \cdot m^2}{{s}^2 \cdot m^2})^2 }
@@ -1338,13 +1338,13 @@ u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot t_{\alpha/2} \cdot \sigma_{m})^2 + (- \f
 \]</span></p>
 <p>Dies sind für die Masse <span class="math inline">\(t = 2,3646\)</span> und für die Ausdehnung <span class="math inline">\(t = 2,2622\)</span>.</p>
 <p>Die Messwerte, die Konstante <span class="math inline">\(g\)</span>, der Standardfehler des Mittelwerts und der t-Wert werden in den ersten Term eingesetzt. <span class="math display">\[
-(\frac{g}{s} \cdot t_{\alpha/2} \cdot \sigma_{m})^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m}  \cdot 2,3646 \cdot 0,000267 kg)^2
+(\frac{g}{s} \cdot t_{\alpha/2} \cdot \sigma_{m})^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m}  \cdot 2,3646 \cdot 0,000267 ~ kg)^2
 \]</span></p>
 <p>Trennen von Werten und Einheiten, Newton <span class="math inline">\(\frac{kg \cdot m}{s^2}\)</span> einsetzen: <span class="math display">\[
 (\frac{9,81 \cdot 2,3646 \cdot 0,000267}{  0,1432 } \frac{m \cdot kg}{{s}^2 \cdot m})^2 = (0,0433 \frac{N}{m})^2
 \]</span></p>
 <p>Die Messwerte, die Konstante <span class="math inline">\(g\)</span>, der Standardfehler des Mittelwerts und der t-Wert werden in den zweiten Term eingesetzt. <span class="math display">\[
-(- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
+(- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 ~ kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
 \]</span></p>
 <p>Trennen von Werten und Einheiten, Newton <span class="math inline">\(\frac{kg \cdot m}{s^2}\)</span> einsetzen und <span class="math inline">\(m\)</span> kürzen: <span class="math display">\[
 ((-) \frac{0,503 \cdot 9,81 \cdot  2,2622 \cdot 0,00247}{0,02051} \frac{kg \cdot m^2}{{s}^2 \cdot m^2})^2 = ((-) 1,344 \frac{N}{m})^2
@@ -1374,7 +1374,7 @@ k_{95\%} = 33,11 \frac{N}{m} \le 34,46 \frac{N}{m} \le 35,81 \frac{N}{m}
 <div class="border">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="00-bilder/tabelle-edengebhard2024.png" class="img-fluid figure-img"></p>
+<p><img src="00-bilder/tabelle-edengebhard2024.png" class="img-fluid figure-img" alt="Tabellarische Übersicht für die Berechnung des Größtfehlers in verschiedenen Fällen."></p>
 <figcaption>Fehlerfortpflanzung für Grundrechenarten und Potenzprodukte</figcaption>
 </figure>
 </div>
@@ -1405,7 +1405,7 @@ Beispiel&nbsp;4.10: Beispiel Federkonstante
 </div>
 <div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="3d2276e5" class="cell" data-execution_count="12">
+<div id="b6ce5e63" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ausgabe</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gewicht in Kilogramm: </span><span class="sc">{</span>hooke_503g[<span class="st">'mass'</span>]<span class="sc">.</span>unique()<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Mittlere Ausdehnung: </span><span class="sc">{</span>hooke_503g[<span class="st">'ausdehnung'</span>]<span class="sc">.</span>mean()<span class="sc">:.4f}</span><span class="ss"> m"</span>,</span>
@@ -1429,11 +1429,11 @@ t-Wert der Ausdehnung: 2.2622
 \Delta k = | \frac{g}{s} | \cdot \Delta m ~ + ~ | (-) \frac {m \cdot g}{s^{2}} | \cdot \Delta s
 \]</span></p>
 <ul>
-<li>Die Ableseabweichung der Küchenwaage wird auf <span class="math inline">\(e_r (m) = 0,5 g = 0,0005 kg\)</span> geschätzt. Eine systematische Messabweichung ist nicht bekannt. Der Größtfehler der Masse beträgt also <span class="math inline">\(\Delta m = 0,0005 kg\)</span></li>
-<li>Der empirische Standardfehler der Ausdehnung beträgt <span class="math inline">\(\sigma_x = 0.00247 m\)</span> bzw. zum vereinbarten Vertrauensniveau von <span class="math inline">\(\sigma_{x 95 \%} = 0.00247 m * 2.2622 = 0,00559 m\)</span></li>
+<li>Die Ableseabweichung der Küchenwaage wird auf <span class="math inline">\(e_r (m) = 0,5 g = 0,0005 ~ kg\)</span> geschätzt. Eine systematische Messabweichung ist nicht bekannt. Der Größtfehler der Masse beträgt also <span class="math inline">\(\Delta m = 0,0005 ~ kg\)</span></li>
+<li>Der empirische Standardfehler der Ausdehnung beträgt <span class="math inline">\(\sigma_x = 0.00247 m\)</span> bzw. zum vereinbarten Vertrauensniveau von <span class="math inline">\(\sigma_{x 95 \%} = 0.00247 ~ m * 2.2622 = 0,00559 m\)</span></li>
 </ul>
 <p>Die Messwerte, die Konstante <span class="math inline">\(g\)</span> und die Größtfehler werden eingesetzt. <span class="math display">\[
-\Delta k = | \frac{9,81 m}{{s}^2 \cdot 0,1432 m} | \cdot 0,0005 kg ~ + ~ | (-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot (0,1432 m)^2} | \cdot 0,00247 m
+\Delta k = | \frac{9,81 m}{{s}^2 \cdot 0,1432 m} | \cdot 0,0005 ~ kg ~ + ~ | (-) \frac{0,503 ~ kg \cdot 9,81  m}{{s}^2 \cdot (0,1432 m)^2} | \cdot 0,00247 m
 \]</span></p>
 <p>Trennen von Werten und Einheiten: <span class="math display">\[
 \Delta k = | \frac{9,81 \cdot 0,0005}{ 0,1432 } \frac{m \cdot kg}{{s}^2 \cdot m} | ~ + | (-) \frac{0,503 \cdot 9,81 \cdot 0,00247}{0,020506} \frac{kg \cdot m^2}{{s}^2 \cdot m^2} |
@@ -1456,13 +1456,13 @@ k = 34,46 \frac{N}{m}; \Delta k = 0,63 \frac{N}{{m}}
 u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}} \cdot \sigma_{s})^2 }
 \]</span></p>
 <p>Die Messwerte, die Konstante <span class="math inline">\(g\)</span> und der abgeschätzte Fehleranteil (Größtfehler) der Masse werden in den ersten Term eingesetzt. <span class="math display">\[
-(\frac{g}{s} \cdot \Delta m)^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m} \cdot 0,0005 kg)^2
+(\frac{g}{s} \cdot \Delta m)^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m} \cdot 0,0005 ~ kg)^2
 \]</span></p>
 <p>Trennen von Werten und Einheiten, Newton <span class="math inline">\(\frac{kg \cdot m}{s^2}\)</span> einsetzen: <span class="math display">\[
 (\frac{9,81 \cdot 0,0005}{ 0,1432 } \frac{m \cdot kg}{{s}^2 \cdot m})^2 = (0,0342 \frac{N}{m})^2
 \]</span></p>
 <p>Die Masse des Gewichts, die Konstante <span class="math inline">\(g\)</span> und der Standardfehler des Mittelwerts der Ausdehnung werden in den zweiten Term eingesetzt. <span class="math display">\[
-(- \frac {m \cdot g}{s^{2}} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  0,00247 m)^2
+(- \frac {m \cdot g}{s^{2}} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 ~ kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  0,00247 m)^2
 \]</span></p>
 <p>Trennen von Werten und Einheiten, Newton <span class="math inline">\(\frac{kg \cdot m}{s^2}\)</span> einsetzen und <span class="math inline">\(m\)</span> kürzen: <span class="math display">\[
 ((-) \frac{0,503 \cdot 9,81 \cdot 0,00247}{0,02051} \frac{kg \cdot m^2}{{s}^2 \cdot m^2})^2 = ((-) 0,594 \frac{N}{m})^2
@@ -1481,10 +1481,10 @@ u(k(m, s)) = \sqrt{ ( \frac{g}{s} \cdot \Delta m)^2 + (- \frac {m \cdot g}{s^{2}
 \]</span></p>
 <p>Der erste Term lautet unverändert:</p>
 <p><span class="math display">\[
-(\frac{g}{s} \cdot \Delta m)^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m} \cdot 0,0005 kg)^2 = ( 0,0342  \frac{N}{m})^2
+(\frac{g}{s} \cdot \Delta m)^2 = ( \frac{9,81 m}{{s}^2 \cdot 0,1432 m} \cdot 0,0005 ~ kg)^2 = ( 0,0342  \frac{N}{m})^2
 \]</span></p>
 <p>Die Masse, die Konstante <span class="math inline">\(g\)</span>, der Standardfehler des Mittelwerts der Ausdehnung und der t-Wert der Ausdehnung <span class="math inline">\(t = 2,2622\)</span> werden in den zweiten Term eingesetzt. <span class="math display">\[
-(- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
+(- \frac {m \cdot g}{s^{2}} \cdot t_{\alpha/2} \cdot \sigma_{s})^2 =  ((-) \frac{0,503 ~ kg \cdot 9,81  m}{{s}^2 \cdot ( 0,1432 m)^2} \cdot  2,2622 \cdot  0,00247 m)^2
 \]</span></p>
 <p>Trennen von Werten und Einheiten, Newton <span class="math inline">\(\frac{kg \cdot m}{s^2}\)</span> einsetzen und <span class="math inline">\(m\)</span> kürzen: <span class="math display">\[
 ((-) \frac{0,503 \cdot 9,81 \cdot  2,2622 \cdot 0,00247}{0,02051} \frac{kg \cdot m^2}{{s}^2 \cdot m^2})^2 = ((-) 1,344 \frac{N}{m})^2

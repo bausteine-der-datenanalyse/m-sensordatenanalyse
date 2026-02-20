@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c8cd78f0f7a4102d54b040ada74a3c93.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f67a6f502b8d980179456538afc82e6f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="datei-einlesen" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="datei-einlesen"><span class="header-section-number">7.2</span> Datei einlesen</h2>
 <p>Die Messreihe ist in der Datei ‘01-daten/Eis_Messung_1.xlsx’ im Tabellenblatt ‘T15949 MultiChannel - Daten’ gespeichert.</p>
-<div id="4c37f59b" class="cell" data-execution_count="2">
+<div id="91152673" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>eis <span class="op">=</span> pd.read_excel(io <span class="op">=</span> <span class="st">'01-daten/Eis_Messung_1.xlsx'</span>, sheet_name <span class="op">=</span> <span class="st">'T15949 MultiChannel - Daten'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eis.head(n <span class="op">=</span> <span class="dv">10</span>))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
@@ -315,7 +315,7 @@ Beispiel&nbsp;7.1: Datensatz einlesen &amp; bereinigen
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Im Kopf des Tabellenblatts stehen Metadaten der Messung. Es gibt vier Spalten mit Daten: Datum und Zeit sowie die Messreihen der beiden Thermoelemente.</p>
-<div id="8021c25b" class="cell" data-execution_count="3">
+<div id="31e80af5" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>eis <span class="op">=</span> pd.read_excel(io <span class="op">=</span> <span class="st">'01-daten/Eis_Messung_1.xlsx'</span>, sheet_name <span class="op">=</span> <span class="st">'T15949 MultiChannel - Daten'</span>, skiprows <span class="op">=</span> <span class="dv">6</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eis.info())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -334,7 +334,7 @@ None</code></pre>
 </div>
 </div>
 <p>Die Daten wurden korrekt eingelesen. Mit der Methode <code>pd.describe()</code> wird der Wertebereich der Spalten überprüft, um numerisch kodierte fehlende oder fehlerhafte Werte zu identifizieren.</p>
-<div id="33640c17" class="cell" data-execution_count="4">
+<div id="275d3143" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eis.describe())</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            Datum                        Zeit  \
@@ -359,11 +359,11 @@ std               36.886184             36.542679  </code></pre>
 </div>
 </div>
 <p>Die Spalten Datum und Zeit enthalten die selben Informationen. Eine der beiden Spalten kann deshalb entfernt werden. Die Temperaturmessungen sollten näher betrachtet werden. Eishaltiges Wasser, das zum Kochen gebracht wird, sollte sich in einem Temperaturbereich von 0 bis 100 °C bewegen.</p>
-<div id="ea8f5a23" class="cell" data-execution_count="5">
+<div id="9d06afd5" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>eis.drop(labels <span class="op">=</span> <span class="st">'Datum'</span>, axis <span class="op">=</span> <span class="dv">1</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Wir stellen den Datensatz grafisch dar.</p>
-<div id="d1e5ee0b" class="cell" data-execution_count="6">
+<div id="1da42be9" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>eis.plot(x <span class="op">=</span> <span class="st">'Zeit'</span>, y <span class="op">=</span> [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>])</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -377,7 +377,7 @@ std               36.886184             36.542679  </code></pre>
 <p>Etwa in der Mitte des Datensatzes verzeichnen beide Sensoren extreme Fehlwerte. Diese sollen entfernt werden.</p>
 <p><strong>Fehlwerte entfernen</strong></p>
 <p>Zunächst betrachten wir den Bereich genauer.</p>
-<div id="14eade2b" class="cell" data-execution_count="7">
+<div id="62e1062b" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n_zeilen <span class="op">=</span> eis.shape[<span class="dv">0</span>]</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>eis.iloc[<span class="bu">int</span>(n_zeilen <span class="op">*</span> <span class="fl">0.45</span>): <span class="bu">int</span>(n_zeilen <span class="op">*</span> <span class="fl">0.65</span>)].plot(x <span class="op">=</span> <span class="st">'Zeit'</span>, y <span class="op">=</span> [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>])</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -404,7 +404,7 @@ Hinweis&nbsp;7.1: np.diff() und pd.diff()
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>NumPy und Pandas verfügen über eine Funktion diff. Diese verhalten sich standardmäßig unterschiedlich. Um die Länge einer Datenreihe mit <code>np.diff()</code> zu erhalten, können die Parameter <code>prepend</code> oder <code>append</code> verwendet werden, um der Datenreihe vor Ausführung der Operation einen Wert voranzustellen oder einen Wert anzuhängen. So bleiben die Länge der Datenreihe und die Indexpositionen der Werte erhalten.</p>
-<div id="df682ce9" class="cell" data-execution_count="8">
+<div id="44f7b2a1" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>array <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.diff(array))</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>series <span class="op">=</span> pd.Series(array)</span>
@@ -424,7 +424,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<div id="4a0ff5ef" class="cell" data-execution_count="9">
+<div id="241ce3be" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># absolute Differenzen ermitteln</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>diff_thermoelement1 <span class="op">=</span> eis[<span class="st">'Thermoelement 1 (°C)'</span>].diff()</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>diff_thermoelement2 <span class="op">=</span> eis[<span class="st">'Thermoelement 2 (°C)'</span>].diff()</span>
@@ -474,7 +474,7 @@ dtype: float64
 </div>
 <p>&nbsp;</p>
 <p>Die Position der ungültigen Werte kann sowohl über eine sinnvolle Schwelle der (absoluten) Temperaturveränderung oder der absoluten z-Werte bestimmt werden. In diesem Fall verwenden wir die absolute Temperaturveränderung und wählen den Schwellwert 10. Es wird die Position des ersten und des letzten Werts, der oberhalb dieses Schwellwerts liegt, bestimmt.</p>
-<div id="3d9b42b7" class="cell" data-execution_count="10">
+<div id="486f5849" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># absolute Änderung bestimmen</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>diff_thermoelement1 <span class="op">=</span> eis[<span class="st">'Thermoelement 1 (°C)'</span>].diff().<span class="bu">abs</span>()</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>diff_thermoelement2 <span class="op">=</span> eis[<span class="st">'Thermoelement 2 (°C)'</span>].diff().<span class="bu">abs</span>()</span>
@@ -526,7 +526,7 @@ Die Position des letzten Werts: 333</code></pre>
 </div>
 </div>
 <p>Für beide Thermoelemente kann der gleiche Bereich als ungültig markiert werden. Vor der weiteren Bearbeitung wird eine Kopie des aufgeräumten Datensatzes erstellt.</p>
-<div id="0ab9ef5f" class="cell" data-execution_count="11">
+<div id="8bcd42b2" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>von <span class="op">=</span> positionen_thermoelement1[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>bis <span class="op">=</span> positionen_thermoelement1[<span class="dv">0</span>][<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>eis.loc[von : bis, [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>]] <span class="op">=</span> np.nan</span>
@@ -541,20 +541,20 @@ Die Position des letzten Werts: 333</code></pre>
 <section id="daten-darstellen" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="daten-darstellen"><span class="header-section-number">7.3</span> Daten darstellen</h2>
 <p>Der Datensatz wird dargestellt. (In der Darstellung mit <code>pd.plot()</code> ist die automatisch gewählte x-Achsenbeschriftung unansehnlich. Deshalb wird ein Datenobjekt für die Darstellung angelegt und die Spalte ‘Zeit’ auf die Uhrzeit reduziert.)</p>
-<div id="1e097e13" class="cell" data-execution_count="12">
+<div id="ff4eda99" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Darstellung mit automatischer Achsenbeschriftung</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># eis.plot(x = 'Zeit', y = ['Thermoelement 1 (°C)', 'Thermoelement 2 (°C)'], grid = True)</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plotting_data <span class="op">=</span> eis.copy()</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plotting_data[<span class="st">'Zeit'</span>] <span class="op">=</span> plotting_data[<span class="st">'Zeit'</span>].dt.time</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plotting_data.plot(x <span class="op">=</span> <span class="st">'Zeit'</span>, y <span class="op">=</span> [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>], grid <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plotting_data.plot(x <span class="op">=</span> <span class="st">'Zeit'</span>, y <span class="op">=</span> [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>], grid <span class="op">=</span> <span class="va">True</span>, ylabel <span class="op">=</span> <span class="st">'°C'</span>)</span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="beispiel-eiskochen_files/figure-html/cell-13-output-1.png" alt="Darstellung der gemessenen Temperaturen beider Thermoelemente über die Zeit. Die fehlerhaften Messwerte wurden entfernt." width="587" height="429" class="figure-img"></p>
+<p><img src="beispiel-eiskochen_files/figure-html/cell-13-output-1.png" alt="Darstellung der gemessenen Temperaturen beider Thermoelemente über die Zeit. Die fehlerhaften Messwerte wurden entfernt." width="606" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -579,7 +579,7 @@ Hinweis&nbsp;7.2: Siedetemperatur von Wasser
 <section id="c" class="level3">
 <h3 class="anchored" data-anchor-id="c">0 °C</h3>
 <p>Für die wahre Temperatur 0 °C sind viele Messpunkte verfügbar. Schauen wir uns die ersten 100 Messwerte an:</p>
-<div id="3f9bcf21" class="cell" data-execution_count="13">
+<div id="a50d4609" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>eis.loc[<span class="dv">0</span> : <span class="dv">100</span>, [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>]].plot(xlabel <span class="op">=</span> <span class="st">'Index'</span>, ylabel <span class="op">=</span> <span class="st">'gemessene Temperatur in °C'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -591,7 +591,7 @@ Hinweis&nbsp;7.2: Siedetemperatur von Wasser
 </div>
 <p>&nbsp;</p>
 <p>Der Zeitpunkt, ab dem die Wärmezufuhr beginnt, kann z. B. mit der Methode <code>pd.diff()</code> ermittelt werden:</p>
-<div id="3929afb5" class="cell" data-execution_count="14">
+<div id="d8bc5497" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>eis.loc[<span class="dv">0</span> : <span class="dv">100</span>, [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>]].diff().plot(xlabel <span class="op">=</span> <span class="st">'Index'</span>, ylabel <span class="op">=</span> <span class="st">'Temperaturdifferenz in °C'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -603,7 +603,7 @@ Hinweis&nbsp;7.2: Siedetemperatur von Wasser
 </div>
 <p>&nbsp;</p>
 <p>Da das Thermoelement 1 leichte Messabweichungen aufweist, wird ein Schwellwert etwas größer als 0 gewählt. Damit wird die Position des ersten Werts bestimmt, der oberhalb des Schwellwerts liegt.</p>
-<div id="46112b26" class="cell" data-execution_count="15">
+<div id="a858b183" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># absolute Änderung bestimmen</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>diff_thermoelement1 <span class="op">=</span> eis.loc[<span class="dv">0</span> : <span class="dv">100</span>, <span class="st">'Thermoelement 1 (°C)'</span>].diff().<span class="bu">abs</span>()</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>diff_thermoelement2 <span class="op">=</span> eis.loc[<span class="dv">0</span> : <span class="dv">100</span>, <span class="st">'Thermoelement 2 (°C)'</span>].diff().<span class="bu">abs</span>()</span>
@@ -643,7 +643,7 @@ Die Position des ersten Werts: 67</code></pre>
 </div>
 </div>
 <p>Die Wärmezufuhr beginnt also bei dem Wert an Indexposition 67. Der Nullpunkt der Messreihe liegt somit an der Indexposition 67 - 1.</p>
-<div id="67dd053f" class="cell" data-execution_count="16">
+<div id="88058930" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>start_wärmezufuhr <span class="op">=</span> <span class="dv">67</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> start_wärmezufuhr <span class="op">-</span> <span class="dv">1</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -665,7 +665,7 @@ Hinweis&nbsp;7.3: Slicing mit pd.loc[]
 <p>Das Slicing mit <code>pd.loc[]</code> ist inklusiv.</p>
 </div>
 </div>
-<div id="43571350" class="cell" data-execution_count="17">
+<div id="df7c338b" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>nullpunktfehler_thermoelement1 <span class="op">=</span> eis.loc[<span class="dv">0</span> : start, <span class="st">'Thermoelement 1 (°C)'</span>].mean() <span class="op">-</span> <span class="dv">0</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>nullpunktfehler_thermoelement2 <span class="op">=</span> eis.loc[<span class="dv">0</span> : start, <span class="st">'Thermoelement 2 (°C)'</span>].mean() <span class="op">-</span> <span class="dv">0</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -677,14 +677,14 @@ Der Nullpunktfehler von Thermoelement 2 beträgt: 0.48</code></pre>
 </div>
 </div>
 <p>Damit kann der Nullpunktfehler für beide Messreihen korrigiert werden.</p>
-<div id="9d2810fe" class="cell" data-execution_count="18">
+<div id="d4dfeaf6" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>eis[<span class="st">'Thermoelement 1 (°C)'</span>] <span class="op">-=</span> nullpunktfehler_thermoelement1</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>eis[<span class="st">'Thermoelement 2 (°C)'</span>] <span class="op">-=</span> nullpunktfehler_thermoelement2</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="c-1" class="level3">
 <h3 class="anchored" data-anchor-id="c-1">100 °C</h3>
 <p>Auch für die wahre Temperatur 100 Grad sind viele Messpunkte verfügbar. Wir wollen die letzten 120 Messwerte betrachten. Der Punkt, an dem das Wasser siedet, ist jedoch nicht so einfach zu bestimmen. Starke Messabweichungen erzeugen ein verrauschtes Bild. Um die grafische Analyse zu erleichtern wurden für beide Messreihen der gleitende Durchschnitt sowie der Mittelwert der geglätten Messreihen eingezeichnet. Diese Methoden werden Methoden im <a href="https://bausteine-der-datenanalyse.github.io/m-datenfitting-und-optimierung/output/book/">Methodenbaustein Datenfitting und Datenoptimierung</a> vermittelt.</p>
-<div id="0932d919" class="cell" data-execution_count="19">
+<div id="fce8ebe7" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>anzahl <span class="op">=</span> <span class="dv">120</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>eis.loc[eis.shape[<span class="dv">0</span>] <span class="op">-</span> anzahl : , [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>]].plot(alpha <span class="op">=</span> <span class="fl">0.3</span>, xlabel <span class="op">=</span> <span class="st">'Index'</span>, ylabel <span class="op">=</span> <span class="st">'gemessene Temperatur in °C'</span>)</span>
@@ -714,7 +714,7 @@ Der Nullpunktfehler von Thermoelement 2 beträgt: 0.48</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Behelfsweise bestimmen wir den Referenzpunkt für 100 °C, indem die Werte zwischen dem Indexwert 500 und bis zu den letzten 10 Werten des Datensatzes gemittelt werden. Anschließend wird der Index bestimmt, an dem die Messwerte diesen Mittelwert erstmalig erreichen. (<em>Hinweis: Die Daten wurden bereits um den ermittelten Nullpunktfehler korrigiert.</em>)</p>
-<div id="fa1f630a" class="cell" data-execution_count="20">
+<div id="1eadc6c4" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>thermoelement1_max <span class="op">=</span> eis[<span class="st">'Thermoelement 1 (°C)'</span>].iloc[<span class="dv">500</span> : <span class="op">-</span><span class="dv">10</span>].mean()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>thermoelement2_max <span class="op">=</span> eis[<span class="st">'Thermoelement 2 (°C)'</span>].iloc[<span class="dv">500</span> : <span class="op">-</span><span class="dv">10</span>].mean()</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -743,7 +743,7 @@ Erstmalig erreicht an Position: 476</code></pre>
 <li>Die Indexposition, an der die Temperatur ihr Maximum erreicht. Solange Wasser im Topf ist, beträgt die wahre Temperatur 100 °C. Die Position dieses Werts konnte nur geschätzt werden und ist in den Variablen ‘ende_thermoelement1’ und ‘ende_thermoelement1’ gespeichert.</li>
 </ul>
 <p>Thermoelement 1</p>
-<div id="095812c7" class="cell" data-execution_count="21">
+<div id="89f33cf9" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ende <span class="op">=</span>  ende_thermoelement1</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Empfindlichkeitsfehler bestimmen</span></span>
@@ -756,7 +756,7 @@ Erstmalig erreicht an Position: 476</code></pre>
 </div>
 </div>
 <p>Thermoelement 2</p>
-<div id="e5c4a865" class="cell" data-execution_count="22">
+<div id="afc95f6e" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ende <span class="op">=</span>  ende_thermoelement2</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Empfindlichkeitsfehler bestimmen</span></span>
@@ -769,7 +769,7 @@ Erstmalig erreicht an Position: 476</code></pre>
 </div>
 </div>
 <p>Somit kann der Empfindlichkeitsfehler korrigiert werden.</p>
-<div id="197a6096" class="cell" data-execution_count="23">
+<div id="a82d6ba2" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Empfindlichkeitsfehler Thermoelement 1 korrigieren</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>eis[<span class="st">'Thermoelement 1 (°C)'</span>] <span class="op">=</span> eis[<span class="st">'Thermoelement 1 (°C)'</span>].div(spannfehler_thermoelement1)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>eis[<span class="st">'Thermoelement 2 (°C)'</span>] <span class="op">=</span> eis[<span class="st">'Thermoelement 2 (°C)'</span>].div(spannfehler_thermoelement2)</span>
@@ -783,7 +783,7 @@ Maximum kalibriertes Thermoelement 2: 102.32</code></pre>
 </div>
 </div>
 <p>Schauen wir uns die kalibrierten Daten erneut an:</p>
-<div id="48290abc" class="cell" data-execution_count="24">
+<div id="8b4023b6" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plotting_data <span class="op">=</span> eis.copy()</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>plotting_data[<span class="st">'Zeit'</span>] <span class="op">=</span> plotting_data[<span class="st">'Zeit'</span>].dt.time</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -807,7 +807,7 @@ Maximum kalibriertes Thermoelement 2: 102.32</code></pre>
 <section id="festpunktmethode" class="level4">
 <h4 class="anchored" data-anchor-id="festpunktmethode">Festpunktmethode</h4>
 <p>Thermoelement 1</p>
-<div id="18821ee2" class="cell" data-execution_count="25">
+<div id="bddac8d9" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ende <span class="op">=</span> ende_thermoelement1</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Endpunktverbindende Gerade schätzen</span></span>
@@ -860,7 +860,7 @@ Maximum kalibriertes Thermoelement 2: 102.32</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Thermoelement 2</p>
-<div id="aa93dde9" class="cell" data-execution_count="26">
+<div id="32da9413" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ende <span class="op">=</span> ende_thermoelement2</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Endpunktverbindende Gerade schätzen</span></span>
@@ -917,7 +917,7 @@ Maximum kalibriertes Thermoelement 2: 102.32</code></pre>
 <p><code>linregress(x, y, alternative='two-sided', *, axis=0, nan_policy='propagate')</code></p>
 <p>Dafür wird der Parameter <code>nan_policy = 'omit'</code> gesetzt, wodurch Fehlwerte verworfen werden. Die Funktion gibt ein LinregressResult-Objekt zurück, dass den Zugriff auf die Regressionsobjekte über Attribute erlaubt. Für uns relevant sind die Attribute <code>LinregressResult.intercept</code> und <code>LinregressResult.slope</code>.</p>
 <p>Thermoelement 1</p>
-<div id="d478fb05" class="cell" data-execution_count="27">
+<div id="65351c6a" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ende <span class="op">=</span> ende_thermoelement1</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression durch die Messwerte</span></span>
@@ -966,7 +966,7 @@ Maximum kalibriertes Thermoelement 2: 102.32</code></pre>
 </div>
 <p>&nbsp;</p>
 <p>Thermoelement 2:</p>
-<div id="0476bdd0" class="cell" data-execution_count="28">
+<div id="0d5250dc" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ende <span class="op">=</span> ende_thermoelement2</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression durch die Messwerte</span></span>
@@ -1018,7 +1018,7 @@ Maximum kalibriertes Thermoelement 2: 102.32</code></pre>
 <section id="zweipunktkalibrierung" class="level2" data-number="7.8">
 <h2 data-number="7.8" class="anchored" data-anchor-id="zweipunktkalibrierung"><span class="header-section-number">7.8</span> Zweipunktkalibrierung</h2>
 <p>Für die Zweipunktkalibrierung stellen wir den in <a href="#nte-eis" class="quarto-xref">Beispiel&nbsp;<span>7.1</span></a> eingelesenen Datensatz wieder her.</p>
-<div id="53ad5884" class="cell" data-execution_count="29">
+<div id="1a446b27" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>eis <span class="op">=</span> eis_backup.copy()</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>wahres_minimum <span class="op">=</span> <span class="dv">0</span></span>
@@ -1061,7 +1061,7 @@ Maximum kalibriertes Thermoelement 2: 102.32</code></pre>
 <span id="cb43-40"><a href="#cb43-40" aria-hidden="true" tabindex="-1"></a>plotting_data <span class="op">=</span> eis.copy()</span>
 <span id="cb43-41"><a href="#cb43-41" aria-hidden="true" tabindex="-1"></a>plotting_data[<span class="st">'Zeit'</span>] <span class="op">=</span> plotting_data[<span class="st">'Zeit'</span>].dt.time</span>
 <span id="cb43-42"><a href="#cb43-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-43"><a href="#cb43-43" aria-hidden="true" tabindex="-1"></a>plotting_data.plot(x <span class="op">=</span> <span class="st">'Zeit'</span>, y <span class="op">=</span> [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>], grid <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb43-43"><a href="#cb43-43" aria-hidden="true" tabindex="-1"></a>plotting_data.plot(x <span class="op">=</span> <span class="st">'Zeit'</span>, y <span class="op">=</span> [<span class="st">'Thermoelement 1 (°C)'</span>, <span class="st">'Thermoelement 2 (°C)'</span>], grid <span class="op">=</span> <span class="va">True</span>, ylabel <span class="op">=</span> <span class="st">'°C'</span>)</span>
 <span id="cb43-44"><a href="#cb43-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-45"><a href="#cb43-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1080,12 +1080,12 @@ Empfindlichkeitsfehler: 0.2 %</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="beispiel-eiskochen_files/figure-html/cell-30-output-2.png" width="587" height="429" class="figure-img"></p>
+<p><img src="beispiel-eiskochen_files/figure-html/cell-30-output-2.png" alt="Darstellung der kalibrierten Temperaturen von Thermoeelement 1 und 2 über die Zeit." width="606" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="1f037387" class="cell" data-execution_count="30">
+<div id="f1f7d9dd" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Maximum kalibriertes Thermoelement 1: </span><span class="sc">{</span>eis[<span class="st">'Thermoelement 1 (°C)'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"Maximum kalibriertes Thermoelement 2: </span><span class="sc">{</span>eis[<span class="st">'Thermoelement 2 (°C)'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>      sep <span class="op">=</span> <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
